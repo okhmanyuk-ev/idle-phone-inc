@@ -21,6 +21,7 @@ namespace phoneinc
 	private:
 	//	Shared::SceneHelpers::SplashScene mSplashScene = Shared::SceneHelpers::SplashScene(TEXTURE("textures/logo.png"));
 		Scene::Scene mGameScene;
+		std::shared_ptr<Shared::SceneManager> mSceneManager;
 
 	private:
 		bool mNodeEditor = false;

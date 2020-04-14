@@ -1,16 +1,19 @@
 #include "application.h"
+#include "gameplay.h"
 
 using namespace phoneinc;
 
 Application::Application() : RichApplication(PROJECT_CODE)
 {
 	PLATFORM->setTitle(PROJECT_NAME);
-	PLATFORM->resize(360, 640);
+	//PLATFORM->resize(360, 640);
+	PLATFORM->resize(720, 980);
+	PLATFORM->setScale(2.0f); // only on windows
 
 	ENGINE->addSystem<Profile>(std::make_shared<Profile>());
 
 	LOCALIZATION->loadDicrionaries("localization");
-	LOCALIZATION->setLanguage(Shared::LocalizationSystem::Language::English);
+	LOCALIZATION->setLanguage(Shared::LocalizationSystem::Language::Russian);
 
 	PROFILE->load();
 
@@ -21,9 +24,9 @@ Application::Application() : RichApplication(PROJECT_CODE)
 	});
 
 	addLoadingTasks({
-	//	{ "fonts", [this] {
-	//		PRECACHE_FONT_ALIAS("fonts/sansation.ttf", "default");
-	//	} },
+		{ "fonts", [this] {
+			PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Regular.ttf", "default");
+		} },
 	//	{ "textures", [this] {
 	//		PRECACHE_TEXTURE_ALIAS("textures/ruby.png", "ruby");
 	//	} }
@@ -36,6 +39,7 @@ Application::Application() : RichApplication(PROJECT_CODE)
 	std::srand((unsigned int)std::time(nullptr));
 
 	CONSOLE->registerCVar("g_node_editor", { "bool" }, CVAR_GETTER_BOOL(mNodeEditor), CVAR_SETTER_BOOL(mNodeEditor));
+	CONSOLE->registerCVar("g_stats", { "bool" }, CVAR_GETTER_BOOL_FUNC(STATS->isEnabled), CVAR_SETTER_BOOL_FUNC(STATS->setEnabled));
 
 	STATS->setAlignment(Shared::StatsSystem::Align::BottomRight);
 }
@@ -56,6 +60,9 @@ void Application::loading(const std::string& stage, float progress)
 
 void Application::initialize()
 {
+	STATS->setEnabled(false);
+	FONT("default")->setCustomVerticalOffset(-5.0f);
+
 #if defined(BUILD_DEVELOPER)
 	CONSOLE->execute("hud_show_fps 1");
 	CONSOLE->execute("hud_show_drawcalls 1");
@@ -67,6 +74,12 @@ void Application::initialize()
 	Scene::Debug::Font = FONT("default");
 
 	auto root = mGameScene.getRoot();
+
+	mSceneManager = std::make_shared<Shared::SceneManager>();
+	root->attach(mSceneManager);
+
+	auto gameplay = std::make_shared<Gameplay>();
+	mSceneManager->switchScreen(gameplay);
 }
 
 void Application::frame()
