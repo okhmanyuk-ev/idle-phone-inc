@@ -1,0 +1,80 @@
+#include "application.h"
+
+using namespace phoneinc;
+
+Application::Application() : RichApplication(PROJECT_CODE)
+{
+	PLATFORM->setTitle(PROJECT_NAME);
+	PLATFORM->resize(360, 640);
+
+	ENGINE->addSystem<Profile>(std::make_shared<Profile>());
+
+	LOCALIZATION->loadDicrionaries("localization");
+	LOCALIZATION->setLanguage(Shared::LocalizationSystem::Language::English);
+
+	PROFILE->load();
+
+	PLATFORM->initializeBilling({
+		//{ "rubies.001", [this] { 
+		//	addRubies(500);
+		//} }
+	});
+
+	addLoadingTasks({
+	//	{ "fonts", [this] {
+	//		PRECACHE_FONT_ALIAS("fonts/sansation.ttf", "default");
+	//	} },
+	//	{ "textures", [this] {
+	//		PRECACHE_TEXTURE_ALIAS("textures/ruby.png", "ruby");
+	//	} }
+	});
+
+	setPayloadWaiting(0.0f);
+
+	CONSOLE->execute("r_vsync 1");
+
+	std::srand((unsigned int)std::time(nullptr));
+
+	CONSOLE->registerCVar("g_node_editor", { "bool" }, CVAR_GETTER_BOOL(mNodeEditor), CVAR_SETTER_BOOL(mNodeEditor));
+
+	STATS->setAlignment(Shared::StatsSystem::Align::BottomRight);
+}
+
+Application::~Application()
+{
+	PROFILE->save();
+}
+
+void Application::loading(const std::string& stage, float progress)
+{
+	//mSplashScene.updateProgress(progress);
+	//mSplashScene.frame();
+#if defined BUILD_DEVELOPER
+	RichApplication::loading(stage, progress);
+#endif
+}
+
+void Application::initialize()
+{
+#if defined(BUILD_DEVELOPER)
+	CONSOLE->execute("hud_show_fps 1");
+	CONSOLE->execute("hud_show_drawcalls 1");
+#else
+	CONSOLE_DEVICE->setEnabled(false);
+	STATS->setEnabled(false);
+#endif
+
+	Scene::Debug::Font = FONT("default");
+
+	auto root = mGameScene.getRoot();
+}
+
+void Application::frame()
+{
+	mGameScene.frame();
+
+	if (mNodeEditor)
+		mSceneEditor.show();
+
+	//ShowCheatsMenu(mSceneManager);
+}

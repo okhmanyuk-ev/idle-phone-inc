@@ -1,0 +1,3 @@
+[submodule "sky"]
+	path = sky
+	url = git@gitlab.com:okhmanyuk_ev/sky.git
