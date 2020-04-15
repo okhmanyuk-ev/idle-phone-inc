@@ -4,9 +4,9 @@
 
 namespace PhoneInc
 {
-	class BottomMenu : public Scene::Sprite
+	class Factory : public Scene::Node
 	{
 	public:
-		BottomMenu();
+		Factory();
 	};
 }

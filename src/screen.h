@@ -2,7 +2,7 @@
 
 #include <shared/all.h>
 
-namespace phoneinc
+namespace PhoneInc
 {
 	class Screen : public Scene::RenderLayer<Shared::SceneManager::Screen>, public std::enable_shared_from_this<Screen>
 	{
@@ -11,9 +11,9 @@ namespace phoneinc
 		{
 			setEnabled(false);
 			setInteractions(false);
-			setStretch({ 1.0f, 1.0f });
-			setAnchor({ 0.5f, 0.5f });
-			setPivot({ 0.5f, 0.5f });
+			setStretch(1.0f);
+			setAnchor(0.5f);
+			setPivot(0.5f);
 			setAlpha(0.0f);
 		}
 

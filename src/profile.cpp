@@ -1,6 +1,6 @@
 #include "profile.h"
 
-using namespace phoneinc;
+using namespace PhoneInc;
 
 void Profile::load()
 {

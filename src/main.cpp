@@ -2,6 +2,6 @@
 
 int main(int argc, char* argv[])
 {
-    phoneinc::Application().run();
+    PhoneInc::Application().run();
     return 0;
 }

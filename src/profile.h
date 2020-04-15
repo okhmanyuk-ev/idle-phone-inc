@@ -2,9 +2,9 @@
 
 #include <shared/all.h>
 
-#define PROFILE ENGINE->getSystem<phoneinc::Profile>()
+#define PROFILE ENGINE->getSystem<PhoneInc::Profile>()
 
-namespace phoneinc
+namespace PhoneInc
 {
 	class Profile
 	{

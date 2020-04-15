@@ -2,7 +2,7 @@
 
 #include <Shared/all.h>
 
-namespace phoneinc
+namespace PhoneInc
 {
 	class Window : public Scene::Clickable<Shared::SceneManager::Window>
 	{

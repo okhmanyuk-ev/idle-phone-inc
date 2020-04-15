@@ -2,7 +2,7 @@
 
 #include "screen.h"
 
-namespace phoneinc
+namespace PhoneInc
 {
 	class Gameplay : public Scene::Actionable<Screen>
 	{

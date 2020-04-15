@@ -4,7 +4,7 @@
 #include "defines.h"
 #include "profile.h"
 
-namespace phoneinc
+namespace PhoneInc
 {
 	inline void ShowCheatsMenu(std::shared_ptr<Shared::SceneManager> scene_manager)
 	{

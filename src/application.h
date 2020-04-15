@@ -5,7 +5,7 @@
 #include "profile.h"
 #include "cheats.h"
 
-namespace phoneinc
+namespace PhoneInc
 {
 	class Application : public Shared::RichApplication
 	{

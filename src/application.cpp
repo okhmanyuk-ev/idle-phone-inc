@@ -1,7 +1,7 @@
 #include "application.h"
 #include "gameplay.h"
 
-using namespace phoneinc;
+using namespace PhoneInc;
 
 Application::Application() : RichApplication(PROJECT_CODE)
 {
@@ -25,7 +25,7 @@ Application::Application() : RichApplication(PROJECT_CODE)
 
 	addLoadingTasks({
 		{ "fonts", [this] {
-			PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Regular.ttf", "default");
+			PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Medium.ttf", "default");
 		} },
 	//	{ "textures", [this] {
 	//		PRECACHE_TEXTURE_ALIAS("textures/ruby.png", "ruby");
@@ -61,7 +61,7 @@ void Application::loading(const std::string& stage, float progress)
 void Application::initialize()
 {
 	STATS->setEnabled(false);
-	FONT("default")->setCustomVerticalOffset(-5.0f);
+	FONT("default")->setCustomVerticalOffset(-4.0f);
 
 #if defined(BUILD_DEVELOPER)
 	CONSOLE->execute("hud_show_fps 1");
@@ -72,6 +72,8 @@ void Application::initialize()
 #endif
 
 	Scene::Debug::Font = FONT("default");
+	Scene::Sampler::DefaultSampler = Renderer::Sampler::Linear;
+	Scene::Sprite::DefaultTextureAddress = Renderer::TextureAddress::Clamp;
 
 	auto root = mGameScene.getRoot();
 

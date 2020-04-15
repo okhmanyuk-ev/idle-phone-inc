@@ -1,22 +1,20 @@
 #include "bottom_menu.h"
+#include "helpers.h"
 
-using namespace phoneinc;
+using namespace PhoneInc;
 
 BottomMenu::BottomMenu()
 {
-	auto background = std::make_shared<Scene::Sprite>();
-	background->setTexture(TEXTURE("textures/bottom_menu/background.png"));
-	background->setAnchor({ 0.5f, 1.0f });
-	background->setPivot({ 0.5f, 1.0f });
-	background->setScale(1.0f / 3.0f);
-	attach(background);
+	setTexture(TEXTURE("textures/bottom_menu/background.png"));
+	
+	// video
 
 	auto video_button = std::make_shared<Scene::Sprite>();
 	video_button->setTexture(TEXTURE("textures/bottom_menu/button.png"));
 	video_button->setAnchor({ 0.5f, 0.0f });
 	video_button->setPivot({ 0.5f, 0.0f });
 	video_button->setY(-16.0f);
-	background->attach(video_button);
+	attach(video_button);
 
 	auto video_icon = std::make_shared<Scene::Sprite>();
 	video_icon->setTexture(TEXTURE("textures/bottom_menu/video.png"));
@@ -25,12 +23,79 @@ BottomMenu::BottomMenu()
 	video_icon->setPosition({ 24.0f, -12.0f });
 	video_button->attach(video_icon);
 
-	auto video_text = std::make_shared<Scene::Outlined<Scene::Label>>();
-	video_text->setFont(FONT("default"));
-	video_text->setText("awdawd");
+	auto video_text = std::make_shared<Helpers::Label>();
+	video_text->setText(LOCALIZE("VIDEO_BUTTON"));
 	video_text->setPivot({ 0.0f, 0.5f });
 	video_text->setAnchor({ 1.0f, 0.5f });
 	video_text->setPosition({ 8.0f, 0.0f });
-	video_text->setScale(3.0f);
+	video_text->setFontSize(14.0f);
 	video_icon->attach(video_text);
+
+	// shop
+
+	auto shop_icon = std::make_shared<Scene::Sprite>();
+	shop_icon->setTexture(TEXTURE("textures/bottom_menu/shop.png"));
+	shop_icon->setAnchor({ 0.5f, 0.5f });
+	shop_icon->setPivot({ 0.5f, 0.5f });
+	shop_icon->setPosition({ -454.0f, -32.0f });
+	attach(shop_icon);
+
+	auto shop_text = std::make_shared<Helpers::Label>();
+	shop_text->setText(LOCALIZE("SHOP_BUTTON"));
+	shop_text->setPivot({ 0.5f, 0.5f });
+	shop_text->setAnchor({ 0.5f, 0.5f });
+	shop_text->setPosition({ -454.0f, 35.0f });
+	shop_text->setFontSize(10.0f);
+	attach(shop_text);
+
+	// boosters
+
+	auto boosters_icon = std::make_shared<Scene::Sprite>();
+	boosters_icon->setTexture(TEXTURE("textures/bottom_menu/boosters.png"));
+	boosters_icon->setAnchor({ 0.5f, 0.5f });
+	boosters_icon->setPivot({ 0.5f, 0.5f });
+	boosters_icon->setPosition({ -257.0f, -28.0f });
+	attach(boosters_icon);
+
+	auto boosters_text = std::make_shared<Helpers::Label>();
+	boosters_text->setText(LOCALIZE("BOOSTERS_BUTTON"));
+	boosters_text->setPivot({ 0.5f, 0.5f });
+	boosters_text->setAnchor({ 0.5f, 0.5f });
+	boosters_text->setPosition({ -257.0f, 35.0f });
+	boosters_text->setFontSize(10.0f);
+	attach(boosters_text);
+
+	// upgrades
+
+	auto upgrades_icon = std::make_shared<Scene::Sprite>();
+	upgrades_icon->setTexture(TEXTURE("textures/bottom_menu/upgrades.png"));
+	upgrades_icon->setAnchor({ 0.5f, 0.5f });
+	upgrades_icon->setPivot({ 0.5f, 0.5f });
+	upgrades_icon->setPosition({ 264.0f, -29.0f });
+	attach(upgrades_icon);
+
+	auto upgrades_text = std::make_shared<Helpers::Label>();
+	upgrades_text->setText(LOCALIZE("UPGRADES_BUTTON"));
+	upgrades_text->setPivot({ 0.5f, 0.5f });
+	upgrades_text->setAnchor({ 0.5f, 0.5f });
+	upgrades_text->setPosition({ 264.0f, 35.0f });
+	upgrades_text->setFontSize(10.0f);
+	attach(upgrades_text);
+
+	// map
+
+	auto map_icon = std::make_shared<Scene::Sprite>();
+	map_icon->setTexture(TEXTURE("textures/bottom_menu/map.png"));
+	map_icon->setAnchor({ 0.5f, 0.5f });
+	map_icon->setPivot({ 0.5f, 0.5f });
+	map_icon->setPosition({ 455.0f, -29.0f });
+	attach(map_icon);
+
+	auto map_text = std::make_shared<Helpers::Label>();
+	map_text->setText(LOCALIZE("MAP_BUTTON"));
+	map_text->setPivot({ 0.5f, 0.5f });
+	map_text->setAnchor({ 0.5f, 0.5f });
+	map_text->setPosition({ 455.0f, 35.0f });
+	map_text->setFontSize(10.0f);
+	attach(map_text);
 }
