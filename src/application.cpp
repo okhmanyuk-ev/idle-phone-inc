@@ -6,12 +6,9 @@ using namespace PhoneInc;
 Application::Application() : RichApplication(PROJECT_CODE)
 {
 	PLATFORM->setTitle(PROJECT_NAME);
-
-#if defined(PLATFORM_WINDOWS)
-	PLATFORM->resize(540, 960);
-	PLATFORM->setScale(1.5f);
-	IMGUI_SYSTEM->setScaleIndependence(true);
-#endif
+	PLATFORM->resize(360, 640);
+	PLATFORM->rescale(1.5f);
+	RENDERER->setVsync(true);
 
 	ENGINE->addSystem<Profile>(std::make_shared<Profile>());
 
@@ -36,8 +33,6 @@ Application::Application() : RichApplication(PROJECT_CODE)
 	});
 
 	setPayloadWaiting(0.0f);
-
-	CONSOLE->execute("r_vsync 1");
 
 	std::srand((unsigned int)std::time(nullptr));
 
