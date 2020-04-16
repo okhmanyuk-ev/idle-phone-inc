@@ -6,9 +6,12 @@ using namespace PhoneInc;
 Application::Application() : RichApplication(PROJECT_CODE)
 {
 	PLATFORM->setTitle(PROJECT_NAME);
-	//PLATFORM->resize(360, 640);
-	PLATFORM->resize(720, 980);
-	PLATFORM->setScale(2.0f); // only on windows
+
+#if defined(PLATFORM_WINDOWS)
+	PLATFORM->resize(540, 960);
+	PLATFORM->setScale(1.5f);
+	IMGUI_SYSTEM->setScaleIndependence(true);
+#endif
 
 	ENGINE->addSystem<Profile>(std::make_shared<Profile>());
 
