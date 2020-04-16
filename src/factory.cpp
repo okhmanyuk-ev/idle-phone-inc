@@ -24,7 +24,7 @@ Factory::Factory()
 
 	auto worker = std::make_shared<Scene::MappedAniSprite<Animation>>(Animations);
 	worker->setAnimation(std::make_shared<Graphics::Animation>(Shared::GraphicsHelpers::OpenAnimationFromFile("textures/workers/1")));
-	worker->setSize(168.0f);
+	worker->setSize(84.0f);
 	worker->setAnchor(0.5f);
 	worker->setPivot(0.5f);
 	worker->setFrequency(5.0f);
