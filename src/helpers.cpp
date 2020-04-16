@@ -17,7 +17,62 @@ LabelSolid::LabelSolid()
 
 Button::Button()
 {
-	setActive(true);
+	setChooseCallback([this] {
+		recursiveColorSet(glm::vec4(1.25f), shared_from_this());
+	});
+	setCancelChooseCallback([this] {
+		recursiveColorSet(glm::vec4(1.0f), shared_from_this());
+	});
+}
+
+void Button::recursiveColorSet(const glm::vec4& value, std::shared_ptr<Scene::Node> node)
+{
+	for (auto child : node->getNodes())
+	{
+		recursiveColorSet(value, child);
+	}
+
+	auto color_node = std::dynamic_pointer_cast<Scene::Color>(node);
+
+	if (!color_node)
+		return;
+
+	color_node->setColor(value);
+}
+
+void Button::setActive(bool value)
+{
+	mActive = value;
+	ensureTexture();
+}
+
+void Button::setActiveTexture(std::shared_ptr<Renderer::Texture> value)
+{
+	mActiveTexture = value;
+	ensureTexture();
+}
+
+void Button::setInactiveTexture(std::shared_ptr<Renderer::Texture> value)
+{
+	mInactiveTexture = value;
+	ensureTexture();
+}
+
+void Button::ensureTexture()
+{
+	if (!mActiveTexture || !mInactiveTexture)
+		return;
+
+	if (mActive)
+		setTexture(mActiveTexture);
+	else
+		setTexture(mInactiveTexture);
+}
+
+StandardButton::StandardButton() : Button()
+{
+	setActiveTexture(TEXTURE("textures/button_active.png"));
+	setInactiveTexture(TEXTURE("textures/button_inactive.png"));
 
 	mLabel = std::make_shared<Label>();
 	mLabel->setPivot(0.5f);
@@ -25,14 +80,4 @@ Button::Button()
 	mLabel->setFontSize(12.0f);
 	mLabel->setY(-12.0f);
 	attach(mLabel);
-}
-
-void Button::setActive(bool value)
-{
-	mActive = value;
-
-	if (mActive)
-		setTexture(TEXTURE("textures/button_active.png"));
-	else
-		setTexture(TEXTURE("textures/button_inactive.png"));
 }

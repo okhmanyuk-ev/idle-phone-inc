@@ -7,7 +7,7 @@ TopMenu::TopMenu()
 {
 	setTexture(TEXTURE("textures/top_menu/background.png"));
 	
-	auto settings_button = std::make_shared<Scene::Sprite>();
+	auto settings_button = std::make_shared<Helpers::Button>();
 	settings_button->setTexture(TEXTURE("textures/top_menu/settings.png"));
 	settings_button->setPivot(0.5f);
 	settings_button->setAnchor({ 0.0f, 0.5f });
@@ -38,11 +38,11 @@ TopMenu::TopMenu()
 	money_ico->setAnchor({ 0.0f, 0.5f });
 	money_bg->attach(money_ico);
 
-	auto money_add = std::make_shared<Scene::Sprite>();
-	money_add->setTexture(TEXTURE("textures/top_menu/add.png"));
-	money_add->setPivot({ 0.5f, 0.5f });
-	money_add->setAnchor({ 1.0f, 0.5f });
-	money_bg->attach(money_add);
+	auto money_add_button = std::make_shared<Helpers::Button>();
+	money_add_button->setTexture(TEXTURE("textures/top_menu/add.png"));
+	money_add_button->setPivot({ 0.5f, 0.5f });
+	money_add_button->setAnchor({ 1.0f, 0.5f });
+	money_bg->attach(money_add_button);
 
 	// coins
 
@@ -68,9 +68,9 @@ TopMenu::TopMenu()
 	coin_ico->setAnchor({ 0.0f, 0.5f });
 	coin_bg->attach(coin_ico);
 
-	auto coin_add = std::make_shared<Scene::Sprite>();
-	coin_add->setTexture(TEXTURE("textures/top_menu/add.png"));
-	coin_add->setPivot({ 0.5f, 0.5f });
-	coin_add->setAnchor({ 1.0f, 0.5f });
-	coin_bg->attach(coin_add);
+	auto coin_add_button = std::make_shared<Helpers::Button>();
+	coin_add_button->setTexture(TEXTURE("textures/top_menu/add.png"));
+	coin_add_button->setPivot({ 0.5f, 0.5f });
+	coin_add_button->setAnchor({ 1.0f, 0.5f });
+	coin_bg->attach(coin_add_button);
 }

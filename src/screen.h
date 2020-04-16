@@ -4,7 +4,7 @@
 
 namespace PhoneInc
 {
-	class Screen : public Scene::RenderLayer<Shared::SceneManager::Screen>, public std::enable_shared_from_this<Screen>
+	class Screen : public Shared::SceneManager::Screen, public std::enable_shared_from_this<Screen>
 	{
 	public:
 		Screen()
@@ -14,7 +14,7 @@ namespace PhoneInc
 			setStretch(1.0f);
 			setAnchor(0.5f);
 			setPivot(0.5f);
-			setAlpha(0.0f);
+		//	setAlpha(0.0f);
 		}
 
 	protected:
@@ -36,7 +36,7 @@ namespace PhoneInc
 		void onLeaveEnd() override
 		{
 			setEnabled(false);
-			setAlpha(0.0f);
+		//	setAlpha(0.0f);
 		}
 
 		void onWindowAppearing() override
@@ -51,12 +51,14 @@ namespace PhoneInc
 
 		std::unique_ptr<Common::Actions::Action> createEnterAction() override
 		{
-			return Shared::ActionHelpers::Show(shared_from_this(), 0.25f);
+		//	return Shared::ActionHelpers::Show(shared_from_this(), 0.25f);
+			return nullptr;
 		};
 
 		std::unique_ptr<Common::Actions::Action> createLeaveAction() override
 		{
-			return Shared::ActionHelpers::Hide(shared_from_this(), 0.25f);
+		//	return Shared::ActionHelpers::Hide(shared_from_this(), 0.25f);
+			return nullptr;
 		};
 	};
 }

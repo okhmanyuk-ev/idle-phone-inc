@@ -9,7 +9,7 @@ BottomMenu::BottomMenu()
 	
 	// video
 
-	auto video_button = std::make_shared<Scene::Sprite>();
+	auto video_button = std::make_shared<Helpers::Button>();
 	video_button->setTexture(TEXTURE("textures/bottom_menu/button.png"));
 	video_button->setAnchor({ 0.5f, 0.0f });
 	video_button->setPivot({ 0.5f, 0.0f });

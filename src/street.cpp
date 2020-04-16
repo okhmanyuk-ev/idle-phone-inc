@@ -24,7 +24,7 @@ Street::Street()
 	warehouse->setPosition({ 8.0f, -60.0f });
 	floor->attach(warehouse);
 
-	auto warehouse_button = std::make_shared<Helpers::Button>();
+	auto warehouse_button = std::make_shared<Helpers::StandardButton>();
 	warehouse_button->setPivot(0.5f);
 	warehouse_button->setPosition({ 146.0f, 412.0f });
 	warehouse_button->getLabel()->setText(LOCALIZE("ENHANCE_BUTTON"));
@@ -35,7 +35,7 @@ Street::Street()
 	shop->setPosition({ 841.0f, -60.0f });
 	floor->attach(shop);
 
-	auto shop_button = std::make_shared<Helpers::Button>();
+	auto shop_button = std::make_shared<Helpers::StandardButton>();
 	shop_button->setPivot(0.5f);
 	shop_button->setPosition({ 116.0f, 412.0f });
 	shop_button->getLabel()->setText(LOCALIZE("ENHANCE_BUTTON"));

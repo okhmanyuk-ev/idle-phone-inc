@@ -13,9 +13,15 @@ namespace PhoneInc
 #endif	
 
 		ImGui::Begin("dev", nullptr, ImGui::User::ImGuiWindowFlags_ControlPanel);
-		ImGui::SetWindowPos(ImGui::User::BottomLeftCorner());
+		
+		auto pos = ImGui::User::TopLeftCorner();
+		pos.y += 54.0f;
+
+		ImGui::SetWindowPos(pos);
 
 		static bool Enabled = false;
+
+		ImGui::Checkbox("DEV", &Enabled);
 
 		if (Enabled)
 		{
@@ -24,8 +30,6 @@ namespace PhoneInc
 				PROFILE->clear();
 			}
 		}
-
-		ImGui::Checkbox("DEV", &Enabled);
 		ImGui::End();
 	}
 }
