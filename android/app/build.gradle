@@ -1,0 +1,26 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion = 29
+    buildToolsVersion '29.0.2'
+
+    defaultConfig {
+        applicationId = 'com.dreamskies.phoneinc'
+        minSdkVersion 24
+        targetSdkVersion 29
+    }
+    sourceSets {
+        main.assets.srcDirs += '../../assets'
+        main.java.srcDirs += '../../sky/src/Platform/java/'
+    }
+    externalNativeBuild {
+        cmake {
+            path 'src/main/cpp/CMakeLists.txt'
+        }
+    }
+}
+dependencies {
+    api files('../../sky/lib/fmod/android/fmod.jar')
+    implementation 'com.android.billingclient:billing:2.1.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+}
