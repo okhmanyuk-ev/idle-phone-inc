@@ -7,6 +7,11 @@ namespace PhoneInc
 	class Factory : public Scene::Node
 	{
 	public:
+		class Room;
+		class Worker;
+		class Manager;
+
+	public:
 		Factory();
 	};
 }

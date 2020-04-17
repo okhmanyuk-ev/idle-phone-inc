@@ -20,7 +20,7 @@ Street::Street()
 	attach(floor);
 
 	auto warehouse = std::make_shared<Scene::Sprite>();
-	warehouse->setTexture(TEXTURE("textures/warehouse/warehouse_1.png"));
+	warehouse->setTexture(TEXTURE("textures/warehouse/1.png"));
 	warehouse->setPosition({ 8.0f, -60.0f });
 	floor->attach(warehouse);
 
@@ -31,7 +31,7 @@ Street::Street()
 	warehouse->attach(warehouse_button);
 
 	auto shop = std::make_shared<Scene::Sprite>();
-	shop->setTexture(TEXTURE("textures/shop/shop_1.png"));
+	shop->setTexture(TEXTURE("textures/shop/1.png"));
 	shop->setPosition({ 841.0f, -60.0f });
 	floor->attach(shop);
 
