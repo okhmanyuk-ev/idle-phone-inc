@@ -28,6 +28,7 @@ Application::Application() : RichApplication(PROJECT_CODE)
 	addLoadingTasks({
 		{ "fonts", [this] {
 			PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Medium.ttf", "default");
+			PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Bold.ttf", "default_bold");
 		} },
 	//	{ "textures", [this] {
 	//		PRECACHE_TEXTURE_ALIAS("textures/ruby.png", "ruby");
@@ -62,6 +63,7 @@ void Application::initialize()
 {
 	STATS->setEnabled(false);
 	FONT("default")->setCustomVerticalOffset(-4.0f);
+	FONT("default_bold")->setCustomVerticalOffset(-4.0f);
 
 #if defined(BUILD_DEVELOPER)
 	CONSOLE->execute("hud_show_fps 1");

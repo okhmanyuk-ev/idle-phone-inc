@@ -8,6 +8,6 @@ namespace PhoneInc
 	class Factory::Room : public Scene::Sprite
 	{
 	public:
-		Room();
+		Room(int level);
 	};
 }

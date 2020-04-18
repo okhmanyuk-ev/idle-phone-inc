@@ -5,7 +5,7 @@
 
 using namespace PhoneInc;
 
-Factory::Room::Room()
+Factory::Room::Room(int level)
 {
 	setTexture(TEXTURE("textures/factory/room/background/1.png"));
 
@@ -37,4 +37,18 @@ Factory::Room::Room()
 	auto manager = std::make_shared<Manager>(1);
 	manager->setPosition({ -18.0f, 116.0f });
 	attach(manager);
+
+	auto lvl_label = std::make_shared<Helpers::LabelSolid>();
+	lvl_label->setFont(FONT("default_bold"));
+	lvl_label->setPosition({ 50.0f, 59.0f });
+	lvl_label->setPivot(0.5f);
+	lvl_label->setText(std::to_string(level));
+	lvl_label->setColor(Graphics::Color::Black);
+	lvl_label->setFontSize(11.0f);
+	attach(lvl_label);
+
+	auto enhance_btn = std::make_shared<Helpers::StandardButton>();
+	enhance_btn->setPosition({ 681.0f, 28.0f });
+	enhance_btn->getLabel()->setText(LOCALIZE("ENHANCE_BUTTON"));
+	attach(enhance_btn);
 }
