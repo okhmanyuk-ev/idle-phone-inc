@@ -93,5 +93,5 @@ void Application::frame()
 	if (mNodeEditor)
 		mSceneEditor.show();
 
-	ShowCheatsMenu(mSceneManager);
+	Cheats::ShowDevMenu(mSceneManager);
 }

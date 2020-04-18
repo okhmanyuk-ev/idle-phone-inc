@@ -4,10 +4,20 @@
 
 namespace PhoneInc::Helpers
 {
+	// types
+
 	using Callback = std::function<void()>;
+
+	// constants
 
 	inline static const float Scale = 3.0f;
 	inline static const float InvScale = 1.0f / 3.0f;
+
+	// static
+
+	std::string NumberToString(double value);
+
+	// classes
 
 	class Label : public Scene::Label
 	{
@@ -21,6 +31,8 @@ namespace PhoneInc::Helpers
 		LabelSolid();
 	};
 
+	// TODO: add overridable callbacks to Scene::Clickable<> class
+	// and use them here
 	class Button : public Scene::Clickable<Scene::Sprite>, public std::enable_shared_from_this<Button>
 	{
 	public:
@@ -39,6 +51,12 @@ namespace PhoneInc::Helpers
 		auto getInactiveTexture() const { return mInactiveTexture; }
 		void setInactiveTexture(std::shared_ptr<Renderer::Texture> value);
 
+		auto getActiveCallback() const { return mActiveCallback; }
+		void setActiveCallback(Callback value) { mActiveCallback = value; }
+	
+		auto getInactiveCallback() const { return mInactiveCallback; }
+		void setInactiveCallback(Callback value) { mInactiveCallback = value; }
+
 	private:
 		void ensureTexture();
 
@@ -46,6 +64,8 @@ namespace PhoneInc::Helpers
 		bool mActive = true;
 		std::shared_ptr<Renderer::Texture> mActiveTexture = nullptr;
 		std::shared_ptr<Renderer::Texture> mInactiveTexture = nullptr;
+		Callback mActiveCallback = nullptr;
+		Callback mInactiveCallback = nullptr;
 	};
 
 	class StandardButton : public Button

@@ -12,21 +12,25 @@ void Profile::load()
 	auto json_file = Platform::Asset(path, Platform::Asset::Path::Absolute);
 	auto json = nlohmann::json::from_bson(std::string((char*)json_file.getMemory(), json_file.getSize()));
 
-	//if (json.contains("test"))
-	//	mHighScore = json["test"];
+	if (json.contains("cash"))
+		mCash = json["cash"];
 }
 
 void Profile::save()
 {
+	mSaveMutex.lock();
+
 	auto json = nlohmann::json();
-	json["test"] = 123;
+	json["cash"] = mCash;
 	auto bson = nlohmann::json::to_bson(json);
 	Platform::Asset::Write(PLATFORM->getAppFolder() + "save.bson", bson.data(), bson.size(), Platform::Asset::Path::Absolute);
+
+	mSaveMutex.unlock();
 }
 
 void Profile::clear()
 {
-	//mHighScore = 0;
+	mCash = 10.0;
 }
 
 void Profile::saveAsync()
@@ -34,4 +38,25 @@ void Profile::saveAsync()
 	TASK->addTask([this] {
 		save();
 	});
+}
+
+bool Profile::isEnoughCash(double value)
+{
+	return getCash() >= value;
+}
+
+void Profile::spendCash(double value)
+{
+	assert(isEnoughCash(value));
+	setCash(getCash() - value);
+	PROFILE->saveAsync();
+}
+
+void Profile::setCash(double value)
+{
+	if (mCash == value)
+		return;
+
+	mCash = value;
+	EVENT->emit(CashChangedEvent());
 }

@@ -12,11 +12,11 @@ Factory::Factory()
 
 	for (int i = 0; i < 30; i++)
 	{
-		auto room = std::make_shared<LockedRoom>(i + 1);
+		auto room = std::make_shared<LockedRoom>(i);
 		room->setUnlockCallback([room, i] {
 			auto parent = room->getParent();
 			parent->detach(room);
-			auto room = std::make_shared<Room>(i + 1);
+			auto room = std::make_shared<Room>(i);
 			parent->attach(room);
 		});
 		rooms.push_back(room);

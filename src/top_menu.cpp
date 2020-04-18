@@ -23,14 +23,14 @@ TopMenu::TopMenu()
 	money_bg->setPosition({ 454.0f, 0.0f });
 	attach(money_bg);
 
-	auto money_text = std::make_shared<Helpers::LabelSolid>();
-	money_text->setAnchor({ 1.0f, 0.5f });
-	money_text->setPivot({ 1.0f, 0.5f });
-	money_text->setText("$ 123,456");
-	money_text->setColor(Graphics::Color::ToNormalized(0, 255, 41));
-	money_text->setFontSize(13.0f);
-	money_text->setX(-64.0f);
-	money_bg->attach(money_text);
+	mCashLabel = std::make_shared<Helpers::LabelSolid>();
+	mCashLabel->setAnchor({ 1.0f, 0.5f });
+	mCashLabel->setPivot({ 1.0f, 0.5f });
+	mCashLabel->setColor(Graphics::Color::ToNormalized(0, 255, 41));
+	mCashLabel->setFontSize(13.0f);
+	mCashLabel->setX(-64.0f);
+	money_bg->attach(mCashLabel);
+	refreshCashLabel();
 
 	auto money_ico = std::make_shared<Scene::Sprite>();
 	money_ico->setTexture(TEXTURE("textures/top_menu/money.png"));
@@ -73,4 +73,14 @@ TopMenu::TopMenu()
 	coin_add_button->setPivot({ 0.5f, 0.5f });
 	coin_add_button->setAnchor({ 1.0f, 0.5f });
 	coin_bg->attach(coin_add_button);
+}
+
+void TopMenu::event(const Profile::CashChangedEvent& e)
+{
+	refreshCashLabel();
+}
+
+void TopMenu::refreshCashLabel()
+{
+	mCashLabel->setText("$ " + Helpers::NumberToString(PROFILE->getCash()));
 }

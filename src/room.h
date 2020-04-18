@@ -3,24 +3,34 @@
 #include <shared/all.h>
 #include "factory.h"
 #include "helpers.h"
+#include "profile.h"
 
 namespace PhoneInc
 {
 	class Factory::Room : public Scene::Actionable<Scene::Sprite>
 	{
 	public:
-		Room(int number);
+		Room(int index);
 	};
 
-	class Factory::LockedRoom : public Scene::Sprite
+	class Factory::LockedRoom : public Scene::Sprite,
+		public Common::EventSystem::Listenable<Profile::CashChangedEvent>
 	{
 	public:
-		LockedRoom(int number);
+		LockedRoom(int index);
+
+	public:
+		void event(const Profile::CashChangedEvent& e) override;
+
+	private:
+		void refresh();
 
 	public:
 		void setUnlockCallback(Helpers::Callback value) { mUnlockCallback = value; }
 
 	private:
-		Helpers::Callback mUnlockCallback;
+		int mIndex = 0;
+		std::shared_ptr<Helpers::StandardLongButton> mButton = nullptr;
+		Helpers::Callback mUnlockCallback = nullptr;
 	};
 }

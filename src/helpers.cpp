@@ -1,7 +1,74 @@
 #include "helpers.h"
+#include <iomanip>
 
 using namespace PhoneInc;
 using namespace PhoneInc::Helpers;
+
+// static
+
+std::string Helpers::NumberToString(double value)
+{
+	auto frexp10 = [](double arg, int& exp) -> double {
+		exp = (arg == 0) ? 0 : (int)std::floor(std::log10(std::fabs(arg)));
+		return arg * std::pow(10, -exp);
+	};
+
+	auto getExpName = [](int exp) ->std::string {
+		const std::map<int, std::string> Names = {
+			{ 3, "K" },
+			{ 6, "M" },
+			{ 9, "B" },
+			{ 12, "T" },
+			{ 15, "q" },
+			{ 18, "Q" },
+			{ 21, "s" },
+			{ 24, "S" },
+			{ 27, "O" },
+			{ 30, "N" },
+			{ 33, "d" },
+			{ 36, "U" },
+			{ 39, "D" }
+		};
+
+		if (exp > Names.rbegin()->first)
+		{
+			assert(exp % 3 == 0);
+			return "e" + std::to_string(exp);
+		}
+		else
+		{
+			assert(Names.count(exp) > 0);
+			return Names.at(exp);
+		}
+	};
+
+	int exp = 0;
+	auto normalized_value = frexp10(value, exp);
+
+	std::ostringstream stream;
+
+	stream << std::fixed;
+
+	if (exp < 3)
+	{
+		stream << std::setprecision(0);
+		stream << value;
+	}
+	else
+	{
+		auto k = exp % 3;
+
+		stream << std::setprecision(2 - k);
+		normalized_value *= glm::pow(10, k);
+		exp -= k;
+
+		stream << normalized_value << getExpName(exp);
+	}
+
+	return stream.str();
+}
+
+// classes
 
 Label::Label() : Scene::Label()
 {
@@ -17,6 +84,13 @@ LabelSolid::LabelSolid()
 
 Button::Button()
 {
+	setClickCallback([this] {
+		auto executeCallback = [](auto callback) { if (callback) callback(); };
+		if (isActive())
+			executeCallback(mActiveCallback);
+		else
+			executeCallback(mInactiveCallback);
+	});
 	setChooseCallback([this] {
 		recursiveColorSet(glm::vec4(1.25f), shared_from_this());
 	});
