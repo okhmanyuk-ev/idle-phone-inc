@@ -4,6 +4,8 @@
 
 namespace PhoneInc::Helpers
 {
+	using Callback = std::function<void()>;
+
 	inline static const float Scale = 3.0f;
 	inline static const float InvScale = 1.0f / 3.0f;
 
@@ -50,6 +52,18 @@ namespace PhoneInc::Helpers
 	{
 	public:
 		StandardButton();
+
+	public:
+		auto getLabel() const { return mLabel; }
+
+	private:
+		std::shared_ptr<Label> mLabel;
+	};
+
+	class StandardLongButton : public Button
+	{
+	public:
+		StandardLongButton();
 
 	public:
 		auto getLabel() const { return mLabel; }

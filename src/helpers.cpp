@@ -71,8 +71,21 @@ void Button::ensureTexture()
 
 StandardButton::StandardButton() : Button()
 {
-	setActiveTexture(TEXTURE("textures/button_active.png"));
-	setInactiveTexture(TEXTURE("textures/button_inactive.png"));
+	setActiveTexture(TEXTURE("textures/buttons/button_active.png"));
+	setInactiveTexture(TEXTURE("textures/buttons/button_inactive.png"));
+
+	mLabel = std::make_shared<Label>();
+	mLabel->setPivot(0.5f);
+	mLabel->setAnchor(0.5f);
+	mLabel->setFontSize(12.0f);
+	mLabel->setY(-12.0f);
+	attach(mLabel);
+}
+
+StandardLongButton::StandardLongButton() : Button()
+{
+	setActiveTexture(TEXTURE("textures/buttons/button_long_active.png"));
+	setInactiveTexture(TEXTURE("textures/buttons/button_long_inactive.png"));
 
 	mLabel = std::make_shared<Label>();
 	mLabel->setPivot(0.5f);

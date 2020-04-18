@@ -8,13 +8,13 @@ Street::Street()
 	setHeight(682.0f);
 
 	auto city = std::make_shared<Scene::Sprite>();
-	city->setTexture(TEXTURE("textures/city.png"));
+	city->setTexture(TEXTURE("textures/street/city.png"));
 	city->setPivot({ 0.5f, 0.0f });
 	city->setAnchor({ 0.5f, 0.0f });
 	attach(city);
 
 	auto floor = std::make_shared<Scene::Sprite>();
-	floor->setTexture(TEXTURE("textures/floor.png"));
+	floor->setTexture(TEXTURE("textures/street/floor.png"));
 	floor->setPivot({ 0.5f, 1.0f });
 	floor->setAnchor({ 0.5f, 1.0f });
 	attach(floor);

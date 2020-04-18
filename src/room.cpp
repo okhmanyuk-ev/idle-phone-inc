@@ -1,11 +1,10 @@
 #include "room.h"
-#include "helpers.h"
 #include "worker.h"
 #include "manager.h"
 
 using namespace PhoneInc;
 
-Factory::Room::Room(int level)
+Factory::Room::Room(int number)
 {
 	setTexture(TEXTURE("textures/factory/room/background/1.png"));
 
@@ -46,7 +45,7 @@ Factory::Room::Room(int level)
 	lvl_label->setFont(FONT("default_bold"));
 	lvl_label->setPosition({ 50.0f, 59.0f });
 	lvl_label->setPivot(0.5f);
-	lvl_label->setText(std::to_string(level));
+	lvl_label->setText(std::to_string(number));
 	lvl_label->setColor(Graphics::Color::Black);
 	lvl_label->setFontSize(11.0f);
 	attach(lvl_label);
@@ -55,4 +54,18 @@ Factory::Room::Room(int level)
 	enhance_btn->setPosition({ 681.0f, 28.0f });
 	enhance_btn->getLabel()->setText(LOCALIZE("ENHANCE_BUTTON"));
 	attach(enhance_btn);
+}
+
+Factory::LockedRoom::LockedRoom(int number)
+{
+	setTexture(TEXTURE("textures/factory/room/background/locked.png"));
+
+	auto button = std::make_shared<Helpers::StandardLongButton>();
+	button->getLabel()->setText("awdawd");
+	button->setAnchor(0.5f);
+	button->setPivot(0.5f);
+	button->setClickCallback([this] {
+		mUnlockCallback();
+	});
+	attach(button);
 }

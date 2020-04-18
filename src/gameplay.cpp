@@ -37,7 +37,7 @@ Gameplay::Gameplay()
 	scrollbox->getContent()->setHorizontalStretch(1.0f);
 	scrollbox->getContent()->attach(grid);
 	scrollbox->getContent()->setHeight(grid->getHeight());
-	scrollbox->setTouchMask(1 << 1);
+	scrollbox->setTouchMask(1 << 1); // TODO: maybe wrong, we should make this on every button on scroll
 	attach(scrollbox);
 
 	auto top_menu = std::make_shared<TopMenu>();

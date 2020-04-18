@@ -8,6 +8,7 @@ namespace PhoneInc
 	{
 	public:
 		class Room;
+		class LockedRoom;
 		class Worker;
 		class Manager;
 
