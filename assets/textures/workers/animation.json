@@ -1,9 +1,10 @@
 {
-    "work": [
-        "work_00",
-        "work_01"
-    ],
-    "idle": [
-        "idle_00"
+    "working": [
+        "working_1",
+        "working_2",
+        "working_3",
+        "working_4",
+        "working_5",
+        "working_6"
     ]
 }

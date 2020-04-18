@@ -7,8 +7,7 @@ namespace PhoneInc
 {
 	enum class WorkerAnimation
 	{
-		Work,
-		Idle
+		Working
 	};
 	
 	class Factory::Worker : public Scene::MappedAniSprite<WorkerAnimation>
@@ -18,8 +17,7 @@ namespace PhoneInc
 
 	private:
 		const static inline Scene::MappedAniSprite<WorkerAnimation>::StateMap Animations = {
-			{ WorkerAnimation::Work, "work" },
-			{ WorkerAnimation::Idle, "idle" }
+			{ WorkerAnimation::Working, "working" }
 		};
 	};
 }

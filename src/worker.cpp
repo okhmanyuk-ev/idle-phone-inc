@@ -5,11 +5,11 @@ using namespace PhoneInc;
 
 Factory::Worker::Worker(int level) : Scene::MappedAniSprite<WorkerAnimation>(Animations)
 {
-	auto image_path = "textures/workers/" + std::to_string(level) + ".png";
+	auto image_path = "textures/workers/1.png";
 	auto atlas_path = "textures/workers/atlas.json";
 	auto animation_path = "textures/workers/animation.json";
 	auto animation = Shared::GraphicsHelpers::OpenAnimationFromFile(image_path, atlas_path, animation_path);
 	setAnimation(std::make_shared<Graphics::Animation>(animation));
-	setFrequency(5.0f);
-	setStateType(WorkerAnimation::Work);
+	setFrequency(10.0f);
+	setStateType(WorkerAnimation::Working);
 }
