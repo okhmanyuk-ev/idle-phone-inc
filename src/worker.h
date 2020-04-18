@@ -16,8 +16,8 @@ namespace PhoneInc
 		Worker(int level);
 
 	private:
-		const static inline Scene::MappedAniSprite<WorkerAnimation>::StateMap Animations = {
-			{ WorkerAnimation::Working, "working" }
+		const static inline StateMap Animations = {
+			{ Animation::Working, "working" }
 		};
 	};
 }

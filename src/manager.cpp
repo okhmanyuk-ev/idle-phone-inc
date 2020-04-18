@@ -11,5 +11,5 @@ Factory::Manager::Manager(int level) : Scene::MappedAniSprite<ManagerAnimation>(
 	auto animation = Shared::GraphicsHelpers::OpenAnimationFromFile(image_path, atlas_path, animation_path);
 	setAnimation(std::make_shared<Graphics::Animation>(animation));
 	setFrequency(5.0f);
-	setStateType(ManagerAnimation::Work);
+	setStateType(Animation::Work);
 }

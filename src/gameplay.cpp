@@ -14,20 +14,31 @@ Gameplay::Gameplay()
 	background->setStretch(1.0f);
 	attach(background);
 
-	auto factory = std::make_shared<Factory>();
-	factory->setAnchor({ 0.5f, 0.0f });
-	factory->setPivot({ 0.5f, 0.0f });
-	factory->setScale(Helpers::InvScale);
-	factory->setWidth(1080.0f);
-	factory->setY(264.0f);
-	attach(factory);
-
 	auto street = std::make_shared<Street>();
-	street->setAnchor({ 0.5f, 0.0f });
-	street->setPivot({ 0.5f, 0.0f });
-	street->setY(37.0f);
+	street->setHorizontalStretch(1.0f);
 	street->setScale(Helpers::InvScale);
-	attach(street);
+	
+	auto factory = std::make_shared<Factory>();
+	factory->setHorizontalStretch(1.0f);
+	factory->setScale(Helpers::InvScale);
+	
+	auto width = 1080.0f;
+
+	auto grid = Shared::SceneHelpers::MakeVerticalGrid(width, {
+		{ street->getHeight() / Helpers::Scale, street },
+		{ factory->getHeight() / Helpers::Scale, factory }
+	});
+
+	auto scrollbox = std::make_shared<Scene::Scrollbox>();
+	scrollbox->setWidth(width);
+	scrollbox->setY(37.0f);
+	scrollbox->getBounding()->setStretch(1.0f);
+	scrollbox->setSensitivity({ 0.0f, 1.0f });
+	scrollbox->getContent()->setHorizontalStretch(1.0f);
+	scrollbox->getContent()->attach(grid);
+	scrollbox->getContent()->setHeight(grid->getHeight());
+	scrollbox->setTouchMask(1 << 1);
+	attach(scrollbox);
 
 	auto top_menu = std::make_shared<TopMenu>();
 	top_menu->setAnchor({ 0.5f, 0.0f });
@@ -41,8 +52,8 @@ Gameplay::Gameplay()
 	bottom_menu->setScale(Helpers::InvScale);
 	attach(bottom_menu);
 
-	runAction(Shared::ActionHelpers::ExecuteInfinite([this, factory, bottom_menu] {
-		auto h = getHeight() - factory->getY() - (bottom_menu->getHeight() / Helpers::Scale);
-		factory->setHeight(h * Helpers::Scale);
+	runAction(Shared::ActionHelpers::ExecuteInfinite([this, scrollbox, bottom_menu] {
+		auto h = getHeight() - scrollbox->getY() - (bottom_menu->getHeight() / Helpers::Scale);
+		scrollbox->setHeight(h);
 	}));
 }

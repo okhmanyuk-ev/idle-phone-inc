@@ -10,6 +10,6 @@ Factory::Worker::Worker(int level) : Scene::MappedAniSprite<WorkerAnimation>(Ani
 	auto animation_path = "textures/workers/animation.json";
 	auto animation = Shared::GraphicsHelpers::OpenAnimationFromFile(image_path, atlas_path, animation_path);
 	setAnimation(std::make_shared<Graphics::Animation>(animation));
-	setFrequency(10.0f);
-	setStateType(WorkerAnimation::Working);
+	setFrequency(12.0f);
+	setStateType(Animation::Working);
 }

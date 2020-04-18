@@ -17,9 +17,9 @@ namespace PhoneInc
 		Manager(int level);
 
 	private:
-		const static inline Scene::MappedAniSprite<ManagerAnimation>::StateMap Animations = {
-			{ ManagerAnimation::Work, "work" },
-			{ ManagerAnimation::Idle, "idle" }
+		const static inline StateMap Animations = {
+			{ Animation::Work, "work" },
+			{ Animation::Idle, "idle" }
 		};
 	};
 }

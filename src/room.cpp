@@ -20,22 +20,26 @@ Factory::Room::Room(int level)
 	worker1->setAnchor({ 0.2f, 0.0f });
 	worker1->setPivot({ 0.5f, 1.0f });
 	worker1->setY(24.0f);
+	worker1->randomizeProgress();
 	table->attach(worker1);
-
+	
 	auto worker2 = std::make_shared<Worker>(2);
 	worker2->setAnchor({ 0.5f, 0.0f });
 	worker2->setPivot({ 0.5f, 1.0f });
 	worker2->setY(24.0f);
+	worker2->randomizeProgress();
 	table->attach(worker2);
-
+	
 	auto worker3 = std::make_shared<Worker>(3);
 	worker3->setAnchor({ 0.8f, 0.0f });
 	worker3->setPivot({ 0.5f, 1.0f });
 	worker3->setY(24.0f);
+	worker3->randomizeProgress();
 	table->attach(worker3);
 
 	auto manager = std::make_shared<Manager>(1);
 	manager->setPosition({ -18.0f, 116.0f });
+	manager->randomizeProgress();
 	attach(manager);
 
 	auto lvl_label = std::make_shared<Helpers::LabelSolid>();
