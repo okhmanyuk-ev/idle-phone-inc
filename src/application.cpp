@@ -1,5 +1,4 @@
 #include "application.h"
-#include "gameplay.h"
 
 using namespace PhoneInc;
 
@@ -30,6 +29,9 @@ Application::Application() : RichApplication(PROJECT_CODE)
 			PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Medium.ttf", "default");
 			PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Bold.ttf", "default_bold");
 		} },
+		{ "preparing", [this] {
+			prepare();
+		} }
 	//	{ "textures", [this] {
 	//		PRECACHE_TEXTURE_ALIAS("textures/ruby.png", "ruby");
 	//	} }
@@ -61,7 +63,6 @@ void Application::loading(const std::string& stage, float progress)
 
 void Application::initialize()
 {
-	STATS->setEnabled(false);
 	FONT("default")->setCustomVerticalOffset(-4.0f);
 	FONT("default_bold")->setCustomVerticalOffset(-4.0f);
 
@@ -82,8 +83,12 @@ void Application::initialize()
 	mSceneManager = std::make_shared<Shared::SceneManager>();
 	root->attach(mSceneManager);
 
-	auto gameplay = std::make_shared<Gameplay>();
-	mSceneManager->switchScreen(gameplay);
+	mSceneManager->switchScreen(mGameplay);
+}
+
+void Application::prepare()
+{
+	mGameplay = std::make_shared<Gameplay>();
 }
 
 void Application::frame()

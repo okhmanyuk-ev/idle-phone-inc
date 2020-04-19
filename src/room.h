@@ -25,12 +25,8 @@ namespace PhoneInc
 	private:
 		void refresh();
 
-	public:
-		void setUnlockCallback(Helpers::Callback value) { mUnlockCallback = value; }
-
 	private:
 		int mIndex = 0;
 		std::shared_ptr<Helpers::StandardLongButton> mButton = nullptr;
-		Helpers::Callback mUnlockCallback = nullptr;
 	};
 }

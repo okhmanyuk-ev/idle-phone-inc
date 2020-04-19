@@ -30,14 +30,16 @@ Gameplay::Gameplay()
 	});
 
 	auto scrollbox = std::make_shared<Scene::Scrollbox>();
-	scrollbox->setWidth(width);
+	scrollbox->setAnchor({ 0.5f, 0.0f });
+	scrollbox->setPivot({ 0.5f, 0.0f });
+	scrollbox->setWidth(width / Helpers::Scale);
 	scrollbox->setY(37.0f);
 	scrollbox->getBounding()->setStretch(1.0f);
 	scrollbox->setSensitivity({ 0.0f, 1.0f });
 	scrollbox->getContent()->setHorizontalStretch(1.0f);
 	scrollbox->getContent()->attach(grid);
 	scrollbox->getContent()->setHeight(grid->getHeight());
-	scrollbox->setTouchMask(1 << 1); // TODO: maybe wrong, we should make this on every button on scroll
+	scrollbox->setTouchMask(1 << 1);
 	attach(scrollbox);
 
 	auto top_menu = std::make_shared<TopMenu>();

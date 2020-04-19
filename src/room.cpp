@@ -67,7 +67,7 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	mButton->setPivot(0.5f);
 	mButton->setActiveCallback([this] {
 		PROFILE->spendCash(Balance::GetRoomCost(mIndex));
-		mUnlockCallback();
+		PROFILE->unlockRoom(mIndex);
 	});
 	attach(mButton);
 	refresh();

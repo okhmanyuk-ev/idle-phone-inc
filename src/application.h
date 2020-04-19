@@ -4,6 +4,7 @@
 #include "defines.h"
 #include "profile.h"
 #include "cheats.h"
+#include "gameplay.h"
 
 namespace PhoneInc
 {
@@ -16,6 +17,7 @@ namespace PhoneInc
 	private:
 		void loading(const std::string& stage, float progress) override;
 		void initialize() override;
+		void prepare();
 		void frame() override;
 
 	private:
@@ -28,5 +30,6 @@ namespace PhoneInc
 
 	private:
 		Shared::SceneEditor mSceneEditor = Shared::SceneEditor(mGameScene);
+		std::shared_ptr<Gameplay> mGameplay;
 	};
 }

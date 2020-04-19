@@ -14,6 +14,10 @@ void Profile::load()
 
 	if (json.contains("cash"))
 		mCash = json["cash"];
+
+	if (json.contains("unlocked_rooms"))
+		mUnlockedRooms = json["unlocked_rooms"].get<std::set<int>>();
+
 }
 
 void Profile::save()
@@ -22,6 +26,7 @@ void Profile::save()
 
 	auto json = nlohmann::json();
 	json["cash"] = mCash;
+	json["unlocked_rooms"] = mUnlockedRooms;
 	auto bson = nlohmann::json::to_bson(json);
 	Platform::Asset::Write(PLATFORM->getAppFolder() + "save.bson", bson.data(), bson.size(), Platform::Asset::Path::Absolute);
 
@@ -31,6 +36,7 @@ void Profile::save()
 void Profile::clear()
 {
 	setCash(10.0);
+	setUnlockedRooms({ });
 }
 
 void Profile::saveAsync()
@@ -40,7 +46,7 @@ void Profile::saveAsync()
 	});
 }
 
-bool Profile::isEnoughCash(double value)
+bool Profile::isEnoughCash(double value) const
 {
 	return getCash() >= value;
 }
@@ -52,6 +58,19 @@ void Profile::spendCash(double value)
 	PROFILE->saveAsync();
 }
 
+bool Profile::isRoomLocked(int index) const
+{
+	return mUnlockedRooms.count(index) == 0;
+}
+
+void Profile::unlockRoom(int index)
+{
+	assert(isRoomLocked(index));
+	mUnlockedRooms.insert(index);
+	EVENT->emit(RoomUnlockedEvent({ index }));
+	saveAsync();
+}
+
 void Profile::setCash(double value)
 {
 	if (mCash == value)
@@ -59,4 +78,5 @@ void Profile::setCash(double value)
 
 	mCash = value;
 	EVENT->emit(CashChangedEvent());
+	saveAsync();
 }
