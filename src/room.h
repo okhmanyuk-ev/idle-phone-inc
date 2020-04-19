@@ -7,13 +7,13 @@
 
 namespace PhoneInc
 {
-	class Factory::Room : public Scene::Actionable<Scene::Sprite>
+	class Factory::Room : public Scene::Cullable<Scene::Actionable<Scene::Sprite>>
 	{
 	public:
 		Room(int index);
 	};
 
-	class Factory::LockedRoom : public Scene::Sprite,
+	class Factory::LockedRoom : public Scene::Cullable<Scene::Sprite>,
 		public Common::EventSystem::Listenable<Profile::CashChangedEvent>
 	{
 	public:

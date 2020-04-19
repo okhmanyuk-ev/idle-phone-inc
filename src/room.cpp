@@ -44,7 +44,7 @@ Factory::Room::Room(int index)
 
 	auto lvl_label = std::make_shared<Helpers::LabelSolid>();
 	lvl_label->setFont(FONT("default_bold"));
-	lvl_label->setPosition({ 50.0f, 59.0f });
+	lvl_label->setPosition({ 51.0f, 59.0f });
 	lvl_label->setPivot(0.5f);
 	lvl_label->setText(std::to_string(index + 1));
 	lvl_label->setColor(Graphics::Color::Black);

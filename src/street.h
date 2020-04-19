@@ -4,7 +4,7 @@
 
 namespace PhoneInc
 {
-	class Street : public Scene::Node
+	class Street : public Scene::Cullable<Scene::Node>
 	{
 	public:
 		Street();

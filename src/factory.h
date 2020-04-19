@@ -4,7 +4,7 @@
 
 namespace PhoneInc
 {
-	class Factory : public Scene::Node
+	class Factory : public Scene::Cullable<Scene::Node>
 	{
 	public:
 		class Room;
