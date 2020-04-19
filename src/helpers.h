@@ -100,9 +100,15 @@ namespace PhoneInc::Helpers
 		std::shared_ptr<Label> mLabel;
 	};
 
-	class CloseWindowButton : public Button
+	class CloseButtonWidget : public Button
 	{
 	public:
-		CloseWindowButton();
+		CloseButtonWidget();
+	};
+
+	class ChooseMultiplierWidget : public Scene::Sprite
+	{
+	public:
+		ChooseMultiplierWidget();
 	};
 }

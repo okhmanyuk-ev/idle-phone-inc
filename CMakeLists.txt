@@ -19,13 +19,17 @@ file(GLOB WINDOWS_SRC
 source_group("all" FILES ${MAIN_SRC})
 source_group("windows" FILES ${WINDOWS_SRC})
 
+file(GLOB ALL_SRC
+	${MAIN_SRC}
+	${WINDOWS_SRC}
+)
+
 if(WIN32)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
     add_definitions(-DNOMINMAX)
 	
     add_executable(${PROJECT_NAME} 
-        ${MAIN_SRC}
-		${WINDOWS_SRC}
+        ${ALL_SRC}
     )
 
     set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
@@ -49,8 +53,7 @@ if(APPLE)
     )
 
     add_executable(${PROJECT_NAME} 
-        ${MAIN_SRC}
-		${WINDOWS_SRC}
+        ${ALL_SRC}
 		${IOS_SRC}
         ${RESOURCES}
     )

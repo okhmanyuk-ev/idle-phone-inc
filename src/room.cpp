@@ -2,6 +2,7 @@
 #include "worker.h"
 #include "manager.h"
 #include "balance.h"
+#include "windows/room_upgrade_window.h"
 
 using namespace PhoneInc;
 
@@ -53,6 +54,10 @@ Factory::Room::Room(int index)
 	auto enhance_btn = std::make_shared<Helpers::StandardButton>();
 	enhance_btn->setPosition({ 681.0f, 28.0f });
 	enhance_btn->getLabel()->setText(LOCALIZE("ENHANCE_BUTTON"));
+	enhance_btn->setClickCallback([] {
+		auto window = std::make_shared<RoomUpgradeWindow>();
+		EVENT->emit(Helpers::PushWindowEvent({ window }));
+	});
 	attach(enhance_btn);
 }
 

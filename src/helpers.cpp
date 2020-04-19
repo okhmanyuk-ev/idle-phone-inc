@@ -174,10 +174,21 @@ StandardLongButton::StandardLongButton() : Button()
 	attach(mLabel);
 }
 
-CloseWindowButton::CloseWindowButton() : Button()
+CloseButtonWidget::CloseButtonWidget() : Button()
 {
 	setTexture(TEXTURE("textures/buttons/close.png"));
 	setClickCallback([] {
 		EVENT->emit(PopWindowEvent());
 	});
+}
+
+ChooseMultiplierWidget::ChooseMultiplierWidget()
+{
+	setTexture(TEXTURE("textures/windows/common/multiplier_background.png"));
+
+	auto highlight = std::make_shared<Scene::Sprite>();
+	highlight->setTexture(TEXTURE("textures/windows/common/multiplier_highlight.png"));
+	highlight->setAnchor(0.5f);
+	highlight->setPivot(0.5f);
+	attach(highlight);
 }

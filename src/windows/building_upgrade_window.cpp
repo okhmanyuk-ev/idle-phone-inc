@@ -29,7 +29,7 @@ BuildingUpgradeWindow::BuildingUpgradeWindow()
 	mTitleLabel->setFontSize(15.0f);
 	header_bg->attach(mTitleLabel);
 
-	auto close = std::make_shared<Helpers::CloseWindowButton>();
+	auto close = std::make_shared<Helpers::CloseButtonWidget>();
 	close->setPivot(0.5f);
 	close->setAnchor({ 1.0f, 0.0f });
 	close->setPosition({ -72.0f, 62.0f });
@@ -70,16 +70,9 @@ BuildingUpgradeWindow::BuildingUpgradeWindow()
 	button->getLabel()->setText("awdawd");
 	white_bg->attach(button);
 
-	auto choose_x_bg = std::make_shared<Scene::Sprite>();
-	choose_x_bg->setTexture(TEXTURE("textures/windows/common/choose_x_bg.png"));
-	choose_x_bg->setAnchor({ 0.5f, 1.0f });
-	choose_x_bg->setPivot({ 0.5f, 1.0f });
-	choose_x_bg->setPosition({ 0.0f, -26.0f });
-	bg->attach(choose_x_bg);
-
-	auto choose_x = std::make_shared<Scene::Sprite>();
-	choose_x->setTexture(TEXTURE("textures/windows/common/choose_x.png"));
-	choose_x->setAnchor(0.5f);
-	choose_x->setPivot(0.5f);
-	choose_x_bg->attach(choose_x);
+	auto choose_x = std::make_shared<Helpers::ChooseMultiplierWidget>();
+	choose_x->setAnchor({ 0.5f, 1.0f });
+	choose_x->setPivot({ 0.5f, 1.0f });
+	choose_x->setPosition({ 0.0f, -26.0f });
+	bg->attach(choose_x);
 }
