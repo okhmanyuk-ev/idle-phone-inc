@@ -82,6 +82,11 @@ LabelSolid::LabelSolid()
 	setOutlineThickness(0.0f);
 }
 
+LabelSolidBold::LabelSolidBold()
+{
+	setFont(FONT("default_bold"));
+}
+
 Button::Button()
 {
 	setClickCallback([this] {
@@ -167,4 +172,12 @@ StandardLongButton::StandardLongButton() : Button()
 	mLabel->setFontSize(12.0f);
 	mLabel->setY(-12.0f);
 	attach(mLabel);
+}
+
+CloseWindowButton::CloseWindowButton() : Button()
+{
+	setTexture(TEXTURE("textures/buttons/close.png"));
+	setClickCallback([] {
+		EVENT->emit(PopWindowEvent());
+	});
 }

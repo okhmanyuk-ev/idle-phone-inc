@@ -100,3 +100,13 @@ void Application::frame()
 
 	Cheats::ShowDevMenu(mSceneManager);
 }
+
+void Application::event(const Helpers::PushWindowEvent& e)
+{
+	mSceneManager->pushWindow(e.window);
+}
+
+void Application::event(const Helpers::PopWindowEvent& e)
+{
+	mSceneManager->popWindow();
+}

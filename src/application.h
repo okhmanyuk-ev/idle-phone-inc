@@ -5,10 +5,13 @@
 #include "profile.h"
 #include "cheats.h"
 #include "gameplay.h"
+#include "helpers.h"
 
 namespace PhoneInc
 {
-	class Application : public Shared::RichApplication
+	class Application : public Shared::RichApplication,
+		public Common::EventSystem::Listenable<Helpers::PushWindowEvent>,
+		public Common::EventSystem::Listenable<Helpers::PopWindowEvent>
 	{
 	public:
 		Application();
@@ -19,6 +22,10 @@ namespace PhoneInc
 		void initialize() override;
 		void prepare();
 		void frame() override;
+
+	public:
+		void event(const Helpers::PushWindowEvent& e) override;
+		void event(const Helpers::PopWindowEvent& e) override;
 
 	private:
 	//	Shared::SceneHelpers::SplashScene mSplashScene = Shared::SceneHelpers::SplashScene(TEXTURE("textures/logo.png"));

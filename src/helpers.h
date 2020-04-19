@@ -7,6 +7,8 @@ namespace PhoneInc::Helpers
 	// types
 
 	using Callback = std::function<void()>;
+	struct PushWindowEvent { std::shared_ptr<Shared::SceneManager::Window> window; };
+	struct PopWindowEvent { };
 
 	// constants
 
@@ -29,6 +31,12 @@ namespace PhoneInc::Helpers
 	{
 	public:
 		LabelSolid();
+	};
+
+	class LabelSolidBold : public LabelSolid
+	{
+	public:
+		LabelSolidBold();
 	};
 
 	// TODO: add overridable callbacks to Scene::Clickable<> class
@@ -90,5 +98,11 @@ namespace PhoneInc::Helpers
 
 	private:
 		std::shared_ptr<Label> mLabel;
+	};
+
+	class CloseWindowButton : public Button
+	{
+	public:
+		CloseWindowButton();
 	};
 }

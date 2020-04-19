@@ -6,17 +6,26 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # main
 
+file(GLOB MAIN_SRC
+	src/*.cpp
+	src/*.h
+)
+
+file(GLOB WINDOWS_SRC
+	src/windows/*.cpp
+	src/windows/*.h
+)
+
+source_group("all" FILES ${MAIN_SRC})
+source_group("windows" FILES ${WINDOWS_SRC})
+
 if(WIN32)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
     add_definitions(-DNOMINMAX)
 	
-    file(GLOB MAIN_SRC
-        "src/*.cpp"
-        "src/*.h"
-    )
-
     add_executable(${PROJECT_NAME} 
         ${MAIN_SRC}
+		${WINDOWS_SRC}
     )
 
     set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
@@ -27,9 +36,7 @@ if(APPLE)
     set(CMAKE_MACOSX_BUNDLE YES)
     set(CMAKE_OSX_SYSROOT iphoneos)
 
-    file(GLOB MAIN_SRC 
-        src/*.cpp
-        src/*.h
+    file(GLOB IOS_SRC 
         ios/*.m
         ios/*.mm
         ios/*.h
@@ -43,6 +50,8 @@ if(APPLE)
 
     add_executable(${PROJECT_NAME} 
         ${MAIN_SRC}
+		${WINDOWS_SRC}
+		${IOS_SRC}
         ${RESOURCES}
     )
 
@@ -66,6 +75,8 @@ if(APPLE)
         "-framework AudioToolbox"
     )
 endif()
+
+target_include_directories(${PROJECT_NAME} PUBLIC src)
 
 # sky
 

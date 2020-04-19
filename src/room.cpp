@@ -42,8 +42,7 @@ Factory::Room::Room(int index)
 	manager->randomizeProgress();
 	attach(manager);
 
-	auto lvl_label = std::make_shared<Helpers::LabelSolid>();
-	lvl_label->setFont(FONT("default_bold"));
+	auto lvl_label = std::make_shared<Helpers::LabelSolidBold>();
 	lvl_label->setPosition({ 51.0f, 59.0f });
 	lvl_label->setPivot(0.5f);
 	lvl_label->setText(std::to_string(index + 1));

@@ -1,5 +1,6 @@
 #include "street.h"
 #include "helpers.h"
+#include "windows/warehouse_window.h"
 
 using namespace PhoneInc;
 
@@ -28,6 +29,10 @@ Street::Street()
 	warehouse_button->setPivot(0.5f);
 	warehouse_button->setPosition({ 146.0f, 412.0f });
 	warehouse_button->getLabel()->setText(LOCALIZE("ENHANCE_BUTTON"));
+	warehouse_button->setClickCallback([this] {
+		auto window = std::make_shared<WarehouseWindow>();
+		EVENT->emit(Helpers::PushWindowEvent({ window }));
+	});
 	warehouse->attach(warehouse_button);
 
 	auto shop = std::make_shared<Scene::Sprite>();
