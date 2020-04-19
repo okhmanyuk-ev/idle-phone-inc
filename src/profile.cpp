@@ -30,7 +30,7 @@ void Profile::save()
 
 void Profile::clear()
 {
-	mCash = 10.0;
+	setCash(10.0);
 }
 
 void Profile::saveAsync()

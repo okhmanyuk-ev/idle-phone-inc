@@ -63,6 +63,7 @@ void Cheats::ShowDevMenu(std::shared_ptr<Shared::SceneManager> scene_manager)
 		if (ImGui::Button("CLEAR PROFILE"))
 		{
 			PROFILE->clear();
+			PROFILE->saveAsync();
 		}
 	}
 	ImGui::End();

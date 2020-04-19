@@ -62,7 +62,7 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	setTexture(TEXTURE("textures/factory/room/background/locked.png"));
 
 	mButton = std::make_shared<Helpers::StandardLongButton>();
-	mButton->getLabel()->setText(Helpers::NumberToString(Balance::GetRoomCost(index)));
+	mButton->getLabel()->setText("$ " + Helpers::NumberToString(Balance::GetRoomCost(index)));
 	mButton->setAnchor(0.5f);
 	mButton->setPivot(0.5f);
 	mButton->setActiveCallback([this] {
