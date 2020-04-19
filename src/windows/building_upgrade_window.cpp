@@ -1,8 +1,8 @@
-#include "warehouse_window.h"
+#include "building_upgrade_window.h"
 
 using namespace PhoneInc;
 
-WarehouseWindow::WarehouseWindow()
+BuildingUpgradeWindow::BuildingUpgradeWindow()
 {
 	auto bg = std::make_shared<Scene::Sprite>();
 	bg->setTexture(TEXTURE("textures/windows/warehouse_window/bg.png"));
@@ -23,12 +23,11 @@ WarehouseWindow::WarehouseWindow()
 	header_bg->setPivot({ 0.5f, 0.0f });
 	bg->attach(header_bg);
 
-	auto title = std::make_shared<Helpers::LabelSolid>();
-	title->setAnchor(0.5f);
-	title->setPivot(0.5f);
-	title->setText("title");
-	title->setFontSize(15.0f);
-	header_bg->attach(title);
+	mTitleLabel = std::make_shared<Helpers::LabelSolid>();
+	mTitleLabel->setAnchor(0.5f);
+	mTitleLabel->setPivot(0.5f);
+	mTitleLabel->setFontSize(15.0f);
+	header_bg->attach(mTitleLabel);
 
 	auto close = std::make_shared<Helpers::CloseWindowButton>();
 	close->setPivot(0.5f);
@@ -42,6 +41,34 @@ WarehouseWindow::WarehouseWindow()
 	white_bg->setPivot(0.5f);
 	white_bg->setPosition({ 0.0f, 4.0f });
 	bg->attach(white_bg);
+
+	auto main_panel = std::make_shared<Scene::Sprite>();
+	main_panel->setTexture(TEXTURE("textures/windows/warehouse_window/main_panel.png"));
+	main_panel->setAnchor({ 0.5f, 0.0f });
+	main_panel->setPivot({ 0.5f, 0.0f });
+	main_panel->setPosition({ 0.0f, 42.0f });
+	white_bg->attach(main_panel);
+
+	auto additional_panel1 = std::make_shared<Scene::Sprite>();
+	additional_panel1->setTexture(TEXTURE("textures/windows/warehouse_window/additional_panel.png"));
+	additional_panel1->setAnchor({ 0.5f, 0.0f });
+	additional_panel1->setPivot({ 0.5f, 0.0f });
+	additional_panel1->setPosition({ 0.0f, 492.0f });
+	white_bg->attach(additional_panel1);
+
+	auto additional_panel2 = std::make_shared<Scene::Sprite>();
+	additional_panel2->setTexture(TEXTURE("textures/windows/warehouse_window/additional_panel.png"));
+	additional_panel2->setAnchor({ 0.5f, 0.0f });
+	additional_panel2->setPivot({ 0.5f, 0.0f });
+	additional_panel2->setPosition({ 0.0f, 666.0f });
+	white_bg->attach(additional_panel2);
+
+	auto button = std::make_shared<Helpers::StandardLongButton>();
+	button->setAnchor({ 0.5f, 0.0f });
+	button->setPivot({ 0.5f, 0.0f });
+	button->setPosition({ 0.0f, 838.0f });
+	button->getLabel()->setText("awdawd");
+	white_bg->attach(button);
 
 	auto choose_x_bg = std::make_shared<Scene::Sprite>();
 	choose_x_bg->setTexture(TEXTURE("textures/windows/common/choose_x_bg.png"));
