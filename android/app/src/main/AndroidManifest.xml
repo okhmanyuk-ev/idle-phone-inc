@@ -24,7 +24,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.app.lib_name"
-                android:value="main"/>
+                android:value="phoneinc"/>
         </activity>
     </application>
 </manifest>
