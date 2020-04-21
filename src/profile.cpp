@@ -12,12 +12,19 @@ void Profile::load()
 	auto json_file = Platform::Asset(path, Platform::Asset::Path::Absolute);
 	auto json = nlohmann::json::from_bson(std::string((char*)json_file.getMemory(), json_file.getSize()));
 
-	if (json.contains("cash"))
-		mCash = json["cash"];
+
+	auto readValue = [json](auto& src, auto name) {
+		if (json.contains(name))
+			src = json.at(name);
+	};
+	
+	readValue(mCash, "cash");
 
 	if (json.contains("unlocked_rooms"))
 		mUnlockedRooms = json["unlocked_rooms"].get<std::set<int>>();
 
+	readValue(mWarehouseLevel, "warehouse_level");
+	readValue(mShopLevel, "shop_level");
 }
 
 void Profile::save()
@@ -25,8 +32,12 @@ void Profile::save()
 	mSaveMutex.lock();
 
 	auto json = nlohmann::json();
+	
 	json["cash"] = mCash;
 	json["unlocked_rooms"] = mUnlockedRooms;
+	json["warehouse_level"] = mWarehouseLevel;
+	json["shop_level"] = mShopLevel;
+
 	auto bson = nlohmann::json::to_bson(json);
 	Platform::Asset::Write(PLATFORM->getAppFolder() + "save.bson", bson.data(), bson.size(), Platform::Asset::Path::Absolute);
 
@@ -37,6 +48,8 @@ void Profile::clear()
 {
 	setCash(10.0);
 	setUnlockedRooms({ });
+	setWarehouseLevel(1);
+	setShopLevel(1);
 }
 
 void Profile::saveAsync()

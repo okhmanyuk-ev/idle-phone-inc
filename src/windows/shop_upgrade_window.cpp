@@ -4,5 +4,15 @@ using namespace PhoneInc;
 
 ShopUpgradeWindow::ShopUpgradeWindow()
 {
-	getTitleLabel()->setText(LOCALIZE("SHOP_UPGRADE_WINDOW_TITLE"));
+	refresh();
+}
+
+utf8_string ShopUpgradeWindow::getTitle() const
+{
+	return LOCALIZE("SHOP_UPGRADE_WINDOW_TITLE");
+}
+
+int ShopUpgradeWindow::getLevel() const
+{
+	return PROFILE->getShopLevel();
 }

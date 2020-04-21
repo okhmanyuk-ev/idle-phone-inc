@@ -4,5 +4,15 @@ using namespace PhoneInc;
 
 WarehouseUpgradeWindow::WarehouseUpgradeWindow()
 {
-	getTitleLabel()->setText(LOCALIZE("WAREHOUSE_UPGRADE_WINDOW_TITLE"));
+	refresh();
+}
+
+utf8_string WarehouseUpgradeWindow::getTitle() const
+{
+	return LOCALIZE("WAREHOUSE_UPGRADE_WINDOW_TITLE");
+}
+
+int WarehouseUpgradeWindow::getLevel() const
+{
+	return PROFILE->getWarehouseLevel();
 }

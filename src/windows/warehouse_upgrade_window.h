@@ -8,5 +8,9 @@ namespace PhoneInc
 	{
 	public:
 		WarehouseUpgradeWindow();
+
+	protected:
+		utf8_string getTitle() const override;
+		int getLevel() const override;
 	};
 }

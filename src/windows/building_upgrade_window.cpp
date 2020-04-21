@@ -42,8 +42,7 @@ BuildingUpgradeWindow::BuildingUpgradeWindow()
 	white_bg->setPosition({ 0.0f, 4.0f });
 	bg->attach(white_bg);
 
-	auto main_panel = std::make_shared<Scene::Sprite>();
-	main_panel->setTexture(TEXTURE("textures/windows/warehouse_window/main_panel.png"));
+	auto main_panel = createMainPanel();
 	main_panel->setAnchor({ 0.5f, 0.0f });
 	main_panel->setPivot({ 0.5f, 0.0f });
 	main_panel->setPosition({ 0.0f, 42.0f });
@@ -75,4 +74,25 @@ BuildingUpgradeWindow::BuildingUpgradeWindow()
 	choose_x->setPivot({ 0.5f, 1.0f });
 	choose_x->setPosition({ 0.0f, -26.0f });
 	bg->attach(choose_x);
+}
+
+void BuildingUpgradeWindow::refresh()
+{
+	mTitleLabel->setText(getTitle());
+	mLevelLabel->setText("level: " + std::to_string(getLevel()));
+}
+
+std::shared_ptr<Scene::Node> BuildingUpgradeWindow::createMainPanel()
+{
+	auto bg = std::make_shared<Scene::Sprite>();
+	bg->setTexture(TEXTURE("textures/windows/warehouse_window/main_panel.png"));
+	
+	mLevelLabel = std::make_shared<Helpers::LabelSolidBold>();
+	mLevelLabel->setAnchor(0.5f);
+	mLevelLabel->setPivot(0.5f);
+	mLevelLabel->setColor(Graphics::Color::ToNormalized(23, 0, 164));
+	mLevelLabel->setFontSize(18.0f);
+	bg->attach(mLevelLabel);
+
+	return bg;
 }
