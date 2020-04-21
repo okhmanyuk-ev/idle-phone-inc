@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId = 'com.dreamskies.phoneinc'
-        minSdkVersion 24
+        minSdkVersion 21
         targetSdkVersion 29
     }
     sourceSets {
