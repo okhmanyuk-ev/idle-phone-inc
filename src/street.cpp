@@ -1,7 +1,7 @@
 #include "street.h"
 #include "helpers.h"
-#include "windows/warehouse_upgrade_window.h"
-#include "windows/shop_upgrade_window.h"
+#include "windows/warehouse_window.h"
+#include "windows/shop_window.h"
 
 using namespace PhoneInc;
 
@@ -31,7 +31,7 @@ Street::Street()
 	warehouse_button->setPosition({ 146.0f, 412.0f });
 	warehouse_button->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
 	warehouse_button->setClickCallback([this] {
-		auto window = std::make_shared<WarehouseUpgradeWindow>();
+		auto window = std::make_shared<WarehouseWindow>();
 		EVENT->emit(Helpers::PushWindowEvent({ window }));
 	});
 	warehouse->attach(warehouse_button);
@@ -46,7 +46,7 @@ Street::Street()
 	shop_button->setPosition({ 116.0f, 412.0f });
 	shop_button->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
 	shop_button->setClickCallback([] {
-		auto window = std::make_shared<ShopUpgradeWindow>();
+		auto window = std::make_shared<ShopWindow>();
 		EVENT->emit(Helpers::PushWindowEvent({ window }));
 	});
 	shop->attach(shop_button);

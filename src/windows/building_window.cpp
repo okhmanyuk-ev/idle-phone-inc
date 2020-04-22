@@ -1,24 +1,24 @@
-#include "building_upgrade_window.h"
+#include "building_window.h"
 
 using namespace PhoneInc;
 
 BuildingWindow::BuildingWindow()
 {
 	auto bg = std::make_shared<Scene::Sprite>();
-	bg->setTexture(TEXTURE("textures/windows/building_upgrade_window/bg.png"));
+	bg->setTexture(TEXTURE("textures/windows/building_window/bg.png"));
 	bg->setAnchor(0.5f);
 	bg->setPivot(0.5f);
 	bg->setTouchable(true);
 	getContent()->attach(bg);
 
 	auto frame = std::make_shared<Scene::Sprite>();
-	frame->setTexture(TEXTURE("textures/windows/building_upgrade_window/frame.png"));
+	frame->setTexture(TEXTURE("textures/windows/building_window/frame.png"));
 	frame->setAnchor(0.5f);
 	frame->setPivot(0.5f);
 	getContent()->attach(frame);
 
 	auto header_bg = std::make_shared<Scene::Sprite>();
-	header_bg->setTexture(TEXTURE("textures/windows/building_upgrade_window/header_bg.png"));
+	header_bg->setTexture(TEXTURE("textures/windows/building_window/header_bg.png"));
 	header_bg->setAnchor({ 0.5f, 0.0f });
 	header_bg->setPivot({ 0.5f, 0.0f });
 	bg->attach(header_bg);
@@ -36,7 +36,7 @@ BuildingWindow::BuildingWindow()
 	header_bg->attach(close);
 
 	auto white_bg = std::make_shared<Scene::Sprite>();
-	white_bg->setTexture(TEXTURE("textures/windows/building_upgrade_window/white_bg.png"));
+	white_bg->setTexture(TEXTURE("textures/windows/building_window/white_bg.png"));
 	white_bg->setAnchor(0.5f);
 	white_bg->setPivot(0.5f);
 	white_bg->setPosition({ 0.0f, 4.0f });
@@ -90,7 +90,7 @@ void BuildingWindow::refresh()
 std::shared_ptr<Scene::Node> BuildingWindow::createMainPanel(MainPanel& panel)
 {
 	auto bg = std::make_shared<Scene::Sprite>();
-	bg->setTexture(TEXTURE("textures/windows/building_upgrade_window/main_panel.png"));
+	bg->setTexture(TEXTURE("textures/windows/building_window/main_panel.png"));
 	
 	auto building_icon = std::make_shared<Scene::Sprite>();
 	building_icon->setAnchor({ 0.0f, 0.5f });
@@ -122,7 +122,7 @@ std::shared_ptr<Scene::Node> BuildingWindow::createMainPanel(MainPanel& panel)
 std::shared_ptr<Scene::Node> BuildingWindow::createParameterPanel(ParameterPanel& panel)
 {
 	auto bg = std::make_shared<Scene::Sprite>();
-	bg->setTexture(TEXTURE("textures/windows/building_upgrade_window/additional_panel.png"));
+	bg->setTexture(TEXTURE("textures/windows/building_window/additional_panel.png"));
 
 	auto icon = std::make_shared<Scene::Sprite>();
 	icon->setAnchor({ 0.0f, 0.5f });

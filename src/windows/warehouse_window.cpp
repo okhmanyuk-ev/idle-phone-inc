@@ -1,38 +1,38 @@
-#include "warehouse_upgrade_window.h"
+#include "warehouse_window.h"
 
 using namespace PhoneInc;
 
-WarehouseUpgradeWindow::WarehouseUpgradeWindow()
+WarehouseWindow::WarehouseWindow()
 {
 	refresh();
 }
 
-utf8_string WarehouseUpgradeWindow::getTitle() const
+utf8_string WarehouseWindow::getTitle() const
 {
 	return LOCALIZE("WAREHOUSE_WINDOW_TITLE");
 }
 
-utf8_string WarehouseUpgradeWindow::getBuildingName() const
+utf8_string WarehouseWindow::getBuildingName() const
 {
 	return LOCALIZE(fmt::format("WAREHOUSE_NAME_{}", getLevel()));
 }
 
-int WarehouseUpgradeWindow::getLevel() const
+int WarehouseWindow::getLevel() const
 {
 	return PROFILE->getWarehouseLevel();
 }
 
-std::shared_ptr<Renderer::Texture> WarehouseUpgradeWindow::getBuildingTexture() const
+std::shared_ptr<Renderer::Texture> WarehouseWindow::getBuildingTexture() const
 {
 	return TEXTURE(fmt::format("textures/warehouse/{}.png", getLevel()));
 }
 
-double WarehouseUpgradeWindow::getUpgradePrice() const
+double WarehouseWindow::getUpgradePrice() const
 {
 	return 123.0;
 }
 
-BuildingWindow::Parameter WarehouseUpgradeWindow::getFirstParameter() const
+BuildingWindow::Parameter WarehouseWindow::getFirstParameter() const
 {
 	auto result = BuildingWindow::Parameter();
 	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_1");
@@ -41,7 +41,7 @@ BuildingWindow::Parameter WarehouseUpgradeWindow::getFirstParameter() const
 	return result;
 }
 
-BuildingWindow::Parameter WarehouseUpgradeWindow::getSecondParameter() const
+BuildingWindow::Parameter WarehouseWindow::getSecondParameter() const
 {
 	auto result = BuildingWindow::Parameter();
 	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_2");

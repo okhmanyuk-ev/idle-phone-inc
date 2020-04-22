@@ -1,13 +1,13 @@
 #pragma once
 
-#include "building_upgrade_window.h"
+#include "building_window.h"
 
 namespace PhoneInc
 {
-	class WarehouseUpgradeWindow : public BuildingWindow
+	class ShopWindow : public BuildingWindow
 	{
 	public:
-		WarehouseUpgradeWindow();
+		ShopWindow();
 
 	protected:
 		utf8_string getTitle() const override;

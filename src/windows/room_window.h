@@ -4,9 +4,9 @@
 
 namespace PhoneInc
 {
-	class RoomUpgradeWindow : public Window
+	class RoomWindow : public Window
 	{
 	public:
-		RoomUpgradeWindow();
+		RoomWindow();
 	};
 }

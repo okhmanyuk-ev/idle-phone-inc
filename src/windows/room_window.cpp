@@ -1,11 +1,11 @@
-#include "room_upgrade_window.h"
+#include "room_window.h"
 
 using namespace PhoneInc;
 
-RoomUpgradeWindow::RoomUpgradeWindow()
+RoomWindow::RoomWindow()
 {
 	auto background = std::make_shared<Scene::Sprite>();
-	background->setTexture(TEXTURE("textures/windows/room_upgrade_window/background.png"));
+	background->setTexture(TEXTURE("textures/windows/room_window/background.png"));
 	background->setAnchor(0.5f);
 	background->setPivot(0.5f);
 	background->setTouchable(true);
@@ -16,7 +16,7 @@ RoomUpgradeWindow::RoomUpgradeWindow()
 	title->setPivot(0.5f);
 	title->setFontSize(15.0f);
 	title->setPosition({ 0.0f, 64.0f });
-	title->setText(LOCALIZE("ROOM_UPGRADE_WINDOW_TITLE"));
+	title->setText(LOCALIZE("ROOM_WINDOW_TITLE"));
 	background->attach(title);
 
 	auto close = std::make_shared<Helpers::CloseButtonWidget>();
