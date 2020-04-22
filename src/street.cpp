@@ -29,7 +29,7 @@ Street::Street()
 	auto warehouse_button = std::make_shared<Helpers::StandardButton>();
 	warehouse_button->setPivot(0.5f);
 	warehouse_button->setPosition({ 146.0f, 412.0f });
-	warehouse_button->getLabel()->setText(LOCALIZE("ENHANCE_BUTTON"));
+	warehouse_button->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
 	warehouse_button->setClickCallback([this] {
 		auto window = std::make_shared<WarehouseUpgradeWindow>();
 		EVENT->emit(Helpers::PushWindowEvent({ window }));
@@ -44,7 +44,7 @@ Street::Street()
 	auto shop_button = std::make_shared<Helpers::StandardButton>();
 	shop_button->setPivot(0.5f);
 	shop_button->setPosition({ 116.0f, 412.0f });
-	shop_button->getLabel()->setText(LOCALIZE("ENHANCE_BUTTON"));
+	shop_button->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
 	shop_button->setClickCallback([] {
 		auto window = std::make_shared<ShopUpgradeWindow>();
 		EVENT->emit(Helpers::PushWindowEvent({ window }));

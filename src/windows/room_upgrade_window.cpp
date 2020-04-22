@@ -24,11 +24,4 @@ RoomUpgradeWindow::RoomUpgradeWindow()
 	close->setAnchor({ 1.0f, 0.0f });
 	close->setPosition({ -72.0f, 62.0f });
 	background->attach(close);
-
-	auto choose_x = std::make_shared<Helpers::ChooseMultiplierWidget>();
-	choose_x->setAnchor({ 0.5f, 1.0f });
-	choose_x->setPivot({ 0.5f, 1.0f });
-	choose_x->setPosition({ 0.0f, -26.0f });
-	background->attach(choose_x);
-
 }

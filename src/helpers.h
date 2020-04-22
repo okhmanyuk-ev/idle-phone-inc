@@ -105,10 +105,4 @@ namespace PhoneInc::Helpers
 	public:
 		CloseButtonWidget();
 	};
-
-	class ChooseMultiplierWidget : public Scene::Sprite
-	{
-	public:
-		ChooseMultiplierWidget();
-	};
 }

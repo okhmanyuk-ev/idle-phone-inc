@@ -53,7 +53,7 @@ Factory::Room::Room(int index)
 
 	auto enhance_btn = std::make_shared<Helpers::StandardButton>();
 	enhance_btn->setPosition({ 681.0f, 28.0f });
-	enhance_btn->getLabel()->setText(LOCALIZE("ENHANCE_BUTTON"));
+	enhance_btn->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
 	enhance_btn->setClickCallback([] {
 		auto window = std::make_shared<RoomUpgradeWindow>();
 		EVENT->emit(Helpers::PushWindowEvent({ window }));

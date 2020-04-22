@@ -24,7 +24,7 @@ BottomMenu::BottomMenu()
 	video_button->attach(video_icon);
 
 	auto video_text = std::make_shared<Helpers::Label>();
-	video_text->setText(LOCALIZE("VIDEO_BUTTON"));
+	video_text->setText(LOCALIZE("BOTTOM_VIDEO_BUTTON"));
 	video_text->setPivot({ 0.0f, 0.5f });
 	video_text->setAnchor({ 1.0f, 0.5f });
 	video_text->setPosition({ 8.0f, 0.0f });
@@ -41,7 +41,7 @@ BottomMenu::BottomMenu()
 	attach(shop_icon);
 
 	auto shop_text = std::make_shared<Helpers::Label>();
-	shop_text->setText(LOCALIZE("SHOP_BUTTON"));
+	shop_text->setText(LOCALIZE("BOTTOM_SHOP_BUTTON"));
 	shop_text->setPivot({ 0.5f, 0.5f });
 	shop_text->setAnchor({ 0.5f, 0.5f });
 	shop_text->setPosition({ -454.0f, 35.0f });
@@ -58,7 +58,7 @@ BottomMenu::BottomMenu()
 	attach(boosters_icon);
 
 	auto boosters_text = std::make_shared<Helpers::Label>();
-	boosters_text->setText(LOCALIZE("BOOSTERS_BUTTON"));
+	boosters_text->setText(LOCALIZE("BOTTOM_BOOSTERS_BUTTON"));
 	boosters_text->setPivot({ 0.5f, 0.5f });
 	boosters_text->setAnchor({ 0.5f, 0.5f });
 	boosters_text->setPosition({ -257.0f, 35.0f });
@@ -75,7 +75,7 @@ BottomMenu::BottomMenu()
 	attach(upgrades_icon);
 
 	auto upgrades_text = std::make_shared<Helpers::Label>();
-	upgrades_text->setText(LOCALIZE("UPGRADES_BUTTON"));
+	upgrades_text->setText(LOCALIZE("BOTTOM_UPGRADES_BUTTON"));
 	upgrades_text->setPivot({ 0.5f, 0.5f });
 	upgrades_text->setAnchor({ 0.5f, 0.5f });
 	upgrades_text->setPosition({ 264.0f, 35.0f });
@@ -92,7 +92,7 @@ BottomMenu::BottomMenu()
 	attach(map_icon);
 
 	auto map_text = std::make_shared<Helpers::Label>();
-	map_text->setText(LOCALIZE("MAP_BUTTON"));
+	map_text->setText(LOCALIZE("BOTTOM_MAP_BUTTON"));
 	map_text->setPivot({ 0.5f, 0.5f });
 	map_text->setAnchor({ 0.5f, 0.5f });
 	map_text->setPosition({ 455.0f, 35.0f });

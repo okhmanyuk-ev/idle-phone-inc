@@ -35,6 +35,7 @@ namespace PhoneInc
 			mContent->setScale(Helpers::InvScale);
 			attach(mContent);
 
+			setCloseOnMissclick(false);
 		}
 
 		void onOpenEnd() override
