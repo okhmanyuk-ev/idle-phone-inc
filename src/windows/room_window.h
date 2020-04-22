@@ -7,6 +7,10 @@ namespace PhoneInc
 	class RoomWindow : public Window
 	{
 	public:
-		RoomWindow();
+		RoomWindow(int index);
+
+	private:
+		std::shared_ptr<Scene::Node> createMajorPanel();
+		std::shared_ptr<Scene::Node> createMinorPanel();
 	};
 }

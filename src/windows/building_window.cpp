@@ -4,43 +4,32 @@ using namespace PhoneInc;
 
 BuildingWindow::BuildingWindow()
 {
-	auto bg = std::make_shared<Scene::Sprite>();
-	bg->setTexture(TEXTURE("textures/windows/building_window/bg.png"));
-	bg->setAnchor(0.5f);
-	bg->setPivot(0.5f);
-	bg->setTouchable(true);
-	getContent()->attach(bg);
-
-	auto frame = std::make_shared<Scene::Sprite>();
-	frame->setTexture(TEXTURE("textures/windows/building_window/frame.png"));
-	frame->setAnchor(0.5f);
-	frame->setPivot(0.5f);
-	getContent()->attach(frame);
-
-	auto header_bg = std::make_shared<Scene::Sprite>();
-	header_bg->setTexture(TEXTURE("textures/windows/building_window/header_bg.png"));
-	header_bg->setAnchor({ 0.5f, 0.0f });
-	header_bg->setPivot({ 0.5f, 0.0f });
-	bg->attach(header_bg);
+	auto background = std::make_shared<Scene::Sprite>();
+	background->setTexture(TEXTURE("textures/windows/building_window/background.png"));
+	background->setAnchor(0.5f);
+	background->setPivot(0.5f);
+	background->setTouchable(true);
+	getContent()->attach(background);
 
 	mTitleLabel = std::make_shared<Helpers::LabelSolid>();
-	mTitleLabel->setAnchor(0.5f);
-	mTitleLabel->setPivot(0.5f);
+	mTitleLabel->setAnchor({ 0.5f, 0.0f });
+	mTitleLabel->setPivot({ 0.5f, 0.5f });
+	mTitleLabel->setPosition({ 0.0f, 62.0f });
 	mTitleLabel->setFontSize(15.0f);
-	header_bg->attach(mTitleLabel);
+	background->attach(mTitleLabel);
 
 	auto close = std::make_shared<Helpers::CloseButtonWidget>();
 	close->setPivot(0.5f);
 	close->setAnchor({ 1.0f, 0.0f });
 	close->setPosition({ -72.0f, 62.0f });
-	header_bg->attach(close);
+	background->attach(close);
 
 	auto white_bg = std::make_shared<Scene::Sprite>();
 	white_bg->setTexture(TEXTURE("textures/windows/building_window/white_bg.png"));
-	white_bg->setAnchor(0.5f);
-	white_bg->setPivot(0.5f);
-	white_bg->setPosition({ 0.0f, 4.0f });
-	bg->attach(white_bg);
+	white_bg->setAnchor({ 0.5f, 0.0f });
+	white_bg->setPivot({ 0.5f, 0.0f });
+	white_bg->setPosition({ 0.0f, 140.0f });
+	background->attach(white_bg);
 
 	auto main_panel = createMainPanel(mMainPanel);
 	main_panel->setAnchor({ 0.5f, 0.0f });
