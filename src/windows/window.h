@@ -8,61 +8,15 @@ namespace PhoneInc
 	class Window : public Scene::Clickable<Shared::SceneManager::Window>
 	{
 	public:
-		Window()
-		{
-			setStretch(1.0f);
-			setClickCallback([this] {
-				if (!mCloseOnMissclick)
-					return;
+		Window();
+		
+	public:
+		void onOpenEnd() override;
+		void onCloseBegin() override;
 
-				if (getState() != State::Opened)
-					return;
-
-				getSceneManager()->popWindow();
-			});
-
-			mFadeRect = std::make_shared<Scene::Rectangle>();
-			mFadeRect->setStretch(1.0f);
-			mFadeRect->setColor(Graphics::Color::Black);
-			mFadeRect->setAlpha(0.0f);
-			attach(mFadeRect);
-	
-			mContent = std::make_shared<Scene::Node>();
-			mContent->setStretch(1.0f);
-			mContent->setAnchor({ 0.5f, -0.5f });
-			mContent->setPivot({ 0.5f, 0.5f });
-			mContent->setInteractions(false);
-			mContent->setScale(Helpers::InvScale);
-			attach(mContent);
-
-			setCloseOnMissclick(false);
-		}
-
-		void onOpenEnd() override
-		{
-			mContent->setInteractions(true);
-		}
-
-		void onCloseBegin() override
-		{
-			mContent->setInteractions(false);
-		}
-
-		std::unique_ptr<Common::Actions::Action> createOpenAction() override
-		{
-			return Shared::ActionHelpers::MakeParallel(
-				Shared::ActionHelpers::ChangeAlpha(mFadeRect, 0.5f, 0.5f, Common::Easing::CubicOut),
-				Shared::ActionHelpers::ChangeVerticalAnchor(mContent, 0.5f, 0.5f, Common::Easing::CubicOut)
-			);
-		};
-
-		std::unique_ptr<Common::Actions::Action> createCloseAction() override
-		{
-			return Shared::ActionHelpers::MakeParallel(
-				Shared::ActionHelpers::ChangeVerticalAnchor(mContent, -0.5f, 0.5f, Common::Easing::CubicIn),
-				Shared::ActionHelpers::ChangeAlpha(mFadeRect, 0.0f, 0.5f, Common::Easing::CubicIn)
-			);
-		};
+	public:
+		std::unique_ptr<Common::Actions::Action> createOpenAction() override;
+		std::unique_ptr<Common::Actions::Action> createCloseAction() override;
 
 	public:
 		auto getContent() { return mContent; }

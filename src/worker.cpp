@@ -3,9 +3,30 @@
 
 using namespace PhoneInc;
 
-Factory::Worker::Worker(int level) : Scene::MappedAniSprite<WorkerAnimation>(Animations)
+Factory::Worker::Worker() : Scene::MappedAniSprite<WorkerAnimation>(Animations)
 {
-	setAnimation(TEXTURE("textures/workers/1.png"), ANIMATION("textures/workers/1"));
 	setFrequency(12.0f);
 	setStateType(Animation::Working);
+}
+
+void Factory::Worker::refresh()
+{
+	if (mLevel <= 0)
+	{
+		setEnabled(false);
+		return;
+	}
+
+	setEnabled(true);
+
+	auto texture = TEXTURE("textures/workers/worker.png");
+	auto animation = ANIMATION("textures/workers/worker");
+	setAnimation(texture, animation);
+	randomizeProgress();
+}
+
+void Factory::Worker::setLevel(int value)
+{
+	mLevel = value;
+	refresh();
 }

@@ -7,10 +7,24 @@
 
 namespace PhoneInc
 {
-	class Factory::Room : public Scene::Cullable<Scene::Actionable<Scene::Sprite>>
+	class Factory::Room : public Scene::Cullable<Scene::Actionable<Scene::Sprite>>,
+		public Common::EventSystem::Listenable<Profile::RoomChangedEvent>
 	{
 	public:
 		Room(int index);
+
+	public:
+		void refresh();
+
+	public:
+		void event(const Profile::RoomChangedEvent& e) override;
+
+	private:
+		int mIndex = 0;
+		std::shared_ptr<Manager> mManager;
+		std::shared_ptr<Worker> mWorker1;
+		std::shared_ptr<Worker> mWorker2;
+		std::shared_ptr<Worker> mWorker3;
 	};
 
 	class Factory::LockedRoom : public Scene::Cullable<Scene::Sprite>,
@@ -22,7 +36,7 @@ namespace PhoneInc
 	public:
 		void event(const Profile::CashChangedEvent& e) override;
 
-	private:
+	public:
 		void refresh();
 
 	private:

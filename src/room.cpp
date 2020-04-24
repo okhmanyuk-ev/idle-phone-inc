@@ -6,7 +6,7 @@
 
 using namespace PhoneInc;
 
-Factory::Room::Room(int index)
+Factory::Room::Room(int index) : mIndex(index)
 {
 	setTexture(TEXTURE("textures/factory/room/background/1.png"));
 
@@ -17,31 +17,29 @@ Factory::Room::Room(int index)
 	table->setY(-56.0f);
 	attach(table);
 
-	auto worker1 = std::make_shared<Worker>(1);
-	worker1->setAnchor({ 0.2f, 0.0f });
-	worker1->setPivot({ 0.5f, 1.0f });
-	worker1->setY(24.0f);
-	worker1->randomizeProgress();
-	table->attach(worker1);
-	
-	auto worker2 = std::make_shared<Worker>(2);
-	worker2->setAnchor({ 0.5f, 0.0f });
-	worker2->setPivot({ 0.5f, 1.0f });
-	worker2->setY(24.0f);
-	worker2->randomizeProgress();
-	table->attach(worker2);
-	
-	auto worker3 = std::make_shared<Worker>(3);
-	worker3->setAnchor({ 0.8f, 0.0f });
-	worker3->setPivot({ 0.5f, 1.0f });
-	worker3->setY(24.0f);
-	worker3->randomizeProgress();
-	table->attach(worker3);
+	auto room_profile = PROFILE->getRooms().at(index);
 
-	auto manager = std::make_shared<Manager>(1);
-	manager->setPosition({ -18.0f, 116.0f });
-	manager->randomizeProgress();
-	attach(manager);
+	mManager = std::make_shared<Manager>();
+	mManager->setPosition({ -18.0f, 116.0f });
+	attach(mManager);
+
+	mWorker1 = std::make_shared<Worker>();
+	mWorker1->setAnchor({ 0.2f, 0.0f });
+	mWorker1->setPivot({ 0.5f, 1.0f });
+	mWorker1->setY(24.0f);
+	table->attach(mWorker1);
+	
+	mWorker2 = std::make_shared<Worker>();
+	mWorker2->setAnchor({ 0.5f, 0.0f });
+	mWorker2->setPivot({ 0.5f, 1.0f });
+	mWorker2->setY(24.0f);
+	table->attach(mWorker2);
+	
+	mWorker3 = std::make_shared<Worker>();
+	mWorker3->setAnchor({ 0.8f, 0.0f });
+	mWorker3->setPivot({ 0.5f, 1.0f });
+	mWorker3->setY(24.0f);
+	table->attach(mWorker3);
 
 	auto lvl_label = std::make_shared<Helpers::LabelSolidBold>();
 	lvl_label->setPosition({ 51.0f, 59.0f });
@@ -51,14 +49,34 @@ Factory::Room::Room(int index)
 	lvl_label->setFontSize(11.0f);
 	attach(lvl_label);
 
-	auto enhance_btn = std::make_shared<Helpers::StandardButton>();
-	enhance_btn->setPosition({ 681.0f, 28.0f });
-	enhance_btn->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
-	enhance_btn->setClickCallback([index] {
+	auto upgrade_btn = std::make_shared<Helpers::StandardButton>();
+	upgrade_btn->setPosition({ 681.0f, 28.0f });
+	upgrade_btn->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
+	upgrade_btn->setClickCallback([index] {
 		auto window = std::make_shared<RoomWindow>(index);
 		EVENT->emit(Helpers::PushWindowEvent({ window }));
 	});
-	attach(enhance_btn);
+	attach(upgrade_btn);
+
+	refresh();
+}
+
+void Factory::Room::event(const Profile::RoomChangedEvent& e)
+{
+	if (e.index != mIndex)
+		return;
+
+	refresh();
+}
+
+void Factory::Room::refresh()
+{
+	auto room = PROFILE->getRooms().at(mIndex);
+
+	mManager->setLevel(room.manager);
+	mWorker1->setLevel(room.worker1);
+	mWorker2->setLevel(room.worker2);
+	mWorker3->setLevel(room.worker3);
 }
 
 Factory::LockedRoom::LockedRoom(int index) : mIndex(index)

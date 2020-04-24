@@ -1,7 +1,6 @@
 #pragma once
 
 #include "window.h"
-#include "profile.h"
 
 namespace PhoneInc
 {

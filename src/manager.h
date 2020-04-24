@@ -14,7 +14,17 @@ namespace PhoneInc
 	class Factory::Manager : public Scene::MappedAniSprite<ManagerAnimation>
 	{
 	public:
-		Manager(int level);
+		Manager();
+
+	public:
+		void refresh();
+
+	public:
+		auto getLevel() const { return mLevel; }
+		void setLevel(int value);
+
+	private:
+		int mLevel = 0;
 
 	private:
 		const static inline StateMap Animations = {

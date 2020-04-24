@@ -12,19 +12,39 @@ void Profile::load()
 	auto json_file = Platform::Asset(path, Platform::Asset::Path::Absolute);
 	auto json = nlohmann::json::from_bson(std::string((char*)json_file.getMemory(), json_file.getSize()));
 
-
-	auto readValue = [json](auto& src, auto name) {
+	auto tryRead = [json](auto& src, auto name) {
 		if (json.contains(name))
 			src = json.at(name);
 	};
 	
-	readValue(mCash, "cash");
+	tryRead(mCash, "cash");
 
-	if (json.contains("unlocked_rooms"))
-		mUnlockedRooms = json["unlocked_rooms"].get<std::set<int>>();
+	if (json.contains("rooms"))
+	{
+		for (auto field : json.at("rooms").items())
+		{
+			auto index = std::stoi(field.key());
+			auto value = field.value();
 
-	readValue(mWarehouseLevel, "warehouse_level");
-	readValue(mShopLevel, "shop_level");
+			auto tryReadValue = [value](auto& src, auto name) {
+				if (value.contains(name))
+					src = value.at(name);
+			};
+			
+			auto room = Room();
+			
+			tryReadValue(room.product, "product");
+			tryReadValue(room.manager, "manager");
+			tryReadValue(room.worker1, "worker1");
+			tryReadValue(room.worker2, "worker2");
+			tryReadValue(room.worker3, "worker3");
+
+			mRooms[index] = room;
+		}
+	}
+
+	tryRead(mWarehouseLevel, "warehouse_level");
+	tryRead(mShopLevel, "shop_level");
 }
 
 void Profile::save()
@@ -34,7 +54,17 @@ void Profile::save()
 	auto json = nlohmann::json();
 	
 	json["cash"] = mCash;
-	json["unlocked_rooms"] = mUnlockedRooms;
+
+	for (const auto& [index, room] : mRooms)
+	{
+		auto& value = json["rooms"][index];
+		value["product"] = room.product;
+		value["manager"] = room.manager;
+		value["worker1"] = room.worker1;
+		value["worker2"] = room.worker2;
+		value["worker3"] = room.worker3;
+	}
+
 	json["warehouse_level"] = mWarehouseLevel;
 	json["shop_level"] = mShopLevel;
 
@@ -47,7 +77,7 @@ void Profile::save()
 void Profile::clear()
 {
 	setCash(10.0);
-	setUnlockedRooms({ });
+	mRooms.clear();
 	setWarehouseLevel(1);
 	setShopLevel(1);
 }
@@ -73,13 +103,13 @@ void Profile::spendCash(double value)
 
 bool Profile::isRoomLocked(int index) const
 {
-	return mUnlockedRooms.count(index) == 0;
+	return mRooms.count(index) == 0;
 }
 
 void Profile::unlockRoom(int index)
 {
 	assert(isRoomLocked(index));
-	mUnlockedRooms.insert(index);
+	mRooms.insert({ index, Room() });
 	EVENT->emit(RoomUnlockedEvent({ index }));
 	saveAsync();
 }
@@ -91,5 +121,27 @@ void Profile::setCash(double value)
 
 	mCash = value;
 	EVENT->emit(CashChangedEvent());
+	saveAsync();
+}
+
+void Profile::setRoom(int index, Room value)
+{
+	if (mRooms.count(index) > 0 && mRooms.at(index) == value)
+		return;
+
+	auto checkBounds = [](auto& src, auto maxValue) {
+		assert(src >= 0 && src <= maxValue);
+		
+		src = glm::clamp(src, 0, maxValue);
+	};
+
+	checkBounds(value.product, Room::MaxProductLevel);
+	checkBounds(value.manager, Room::MaxManagerLevel);
+	checkBounds(value.worker1, Room::MaxWorkerLevel);
+	checkBounds(value.worker2, Room::MaxWorkerLevel);
+	checkBounds(value.worker3, Room::MaxWorkerLevel);
+
+	mRooms[index] = value;
+	EVENT->emit(RoomChangedEvent({ index }));
 	saveAsync();
 }
