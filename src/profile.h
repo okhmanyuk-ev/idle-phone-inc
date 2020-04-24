@@ -16,7 +16,7 @@ namespace PhoneInc
 	public:
 		struct Room
 		{
-			static const inline int MaxProductLevel = 5;
+			static const inline int MaxProductLevel = 6;
 			static const inline int MaxManagerLevel = 5;
 			static const inline int MaxWorkerLevel = 5;
 			

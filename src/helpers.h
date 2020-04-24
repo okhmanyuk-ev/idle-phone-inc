@@ -106,4 +106,44 @@ namespace PhoneInc::Helpers
 	public:
 		CloseButtonWidget();
 	};
+
+	template <typename T> class Adaptive : public T
+	{
+		static_assert(std::is_base_of<Sprite, T>::value, "T must be derived from Node");
+
+	protected:
+		void update() override
+		{
+			adapt();
+			T::update();
+		}
+
+	private:
+		void adapt()
+		{
+			if (mAdaptSize.x <= 0.0f)
+				return;
+
+			if (mAdaptSize.y <= 0.0f)
+				return;
+
+			auto texture = Sprite::getTexture();
+
+			if (texture == nullptr)
+				return;
+
+			Node::setSize({ (float)texture->getWidth(), (float)texture->getHeight() });
+
+			auto scale = mAdaptSize / Node::getSize();
+
+			setScale(glm::min(scale.x, scale.y));
+		}
+
+	public:
+		auto getAdaptSize() const { return mAdaptSize; }
+		void setAdaptSize(const glm::vec2& value) { mAdaptSize = value; }
+
+	private:
+		glm::vec2 mAdaptSize = { 0.0f, 0.0f };
+	};
 }

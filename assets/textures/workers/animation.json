@@ -1,4 +1,7 @@
 {
+    "idle": [
+        "idle_1"
+    ],
     "working": [
         "working_1",
         "working_2",

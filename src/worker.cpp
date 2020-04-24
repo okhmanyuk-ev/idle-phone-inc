@@ -19,9 +19,14 @@ void Factory::Worker::refresh()
 
 	setEnabled(true);
 
-	auto texture = TEXTURE("textures/workers/worker.png");
-	auto animation = ANIMATION("textures/workers/worker");
-	setAnimation(texture, animation);
+	auto image_path = fmt::format("textures/workers/{}.png", mLevel);
+	auto atlas_path = "textures/workers/atlas.json";
+	auto animation_path = "textures/workers/animation.json";
+	auto animation = Shared::GraphicsHelpers::OpenAnimationFromFile(image_path, atlas_path, animation_path);
+	auto anim_ptr = std::make_shared<Graphics::Animation>(animation);
+	auto anim_name = fmt::format("worker_{}", mLevel);
+	CACHE->loadAnimation(anim_ptr, anim_name);
+	setAnimation(TEXTURE(image_path), ANIMATION(anim_name));
 	randomizeProgress();
 }
 
