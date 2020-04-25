@@ -14,7 +14,6 @@ namespace PhoneInc
 			setStretch(1.0f);
 			setAnchor(0.5f);
 			setPivot(0.5f);
-		//	setAlpha(0.0f);
 		}
 
 	protected:
@@ -51,13 +50,11 @@ namespace PhoneInc
 
 		std::unique_ptr<Common::Actions::Action> createEnterAction() override
 		{
-		//	return Shared::ActionHelpers::Show(shared_from_this(), 0.25f);
 			return nullptr;
 		};
 
 		std::unique_ptr<Common::Actions::Action> createLeaveAction() override
 		{
-		//	return Shared::ActionHelpers::Hide(shared_from_this(), 0.25f);
 			return nullptr;
 		};
 	};

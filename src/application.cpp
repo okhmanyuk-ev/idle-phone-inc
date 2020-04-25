@@ -47,7 +47,7 @@ Application::Application() : RichApplication(PROJECT_CODE)
 	STATS->setAlignment(Shared::StatsSystem::Align::BottomRight);
 
 	mGameScene.setInteractTestCallback([](const auto& pos) {
-		return !ImGui::IsAnyWindowHovered();
+		return !ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 	});
 }
 
@@ -113,4 +113,12 @@ void Application::event(const Helpers::PushWindowEvent& e)
 void Application::event(const Helpers::PopWindowEvent& e)
 {
 	mSceneManager->popWindow();
+}
+
+void Application::event(const Profile::ProfileClearedCallback& e)
+{
+	mSceneManager->switchScreen(nullptr, [this] {
+		mGameplay = std::make_shared<Gameplay>();
+		mSceneManager->switchScreen(mGameplay);
+	});
 }

@@ -11,7 +11,8 @@ namespace PhoneInc
 {
 	class Application : public Shared::RichApplication,
 		public Common::EventSystem::Listenable<Helpers::PushWindowEvent>,
-		public Common::EventSystem::Listenable<Helpers::PopWindowEvent>
+		public Common::EventSystem::Listenable<Helpers::PopWindowEvent>,
+		public Common::EventSystem::Listenable<Profile::ProfileClearedCallback>
 	{
 	public:
 		Application();
@@ -26,6 +27,7 @@ namespace PhoneInc
 	public:
 		void event(const Helpers::PushWindowEvent& e) override;
 		void event(const Helpers::PopWindowEvent& e) override;
+		void event(const Profile::ProfileClearedCallback& e) override;
 
 	private:
 	//	Shared::SceneHelpers::SplashScene mSplashScene = Shared::SceneHelpers::SplashScene(TEXTURE("textures/logo.png"));

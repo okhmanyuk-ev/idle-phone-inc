@@ -76,10 +76,11 @@ void Profile::save()
 
 void Profile::clear()
 {
-	setCash(10.0);
+	setCash(30.0);
 	mRooms.clear();
 	setWarehouseLevel(1);
 	setShopLevel(1);
+	EVENT->emit(ProfileClearedCallback());
 }
 
 void Profile::saveAsync()

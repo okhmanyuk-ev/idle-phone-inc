@@ -5,7 +5,8 @@
 namespace PhoneInc
 {
 	class RoomWindow : public Window,
-		public Common::EventSystem::Listenable<Profile::RoomChangedEvent>
+		public Common::EventSystem::Listenable<Profile::RoomChangedEvent>,
+		public Common::EventSystem::Listenable<Profile::CashChangedEvent>
 	{
 	public:
 		RoomWindow(int index);
@@ -15,23 +16,11 @@ namespace PhoneInc
 
 	public:
 		void event(const Profile::RoomChangedEvent& e) override;
+		void event(const Profile::CashChangedEvent& e) override;
 
 	private:
 
-		/*	struct MajorPanel
-		{
-			std::shared_ptr<Scene::Sprite> icon;
-			std::shared_ptr<Helpers::StandardButton> button;
-		};
-
-		struct MinorPanel
-		{
-			std::shared_ptr<Scene::Sprite> icon;
-			std::shared_ptr<Helpers::LabelSolid> title;
-			std::shared_ptr<Helpers::LabelSolid> description;
-			std::shared_ptr<Helpers::StandardButton> button;
-		};*/
-
+		class Panel;
 		class ProductPanel;
 		class SmallPanel;
 		class ManagerPanel;
@@ -48,40 +37,129 @@ namespace PhoneInc
 		int mIndex = 0;
 	};
 
-
-	class RoomWindow::ProductPanel : public Scene::Sprite
+	class Upgradable
 	{
 	public:
-		ProductPanel();
-
-	public:
-		void refresh();
+		virtual int getLevel() const = 0;
+		virtual bool isOpened() const = 0;
+		virtual bool isLastLevel() const = 0;
+		virtual bool isOpenAvailable() const = 0;
+		virtual double getUpgradeCost() const = 0;
+		virtual void increaseLevel() = 0;
 	};
 
-	class RoomWindow::SmallPanel : public Scene::Sprite
+	class RoomWindow::Panel : public Scene::Sprite, public Upgradable
 	{
 	public:
-		SmallPanel();
+		Panel(int roomIndex);
 
 	public:
-		void refresh();
+		virtual void refresh();
+
+	public:
+		virtual utf8_string getOpenButtonText() const = 0;
+		virtual utf8_string getUpgradeButtonText() const = 0;
 
 	protected:
+		utf8_string getLevelText() const;
+
+	public:
+		int getRoomIndex() const { return mRoomIndex; }
+		const auto& getRoom() const { return PROFILE->getRooms().at(getRoomIndex()); }
+
+	private:
+		int mRoomIndex = 0;
+		std::shared_ptr<Helpers::StandardButton> mButton;
+		std::shared_ptr<Helpers::Label> mButtonAdditionalLabel;
+	};
+
+	class RoomWindow::ProductPanel : public Panel
+	{
+	public:
+		ProductPanel(int roomIndex);
+
+	public:
+		void refresh() override;
+
+	public:
+		int getLevel() const override;
+		bool isOpened() const override;
+		bool isLastLevel() const override;
+		bool isOpenAvailable() const override;
+		double getUpgradeCost() const override;
+		void increaseLevel() override;
+
+	public:
+		utf8_string getOpenButtonText() const override;
+		utf8_string getUpgradeButtonText() const override;
+
+	private:
+		std::shared_ptr<Helpers::Adaptive<Scene::Sprite>> mIcon;
+		std::shared_ptr<Helpers::LabelSolid> mLevelLabel;
+	};
+
+	class RoomWindow::SmallPanel : public Panel
+	{
+	public:
+		SmallPanel(int roomIndex);
+
+	public:
+		void refresh() override;
+
+	public:
+		utf8_string getOpenButtonText() const override;
+		utf8_string getUpgradeButtonText() const override;
+
+	public:
 		virtual std::shared_ptr<Renderer::Texture> getIconTexture() const = 0;
+		virtual utf8_string getTitleText() const = 0;
+		virtual utf8_string getHireText() const = 0;
 
 	private:
 		std::shared_ptr<Scene::Sprite> mIcon;
+		std::shared_ptr<Helpers::LabelSolid> mTitle;
+		std::shared_ptr<Helpers::LabelSolid> mLevelLabel;
+		std::shared_ptr<Helpers::LabelSolid> mHireLabel;
 	};
 
 	class RoomWindow::ManagerPanel : public SmallPanel
 	{
 	public:
+		ManagerPanel(int roomIndex);
+
+	public:
+		int getLevel() const override;
+		bool isOpenAvailable() const override;
+		bool isOpened() const override;
+		bool isLastLevel() const override;
+		double getUpgradeCost() const override;
+		void increaseLevel() override;
+
+	public:
 		std::shared_ptr<Renderer::Texture> getIconTexture() const override;
+		utf8_string getTitleText() const override;
+		utf8_string getHireText() const override;
 	};
 
 	class RoomWindow::WorkerPanel : public SmallPanel
 	{
 	public:
+		WorkerPanel(int roomIndex, int number);
+
+	public:
+		int getLevel() const override;
+		bool isOpenAvailable() const override;
+		bool isOpened() const override;
+		bool isLastLevel() const override;
+		double getUpgradeCost() const override;
+		void increaseLevel() override;
+
+	public:
 		std::shared_ptr<Renderer::Texture> getIconTexture() const override;
+		utf8_string getTitleText() const override;
+		utf8_string getHireText() const override;
+
+	private:
+		int mNumber = 0;
 	};
 }
