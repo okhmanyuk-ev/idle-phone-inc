@@ -8,10 +8,13 @@ using namespace PhoneInc;
 
 Factory::Room::Room(int index) : mIndex(index)
 {
-	setTexture(TEXTURE("textures/factory/room/background/1.png"));
+	auto bg_id = (index % 3) + 1;
+	auto table_id = ((index / 2) % 3) + 1;
+
+	setTexture(TEXTURE(fmt::format("textures/factory/room/background/{}.png", bg_id)));
 
 	auto table = std::make_shared<Scene::Sprite>();
-	table->setTexture(TEXTURE("textures/factory/room/table/1.png"));
+	table->setTexture(TEXTURE(fmt::format("textures/factory/room/table/{}.png", table_id)));
 	table->setAnchor({ 0.5f, 1.0f });
 	table->setPivot({ 0.5f, 1.0f });
 	table->setY(-56.0f);
@@ -57,6 +60,12 @@ Factory::Room::Room(int index) : mIndex(index)
 		EVENT->emit(Helpers::PushWindowEvent({ window }));
 	});
 	attach(upgrade_btn);
+
+	auto phone = std::make_shared<Scene::Sprite>();
+	phone->setTexture(TEXTURE("textures/factory/room/phone.png"));
+	phone->setPivot(0.5f);
+	phone->setPosition({ 46.0f, 18.0f });
+	table->attach(phone);
 
 	refresh();
 }

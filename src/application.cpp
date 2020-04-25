@@ -67,9 +67,6 @@ void Application::loading(const std::string& stage, float progress)
 
 void Application::initialize()
 {
-	FONT("default")->setCustomVerticalOffset(-4.0f);
-	FONT("default_bold")->setCustomVerticalOffset(-4.0f);
-
 #if defined(BUILD_DEVELOPER)
 	CONSOLE->execute("hud_show_fps 1");
 	CONSOLE->execute("hud_show_drawcalls 1");
@@ -77,6 +74,14 @@ void Application::initialize()
 	CONSOLE_DEVICE->setEnabled(false);
 	STATS->setEnabled(false);
 #endif
+
+	mSceneManager->switchScreen(mGameplay);
+}
+
+void Application::prepare()
+{
+	FONT("default")->setCustomVerticalOffset(-4.0f);
+	FONT("default_bold")->setCustomVerticalOffset(-4.0f);
 
 	Scene::Debug::Font = FONT("default");
 	Scene::Sampler::DefaultSampler = Renderer::Sampler::Linear;
@@ -87,11 +92,6 @@ void Application::initialize()
 	mSceneManager = std::make_shared<Shared::SceneManager>();
 	root->attach(mSceneManager);
 
-	mSceneManager->switchScreen(mGameplay);
-}
-
-void Application::prepare()
-{
 	mGameplay = std::make_shared<Gameplay>();
 }
 
