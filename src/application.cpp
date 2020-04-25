@@ -45,6 +45,10 @@ Application::Application() : RichApplication(PROJECT_CODE)
 	CONSOLE->registerCVar("g_stats", { "bool" }, CVAR_GETTER_BOOL_FUNC(STATS->isEnabled), CVAR_SETTER_BOOL_FUNC(STATS->setEnabled));
 
 	STATS->setAlignment(Shared::StatsSystem::Align::BottomRight);
+
+	mGameScene.setInteractTestCallback([](const auto& pos) {
+		return !ImGui::IsAnyWindowHovered();
+	});
 }
 
 Application::~Application()

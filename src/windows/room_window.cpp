@@ -245,7 +245,7 @@ RoomWindow::SmallPanel::SmallPanel()
 	mIcon->setPivot({ 0.5f, 0.5f });
 	mIcon->setPosition({ 124.0f, 0.0f });
 	attach(mIcon);
-
+ 
 	auto button = std::make_shared<Helpers::StandardButton>();
 	button->setAnchor({ 1.0f, 0.5f });
 	button->setPivot({ 1.0f, 0.5f });

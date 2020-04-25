@@ -28,8 +28,6 @@ Window::Window()
 	mContent->setInteractions(false);
 	mContent->setScale(Helpers::InvScale);
 	attach(mContent);
-
-	setCloseOnMissclick(false);
 }
 
 void Window::onOpenEnd()
