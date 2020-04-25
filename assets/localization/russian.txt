@@ -20,12 +20,17 @@ BUILDING_WINDOW_LEVEL:Уровень: {}
 
 ROOM_WINDOW_TITLE:Рабочий корпус {}
 
+ROOM_WINDOW_PRODUCT_TITLE_OPEN:Исследовать продукт
+ROOM_WINDOW_PRODUCT_DESCRIPTION:Каждый следующий продукт будет приносить вам больше денег
+
 ROOM_WINDOW_MANAGER_TITLE:Менеджер
 ROOM_WINDOW_MANAGER_TITLE_HIRE:Нанять менеджера
-ROOM_WINDOW_MANAGER_HIRE_DESCRIPTION:Наймите работника чтобы открыть менеджера
+ROOM_WINDOW_MANAGER_DESCRIPTION:Описание менеджера
+ROOM_WINDOW_MANAGER_DESCRIPTION_HIRE_LOCKED:Наймите работника чтобы открыть менеджера
 
 ROOM_WINDOW_WORKER_TITLE:Работник {}
 ROOM_WINDOW_WORKER_TITLE_HIRE:Нанять работника
-ROOM_WINDOW_WORKER_HIRE_DESCRIPTION:Исследуйте первый продукт чтобы нанять работника
+ROOM_WINDOW_WORKER_DESCRIPTION:Описание рабочего
+ROOM_WINDOW_WORKER_DESCRIPTION_HIRE_LOCKED:Исследуйте первый продукт чтобы нанять работника
 
 ROOM_WINDOW_LEVEL_DESCRIPTION:Уровень: {}

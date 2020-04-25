@@ -24,21 +24,21 @@ Factory::Room::Room(int index) : mIndex(index)
 	attach(mManager);
 
 	mWorker1 = std::make_shared<Worker>();
-	mWorker1->setAnchor({ 0.2f, 0.0f });
+	mWorker1->setAnchor({ 0.5f, 0.0f });
 	mWorker1->setPivot({ 0.5f, 1.0f });
-	mWorker1->setY(24.0f);
+	mWorker1->setPosition({ -152.0f, 24.0f });
 	table->attach(mWorker1);
 	
 	mWorker2 = std::make_shared<Worker>();
 	mWorker2->setAnchor({ 0.5f, 0.0f });
 	mWorker2->setPivot({ 0.5f, 1.0f });
-	mWorker2->setY(24.0f);
+	mWorker2->setPosition({ 0.0f, 24.0f });
 	table->attach(mWorker2);
 	
 	mWorker3 = std::make_shared<Worker>();
-	mWorker3->setAnchor({ 0.8f, 0.0f });
+	mWorker3->setAnchor({ 0.5f, 0.0f });
 	mWorker3->setPivot({ 0.5f, 1.0f });
-	mWorker3->setY(24.0f);
+	mWorker3->setPosition({ 152.0f, 24.0f });
 	table->attach(mWorker3);
 
 	auto lvl_label = std::make_shared<Helpers::LabelSolidBold>();

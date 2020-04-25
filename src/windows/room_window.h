@@ -95,7 +95,9 @@ namespace PhoneInc
 
 	private:
 		std::shared_ptr<Helpers::Adaptive<Scene::Sprite>> mIcon;
+		std::shared_ptr<Helpers::LabelSolid> mTitle;
 		std::shared_ptr<Helpers::LabelSolid> mLevelLabel;
+		std::shared_ptr<Helpers::LabelSolid> mOpenDescriptionLabel;
 	};
 
 	class RoomWindow::SmallPanel : public Panel
@@ -113,13 +115,13 @@ namespace PhoneInc
 	public:
 		virtual std::shared_ptr<Renderer::Texture> getIconTexture() const = 0;
 		virtual utf8_string getTitleText() const = 0;
-		virtual utf8_string getHireText() const = 0;
+		virtual utf8_string getHireDescriptionText() const = 0;
 
 	private:
 		std::shared_ptr<Scene::Sprite> mIcon;
 		std::shared_ptr<Helpers::LabelSolid> mTitle;
 		std::shared_ptr<Helpers::LabelSolid> mLevelLabel;
-		std::shared_ptr<Helpers::LabelSolid> mHireLabel;
+		std::shared_ptr<Helpers::LabelSolid> mHireDescriptionLabel;
 	};
 
 	class RoomWindow::ManagerPanel : public SmallPanel
@@ -138,7 +140,7 @@ namespace PhoneInc
 	public:
 		std::shared_ptr<Renderer::Texture> getIconTexture() const override;
 		utf8_string getTitleText() const override;
-		utf8_string getHireText() const override;
+		utf8_string getHireDescriptionText() const override;
 	};
 
 	class RoomWindow::WorkerPanel : public SmallPanel
@@ -157,7 +159,7 @@ namespace PhoneInc
 	public:
 		std::shared_ptr<Renderer::Texture> getIconTexture() const override;
 		utf8_string getTitleText() const override;
-		utf8_string getHireText() const override;
+		utf8_string getHireDescriptionText() const override;
 
 	private:
 		int mNumber = 0;

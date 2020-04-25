@@ -151,6 +151,14 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	mIcon->setAdaptSize({ 174.0f, 298.0f });
 	attach(mIcon);
 
+	mTitle = std::make_shared<Helpers::LabelSolid>();
+	mTitle->setFontSize(12.0f);
+	mTitle->setAnchor({ 0.0f, 0.0f });
+	mTitle->setPivot({ 0.0f, 0.5f });
+	mTitle->setPosition({ 264.0f, 176.0f });
+	mTitle->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	attach(mTitle);
+
 	mLevelLabel = std::make_shared<Helpers::LabelSolid>();
 	mLevelLabel->setFontSize(12.0f);
 	mLevelLabel->setAnchor({ 0.0f, 0.0f });
@@ -158,6 +166,16 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	mLevelLabel->setPosition({ 264.0f, 222.0f });
 	mLevelLabel->setColor(Graphics::Color::ToNormalized(23, 0, 164));
 	attach(mLevelLabel);
+
+	mOpenDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
+	mOpenDescriptionLabel->setFontSize(10.0f);
+	mOpenDescriptionLabel->setMultiline(true);
+	mOpenDescriptionLabel->setWidth(138.0f);
+	mOpenDescriptionLabel->setAnchor({ 0.0f, 0.0f });
+	mOpenDescriptionLabel->setPivot({ 0.0f, 0.5f });
+	mOpenDescriptionLabel->setPosition({ 264.0f, 254.0f });
+	mOpenDescriptionLabel->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	attach(mOpenDescriptionLabel);
 }
 
 void RoomWindow::ProductPanel::refresh()
@@ -169,9 +187,23 @@ void RoomWindow::ProductPanel::refresh()
 	mIcon->setTexture(TEXTURE(fmt::format("textures/windows/room_window/avatars/products/{}.png", room.product)));
 
 	mLevelLabel->setEnabled(isOpened());
+	mOpenDescriptionLabel->setEnabled(!isOpened());
 
 	if (mLevelLabel->isEnabled())
 		mLevelLabel->setText(getLevelText());
+
+	if (mOpenDescriptionLabel->isEnabled())
+		mOpenDescriptionLabel->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_DESCRIPTION"));
+
+	if (!isOpened())
+	{
+		mTitle->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_TITLE_OPEN"));
+	}
+	else
+	{
+		mTitle->setText(LOCALIZE(fmt::format("ROOM_WINDOW_PRODUCT_TITLE_{}", getLevel())));
+	}
+
 }
 
 int RoomWindow::ProductPanel::getLevel() const
@@ -245,15 +277,15 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	mLevelLabel->setColor(Graphics::Color::ToNormalized(23, 0, 164));
 	attach(mLevelLabel);
 
-	mHireLabel = std::make_shared<Helpers::LabelSolid>();
-	mHireLabel->setFontSize(11.0f);
-	mHireLabel->setMultiline(true);
-	mHireLabel->setWidth(138.0f);
-	mHireLabel->setAnchor({ 0.0f, 0.0f });
-	mHireLabel->setPivot({ 0.0f, 0.5f });
-	mHireLabel->setPosition({ 264.0f, 142.0f });
-	mHireLabel->setColor(Graphics::Color::ToNormalized(12, 22, 44));
-	attach(mHireLabel);
+	mHireDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
+	mHireDescriptionLabel->setFontSize(10.0f);
+	mHireDescriptionLabel->setMultiline(true);
+	mHireDescriptionLabel->setWidth(138.0f);
+	mHireDescriptionLabel->setAnchor({ 0.0f, 0.0f });
+	mHireDescriptionLabel->setPivot({ 0.0f, 0.5f });
+	mHireDescriptionLabel->setPosition({ 264.0f, 142.0f });
+	mHireDescriptionLabel->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	attach(mHireDescriptionLabel);
 }
 
 void RoomWindow::SmallPanel::refresh()
@@ -264,13 +296,13 @@ void RoomWindow::SmallPanel::refresh()
 	mTitle->setText(getTitleText());
 
 	mLevelLabel->setEnabled(isOpened());
-	mHireLabel->setEnabled(!isOpened());
+	mHireDescriptionLabel->setEnabled(!isOpened());
 
 	if (mLevelLabel->isEnabled())
 		mLevelLabel->setText(getLevelText());
 
-	if (mHireLabel->isEnabled())
-		mHireLabel->setText(getHireText());
+	if (mHireDescriptionLabel->isEnabled())
+		mHireDescriptionLabel->setText(getHireDescriptionText());
 }
 
 utf8_string RoomWindow::SmallPanel::getOpenButtonText() const
@@ -337,12 +369,18 @@ std::shared_ptr<Renderer::Texture> RoomWindow::ManagerPanel::getIconTexture() co
 
 utf8_string RoomWindow::ManagerPanel::getTitleText() const
 {
-	return LOCALIZE("ROOM_WINDOW_MANAGER_TITLE");
+	if (isOpened())
+		return LOCALIZE("ROOM_WINDOW_MANAGER_TITLE");
+	else
+		return LOCALIZE("ROOM_WINDOW_MANAGER_TITLE_HIRE");
 }
 
-utf8_string RoomWindow::ManagerPanel::getHireText() const
+utf8_string RoomWindow::ManagerPanel::getHireDescriptionText() const
 {
-	return LOCALIZE("ROOM_WINDOW_MANAGER_HIRE_DESCRIPTION");
+	if (isOpenAvailable())
+		return LOCALIZE("ROOM_WINDOW_MANAGER_DESCRIPTION");
+	else
+		return LOCALIZE("ROOM_WINDOW_MANAGER_DESCRIPTION_HIRE_LOCKED");
 }
 
 // worker panel
@@ -415,10 +453,16 @@ std::shared_ptr<Renderer::Texture> RoomWindow::WorkerPanel::getIconTexture() con
 
 utf8_string RoomWindow::WorkerPanel::getTitleText() const
 {
-	return LOCALIZE_FMT("ROOM_WINDOW_WORKER_TITLE", mNumber);
+	if (isOpened())
+		return LOCALIZE_FMT("ROOM_WINDOW_WORKER_TITLE", mNumber);
+	else
+		return LOCALIZE("ROOM_WINDOW_WORKER_TITLE_HIRE");
 }
 
-utf8_string RoomWindow::WorkerPanel::getHireText() const
+utf8_string RoomWindow::WorkerPanel::getHireDescriptionText() const
 {
-	return LOCALIZE("ROOM_WINDOW_WORKER_HIRE_DESCRIPTION");
+	if (isOpenAvailable())
+		return LOCALIZE("ROOM_WINDOW_WORKER_DESCRIPTION");
+	else
+		return LOCALIZE("ROOM_WINDOW_WORKER_DESCRIPTION_HIRE_LOCKED");
 }
