@@ -5,6 +5,7 @@ using namespace PhoneInc;
 
 BottomMenu::BottomMenu()
 {
+	setTouchable(true);
 	setTexture(TEXTURE("textures/bottom_menu/background.png"));
 	
 	// video

@@ -5,6 +5,7 @@ using namespace PhoneInc;
 
 TopMenu::TopMenu()
 {
+	setTouchable(true);
 	setTexture(TEXTURE("textures/top_menu/background.png"));
 	
 	auto settings_button = std::make_shared<Helpers::Button>();
