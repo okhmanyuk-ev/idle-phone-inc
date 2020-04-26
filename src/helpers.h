@@ -109,7 +109,7 @@ namespace PhoneInc::Helpers
 
 	template <typename T> class Adaptive : public T
 	{
-		static_assert(std::is_base_of<Sprite, T>::value, "T must be derived from Node");
+		static_assert(std::is_base_of<Scene::Sprite, T>::value, "T must be derived from Node");
 
 	protected:
 		void update() override
@@ -127,16 +127,16 @@ namespace PhoneInc::Helpers
 			if (mAdaptSize.y <= 0.0f)
 				return;
 
-			auto texture = Sprite::getTexture();
+			auto texture = T::getTexture();
 
 			if (texture == nullptr)
 				return;
 
-			Node::setSize({ (float)texture->getWidth(), (float)texture->getHeight() });
+			T::setSize({ (float)texture->getWidth(), (float)texture->getHeight() });
 
-			auto scale = mAdaptSize / Node::getSize();
+			auto scale = mAdaptSize / T::getSize();
 
-			setScale(glm::min(scale.x, scale.y));
+			T::setScale(glm::min(scale.x, scale.y));
 		}
 
 	public:
