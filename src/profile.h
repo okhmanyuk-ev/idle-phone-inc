@@ -9,7 +9,7 @@ namespace PhoneInc
 	class Profile
 	{
 	public:
-		struct ProfileClearedCallback { };
+		struct ProfileClearedEvent { };
 		struct CashChangedEvent { };
 		struct RoomUnlockedEvent { int index; };
 		struct RoomChangedEvent { int index; };

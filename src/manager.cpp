@@ -5,8 +5,8 @@ using namespace PhoneInc;
 
 Factory::Manager::Manager() : Scene::MappedAniSprite<ManagerAnimation>(Animations)
 {
-	setFrequency(5.0f);
-	setStateType(Animation::Work);
+	setFrequency(6.0f);
+	setStateType(Animation::Working);
 }
 
 void Factory::Manager::refresh()

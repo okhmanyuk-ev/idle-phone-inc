@@ -80,7 +80,7 @@ void Profile::clear()
 	mRooms.clear();
 	setWarehouseLevel(1);
 	setShopLevel(1);
-	EVENT->emit(ProfileClearedCallback());
+	EVENT->emit(ProfileClearedEvent());
 }
 
 void Profile::saveAsync()
