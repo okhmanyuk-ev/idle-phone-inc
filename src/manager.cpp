@@ -27,7 +27,7 @@ void Factory::Manager::refresh()
 	auto anim_name = fmt::format("manager_{}", mLevel);
 	CACHE->loadAnimation(anim_ptr, anim_name);
 	setAnimation(TEXTURE(image_path), ANIMATION(anim_name));
-	randomizeProgress();
+	//randomizeProgress();
 }
 
 void Factory::Manager::setLevel(int value)

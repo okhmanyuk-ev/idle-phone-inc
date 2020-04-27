@@ -35,9 +35,6 @@ namespace PhoneInc
 		std::shared_ptr<Shared::SceneManager> mSceneManager;
 
 	private:
-		bool mNodeEditor = false;
-
-	private:
 		Shared::SceneEditor mSceneEditor = Shared::SceneEditor(mGameScene);
 		std::shared_ptr<Gameplay> mGameplay;
 	};

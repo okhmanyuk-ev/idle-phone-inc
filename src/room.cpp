@@ -61,13 +61,22 @@ Factory::Room::Room(int index) : mIndex(index)
 	});
 	attach(upgrade_btn);
 
-	auto phone = std::make_shared<Scene::Sprite>();
+	auto phone = std::make_shared<Scene::Clickable<Scene::Sprite>>();
 	phone->setTexture(TEXTURE("textures/factory/room/phone.png"));
 	phone->setPivot(0.5f);
 	phone->setPosition({ 46.0f, 18.0f });
+	phone->setClickCallback([index] {
+		EVENT->emit(ProductSpawnEvent({ index }));
+	});
 	table->attach(phone);
 
 	refresh();
+
+	//runAction(Shared::ActionHelpers::RepeatInfinite([index] {
+	//	return Shared::ActionHelpers::Delayed(5.0f, Shared::ActionHelpers::Execute([index] {
+	//		EVENT->emit(ProductSpawnEvent({ index }));
+	//	}));
+	//}));
 }
 
 void Factory::Room::event(const Profile::RoomChangedEvent& e)
@@ -111,5 +120,5 @@ void Factory::LockedRoom::event(const Profile::CashChangedEvent& e)
 
 void Factory::LockedRoom::refresh()
 {
-	mButton->setActive(PROFILE->getCash() >= Balance::GetRoomCost(mIndex));
+	mButton->setActive(PROFILE->isEnoughCash(Balance::GetRoomCost(mIndex)));
 }

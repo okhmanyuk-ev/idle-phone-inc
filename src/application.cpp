@@ -41,8 +41,11 @@ Application::Application() : RichApplication(PROJECT_CODE)
 
 	std::srand((unsigned int)std::time(nullptr));
 
-	CONSOLE->registerCVar("g_scene_editor", { "bool" }, CVAR_GETTER_BOOL(mNodeEditor), CVAR_SETTER_BOOL(mNodeEditor));
-	CONSOLE->registerCVar("g_stats", { "bool" }, CVAR_GETTER_BOOL_FUNC(STATS->isEnabled), CVAR_SETTER_BOOL_FUNC(STATS->setEnabled));
+	CONSOLE->registerCVar("g_editor", { "bool" }, CVAR_GETTER_BOOL_FUNC(mSceneEditor.isEnabled), 
+		CVAR_SETTER_BOOL_FUNC(mSceneEditor.setEnabled));
+	
+	CONSOLE->registerCVar("g_stats", { "bool" }, CVAR_GETTER_BOOL_FUNC(STATS->isEnabled), 
+		CVAR_SETTER_BOOL_FUNC(STATS->setEnabled));
 
 	STATS->setAlignment(Shared::StatsSystem::Align::BottomRight);
 
@@ -96,10 +99,6 @@ void Application::prepare()
 void Application::frame()
 {
 	mGameScene.frame();
-
-	if (mNodeEditor)
-		mSceneEditor.show();
-
 	Cheats::ShowDevMenu(mSceneManager);
 }
 
