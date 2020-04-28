@@ -12,8 +12,8 @@ namespace PhoneInc::Balance
 	const inline int ManagerLevelsPerStage = 10;
 	const inline int WorkerLevelsPerStage = 10;
 
-	const inline int MaxWarehouseStorage = 10;
-
+	const inline int MaxWarehouseStorage = 10000;
+	const inline int MaxShopStorage = 10000;
 
 	double GetRoomCost(int index);
 	double GetProductCost(int index);

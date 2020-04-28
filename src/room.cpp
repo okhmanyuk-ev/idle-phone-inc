@@ -72,11 +72,16 @@ Factory::Room::Room(int index) : mIndex(index)
 
 	refresh();
 
-	//runAction(Shared::ActionHelpers::RepeatInfinite([index] {
-	//	return Shared::ActionHelpers::Delayed(5.0f, Shared::ActionHelpers::Execute([index] {
-	//		EVENT->emit(ProductSpawnEvent({ index }));
-	//	}));
-	//}));
+	runAction(Shared::ActionHelpers::RepeatInfinite([index] {
+		return Shared::ActionHelpers::Delayed(5.0f, Shared::ActionHelpers::Execute([index] {
+			auto room = PROFILE->getRooms().at(index);
+
+			if (room.manager == 0)
+				return;
+
+			EVENT->emit(ProductSpawnEvent({ index }));
+		}));
+	}));
 }
 
 void Factory::Room::event(const Profile::RoomChangedEvent& e)

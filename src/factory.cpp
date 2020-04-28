@@ -48,10 +48,6 @@ Factory::Factory()
 	conveyor_hat->setTexture(TEXTURE("textures/factory/conveyor_hat.png"));
 	conveyor_hat->setY(-1.0f);
 	attach(conveyor_hat);
-
-	runAction(Shared::ActionHelpers::ExecuteInfinite([] {
-		GAME_STATS("warehouse", PROFILE->getWarehouseStorage());
-	}));
 }
 
 void Factory::event(const Profile::RoomUnlockedEvent& e)

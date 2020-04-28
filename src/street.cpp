@@ -2,6 +2,7 @@
 #include "helpers.h"
 #include "windows/warehouse_window.h"
 #include "windows/shop_window.h"
+#include "truck.h"
 
 using namespace PhoneInc;
 
@@ -20,6 +21,9 @@ Street::Street()
 	floor->setPivot({ 0.5f, 1.0f });
 	floor->setAnchor({ 0.5f, 1.0f });
 	attach(floor);
+
+	mTruckHolder = std::make_shared<Scene::Node>();
+	floor->attach(mTruckHolder);
 
 	auto warehouse = std::make_shared<Scene::Sprite>();
 	warehouse->setTexture(TEXTURE("textures/warehouse/1.png"));
@@ -75,6 +79,18 @@ Street::Street()
 		mWarehouseBusy = true;
 		runWarehouseAction();
 	}));
+
+	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {
+		if (mShopBusy)
+			return;
+
+		if (PROFILE->getShopStorage() == 0)
+			return;
+
+		mShopBusy = true;
+		runShopAction();
+	}));
+
 }
 
 void Street::runWarehouseAction()
@@ -95,9 +111,34 @@ void Street::runWarehouseAction()
 
 void Street::runTruckAction()
 {
+	const float Start = 148.0f;
+	const float Dest = 934.0f;
+
+	auto truck = std::make_shared<Truck>();
+	truck->setPivot(0.5f);
+	truck->setPosition({ Start, 154.0f });
+	mTruckHolder->attach(truck);
+
 	runAction(Shared::ActionHelpers::MakeSequence(
+		Shared::ActionHelpers::ChangeHorizontalPosition(truck, Dest, 5.0f),
+		Shared::ActionHelpers::Kill(truck),
 		Shared::ActionHelpers::Execute([this] {
-			// increase items in shop
+			PROFILE->increaseShopStorage();
+		})
+	));
+}
+
+void Street::runShopAction()
+{
+	runAction(Shared::ActionHelpers::MakeSequence(
+		Shared::ActionHelpers::Interpolate(0.0f, 1.0f, 6.0f, Common::Easing::Linear, [this](float value) {
+			mShopProgressbar->setProgress(value);
+		}),
+		Shared::ActionHelpers::Execute([this] {
+			mShopProgressbar->setProgress(0.0f);
+			PROFILE->setShopStorage(PROFILE->getShopStorage() - 1);
+			mShopBusy = false;
+			PROFILE->setCash(PROFILE->getCash() + 100.0);
 		})
 	));
 }

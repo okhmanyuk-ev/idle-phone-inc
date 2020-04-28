@@ -131,6 +131,17 @@ void Profile::increaseWarehouseStorage()
 	setWarehouseStorage(getWarehouseStorage() + 1);
 }
 
+bool Profile::isShopFilled() const
+{
+	return mShopStorage >= Balance::MaxShopStorage;
+}
+
+void Profile::increaseShopStorage()
+{
+	assert(!isShopFilled());
+	setShopStorage(getShopStorage() + 1);
+}
+
 void Profile::setCash(double value)
 {
 	if (mCash == value)
@@ -168,4 +179,11 @@ void Profile::setWarehouseStorage(int value)
 	assert(value <= Balance::MaxWarehouseStorage);
 	assert(value >= 0);
 	mWarehouseStorage = value;
+}
+
+void Profile::setShopStorage(int value)
+{
+	assert(value <= Balance::MaxShopStorage);
+	assert(value >= 0);
+	mShopStorage = value;
 }
