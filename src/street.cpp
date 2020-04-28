@@ -51,17 +51,53 @@ Street::Street()
 	});
 	shop->attach(shop_button);
 
-	auto progressbar1 = std::make_shared<Helpers::Progressbar>();
-	progressbar1->setPivot(0.5f);
-	progressbar1->setPosition({ 164.0f, 62.0f });
-	progressbar1->setSize({ 256.0f, 22.0f });
-	progressbar1->setProgress(0.25f);
-	attach(progressbar1);
+	mWarehouseProgressbar = std::make_shared<Helpers::StreetProgressbar>();
+	mWarehouseProgressbar->setPivot(0.5f);
+	mWarehouseProgressbar->setPosition({ 164.0f, 62.0f });
+	mWarehouseProgressbar->setSize({ 256.0f, 22.0f });
+	mWarehouseProgressbar->setProgress(0.0f);
+	attach(mWarehouseProgressbar);
 
-	auto progressbar2 = std::make_shared<Helpers::Progressbar>();
-	progressbar2->setPivot(0.5f);
-	progressbar2->setPosition({ 928.0f, 62.0f });
-	progressbar2->setSize({ 256.0f, 22.0f });
-	progressbar2->setProgress(0.25f);
-	attach(progressbar2);
+	mShopProgressbar = std::make_shared<Helpers::StreetProgressbar>();
+	mShopProgressbar->setPivot(0.5f);
+	mShopProgressbar->setPosition({ 928.0f, 62.0f });
+	mShopProgressbar->setSize({ 256.0f, 22.0f });
+	mShopProgressbar->setProgress(0.0f);
+	attach(mShopProgressbar);
+
+	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {
+		if (mWarehouseBusy)
+			return;
+
+		if (PROFILE->getWarehouseStorage() == 0)
+			return;
+
+		mWarehouseBusy = true;
+		runWarehouseAction();
+	}));
+}
+
+void Street::runWarehouseAction()
+{
+	runAction(Shared::ActionHelpers::MakeSequence(
+		Shared::ActionHelpers::Interpolate(0.0f, 1.0f, 5.0f, Common::Easing::Linear, [this](float value) {
+			mWarehouseProgressbar->setProgress(value);
+		}),
+		Shared::ActionHelpers::Execute([this] {
+			PROFILE->setWarehouseStorage(PROFILE->getWarehouseStorage() - 1);
+			mWarehouseProgressbar->setProgress(0.0f);
+			mWarehouseBusy = false;
+			runTruckAction();
+		})
+	));
+}
+
+
+void Street::runTruckAction()
+{
+	runAction(Shared::ActionHelpers::MakeSequence(
+		Shared::ActionHelpers::Execute([this] {
+			// increase items in shop
+		})
+	));
 }

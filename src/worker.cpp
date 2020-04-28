@@ -1,5 +1,6 @@
 #include "worker.h"
 #include "helpers.h"
+#include "balance.h"
 
 using namespace PhoneInc;
 
@@ -19,12 +20,14 @@ void Factory::Worker::refresh()
 
 	setEnabled(true);
 
-	auto image_path = fmt::format("textures/workers/{}.png", mLevel);
+	auto stage = Balance::GetWorkerStageFromLevel(mLevel);
+
+	auto image_path = fmt::format("textures/workers/{}.png", stage);
 	auto atlas_path = "textures/workers/atlas.json";
 	auto animation_path = "textures/workers/animation.json";
 	auto animation = Shared::GraphicsHelpers::OpenAnimationFromFile(image_path, atlas_path, animation_path);
 	auto anim_ptr = std::make_shared<Graphics::Animation>(animation);
-	auto anim_name = fmt::format("worker_{}", mLevel);
+	auto anim_name = fmt::format("worker_{}", stage);
 	CACHE->loadAnimation(anim_ptr, anim_name);
 	setAnimation(TEXTURE(image_path), ANIMATION(anim_name));
 	//randomizeProgress();

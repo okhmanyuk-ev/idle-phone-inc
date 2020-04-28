@@ -7,12 +7,12 @@ namespace PhoneInc
 {
 	struct ProductSpawnEvent { int room_index; };
 
-	class Factory : public Scene::Clippable<Scene::Cullable<Scene::Node>>,
+	class Factory : public Scene::Actionable<Scene::Clippable<Scene::Cullable<Scene::Node>>>,
 		public Common::EventSystem::Listenable<Profile::RoomUnlockedEvent>,
 		public Common::EventSystem::Listenable<ProductSpawnEvent>
 	{
 	public:
-		static inline const float ConveryorSpeed = 0.5f;
+		static inline const float ConveyorSpeed = 1.0f;
 
 	public:
 		class Room;

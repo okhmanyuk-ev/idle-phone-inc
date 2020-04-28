@@ -10,6 +10,7 @@ RoomWindow::RoomWindow(int index) : mIndex(index)
 	background->setAnchor(0.5f);
 	background->setPivot(0.5f);
 	background->setTouchable(true);
+	background->setScale(Helpers::InvScale);
 	getContent()->attach(background);
 
 	auto title = std::make_shared<Helpers::LabelSolid>();
@@ -133,6 +134,23 @@ void RoomWindow::Panel::refresh()
 	}
 }
 
+bool RoomWindow::Panel::isOpened() const 
+{ 
+	return getLevel() > 0; 
+}
+
+bool RoomWindow::Panel::isLastLevel() const 
+{ 
+	return getLevel() >= getMaxLevel(); 
+}
+
+float RoomWindow::Panel::getProgress() const 
+{
+	auto current = (((getLevel() - 1) % getLevelsPerStage()) + 1);
+	auto total = getLevelsPerStage();
+	return (float)current / (float)total;
+}
+
 utf8_string RoomWindow::Panel::getLevelText() const
 {
 	return LOCALIZE_FMT("ROOM_WINDOW_LEVEL_DESCRIPTION", getLevel());
@@ -159,6 +177,16 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	mTitle->setColor(Graphics::Color::ToNormalized(12, 22, 44));
 	attach(mTitle);
 
+	mDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
+	mDescriptionLabel->setFontSize(10.0f);
+	mDescriptionLabel->setMultiline(true);
+	mDescriptionLabel->setWidth(138.0f);
+	mDescriptionLabel->setAnchor({ 0.0f, 0.0f });
+	mDescriptionLabel->setPivot({ 0.0f, 0.5f });
+	mDescriptionLabel->setPosition({ 264.0f, 254.0f });
+	mDescriptionLabel->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	attach(mDescriptionLabel);
+
 	mLevelLabel = std::make_shared<Helpers::LabelSolid>();
 	mLevelLabel->setFontSize(12.0f);
 	mLevelLabel->setAnchor({ 0.0f, 0.0f });
@@ -166,16 +194,6 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	mLevelLabel->setPosition({ 264.0f, 222.0f });
 	mLevelLabel->setColor(Graphics::Color::ToNormalized(23, 0, 164));
 	attach(mLevelLabel);
-
-	mOpenDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
-	mOpenDescriptionLabel->setFontSize(10.0f);
-	mOpenDescriptionLabel->setMultiline(true);
-	mOpenDescriptionLabel->setWidth(138.0f);
-	mOpenDescriptionLabel->setAnchor({ 0.0f, 0.0f });
-	mOpenDescriptionLabel->setPivot({ 0.0f, 0.5f });
-	mOpenDescriptionLabel->setPosition({ 264.0f, 254.0f });
-	mOpenDescriptionLabel->setColor(Graphics::Color::ToNormalized(12, 22, 44));
-	attach(mOpenDescriptionLabel);
 }
 
 void RoomWindow::ProductPanel::refresh()
@@ -184,16 +202,21 @@ void RoomWindow::ProductPanel::refresh()
 
 	auto& room = getRoom();
 
-	mIcon->setTexture(TEXTURE(fmt::format("textures/windows/room_window/avatars/products/{}.png", room.product)));
+	auto stage = Balance::GetProductStageFromLevel(getLevel());
+
+	if (!isOpened())
+		mIcon->setTexture(TEXTURE(fmt::format("textures/windows/room_window/avatars/products/0.png")));
+	else
+		mIcon->setTexture(TEXTURE(fmt::format("textures/windows/room_window/avatars/products/{}.png", stage)));
 
 	mLevelLabel->setEnabled(isOpened());
-	mOpenDescriptionLabel->setEnabled(!isOpened());
+	mDescriptionLabel->setEnabled(!isOpened());
 
 	if (mLevelLabel->isEnabled())
 		mLevelLabel->setText(getLevelText());
 
-	if (mOpenDescriptionLabel->isEnabled())
-		mOpenDescriptionLabel->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_DESCRIPTION"));
+	if (mDescriptionLabel->isEnabled())
+		mDescriptionLabel->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_DESCRIPTION"));
 
 	if (!isOpened())
 	{
@@ -201,7 +224,7 @@ void RoomWindow::ProductPanel::refresh()
 	}
 	else
 	{
-		mTitle->setText(LOCALIZE(fmt::format("ROOM_WINDOW_PRODUCT_TITLE_{}", getLevel())));
+		mTitle->setText(LOCALIZE(fmt::format("ROOM_WINDOW_PRODUCT_TITLE_{}", stage)));
 	}
 
 }
@@ -212,14 +235,14 @@ int RoomWindow::ProductPanel::getLevel() const
 	return room.product;
 }
 
-bool RoomWindow::ProductPanel::isOpened() const
+int RoomWindow::ProductPanel::getMaxLevel() const
 {
-	return getLevel() > 0;
+	return Balance::MaxProductLevel;
 }
 
-bool RoomWindow::ProductPanel::isLastLevel() const
+int RoomWindow::ProductPanel::getLevelsPerStage() const
 {
-	return getLevel() >= Profile::Room::MaxProductLevel;
+	return Balance::ProductLevelsPerStage;
 }
 
 double RoomWindow::ProductPanel::getUpgradeCost() const
@@ -269,6 +292,16 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	mTitle->setColor(Graphics::Color::ToNormalized(12, 22, 44));
 	attach(mTitle);
 
+	mDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
+	mDescriptionLabel->setFontSize(10.0f);
+	mDescriptionLabel->setMultiline(true);
+	mDescriptionLabel->setWidth(138.0f);
+	mDescriptionLabel->setAnchor({ 0.0f, 0.0f });
+	mDescriptionLabel->setPivot({ 0.0f, 0.5f });
+	mDescriptionLabel->setPosition({ 264.0f, 142.0f });
+	mDescriptionLabel->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	attach(mDescriptionLabel);
+
 	mLevelLabel = std::make_shared<Helpers::LabelSolid>();
 	mLevelLabel->setFontSize(12.0f);
 	mLevelLabel->setAnchor({ 0.0f, 0.0f });
@@ -277,15 +310,12 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	mLevelLabel->setColor(Graphics::Color::ToNormalized(23, 0, 164));
 	attach(mLevelLabel);
 
-	mHireDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
-	mHireDescriptionLabel->setFontSize(10.0f);
-	mHireDescriptionLabel->setMultiline(true);
-	mHireDescriptionLabel->setWidth(138.0f);
-	mHireDescriptionLabel->setAnchor({ 0.0f, 0.0f });
-	mHireDescriptionLabel->setPivot({ 0.0f, 0.5f });
-	mHireDescriptionLabel->setPosition({ 264.0f, 142.0f });
-	mHireDescriptionLabel->setColor(Graphics::Color::ToNormalized(12, 22, 44));
-	attach(mHireDescriptionLabel);
+	mProgressbar = std::make_shared<Helpers::StreetProgressbar>();
+	mProgressbar->setSize({ 422.0f, 28.0f });
+	mProgressbar->setAnchor({ 0.0f, 0.0f });
+	mProgressbar->setPivot({ 0.0f, 0.5f });
+	mProgressbar->setPosition({ 264.0f, 168.0f });
+	attach(mProgressbar);
 }
 
 void RoomWindow::SmallPanel::refresh()
@@ -296,13 +326,17 @@ void RoomWindow::SmallPanel::refresh()
 	mTitle->setText(getTitleText());
 
 	mLevelLabel->setEnabled(isOpened());
-	mHireDescriptionLabel->setEnabled(!isOpened());
+	mProgressbar->setEnabled(isOpened());
+	mDescriptionLabel->setEnabled(!isOpened());
 
 	if (mLevelLabel->isEnabled())
 		mLevelLabel->setText(getLevelText());
 
-	if (mHireDescriptionLabel->isEnabled())
-		mHireDescriptionLabel->setText(getHireDescriptionText());
+	if (mProgressbar->isEnabled())
+		mProgressbar->setProgress(getProgress());
+
+	if (mDescriptionLabel->isEnabled())
+		mDescriptionLabel->setText(getDescriptionText());
 }
 
 utf8_string RoomWindow::SmallPanel::getOpenButtonText() const
@@ -328,21 +362,21 @@ int RoomWindow::ManagerPanel::getLevel() const
 	return room.manager;
 }
 
+int RoomWindow::ManagerPanel::getMaxLevel() const
+{
+	return Balance::MaxManagerLevel;
+}
+
+int RoomWindow::ManagerPanel::getLevelsPerStage() const
+{
+	return Balance::ManagerLevelsPerStage;
+}
+
 bool RoomWindow::ManagerPanel::isOpenAvailable() const
 {
 	assert(!isOpened());
 	auto& room = getRoom();
 	return room.worker1 > 0 || room.worker2 > 0 || room.worker3 > 0;
-}
-
-bool RoomWindow::ManagerPanel::isOpened() const
-{
-	return getLevel() > 0;
-}
-
-bool RoomWindow::ManagerPanel::isLastLevel() const
-{
-	return getLevel() >= Profile::Room::MaxManagerLevel;
 }
 
 double RoomWindow::ManagerPanel::getUpgradeCost() const
@@ -359,11 +393,7 @@ void RoomWindow::ManagerPanel::increaseLevel()
 
 std::shared_ptr<Renderer::Texture> RoomWindow::ManagerPanel::getIconTexture() const
 {
-	auto avatar = getLevel();
-
-	if (avatar == 0)
-		avatar = 1;
-
+	auto avatar = Balance::GetManagerStageFromLevel(getLevel());
 	return TEXTURE(fmt::format("textures/windows/room_window/avatars/managers/{}.png", avatar));
 }
 
@@ -375,7 +405,7 @@ utf8_string RoomWindow::ManagerPanel::getTitleText() const
 		return LOCALIZE("ROOM_WINDOW_MANAGER_TITLE_HIRE");
 }
 
-utf8_string RoomWindow::ManagerPanel::getHireDescriptionText() const
+utf8_string RoomWindow::ManagerPanel::getDescriptionText() const
 {
 	if (isOpenAvailable())
 		return LOCALIZE("ROOM_WINDOW_MANAGER_DESCRIPTION");
@@ -405,21 +435,21 @@ int RoomWindow::WorkerPanel::getLevel() const
 	return 0;
 }
 
+int RoomWindow::WorkerPanel::getMaxLevel() const
+{
+	return Balance::MaxWorkerLevel;
+}
+
+int RoomWindow::WorkerPanel::getLevelsPerStage() const
+{
+	return Balance::WorkerLevelsPerStage;
+}
+
 bool RoomWindow::WorkerPanel::isOpenAvailable() const
 {
 	assert(!isOpened());
 	auto& room = getRoom();
 	return room.product > 0;
-}
-
-bool RoomWindow::WorkerPanel::isOpened() const
-{
-	return getLevel() > 0;
-}
-
-bool RoomWindow::WorkerPanel::isLastLevel() const
-{
-	return getLevel() >= Profile::Room::MaxWorkerLevel;
 }
 
 double RoomWindow::WorkerPanel::getUpgradeCost() const
@@ -443,11 +473,7 @@ void RoomWindow::WorkerPanel::increaseLevel()
 
 std::shared_ptr<Renderer::Texture> RoomWindow::WorkerPanel::getIconTexture() const
 {
-	auto avatar = getLevel();
-
-	if (avatar == 0)
-		avatar = 1;
-
+	auto avatar = Balance::GetWorkerStageFromLevel(getLevel());
 	return TEXTURE(fmt::format("textures/windows/room_window/avatars/workers/{}.png", avatar));
 }
 
@@ -459,7 +485,7 @@ utf8_string RoomWindow::WorkerPanel::getTitleText() const
 		return LOCALIZE("ROOM_WINDOW_WORKER_TITLE_HIRE");
 }
 
-utf8_string RoomWindow::WorkerPanel::getHireDescriptionText() const
+utf8_string RoomWindow::WorkerPanel::getDescriptionText() const
 {
 	if (isOpenAvailable())
 		return LOCALIZE("ROOM_WINDOW_WORKER_DESCRIPTION");

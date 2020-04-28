@@ -1,4 +1,5 @@
 #include "profile.h"
+#include "balance.h"
 
 using namespace PhoneInc;
 
@@ -7,7 +8,10 @@ void Profile::load()
 	auto path = PLATFORM->getAppFolder() + "save.bson";
 
 	if (!Platform::Asset::Exists(path, Platform::Asset::Path::Absolute))
+	{
+		clear(false);
 		return;
+	}
 
 	auto json_file = Platform::Asset(path, Platform::Asset::Path::Absolute);
 	auto json = nlohmann::json::from_bson(std::string((char*)json_file.getMemory(), json_file.getSize()));
@@ -74,12 +78,13 @@ void Profile::save()
 	mSaveMutex.unlock();
 }
 
-void Profile::clear()
+void Profile::clear(bool emit)
 {
 	setCash(30.0);
 	mRooms.clear();
 	setWarehouseLevel(1);
 	setShopLevel(1);
+	setWarehouseStorage(0);
 	EVENT->emit(ProfileClearedEvent());
 }
 
@@ -115,6 +120,17 @@ void Profile::unlockRoom(int index)
 	saveAsync();
 }
 
+bool Profile::isWarehouseFilled() const
+{
+	return mWarehouseStorage >= Balance::MaxWarehouseStorage;
+}
+
+void Profile::increaseWarehouseStorage()
+{
+	assert(!isWarehouseFilled());
+	setWarehouseStorage(getWarehouseStorage() + 1);
+}
+
 void Profile::setCash(double value)
 {
 	if (mCash == value)
@@ -136,13 +152,20 @@ void Profile::setRoom(int index, Room value)
 		src = glm::clamp(src, 0, maxValue);
 	};
 
-	checkBounds(value.product, Room::MaxProductLevel);
-	checkBounds(value.manager, Room::MaxManagerLevel);
-	checkBounds(value.worker1, Room::MaxWorkerLevel);
-	checkBounds(value.worker2, Room::MaxWorkerLevel);
-	checkBounds(value.worker3, Room::MaxWorkerLevel);
+	checkBounds(value.product, Balance::MaxProductLevel);
+	checkBounds(value.manager, Balance::MaxManagerLevel);
+	checkBounds(value.worker1, Balance::MaxWorkerLevel);
+	checkBounds(value.worker2, Balance::MaxWorkerLevel);
+	checkBounds(value.worker3, Balance::MaxWorkerLevel);
 
 	mRooms[index] = value;
 	EVENT->emit(RoomChangedEvent({ index }));
 	saveAsync();
+}
+
+void Profile::setWarehouseStorage(int value)
+{
+	assert(value <= Balance::MaxWarehouseStorage);
+	assert(value >= 0);
+	mWarehouseStorage = value;
 }

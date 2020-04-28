@@ -1,5 +1,6 @@
 #include "manager.h"
 #include "helpers.h"
+#include "balance.h"
 
 using namespace PhoneInc;
 
@@ -19,12 +20,14 @@ void Factory::Manager::refresh()
 
 	setEnabled(true);
 
-	auto image_path = fmt::format("textures/managers/{}.png", mLevel);
+	auto stage = Balance::GetManagerStageFromLevel(mLevel);
+
+	auto image_path = fmt::format("textures/managers/{}.png", stage);
 	auto atlas_path = "textures/managers/atlas.json";
 	auto animation_path = "textures/managers/animation.json";
 	auto animation = Shared::GraphicsHelpers::OpenAnimationFromFile(image_path, atlas_path, animation_path);
 	auto anim_ptr = std::make_shared<Graphics::Animation>(animation);
-	auto anim_name = fmt::format("manager_{}", mLevel);
+	auto anim_name = fmt::format("manager_{}", stage);
 	CACHE->loadAnimation(anim_ptr, anim_name);
 	setAnimation(TEXTURE(image_path), ANIMATION(anim_name));
 	//randomizeProgress();

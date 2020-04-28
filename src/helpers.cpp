@@ -184,40 +184,35 @@ CloseButtonWidget::CloseButtonWidget() : Button()
 
 Progressbar::Progressbar()
 {
-	setTexture(TEXTURE("textures/ui/progressbar_background.png"));
-	setCenterRegion({ { 8.0f, 8.0f }, { 1.0f, 1.0f } });
-
-	auto holder = std::make_shared<Scene::Node>();
-	holder->setAnchor(0.5f);
-	holder->setPivot(0.5f);
-	holder->setStretch(1.0f);
-	holder->setMargin(4.0f);
-	attach(holder);
+	mHolder = std::make_shared<Scene::Node>();
+	mHolder->setAnchor(0.5f);
+	mHolder->setPivot(0.5f);
+	mHolder->setStretch(1.0f);
+	attach(mHolder);
 
 	mClip = std::make_shared<Scene::Clippable<Scene::Node>>();
 	mClip->setStretch(1.0f);
 	mClip->setAnchor({ 0.0f, 0.5f });
 	mClip->setPivot({ 0.0f, 0.5f });
-	holder->attach(mClip);
+	mHolder->attach(mClip);
 
-	auto content = std::make_shared<Scene::Actionable<Scene::SlicedSprite>>();
-	content->setTexture(TEXTURE("textures/ui/progressbar_content.png"));
-	content->setCenterRegion({ { 6.0f, 6.0f }, { 1.0f, 1.0f } });
-	content->setStretch({ -1.0f, 1.0f });
-	content->setAnchor({ 0.0f, 0.5f });
-	content->setPivot({ 0.0f, 0.5f });
-	content->runAction(Shared::ActionHelpers::ExecuteInfinite([holder, content] {
-		content->setWidth(holder->getWidth());
+	mContent = std::make_shared<Scene::SlicedSprite>();
+	mContent->setStretch({ -1.0f, 1.0f });
+	mContent->setAnchor({ 0.0f, 0.5f });
+	mContent->setPivot({ 0.0f, 0.5f });
+	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {
+		mContent->setWidth(mHolder->getWidth());
 	}));
-	mClip->attach(content);
+	mClip->attach(mContent);
 }
 
-float Progressbar::getProgress() const
+StreetProgressbar::StreetProgressbar() : Progressbar()
 {
-	return mClip->getHorizontalStretch();
-}
+	setTexture(TEXTURE("textures/ui/progressbar_background.png"));
+	setCenterRegion({ { 8.0f, 8.0f }, { 1.0f, 1.0f } });
 
-void Progressbar::setProgress(float value)
-{
-	mClip->setHorizontalStretch(value);
+	mHolder->setMargin(4.0f);
+
+	mContent->setTexture(TEXTURE("textures/ui/progressbar_content.png"));
+	mContent->setCenterRegion({ { 6.0f, 6.0f }, { 1.0f, 1.0f } });
 }

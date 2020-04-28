@@ -26,7 +26,6 @@ Window::Window()
 	mContent->setAnchor({ 0.5f, -0.5f });
 	mContent->setPivot({ 0.5f, 0.5f });
 	mContent->setInteractions(false);
-	mContent->setScale(Helpers::InvScale);
 	attach(mContent);
 }
 

@@ -107,17 +107,27 @@ namespace PhoneInc::Helpers
 		CloseButtonWidget();
 	};
 
-	class Progressbar : public Scene::SlicedSprite
+	class Progressbar : public Scene::Actionable<Scene::SlicedSprite>
 	{
 	public:
 		Progressbar();
 
 	public:
-		float getProgress() const;
-		void setProgress(float value);
+		float getProgress() const { return mClip->getHorizontalStretch(); }
+		void setProgress(float value) { mClip->setHorizontalStretch(value); }
+
+	protected:
+		std::shared_ptr<Scene::Node> mHolder;
+		std::shared_ptr<Scene::SlicedSprite> mContent;
 
 	private:
 		std::shared_ptr<Scene::Clippable<Scene::Node>> mClip;
+	};
+
+	class StreetProgressbar : public Progressbar
+	{
+	public:
+		StreetProgressbar();
 	};
 
 	template <typename T> class Adaptive : public T

@@ -41,8 +41,8 @@ namespace PhoneInc
 	{
 	public:
 		virtual int getLevel() const = 0;
-		virtual bool isOpened() const = 0;
-		virtual bool isLastLevel() const = 0;
+		virtual int getMaxLevel() const = 0;
+		virtual int getLevelsPerStage() const = 0;
 		virtual bool isOpenAvailable() const = 0;
 		virtual double getUpgradeCost() const = 0;
 		virtual void increaseLevel() = 0;
@@ -55,6 +55,11 @@ namespace PhoneInc
 
 	public:
 		virtual void refresh();
+
+	public:
+		bool isOpened() const;
+		bool isLastLevel() const;
+		float getProgress() const;
 
 	public:
 		virtual utf8_string getOpenButtonText() const = 0;
@@ -83,8 +88,8 @@ namespace PhoneInc
 
 	public:
 		int getLevel() const override;
-		bool isOpened() const override;
-		bool isLastLevel() const override;
+		int getMaxLevel() const override;
+		int getLevelsPerStage() const override;
 		bool isOpenAvailable() const override;
 		double getUpgradeCost() const override;
 		void increaseLevel() override;
@@ -96,8 +101,8 @@ namespace PhoneInc
 	private:
 		std::shared_ptr<Helpers::Adaptive<Scene::Sprite>> mIcon;
 		std::shared_ptr<Helpers::LabelSolid> mTitle;
+		std::shared_ptr<Helpers::LabelSolid> mDescriptionLabel;
 		std::shared_ptr<Helpers::LabelSolid> mLevelLabel;
-		std::shared_ptr<Helpers::LabelSolid> mOpenDescriptionLabel;
 	};
 
 	class RoomWindow::SmallPanel : public Panel
@@ -115,13 +120,14 @@ namespace PhoneInc
 	public:
 		virtual std::shared_ptr<Renderer::Texture> getIconTexture() const = 0;
 		virtual utf8_string getTitleText() const = 0;
-		virtual utf8_string getHireDescriptionText() const = 0;
+		virtual utf8_string getDescriptionText() const = 0;
 
 	private:
 		std::shared_ptr<Scene::Sprite> mIcon;
 		std::shared_ptr<Helpers::LabelSolid> mTitle;
+		std::shared_ptr<Helpers::LabelSolid> mDescriptionLabel;
 		std::shared_ptr<Helpers::LabelSolid> mLevelLabel;
-		std::shared_ptr<Helpers::LabelSolid> mHireDescriptionLabel;
+		std::shared_ptr<Helpers::StreetProgressbar> mProgressbar;
 	};
 
 	class RoomWindow::ManagerPanel : public SmallPanel
@@ -131,16 +137,16 @@ namespace PhoneInc
 
 	public:
 		int getLevel() const override;
+		int getMaxLevel() const override;
+		int getLevelsPerStage() const override;
 		bool isOpenAvailable() const override;
-		bool isOpened() const override;
-		bool isLastLevel() const override;
 		double getUpgradeCost() const override;
 		void increaseLevel() override;
 
 	public:
 		std::shared_ptr<Renderer::Texture> getIconTexture() const override;
 		utf8_string getTitleText() const override;
-		utf8_string getHireDescriptionText() const override;
+		utf8_string getDescriptionText() const override;
 	};
 
 	class RoomWindow::WorkerPanel : public SmallPanel
@@ -150,16 +156,16 @@ namespace PhoneInc
 
 	public:
 		int getLevel() const override;
+		int getMaxLevel() const override;
+		int getLevelsPerStage() const override;
 		bool isOpenAvailable() const override;
-		bool isOpened() const override;
-		bool isLastLevel() const override;
 		double getUpgradeCost() const override;
 		void increaseLevel() override;
 
 	public:
 		std::shared_ptr<Renderer::Texture> getIconTexture() const override;
 		utf8_string getTitleText() const override;
-		utf8_string getHireDescriptionText() const override;
+		utf8_string getDescriptionText() const override;
 
 	private:
 		int mNumber = 0;

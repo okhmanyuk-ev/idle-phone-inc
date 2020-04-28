@@ -23,16 +23,16 @@ Factory::Factory()
 
 	setHeight(grid->getHeight());
 	 
-	auto conveyor_path = std::make_shared<Scene::Actionable<Scene::Sprite>>();
+	auto conveyor_path = std::make_shared<Scene::Sprite>();
 	conveyor_path->setTexture(TEXTURE("textures/factory/conveyor_segment.png"));
 	conveyor_path->setStretch({ -1.0f, 2.0f });
 	conveyor_path->setTextureAddress(Renderer::TextureAddress::Wrap);
 	conveyor_path->setX(6.0f);
 	attach(conveyor_path);
-	conveyor_path->runAction(Shared::ActionHelpers::ExecuteInfinite([conveyor_path] {
+	runAction(Shared::ActionHelpers::ExecuteInfinite([conveyor_path] {
 		conveyor_path->setTexRegion({ { 0.0f, 0.0f }, { 0.0f, conveyor_path->getHeight() } });
 		auto y = conveyor_path->getY();
-		y -= Clock::ToSeconds(FRAME->getTimeDelta()) * 100.0f * ConveryorSpeed;
+		y -= Clock::ToSeconds(FRAME->getTimeDelta()) * 100.0f * ConveyorSpeed;
 		auto tex_h = (float)conveyor_path->getTexture()->getHeight();
 		if (y <= -tex_h) 
 		{
@@ -48,6 +48,10 @@ Factory::Factory()
 	conveyor_hat->setTexture(TEXTURE("textures/factory/conveyor_hat.png"));
 	conveyor_hat->setY(-1.0f);
 	attach(conveyor_hat);
+
+	runAction(Shared::ActionHelpers::ExecuteInfinite([] {
+		GAME_STATS("warehouse", PROFILE->getWarehouseStorage());
+	}));
 }
 
 void Factory::event(const Profile::RoomUnlockedEvent& e)
@@ -71,10 +75,11 @@ void Factory::event(const ProductSpawnEvent& e)
 	box->setY((height * multiplier) + (height * 0.75f));
 	box->runAction(Shared::ActionHelpers::ExecuteInfinite([box] {
 		auto y = box->getY();
-		y -= Clock::ToSeconds(FRAME->getTimeDelta()) * 100.0f * ConveryorSpeed;
+		y -= Clock::ToSeconds(FRAME->getTimeDelta()) * 100.0f * ConveyorSpeed;
 		box->setY(y);
 		if (y <= 0)
-		{ 
+		{
+			PROFILE->increaseWarehouseStorage();
 			box->runAction(Shared::ActionHelpers::Kill(box));
 		}
 	}));

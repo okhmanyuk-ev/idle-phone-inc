@@ -17,10 +17,6 @@ namespace PhoneInc
 	public:
 		struct Room
 		{
-			static const inline int MaxProductLevel = 6;
-			static const inline int MaxManagerLevel = 5;
-			static const inline int MaxWorkerLevel = 5;
-			
 			int product = 0; // 0 means doesnt opened
 			int manager = 0;
 			int worker1 = 0;
@@ -32,7 +28,7 @@ namespace PhoneInc
 		void load();
 		void save();
 		void saveAsync();
-		void clear();
+		void clear(bool emit = true);
 
 	private:
 		std::mutex mSaveMutex;
@@ -44,6 +40,9 @@ namespace PhoneInc
 		bool isRoomLocked(int index) const;
 		void unlockRoom(int index);
 
+		bool isWarehouseFilled() const;
+		void increaseWarehouseStorage();
+		
 	public:
 		auto getCash() const { return mCash; }
 		void setCash(double value);
@@ -57,11 +56,15 @@ namespace PhoneInc
 		auto getShopLevel() const { return mShopLevel; }
 		void setShopLevel(int value) { mShopLevel = value; }
 
+		auto getWarehouseStorage() const { return mWarehouseStorage; }
+		void setWarehouseStorage(int value);
+
 	private:
-		double mCash = 0.0;
+		double mCash = 0.0f;
 		std::map<int, Room> mRooms = { };
-		int mWarehouseLevel = 1;
-		int mShopLevel = 1;
+		int mWarehouseLevel = 0;
+		int mShopLevel = 0;
+		int mWarehouseStorage = 0;
 	};
 
 	inline bool operator==(const Profile::Room& left, const Profile::Room& right)
