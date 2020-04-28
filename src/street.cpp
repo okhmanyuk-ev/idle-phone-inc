@@ -50,4 +50,18 @@ Street::Street()
 		EVENT->emit(Helpers::PushWindowEvent({ window }));
 	});
 	shop->attach(shop_button);
+
+	auto progressbar1 = std::make_shared<Helpers::Progressbar>();
+	progressbar1->setPivot(0.5f);
+	progressbar1->setPosition({ 164.0f, 62.0f });
+	progressbar1->setSize({ 256.0f, 22.0f });
+	progressbar1->setProgress(0.25f);
+	attach(progressbar1);
+
+	auto progressbar2 = std::make_shared<Helpers::Progressbar>();
+	progressbar2->setPivot(0.5f);
+	progressbar2->setPosition({ 928.0f, 62.0f });
+	progressbar2->setSize({ 256.0f, 22.0f });
+	progressbar2->setProgress(0.25f);
+	attach(progressbar2);
 }

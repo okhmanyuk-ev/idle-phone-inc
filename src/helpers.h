@@ -107,6 +107,19 @@ namespace PhoneInc::Helpers
 		CloseButtonWidget();
 	};
 
+	class Progressbar : public Scene::SlicedSprite
+	{
+	public:
+		Progressbar();
+
+	public:
+		float getProgress() const;
+		void setProgress(float value);
+
+	private:
+		std::shared_ptr<Scene::Clippable<Scene::Node>> mClip;
+	};
+
 	template <typename T> class Adaptive : public T
 	{
 		static_assert(std::is_base_of<Scene::Sprite, T>::value, "T must be derived from Node");

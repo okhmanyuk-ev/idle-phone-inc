@@ -58,16 +58,4 @@ Gameplay::Gameplay()
 		auto h = getHeight() - scrollbox->getY() - (bottom_menu->getHeight() / Helpers::Scale);
 		scrollbox->setHeight(h);
 	}));
-
-	auto region = Graphics::TexRegion();
-	region.pos = { 7.0f, 7.0f };
-	region.size = { 3.0f, 3.0f };
-
-	auto test = std::make_shared<Scene::SlicedSprite>();
-	test->setTexture(TEXTURE("textures/ui/progressbar_background.png"));
-	test->setAnchor(0.5f);
-	test->setPivot(0.5f);
-	test->setSize(128);
-	test->setCenterRegion(region);
-	attach(test);
 }
