@@ -9,7 +9,7 @@ void Profile::load()
 
 	if (!Platform::Asset::Exists(path, Platform::Asset::Path::Absolute))
 	{
-		clear(false);
+		clear();
 		return;
 	}
 
@@ -78,16 +78,14 @@ void Profile::save()
 	mSaveMutex.unlock();
 }
 
-void Profile::clear(bool emit)
+void Profile::clear()
 {
 	setCash(30.0);
 	mRooms.clear();
 	setWarehouseLevel(1);
 	setShopLevel(1);
 	setWarehouseStorage(0);
-
-	if (emit)
-		EVENT->emit(ProfileClearedEvent());
+	EVENT->emit(ProfileClearedEvent());
 }
 
 void Profile::saveAsync()

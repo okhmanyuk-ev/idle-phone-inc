@@ -28,7 +28,7 @@ namespace PhoneInc
 		void load();
 		void save();
 		void saveAsync();
-		void clear(bool emit = true);
+		void clear();
 
 	private:
 		std::mutex mSaveMutex;

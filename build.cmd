@@ -1,5 +1,5 @@
 mkdir build
 cd build
-cmake ..
+cmake -A Win32 ..
 cd ..
 pause

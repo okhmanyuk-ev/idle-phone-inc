@@ -114,6 +114,9 @@ void Application::event(const Helpers::PopWindowEvent& e)
 
 void Application::event(const Profile::ProfileClearedEvent& e)
 {
+	if (!isInitialized())
+		return;
+
 	mSceneManager->switchScreen(nullptr, [this] {
 		mGameplay = std::make_shared<Gameplay>();
 		mSceneManager->switchScreen(mGameplay);
