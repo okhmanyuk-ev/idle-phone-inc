@@ -33,6 +33,11 @@ int WarehouseWindow::getMaxLevel() const
 	return Balance::MaxWarehouseLevel;
 }
 
+int WarehouseWindow::getLevelsPerStage() const
+{
+	return Balance::WarehouseLevelsPerStage;
+}
+
 std::shared_ptr<Renderer::Texture> WarehouseWindow::getBuildingTexture() const
 {
 	return TEXTURE(fmt::format("textures/warehouse/{}.png", Balance::GetWarehouseStage()));

@@ -76,6 +76,10 @@ void BuildingWindow::refresh()
 	mMainPanel.building_name->setText(getBuildingName());
 	mMainPanel.building_icon->setTexture(getBuildingTexture());
 
+	auto current = (((getLevel() - 1) % getLevelsPerStage()) + 1);
+	auto total = getLevelsPerStage();
+	mMainPanel.progressbar->setProgress((float)current / (float)total);
+
 	auto first = getFirstParameter();
 	mParameterPanel1.icon->setTexture(first.icon_texture);
 	mParameterPanel1.title->setText(first.title_text);
@@ -117,9 +121,16 @@ std::shared_ptr<Scene::Node> BuildingWindow::createMainPanel(MainPanel& panel)
 	level->setFontSize(19.0f);
 	bg->attach(level);
 
+	auto progressbar = std::make_shared<Helpers::StreetProgressbar>();
+	progressbar->setPivot({ 0.0f, 0.5f });
+	progressbar->setPosition({ 340.0f, 272.0f });
+	progressbar->setSize({ 436.0f, 32.0f });
+	bg->attach(progressbar);
+
 	panel.building_icon = building_icon;
 	panel.building_name = building_name;
 	panel.level = level;
+	panel.progressbar = progressbar;
 
 	return bg;
 }

@@ -33,6 +33,11 @@ int ShopWindow::getMaxLevel() const
 	return Balance::MaxShopLevel;
 }
 
+int ShopWindow::getLevelsPerStage() const
+{
+	return Balance::ShopLevelsPerStage;
+}
+
 std::shared_ptr<Renderer::Texture> ShopWindow::getBuildingTexture() const
 {
 	return TEXTURE(fmt::format("textures/shop/{}.png", Balance::GetShopStage()));

@@ -22,6 +22,7 @@ namespace PhoneInc
 			std::shared_ptr<Scene::Sprite> building_icon;
 			std::shared_ptr<Helpers::LabelSolid> building_name;
 			std::shared_ptr<Helpers::LabelSolid> level;
+			std::shared_ptr<Helpers::StreetProgressbar> progressbar;
 		};
 
 		struct ParameterPanel
@@ -48,6 +49,7 @@ namespace PhoneInc
 		virtual utf8_string getBuildingName() const = 0;
 		virtual int getLevel() const = 0;
 		virtual int getMaxLevel() const = 0;
+		virtual int getLevelsPerStage() const = 0;
 		virtual std::shared_ptr<Renderer::Texture> getBuildingTexture() const = 0;
 		virtual double getUpgradePrice() const = 0;
 		virtual Parameter getFirstParameter() const = 0;

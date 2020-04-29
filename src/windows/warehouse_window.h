@@ -18,6 +18,7 @@ namespace PhoneInc
 		utf8_string getBuildingName() const override;
 		int getLevel() const override;
 		int getMaxLevel() const override;
+		int getLevelsPerStage() const override;
 		std::shared_ptr<Renderer::Texture> getBuildingTexture() const override;
 		double getUpgradePrice() const override;
 		Parameter getFirstParameter() const override;
