@@ -1,6 +1,7 @@
 #include "factory.h"
 #include "helpers.h"
 #include "room.h"
+#include "balance.h"
 
 using namespace PhoneInc;
 
@@ -8,7 +9,7 @@ Factory::Factory()
 {
 	glm::vec2 cell_size = { 895.0f, 376.0f };
 
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < Balance::MaxRooms; i++)
 	{
 		if (PROFILE->isRoomLocked(i))
 			mRooms.push_back(std::make_shared<LockedRoom>(i));
@@ -64,20 +65,26 @@ void Factory::event(const ProductSpawnEvent& e)
 	auto height = room->getHeight();
 	auto multiplier = (float)e.room_index;
 
-	auto box = std::make_shared<Scene::Actionable<Scene::Sprite>>();
+	auto box = std::make_shared<Scene::Actionable<Scene::Cullable<Scene::Sprite>>>();
 	box->setTexture(TEXTURE("textures/factory/box.png"));
 	box->setPivot({ 0.5f, 1.0f });
 	box->setX(94.0f);
 	box->setY((height * multiplier) + (height * 0.75f));
-	box->runAction(Shared::ActionHelpers::ExecuteInfinite([box] {
-		auto y = box->getY();
-		y -= Clock::ToSeconds(FRAME->getTimeDelta()) * 100.0f * ConveyorSpeed;
-		box->setY(y);
-		if (y <= 0)
-		{
-			PROFILE->increaseWarehouseStorage();
-			box->runAction(Shared::ActionHelpers::Kill(box));
-		}
-	}));
+	box->setScale(0.0f);
+	box->runAction(Shared::ActionHelpers::MakeSequence(
+		Shared::ActionHelpers::ChangeScale(box, { 1.0f, 1.0f }, 0.25f, Common::Easing::BackOut),
+		Shared::ActionHelpers::ExecuteInfinite([box] {
+			auto y = box->getY();
+			y -= Clock::ToSeconds(FRAME->getTimeDelta()) * 100.0f * ConveyorSpeed;
+			box->setY(y);
+			if (y <= 0)
+			{
+				PROFILE->increaseWarehouseStorage();
+				box->runAction(Shared::ActionHelpers::Kill(box));
+			}
+		})
+	)
+		
+		);
 	mBoxHolder->attach(box);
 }

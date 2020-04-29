@@ -4,6 +4,8 @@
 
 namespace PhoneInc::Balance
 {
+	const inline int MaxRooms = 30;
+
 	const inline int MaxProductLevel = 60;
 	const inline int MaxManagerLevel = 50;
 	const inline int MaxWorkerLevel = 50;

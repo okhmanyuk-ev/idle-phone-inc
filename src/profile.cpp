@@ -85,7 +85,9 @@ void Profile::clear(bool emit)
 	setWarehouseLevel(1);
 	setShopLevel(1);
 	setWarehouseStorage(0);
-	EVENT->emit(ProfileClearedEvent());
+
+	if (emit)
+		EVENT->emit(ProfileClearedEvent());
 }
 
 void Profile::saveAsync()
