@@ -35,7 +35,7 @@ Factory::Factory()
 		auto y = conveyor_path->getY();
 		y -= Clock::ToSeconds(FRAME->getTimeDelta()) * 100.0f * ConveyorSpeed;
 		auto tex_h = (float)conveyor_path->getTexture()->getHeight();
-		if (y <= -tex_h) 
+		while (y <= -tex_h) 
 		{
 			y += tex_h;
 		}

@@ -27,17 +27,44 @@ double Balance::GetWorkerCost(int index)
 	return BaseCost * glm::pow(3.2, (double)index);
 }
 
-int Balance::GetProductStageFromLevel(int level)
+int Balance::GetStage(int level, int levels_per_stage)
 {
-	return ((level - 1) / Balance::ProductLevelsPerStage) + 1;
+	return ((level - 1) / levels_per_stage) + 1;
 }
 
-int Balance::GetManagerStageFromLevel(int level)
+int Balance::GetProductStage(int level)
 {
-	return ((level - 1) / Balance::ManagerLevelsPerStage) + 1;
+	return GetStage(level, ProductLevelsPerStage);
 }
 
-int Balance::GetWorkerStageFromLevel(int level)
+int Balance::GetManagerStage(int level)
 {
-	return ((level - 1) / Balance::WorkerLevelsPerStage) + 1;
+	return GetStage(level, ManagerLevelsPerStage);
+}
+
+int Balance::GetWorkerStage(int level)
+{
+	return GetStage(level, WorkerLevelsPerStage);
+}
+
+int Balance::GetWarehouseStage()
+{
+	return GetStage(PROFILE->getWarehouseLevel(), WarehouseLevelsPerStage);
+}
+
+int Balance::GetShopStage()
+{
+	return GetStage(PROFILE->getShopLevel(), ShopLevelsPerStage);
+}
+
+double Balance::GetWarehouseCost()
+{
+	const double BaseCost = 10.0;
+	return BaseCost * glm::pow(3.2, (double)PROFILE->getWarehouseLevel());
+}
+
+double Balance::GetShopCost()
+{
+	const double BaseCost = 10.0;
+	return BaseCost * glm::pow(3.2, (double)PROFILE->getShopLevel());
 }

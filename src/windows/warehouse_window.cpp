@@ -1,8 +1,14 @@
 #include "warehouse_window.h"
+#include "balance.h"
 
 using namespace PhoneInc;
 
 WarehouseWindow::WarehouseWindow()
+{
+	refresh();
+}
+
+void WarehouseWindow::event(const Profile::WarehouseLevelChangedEvent& e)
 {
 	refresh();
 }
@@ -14,7 +20,7 @@ utf8_string WarehouseWindow::getTitle() const
 
 utf8_string WarehouseWindow::getBuildingName() const
 {
-	return LOCALIZE(fmt::format("WAREHOUSE_NAME_{}", getLevel()));
+	return LOCALIZE(fmt::format("WAREHOUSE_NAME_{}", Balance::GetWarehouseStage()));
 }
 
 int WarehouseWindow::getLevel() const
@@ -22,14 +28,19 @@ int WarehouseWindow::getLevel() const
 	return PROFILE->getWarehouseLevel();
 }
 
+int WarehouseWindow::getMaxLevel() const
+{
+	return Balance::MaxWarehouseLevel;
+}
+
 std::shared_ptr<Renderer::Texture> WarehouseWindow::getBuildingTexture() const
 {
-	return TEXTURE(fmt::format("textures/warehouse/{}.png", getLevel()));
+	return TEXTURE(fmt::format("textures/warehouse/{}.png", Balance::GetWarehouseStage()));
 }
 
 double WarehouseWindow::getUpgradePrice() const
 {
-	return 123.0;
+	return Balance::GetWarehouseCost();
 }
 
 BuildingWindow::Parameter WarehouseWindow::getFirstParameter() const
@@ -48,4 +59,9 @@ BuildingWindow::Parameter WarehouseWindow::getSecondParameter() const
 	result.effect_text = "+ 5%";
 	result.icon_texture = TEXTURE("textures/windows/warehouse_window/icon2.png");
 	return result;
+}
+
+void WarehouseWindow::upgrade()
+{
+	PROFILE->setWarehouseLevel(PROFILE->getWarehouseLevel() + 1);
 }

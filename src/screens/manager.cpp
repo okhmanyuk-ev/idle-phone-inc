@@ -1,16 +1,16 @@
-#include "worker.h"
+#include "manager.h"
 #include "helpers.h"
 #include "balance.h"
 
 using namespace PhoneInc;
 
-Factory::Worker::Worker() : Scene::MappedAniSprite<WorkerAnimation>(Animations)
+Factory::Manager::Manager() : Scene::MappedAniSprite<ManagerAnimation>(Animations)
 {
-	setFrequency(12.0f);
+	setFrequency(6.0f);
 	setStateType(Animation::Working);
 }
 
-void Factory::Worker::refresh()
+void Factory::Manager::refresh()
 {
 	if (mLevel <= 0)
 	{
@@ -20,20 +20,20 @@ void Factory::Worker::refresh()
 
 	setEnabled(true);
 
-	auto stage = Balance::GetWorkerStageFromLevel(mLevel);
+	auto stage = Balance::GetManagerStage(mLevel);
 
-	auto image_path = fmt::format("textures/workers/{}.png", stage);
-	auto atlas_path = "textures/workers/atlas.json";
-	auto animation_path = "textures/workers/animation.json";
+	auto image_path = fmt::format("textures/managers/{}.png", stage);
+	auto atlas_path = "textures/managers/atlas.json";
+	auto animation_path = "textures/managers/animation.json";
 	auto animation = Shared::GraphicsHelpers::OpenAnimationFromFile(image_path, atlas_path, animation_path);
 	auto anim_ptr = std::make_shared<Graphics::Animation>(animation);
-	auto anim_name = fmt::format("worker_{}", stage);
+	auto anim_name = fmt::format("manager_{}", stage);
 	CACHE->loadAnimation(anim_ptr, anim_name);
 	setAnimation(TEXTURE(image_path), ANIMATION(anim_name));
 	//randomizeProgress();
 }
 
-void Factory::Worker::setLevel(int value)
+void Factory::Manager::setLevel(int value)
 {
 	mLevel = value;
 	refresh();

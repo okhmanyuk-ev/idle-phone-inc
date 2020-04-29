@@ -16,12 +16,19 @@ file(GLOB WINDOWS_SRC
 	src/windows/*.h
 )
 
+file(GLOB SCREENS_SRC
+	src/screens/*.cpp
+	src/screens/*.h
+)
+
 source_group("all" FILES ${MAIN_SRC})
 source_group("windows" FILES ${WINDOWS_SRC})
+source_group("screens" FILES ${SCREENS_SRC})
 
 file(GLOB ALL_SRC
 	${MAIN_SRC}
 	${WINDOWS_SRC}
+	${SCREENS_SRC}
 )
 
 if(WIN32)

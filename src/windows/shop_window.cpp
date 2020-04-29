@@ -1,8 +1,14 @@
 #include "shop_window.h"
+#include "balance.h"
 
 using namespace PhoneInc;
 
 ShopWindow::ShopWindow()
+{
+	refresh();
+}
+
+void ShopWindow::event(const Profile::ShopLevelChangedEvent& e)
 {
 	refresh();
 }
@@ -14,7 +20,7 @@ utf8_string ShopWindow::getTitle() const
 
 utf8_string ShopWindow::getBuildingName() const
 {
-	return LOCALIZE(fmt::format("SHOP_NAME_{}", getLevel()));
+	return LOCALIZE(fmt::format("SHOP_NAME_{}", Balance::GetShopStage()));
 }
 
 int ShopWindow::getLevel() const
@@ -22,14 +28,19 @@ int ShopWindow::getLevel() const
 	return PROFILE->getShopLevel();
 }
 
+int ShopWindow::getMaxLevel() const
+{
+	return Balance::MaxShopLevel;
+}
+
 std::shared_ptr<Renderer::Texture> ShopWindow::getBuildingTexture() const
 {
-	return TEXTURE(fmt::format("textures/shop/{}.png", getLevel()));
+	return TEXTURE(fmt::format("textures/shop/{}.png", Balance::GetShopStage()));
 }
 
 double ShopWindow::getUpgradePrice() const
 {
-	return 123.0;
+	return Balance::GetShopCost();
 }
 
 BuildingWindow::Parameter ShopWindow::getFirstParameter() const
@@ -48,4 +59,9 @@ BuildingWindow::Parameter ShopWindow::getSecondParameter() const
 	result.effect_text = "$ 32.1K";
 	result.icon_texture = TEXTURE("textures/windows/shop_window/icon2.png");
 	return result;
+}
+
+void ShopWindow::upgrade()
+{
+	PROFILE->setShopLevel(PROFILE->getShopLevel() + 1);
 }

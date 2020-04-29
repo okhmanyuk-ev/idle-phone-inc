@@ -4,7 +4,7 @@
 #include "defines.h"
 #include "profile.h"
 #include "cheats.h"
-#include "gameplay.h"
+#include "screens/gameplay.h"
 #include "helpers.h"
 
 namespace PhoneInc
@@ -23,7 +23,7 @@ namespace PhoneInc
 		void initialize() override;
 		void prepare();
 		void frame() override;
-
+		
 	public:
 		void event(const Helpers::PushWindowEvent& e) override;
 		void event(const Helpers::PopWindowEvent& e) override;

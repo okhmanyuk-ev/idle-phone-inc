@@ -8,7 +8,12 @@ namespace PhoneInc::Helpers
 	// types
 
 	using Callback = std::function<void()>;
-	struct PushWindowEvent { std::shared_ptr<Shared::SceneManager::Window> window; };
+	struct PushWindowEvent 
+	{ 
+		std::shared_ptr<Shared::SceneManager::Window> window; 
+		Callback finishCallback = nullptr;
+	};
+
 	struct PopWindowEvent { };
 
 	// constants

@@ -54,13 +54,23 @@ BuildingWindow::BuildingWindow()
 	mUpgradeButton->setAnchor({ 0.5f, 0.0f });
 	mUpgradeButton->setPivot({ 0.5f, 0.0f });
 	mUpgradeButton->setPosition({ 0.0f, 838.0f });
+	mUpgradeButton->setActiveCallback([this] {
+		PROFILE->spendCash(getUpgradePrice());
+		upgrade();
+	});
 	white_bg->attach(mUpgradeButton);
 }
 
 void BuildingWindow::refresh()
 {
 	mTitleLabel->setText(getTitle());
-	mUpgradeButton->getLabel()->setText("$ " + Helpers::NumberToString(getUpgradePrice()));
+
+	mUpgradeButton->setEnabled(getLevel() < getMaxLevel());
+	if (mUpgradeButton->isEnabled())
+	{
+		mUpgradeButton->setActive(PROFILE->isEnoughCash(getUpgradePrice()));
+		mUpgradeButton->getLabel()->setText("$ " + Helpers::NumberToString(getUpgradePrice()));
+	}
 
 	mMainPanel.level->setText(LOCALIZE_FMT("BUILDING_WINDOW_LEVEL", getLevel()));
 	mMainPanel.building_name->setText(getBuildingName());
@@ -75,6 +85,11 @@ void BuildingWindow::refresh()
 	mParameterPanel2.icon->setTexture(second.icon_texture);
 	mParameterPanel2.title->setText(second.title_text);
 	mParameterPanel2.effect->setText(second.effect_text);
+}
+
+void BuildingWindow::event(const Profile::CashChangedEvent& e)
+{
+	refresh();
 }
 
 std::shared_ptr<Scene::Node> BuildingWindow::createMainPanel(MainPanel& panel)

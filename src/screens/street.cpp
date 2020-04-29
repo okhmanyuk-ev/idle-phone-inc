@@ -3,6 +3,7 @@
 #include "windows/warehouse_window.h"
 #include "windows/shop_window.h"
 #include "truck.h"
+#include "balance.h"
 
 using namespace PhoneInc;
 
@@ -25,10 +26,9 @@ Street::Street()
 	mTruckHolder = std::make_shared<Scene::Node>();
 	floor->attach(mTruckHolder);
 
-	auto warehouse = std::make_shared<Scene::Sprite>();
-	warehouse->setTexture(TEXTURE("textures/warehouse/1.png"));
-	warehouse->setPosition({ 8.0f, -60.0f });
-	floor->attach(warehouse);
+	mWarehouse = std::make_shared<Scene::Sprite>();
+	mWarehouse->setPosition({ 8.0f, -60.0f });
+	floor->attach(mWarehouse);
 
 	auto warehouse_button = std::make_shared<Helpers::StandardButton>();
 	warehouse_button->setPivot(0.5f);
@@ -38,12 +38,11 @@ Street::Street()
 		auto window = std::make_shared<WarehouseWindow>();
 		EVENT->emit(Helpers::PushWindowEvent({ window }));
 	});
-	warehouse->attach(warehouse_button);
+	mWarehouse->attach(warehouse_button);
 
-	auto shop = std::make_shared<Scene::Sprite>();
-	shop->setTexture(TEXTURE("textures/shop/1.png"));
-	shop->setPosition({ 841.0f, -60.0f });
-	floor->attach(shop);
+	mShop = std::make_shared<Scene::Sprite>();
+	mShop->setPosition({ 841.0f, -60.0f });
+	floor->attach(mShop);
 
 	auto shop_button = std::make_shared<Helpers::StandardButton>();
 	shop_button->setPivot(0.5f);
@@ -53,7 +52,7 @@ Street::Street()
 		auto window = std::make_shared<ShopWindow>();
 		EVENT->emit(Helpers::PushWindowEvent({ window }));
 	});
-	shop->attach(shop_button);
+	mShop->attach(shop_button);
 
 	mWarehouseProgressbar = std::make_shared<Helpers::StreetProgressbar>();
 	mWarehouseProgressbar->setPivot(0.5f);
@@ -91,6 +90,23 @@ Street::Street()
 		runShopAction();
 	}));
 
+	refresh();
+}
+
+void Street::refresh()
+{
+	mWarehouse->setTexture(TEXTURE(fmt::format("textures/warehouse/{}.png", Balance::GetWarehouseStage())));
+	mShop->setTexture(TEXTURE(fmt::format("textures/shop/{}.png", Balance::GetShopStage())));
+}
+
+void Street::event(const Profile::WarehouseLevelChangedEvent& e)
+{
+	refresh();
+}
+
+void Street::event(const Profile::ShopLevelChangedEvent& e)
+{
+	refresh();
 }
 
 void Street::runWarehouseAction()

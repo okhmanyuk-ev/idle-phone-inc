@@ -174,6 +174,24 @@ void Profile::setRoom(int index, Room value)
 	saveAsync();
 }
 
+void Profile::setWarehouseLevel(int value)
+{
+	assert(value > 0);
+	assert(value <= Balance::MaxWarehouseLevel);
+	mWarehouseLevel = value;
+	EVENT->emit(WarehouseLevelChangedEvent());
+	saveAsync();
+}
+
+void Profile::setShopLevel(int value)
+{
+	assert(value > 0);
+	assert(value <= Balance::MaxShopLevel);
+	mShopLevel = value;
+	EVENT->emit(ShopLevelChangedEvent());
+	saveAsync();
+}
+
 void Profile::setWarehouseStorage(int value)
 {
 	assert(value <= Balance::MaxWarehouseStorage);

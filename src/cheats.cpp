@@ -106,6 +106,23 @@ void Cheats::ShowDevMenu(std::shared_ptr<Shared::SceneManager> scene_manager)
 			}
 		}
 
+		if (ImGui::Button("RANDOMIZE ALL ROOMS"))
+		{
+			for (int i = 0; i < Balance::MaxRooms; i++)
+			{
+				if (PROFILE->isRoomLocked(i))
+					continue;
+
+				auto room = PROFILE->getRooms().at(i);
+				room.product = glm::linearRand(1, Balance::MaxProductLevel);
+				room.manager = glm::linearRand(1, Balance::MaxManagerLevel);
+				room.worker1 = glm::linearRand(1, Balance::MaxWorkerLevel);
+				room.worker2 = glm::linearRand(1, Balance::MaxWorkerLevel);
+				room.worker3 = glm::linearRand(1, Balance::MaxWorkerLevel);
+				PROFILE->setRoom(i, room);
+			}
+		}
+
 		categorySpacing();
 
 		if (ImGui::Button("CLEAR PROFILE"))

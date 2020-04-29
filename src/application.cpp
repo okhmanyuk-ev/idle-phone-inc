@@ -104,7 +104,7 @@ void Application::frame()
 
 void Application::event(const Helpers::PushWindowEvent& e)
 {
-	mSceneManager->pushWindow(e.window);
+	mSceneManager->pushWindow(e.window, e.finishCallback);
 }
 
 void Application::event(const Helpers::PopWindowEvent& e)
@@ -117,8 +117,10 @@ void Application::event(const Profile::ProfileClearedEvent& e)
 	if (!isInitialized())
 		return;
 
-	mSceneManager->switchScreen(nullptr, [this] {
-		mGameplay = std::make_shared<Gameplay>();
-		mSceneManager->switchScreen(mGameplay);
+	mSceneManager->popWindow(mSceneManager->getWindowsCount(), [this] {
+		mSceneManager->switchScreen(nullptr, [this] {
+			mGameplay = std::make_shared<Gameplay>();
+			mSceneManager->switchScreen(mGameplay);
+		});
 	});
 }

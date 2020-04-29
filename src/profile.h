@@ -13,6 +13,8 @@ namespace PhoneInc
 		struct CashChangedEvent { };
 		struct RoomUnlockedEvent { int index; };
 		struct RoomChangedEvent { int index; };
+		struct WarehouseLevelChangedEvent { };
+		struct ShopLevelChangedEvent { };
 
 	public:
 		struct Room
@@ -54,10 +56,10 @@ namespace PhoneInc
 		void setRoom(int index, Room value);
 
 		auto getWarehouseLevel() const { return mWarehouseLevel; }
-		void setWarehouseLevel(int value) { mWarehouseLevel = value; }
+		void setWarehouseLevel(int value);
 
 		auto getShopLevel() const { return mShopLevel; }
-		void setShopLevel(int value) { mShopLevel = value; }
+		void setShopLevel(int value);
 
 		auto getWarehouseStorage() const { return mWarehouseStorage; }
 		void setWarehouseStorage(int value);

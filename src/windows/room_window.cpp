@@ -202,7 +202,7 @@ void RoomWindow::ProductPanel::refresh()
 
 	auto& room = getRoom();
 
-	auto stage = Balance::GetProductStageFromLevel(getLevel());
+	auto stage = Balance::GetProductStage(getLevel());
 
 	if (!isOpened())
 		mIcon->setTexture(TEXTURE(fmt::format("textures/windows/room_window/avatars/products/0.png")));
@@ -393,7 +393,7 @@ void RoomWindow::ManagerPanel::increaseLevel()
 
 std::shared_ptr<Renderer::Texture> RoomWindow::ManagerPanel::getIconTexture() const
 {
-	auto avatar = Balance::GetManagerStageFromLevel(getLevel());
+	auto avatar = Balance::GetManagerStage(getLevel());
 	return TEXTURE(fmt::format("textures/windows/room_window/avatars/managers/{}.png", avatar));
 }
 
@@ -473,7 +473,7 @@ void RoomWindow::WorkerPanel::increaseLevel()
 
 std::shared_ptr<Renderer::Texture> RoomWindow::WorkerPanel::getIconTexture() const
 {
-	auto avatar = Balance::GetWorkerStageFromLevel(getLevel());
+	auto avatar = Balance::GetWorkerStage(getLevel());
 	return TEXTURE(fmt::format("textures/windows/room_window/avatars/workers/{}.png", avatar));
 }
 
