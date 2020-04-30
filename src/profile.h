@@ -14,7 +14,6 @@ namespace PhoneInc
 		struct RoomUnlockedEvent { int index; };
 		struct RoomChangedEvent { int index; };
 		struct WarehouseLevelChangedEvent { };
-		struct ShopLevelChangedEvent { };
 
 	public:
 		struct Room
@@ -42,11 +41,7 @@ namespace PhoneInc
 		bool isRoomLocked(int index) const;
 		void unlockRoom(int index);
 
-		bool isWarehouseFilled() const;
 		void increaseWarehouseStorage();
-
-		bool isShopFilled() const;
-		void increaseShopStorage();
 		
 	public:
 		auto getCash() const { return mCash; }
@@ -58,22 +53,14 @@ namespace PhoneInc
 		auto getWarehouseLevel() const { return mWarehouseLevel; }
 		void setWarehouseLevel(int value);
 
-		auto getShopLevel() const { return mShopLevel; }
-		void setShopLevel(int value);
-
 		auto getWarehouseStorage() const { return mWarehouseStorage; }
 		void setWarehouseStorage(int value);
-
-		auto getShopStorage() const { return mShopStorage; }
-		void setShopStorage(int value);
 
 	private:
 		double mCash = 0.0f;
 		std::map<int, Room> mRooms = { };
 		int mWarehouseLevel = 0;
-		int mShopLevel = 0;
 		int mWarehouseStorage = 0;
-		int mShopStorage = 0;
 	};
 
 	inline bool operator==(const Profile::Room& left, const Profile::Room& right)

@@ -48,7 +48,6 @@ void Profile::load()
 	}
 
 	tryRead(mWarehouseLevel, "warehouse_level");
-	tryRead(mShopLevel, "shop_level");
 }
 
 void Profile::save()
@@ -70,7 +69,6 @@ void Profile::save()
 	}
 
 	json["warehouse_level"] = mWarehouseLevel;
-	json["shop_level"] = mShopLevel;
 
 	auto bson = nlohmann::json::to_bson(json);
 	Platform::Asset::Write(PLATFORM->getAppFolder() + "save.bson", bson.data(), bson.size(), Platform::Asset::Path::Absolute);
@@ -83,7 +81,6 @@ void Profile::clear()
 	setCash(30.0);
 	mRooms.clear();
 	setWarehouseLevel(1);
-	setShopLevel(1);
 	setWarehouseStorage(0);
 	EVENT->emit(ProfileClearedEvent());
 }
@@ -120,26 +117,9 @@ void Profile::unlockRoom(int index)
 	saveAsync();
 }
 
-bool Profile::isWarehouseFilled() const
-{
-	return mWarehouseStorage >= Balance::MaxWarehouseStorage;
-}
-
 void Profile::increaseWarehouseStorage()
 {
-	assert(!isWarehouseFilled());
 	setWarehouseStorage(getWarehouseStorage() + 1);
-}
-
-bool Profile::isShopFilled() const
-{
-	return mShopStorage >= Balance::MaxShopStorage;
-}
-
-void Profile::increaseShopStorage()
-{
-	assert(!isShopFilled());
-	setShopStorage(getShopStorage() + 1);
 }
 
 void Profile::setCash(double value)
@@ -183,25 +163,8 @@ void Profile::setWarehouseLevel(int value)
 	saveAsync();
 }
 
-void Profile::setShopLevel(int value)
-{
-	assert(value > 0);
-	assert(value <= Balance::MaxShopLevel);
-	mShopLevel = value;
-	EVENT->emit(ShopLevelChangedEvent());
-	saveAsync();
-}
-
 void Profile::setWarehouseStorage(int value)
 {
-	assert(value <= Balance::MaxWarehouseStorage);
 	assert(value >= 0);
 	mWarehouseStorage = value;
-}
-
-void Profile::setShopStorage(int value)
-{
-	assert(value <= Balance::MaxShopStorage);
-	assert(value >= 0);
-	mShopStorage = value;
 }

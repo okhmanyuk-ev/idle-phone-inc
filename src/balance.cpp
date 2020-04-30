@@ -52,21 +52,10 @@ int Balance::GetWarehouseStage()
 	return GetStage(PROFILE->getWarehouseLevel(), WarehouseLevelsPerStage);
 }
 
-int Balance::GetShopStage()
-{
-	return GetStage(PROFILE->getShopLevel(), ShopLevelsPerStage);
-}
-
 double Balance::GetWarehouseCost()
 {
 	const double BaseCost = 10.0;
 	return BaseCost * glm::pow(3.2, (double)PROFILE->getWarehouseLevel());
-}
-
-double Balance::GetShopCost()
-{
-	const double BaseCost = 10.0;
-	return BaseCost * glm::pow(3.2, (double)PROFILE->getShopLevel());
 }
 
 float Balance::GetWarehouseDurationMultiplier()
@@ -78,15 +67,4 @@ float Balance::GetWarehouseDuration()
 {
 	const float BaseDuration = 10.0f;
 	return BaseDuration * GetWarehouseDurationMultiplier();
-}
-
-float Balance::GetShopDurationMultiplier()
-{
-	return 1.0f - (((float)PROFILE->getShopLevel() / (float)MaxShopLevel) * 0.95f);
-}
-
-float Balance::GetShopDuration()
-{
-	const float BaseDuration = 10.0f;
-	return BaseDuration * GetShopDurationMultiplier();
 }

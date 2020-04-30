@@ -5,10 +5,7 @@
 namespace PhoneInc::Balance
 {
 	const inline int MaxWarehouseLevel = 40;
-	const inline int MaxShopLevel = 40;
-
 	const inline int WarehouseLevelsPerStage = 10;
-	const inline int ShopLevelsPerStage = 10;
 
 	const inline int MaxRooms = 30;
 
@@ -19,9 +16,6 @@ namespace PhoneInc::Balance
 	const inline int ProductLevelsPerStage = 10;
 	const inline int ManagerLevelsPerStage = 10;
 	const inline int WorkerLevelsPerStage = 10;
-
-	const inline int MaxWarehouseStorage = 10000;
-	const inline int MaxShopStorage = 10000;
 
 	double GetRoomCost(int index);
 	double GetProductCost(int index);
@@ -35,14 +29,9 @@ namespace PhoneInc::Balance
 	int GetWorkerStage(int level);
 
 	int GetWarehouseStage();
-	int GetShopStage();
 
 	double GetWarehouseCost();
-	double GetShopCost();
 
 	float GetWarehouseDurationMultiplier();
 	float GetWarehouseDuration();
-
-	float GetShopDurationMultiplier();
-	float GetShopDuration();
 }
