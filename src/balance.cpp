@@ -68,3 +68,25 @@ double Balance::GetShopCost()
 	const double BaseCost = 10.0;
 	return BaseCost * glm::pow(3.2, (double)PROFILE->getShopLevel());
 }
+
+float Balance::GetWarehouseDurationMultiplier()
+{
+	return 1.0f - (((float)PROFILE->getWarehouseLevel() / (float)MaxWarehouseLevel) * 0.95f);
+}
+
+float Balance::GetWarehouseDuration()
+{
+	const float BaseDuration = 10.0f;
+	return BaseDuration * GetWarehouseDurationMultiplier();
+}
+
+float Balance::GetShopDurationMultiplier()
+{
+	return 1.0f - (((float)PROFILE->getShopLevel() / (float)MaxShopLevel) * 0.95f);
+}
+
+float Balance::GetShopDuration()
+{
+	const float BaseDuration = 10.0f;
+	return BaseDuration * GetShopDurationMultiplier();
+}

@@ -57,7 +57,7 @@ TopMenu::TopMenu()
 	auto coin_text = std::make_shared<Helpers::LabelSolid>();
 	coin_text->setAnchor({ 1.0f, 0.5f });
 	coin_text->setPivot({ 1.0f, 0.5f });
-	coin_text->setText("123");
+	coin_text->setText("0");
 	coin_text->setColor(Graphics::Color::ToNormalized(255, 192, 24));
 	coin_text->setFontSize(13.0f);
 	coin_text->setX(-64.0f);

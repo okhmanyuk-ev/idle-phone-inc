@@ -39,4 +39,10 @@ namespace PhoneInc::Balance
 
 	double GetWarehouseCost();
 	double GetShopCost();
+
+	float GetWarehouseDurationMultiplier();
+	float GetWarehouseDuration();
+
+	float GetShopDurationMultiplier();
+	float GetShopDuration();
 }

@@ -57,14 +57,14 @@ Street::Street()
 	mWarehouseProgressbar = std::make_shared<Helpers::StreetProgressbar>();
 	mWarehouseProgressbar->setPivot(0.5f);
 	mWarehouseProgressbar->setPosition({ 164.0f, 62.0f });
-	mWarehouseProgressbar->setSize({ 256.0f, 22.0f });
+	mWarehouseProgressbar->setSize({ 256.0f, 18.0f });
 	mWarehouseProgressbar->setProgress(0.0f);
 	attach(mWarehouseProgressbar);
 
 	mShopProgressbar = std::make_shared<Helpers::StreetProgressbar>();
 	mShopProgressbar->setPivot(0.5f);
 	mShopProgressbar->setPosition({ 928.0f, 62.0f });
-	mShopProgressbar->setSize({ 256.0f, 22.0f });
+	mShopProgressbar->setSize({ 256.0f, 18.0f });
 	mShopProgressbar->setProgress(0.0f);
 	attach(mShopProgressbar);
 
@@ -112,7 +112,7 @@ void Street::event(const Profile::ShopLevelChangedEvent& e)
 void Street::runWarehouseAction()
 {
 	runAction(Shared::ActionHelpers::MakeSequence(
-		Shared::ActionHelpers::Interpolate(0.0f, 1.0f, 5.0f, Common::Easing::Linear, [this](float value) {
+		Shared::ActionHelpers::Interpolate(0.0f, 1.0f, Balance::GetWarehouseDuration(), Common::Easing::Linear, [this](float value) {
 			mWarehouseProgressbar->setProgress(value);
 		}),
 		Shared::ActionHelpers::Execute([this] {
@@ -147,7 +147,7 @@ void Street::runTruckAction()
 void Street::runShopAction()
 {
 	runAction(Shared::ActionHelpers::MakeSequence(
-		Shared::ActionHelpers::Interpolate(0.0f, 1.0f, 6.0f, Common::Easing::Linear, [this](float value) {
+		Shared::ActionHelpers::Interpolate(0.0f, 1.0f, Balance::GetShopDuration(), Common::Easing::Linear, [this](float value) {
 			mShopProgressbar->setProgress(value);
 		}),
 		Shared::ActionHelpers::Execute([this] {

@@ -61,25 +61,56 @@ Factory::Room::Room(int index) : mIndex(index)
 	});
 	attach(upgrade_btn);
 
-	auto phone = std::make_shared<Scene::Clickable<Scene::Sprite>>();
-	phone->setTexture(TEXTURE("textures/factory/room/phone.png"));
-	phone->setPivot(0.5f);
-	phone->setPosition({ 46.0f, 18.0f });
-	phone->setClickCallback([index] {
-		EVENT->emit(ProductSpawnEvent({ index }));
-	});
-	table->attach(phone);
+	mPhonesStack1 = std::make_shared<PhonesStack>(index);
+	mPhonesStack1->setPivot(0.5f);
+	mPhonesStack1->setPosition({ 46.0f, -12.0f });
+	mPhonesStack1->setVisiblePhones(0);
+	table->attach(mPhonesStack1);
+
+	mPhonesStack2 = std::make_shared<PhonesStack>(index);
+	mPhonesStack2->setPivot(0.5f);
+	mPhonesStack2->setPosition({ 196.0f, -12.0f });
+	mPhonesStack2->setVisiblePhones(0);
+	table->attach(mPhonesStack2);
+
+	mPhonesStack3 = std::make_shared<PhonesStack>(index);
+	mPhonesStack3->setPivot(0.5f);
+	mPhonesStack3->setPosition({ 346.0f, -12.0f });
+	mPhonesStack3->setVisiblePhones(0);
+	table->attach(mPhonesStack3);
 
 	refresh();
 
-	runAction(Shared::ActionHelpers::RepeatInfinite([index] {
-		return Shared::ActionHelpers::Delayed(5.0f, Shared::ActionHelpers::Execute([index] {
-			auto room = PROFILE->getRooms().at(index);
+	runAction(Shared::ActionHelpers::RepeatInfinite([this] {
+		return Shared::ActionHelpers::Delayed(5.0f, Shared::ActionHelpers::Execute([this] {
+			auto room = PROFILE->getRooms().at(mIndex);
 
 			if (room.manager == 0)
 				return;
 
-			EVENT->emit(ProductSpawnEvent({ index }));
+			if (mPhonesStack1->isFilled())
+				mPhonesStack1->makeProduct();
+
+			if (mPhonesStack2->isFilled())
+				mPhonesStack2->makeProduct();
+
+			if (mPhonesStack3->isFilled())
+				mPhonesStack3->makeProduct();
+		}));
+	}));
+
+	runAction(Shared::ActionHelpers::RepeatInfinite([this] {
+		return Shared::ActionHelpers::Delayed(1.0f, Shared::ActionHelpers::Execute([this] {
+			auto room = PROFILE->getRooms().at(mIndex);
+
+			if (room.worker1 > 0 && mPhonesStack1->getVisiblePhones() < PhonesStack::MaxVisiblePhones)
+				mPhonesStack1->setVisiblePhones(mPhonesStack1->getVisiblePhones() + 1);
+
+			if (room.worker2 > 0 && mPhonesStack2->getVisiblePhones() < PhonesStack::MaxVisiblePhones)
+				mPhonesStack2->setVisiblePhones(mPhonesStack2->getVisiblePhones() + 1);
+
+			if (room.worker3 > 0 && mPhonesStack3->getVisiblePhones() < PhonesStack::MaxVisiblePhones)
+				mPhonesStack3->setVisiblePhones(mPhonesStack3->getVisiblePhones() + 1);
 		}));
 	}));
 }
@@ -126,4 +157,54 @@ void Factory::LockedRoom::event(const Profile::CashChangedEvent& e)
 void Factory::LockedRoom::refresh()
 {
 	mButton->setActive(PROFILE->isEnoughCash(Balance::GetRoomCost(mIndex)));
+}
+
+Factory::Room::PhonesStack::PhonesStack(int room_index) : mRoomIndex(room_index)
+{
+	setSize({ 124.0f, 96.0f });
+
+	for (int i = -5; i < 5; i++)
+	{
+		auto phone = std::make_shared<Scene::Sprite>();
+		phone->setTexture(TEXTURE("textures/factory/room/phone.png"));
+		phone->setPivot(0.5f);
+		phone->setAnchor(0.5f);
+		phone->setY(-i * 6.0f);
+		attach(phone);
+		mPhones.push_back(phone);
+	}
+
+	setClickCallback([this] {
+		if (!isFilled())
+			return;
+
+		makeProduct();
+	});
+}
+
+void Factory::Room::PhonesStack::makeProduct()
+{
+	setVisiblePhones(0);
+	EVENT->emit(ProductSpawnEvent({ mRoomIndex }));
+}
+
+void Factory::Room::PhonesStack::setVisiblePhones(int value)
+{
+	assert(value >= 0);
+	assert(value <= MaxVisiblePhones);
+
+	mVisiblePhones = value;
+	
+	for (int i = 0; i < mPhones.size(); i++)
+	{
+		mPhones.at(i)->setEnabled(i < value);
+	}
+
+	for (auto phone : mPhones)
+	{
+		if (isFilled())
+			phone->setColor(Graphics::Color::Lime);
+		else
+			phone->setColor(Graphics::Color::White);
+	}
 }

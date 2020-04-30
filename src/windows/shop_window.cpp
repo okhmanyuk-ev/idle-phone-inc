@@ -50,9 +50,12 @@ double ShopWindow::getUpgradePrice() const
 
 BuildingWindow::Parameter ShopWindow::getFirstParameter() const
 {
+	auto multiplier = 1.0f - Balance::GetShopDurationMultiplier();
+	multiplier *= 100.0f;
+
 	auto result = BuildingWindow::Parameter();
 	result.title_text = LOCALIZE("SHOP_WINDOW_PARAM_NAME_1");
-	result.effect_text = "+ 10%";
+	result.effect_text = fmt::format("+{:.0f}%", multiplier); // https://fmt.dev/latest/syntax.html
 	result.icon_texture = TEXTURE("textures/windows/shop_window/icon1.png");
 	return result;
 }
