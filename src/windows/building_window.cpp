@@ -9,7 +9,6 @@ BuildingWindow::BuildingWindow()
 	background->setAnchor(0.5f);
 	background->setPivot(0.5f);
 	background->setTouchable(true);
-	background->setScale(Helpers::InvScale);
 	getContent()->attach(background);
 
 	mTitleLabel = std::make_shared<Helpers::LabelSolid>();

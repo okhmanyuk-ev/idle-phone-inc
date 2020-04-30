@@ -42,7 +42,7 @@ Street::Street()
 	mWarehouseProgressbar = std::make_shared<Helpers::StreetProgressbar>();
 	mWarehouseProgressbar->setPivot(0.5f);
 	mWarehouseProgressbar->setPosition({ 164.0f, 62.0f });
-	mWarehouseProgressbar->setSize({ 256.0f, 18.0f });
+	mWarehouseProgressbar->setSize({ 256.0f, 20.0f });
 	mWarehouseProgressbar->setProgress(0.0f);
 	attach(mWarehouseProgressbar);
 

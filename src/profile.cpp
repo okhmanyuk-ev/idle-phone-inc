@@ -117,11 +117,6 @@ void Profile::unlockRoom(int index)
 	saveAsync();
 }
 
-void Profile::increaseWarehouseStorage()
-{
-	setWarehouseStorage(getWarehouseStorage() + 1);
-}
-
 void Profile::setCash(double value)
 {
 	if (mCash == value)

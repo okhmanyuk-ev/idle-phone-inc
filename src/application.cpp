@@ -91,6 +91,8 @@ void Application::prepare()
 	auto root = mGameScene.getRoot();
 
 	mSceneManager = std::make_shared<Shared::SceneManager>();
+	mSceneManager->setScale(Helpers::InvScale);
+	mSceneManager->setStretch(Helpers::Scale);
 	root->attach(mSceneManager);
 
 	mGameplay = std::make_shared<Gameplay>();

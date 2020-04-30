@@ -40,8 +40,6 @@ namespace PhoneInc
 		
 		bool isRoomLocked(int index) const;
 		void unlockRoom(int index);
-
-		void increaseWarehouseStorage();
 		
 	public:
 		auto getCash() const { return mCash; }

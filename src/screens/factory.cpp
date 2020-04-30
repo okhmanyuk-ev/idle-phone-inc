@@ -79,7 +79,7 @@ void Factory::event(const ProductSpawnEvent& e)
 			box->setY(y);
 			if (y <= 0)
 			{
-				PROFILE->increaseWarehouseStorage();
+				PROFILE->setWarehouseStorage(PROFILE->getWarehouseStorage() + 1);
 				box->runAction(Shared::ActionHelpers::Kill(box));
 			}
 		})
