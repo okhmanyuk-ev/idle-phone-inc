@@ -68,7 +68,7 @@ void Factory::event(const ProductSpawnEvent& e)
 	auto box = std::make_shared<Scene::Actionable<Scene::Cullable<Scene::Sprite>>>();
 	box->setTexture(TEXTURE("textures/factory/box.png"));
 	box->setPivot({ 0.5f, 1.0f });
-	box->setX(94.0f);
+	box->setX(96.0f);
 	box->setY((height * multiplier) + (height * 0.75f));
 	box->setScale(0.0f);
 	box->runAction(Shared::ActionHelpers::MakeSequence(
@@ -83,8 +83,6 @@ void Factory::event(const ProductSpawnEvent& e)
 				box->runAction(Shared::ActionHelpers::Kill(box));
 			}
 		})
-	)
-		
-		);
+	));
 	mBoxHolder->attach(box);
 }
