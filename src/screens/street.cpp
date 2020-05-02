@@ -1,6 +1,6 @@
 #include "street.h"
 #include "helpers.h"
-#include "windows/warehouse_window.h"
+#include "windows/building_window.h"
 #include "truck.h"
 #include "balance.h"
 
@@ -29,7 +29,7 @@ Street::Street()
 	warehouse_button->setPosition({ 966.0f, 538.0f });
 	warehouse_button->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
 	warehouse_button->setClickCallback([this] {
-		auto window = std::make_shared<WarehouseWindow>();
+		auto window = std::make_shared<BuildingWindow>();
 		EVENT->emit(Helpers::PushWindowEvent({ window }));
 	}); 
 	attach(warehouse_button);
@@ -39,6 +39,8 @@ Street::Street()
 	mWarehouseProgressbar->setPosition({ 164.0f, 194.0f });
 	mWarehouseProgressbar->setSize({ 256.0f, 20.0f });
 	mWarehouseProgressbar->setProgress(0.0f);
+	mWarehouseProgressbar->setEnabled(false);
+	mWarehouseProgressbar->setScale(0.0f);
 	attach(mWarehouseProgressbar);
 
 	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {
@@ -69,12 +71,18 @@ void Street::event(const Profile::WarehouseLevelChangedEvent& e)
 void Street::runWarehouseAction()
 {
 	runAction(Shared::ActionHelpers::MakeSequence(
+		Shared::ActionHelpers::Execute([this] {
+			mWarehouseProgressbar->setEnabled(true);
+		}),
+		Shared::ActionHelpers::ChangeScale(mWarehouseProgressbar, { 1.0f, 1.0f }, 0.125f, Common::Easing::BackOut),
 		Shared::ActionHelpers::Interpolate(0.0f, 1.0f, Balance::GetWarehouseDuration(), Common::Easing::Linear, [this](float value) {
 			mWarehouseProgressbar->setProgress(value);
 		}),
+		Shared::ActionHelpers::ChangeScale(mWarehouseProgressbar, { 0.0f, 0.0f }, 0.125f, Common::Easing::BackIn),
 		Shared::ActionHelpers::Execute([this] {
 			PROFILE->setWarehouseStorage(PROFILE->getWarehouseStorage() - 1);
 			mWarehouseProgressbar->setProgress(0.0f);
+			mWarehouseProgressbar->setEnabled(false);
 			mWarehouseBusy = false;
 			runTruckAction();
 		})

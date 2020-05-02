@@ -4,32 +4,15 @@ using namespace PhoneInc;
 
 BuildingWindow::BuildingWindow()
 {
-	auto background = std::make_shared<Scene::Sprite>();
-	background->setTexture(TEXTURE("textures/windows/building_window/background.png"));
-	background->setAnchor(0.5f);
-	background->setPivot(0.5f);
-	background->setTouchable(true);
-	getContent()->attach(background);
-
-	mTitleLabel = std::make_shared<Helpers::LabelSolid>();
-	mTitleLabel->setAnchor({ 0.5f, 0.0f });
-	mTitleLabel->setPivot({ 0.5f, 0.5f });
-	mTitleLabel->setPosition({ 0.0f, 62.0f });
-	mTitleLabel->setFontSize(15.0f);
-	background->attach(mTitleLabel);
-
-	auto close = std::make_shared<Helpers::CloseButtonWidget>();
-	close->setPivot(0.5f);
-	close->setAnchor({ 1.0f, 0.0f });
-	close->setPosition({ -72.0f, 62.0f });
-	background->attach(close);
+	getBackground()->setSize({ 962.0f, 1326.0f });
+	getTitle()->setText(LOCALIZE("WAREHOUSE_WINDOW_TITLE"));
 
 	auto white_bg = std::make_shared<Scene::Sprite>();
 	white_bg->setTexture(TEXTURE("textures/windows/building_window/white_bg.png"));
 	white_bg->setAnchor({ 0.5f, 0.0f });
 	white_bg->setPivot({ 0.5f, 0.0f });
 	white_bg->setPosition({ 0.0f, 140.0f });
-	background->attach(white_bg);
+	getBackground()->attach(white_bg);
 
 	auto main_panel = createMainPanel(mMainPanel);
 	main_panel->setAnchor({ 0.5f, 0.0f });
@@ -54,29 +37,33 @@ BuildingWindow::BuildingWindow()
 	mUpgradeButton->setPivot({ 0.5f, 0.0f });
 	mUpgradeButton->setPosition({ 0.0f, 838.0f });
 	mUpgradeButton->setActiveCallback([this] {
-		PROFILE->spendCash(getUpgradePrice());
-		upgrade();
+		PROFILE->spendCash(Balance::GetWarehouseCost());
+		PROFILE->setWarehouseLevel(PROFILE->getWarehouseLevel() + 1);
 	});
 	white_bg->attach(mUpgradeButton);
+
+	refresh();
 }
 
 void BuildingWindow::refresh()
 {
-	mTitleLabel->setText(getTitle());
+	auto level = PROFILE->getWarehouseLevel();
 
-	mUpgradeButton->setEnabled(getLevel() < getMaxLevel());
+	mUpgradeButton->setEnabled(level < Balance::MaxWarehouseLevel);
 	if (mUpgradeButton->isEnabled())
 	{
-		mUpgradeButton->setActive(PROFILE->isEnoughCash(getUpgradePrice()));
-		mUpgradeButton->getLabel()->setText("$ " + Helpers::NumberToString(getUpgradePrice()));
+		auto cost = Balance::GetWarehouseCost();
+		mUpgradeButton->setActive(PROFILE->isEnoughCash(cost));
+		mUpgradeButton->getLabel()->setText("$ " + Helpers::NumberToString(cost));
 	}
 
-	mMainPanel.level->setText(LOCALIZE_FMT("BUILDING_WINDOW_LEVEL", getLevel()));
-	mMainPanel.building_name->setText(getBuildingName());
-	mMainPanel.building_icon->setTexture(getBuildingTexture());
+	mMainPanel.level->setText(LOCALIZE_FMT("BUILDING_WINDOW_LEVEL", level));
+	mMainPanel.building_name->setText(LOCALIZE(fmt::format("WAREHOUSE_NAME_{}", Balance::GetWarehouseStage())));
+	mMainPanel.building_icon->setTexture(TEXTURE(fmt::format("textures/warehouse/{}.png", Balance::GetWarehouseStage())));
+	mMainPanel.building_icon->setSize(0.0f);
 
-	auto current = (((getLevel() - 1) % getLevelsPerStage()) + 1);
-	auto total = getLevelsPerStage();
+	auto current = (((level - 1) % Balance::WarehouseLevelsPerStage) + 1);
+	auto total = Balance::WarehouseLevelsPerStage;
 	mMainPanel.progressbar->setProgress((float)current / (float)total);
 
 	auto first = getFirstParameter();
@@ -91,6 +78,11 @@ void BuildingWindow::refresh()
 }
 
 void BuildingWindow::event(const Profile::CashChangedEvent& e)
+{
+	refresh();
+}
+
+void BuildingWindow::event(const Profile::WarehouseLevelChangedEvent& e)
 {
 	refresh();
 }
@@ -166,4 +158,25 @@ std::shared_ptr<Scene::Node> BuildingWindow::createParameterPanel(ParameterPanel
 	panel.effect = effect;
 
 	return bg;
+}
+
+BuildingWindow::Parameter BuildingWindow::getFirstParameter() const
+{
+	auto multiplier = 1.0f - Balance::GetWarehouseDurationMultiplier();
+	multiplier *= 100.0f;
+
+	auto result = BuildingWindow::Parameter();
+	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_1");
+	result.effect_text = fmt::format("+{:.0f}%", multiplier); // https://fmt.dev/latest/syntax.html
+	result.icon_texture = TEXTURE("textures/windows/building_window/icon1.png");
+	return result;
+}
+
+BuildingWindow::Parameter BuildingWindow::getSecondParameter() const
+{
+	auto result = BuildingWindow::Parameter();
+	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_2");
+	result.effect_text = "+ 5%";
+	result.icon_texture = TEXTURE("textures/windows/building_window/icon2.png");
+	return result;
 }

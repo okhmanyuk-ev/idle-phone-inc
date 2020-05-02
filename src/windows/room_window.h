@@ -4,7 +4,7 @@
 
 namespace PhoneInc
 {
-	class RoomWindow : public Window,
+	class RoomWindow : public StandardWindow,
 		public Common::EventSystem::Listenable<Profile::RoomChangedEvent>,
 		public Common::EventSystem::Listenable<Profile::CashChangedEvent>
 	{
@@ -19,7 +19,6 @@ namespace PhoneInc
 		void event(const Profile::CashChangedEvent& e) override;
 
 	private:
-
 		class Panel;
 		class ProductPanel;
 		class SmallPanel;

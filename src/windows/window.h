@@ -29,4 +29,18 @@ namespace PhoneInc
 		std::shared_ptr<Scene::Rectangle> mFadeRect;
 		bool mCloseOnMissclick = true;
 	};
+
+	class StandardWindow : public Window
+	{
+	public:
+		StandardWindow();
+
+	public:
+		auto getBackground() { return mBackground; }
+		auto getTitle() { return mTitle; }
+
+	private:
+		std::shared_ptr<Scene::SlicedSprite> mBackground;
+		std::shared_ptr<Helpers::LabelSolid> mTitle;
+	};
 }

@@ -129,6 +129,18 @@ void Cheats::ShowDevMenu(std::shared_ptr<Shared::SceneManager> scene_manager)
 
 		categorySpacing();
 
+		if (ImGui::Button("UPGRADE WAREHOUSE"))
+		{
+			PROFILE->setWarehouseLevel(Balance::MaxWarehouseLevel);
+		}
+
+		if (ImGui::Button("DOWNGRADE WAREHOUSE"))
+		{
+			PROFILE->setWarehouseLevel(1);
+		}
+
+		categorySpacing();
+
 		if (ImGui::Button("CLEAR PROFILE"))
 		{
 			PROFILE->clear();

@@ -5,56 +5,38 @@ using namespace PhoneInc;
 
 RoomWindow::RoomWindow(int index) : mIndex(index)
 {
-	auto background = std::make_shared<Scene::Sprite>();
-	background->setTexture(TEXTURE("textures/windows/room_window/background.png"));
-	background->setAnchor(0.5f);
-	background->setPivot(0.5f);
-	background->setTouchable(true);
-	getContent()->attach(background);
-
-	auto title = std::make_shared<Helpers::LabelSolid>();
-	title->setAnchor({ 0.5f, 0.0f });
-	title->setPivot(0.5f);
-	title->setFontSize(15.0f);
-	title->setPosition({ 0.0f, 64.0f });
-	title->setText(LOCALIZE_FMT("ROOM_WINDOW_TITLE", index + 1));
-	background->attach(title);
-
-	auto close = std::make_shared<Helpers::CloseButtonWidget>();
-	close->setPivot(0.5f);
-	close->setAnchor({ 1.0f, 0.0f });
-	close->setPosition({ -72.0f, 62.0f });
-	background->attach(close);
+	getBackground()->setSize({ 986.0f, 1658.0f });
+	getTitle()->setText(LOCALIZE_FMT("ROOM_WINDOW_TITLE", index + 1));
 
 	mProductPanel = std::make_shared<ProductPanel>(index);
 	mProductPanel->setAnchor({ 0.5f, 0.0f });
 	mProductPanel->setPivot({ 0.5f, 0.0f });
 	mProductPanel->setPosition({ 0.0f, 138.0f });
-	background->attach(mProductPanel);
+	getBackground()->attach(mProductPanel);
 
 	mManagerPanel = std::make_shared<ManagerPanel>(index);
 	mManagerPanel->setAnchor({ 0.5f, 0.0f });
 	mManagerPanel->setPivot({ 0.5f, 0.0f });
 	mManagerPanel->setPosition({ 0.0f, 596.0f });
-	background->attach(mManagerPanel);
+	getBackground()->attach(mManagerPanel);
 
 	mWorkerPanel1 = std::make_shared<WorkerPanel>(index, 1);
 	mWorkerPanel1->setAnchor({ 0.5f, 0.0f });
 	mWorkerPanel1->setPivot({ 0.5f, 0.0f });
 	mWorkerPanel1->setPosition({ 0.0f, 858.0f });
-	background->attach(mWorkerPanel1);
+	getBackground()->attach(mWorkerPanel1);
 
 	mWorkerPanel2 = std::make_shared<WorkerPanel>(index, 2);
 	mWorkerPanel2->setAnchor({ 0.5f, 0.0f });
 	mWorkerPanel2->setPivot({ 0.5f, 0.0f });
 	mWorkerPanel2->setPosition({ 0.0f, 1120.0f });
-	background->attach(mWorkerPanel2);
+	getBackground()->attach(mWorkerPanel2);
 
 	mWorkerPanel3 = std::make_shared<WorkerPanel>(index, 3);
 	mWorkerPanel3->setAnchor({ 0.5f, 0.0f });
 	mWorkerPanel3->setPivot({ 0.5f, 0.0f });
 	mWorkerPanel3->setPosition({ 0.0f, 1382.0f });
-	background->attach(mWorkerPanel3);
+	getBackground()->attach(mWorkerPanel3);
 
 	refresh();
 }

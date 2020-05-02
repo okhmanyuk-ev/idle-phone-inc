@@ -4,8 +4,9 @@
 
 namespace PhoneInc
 {
-	class BuildingWindow : public Window,
-		public Common::EventSystem::Listenable<Profile::CashChangedEvent>
+	class BuildingWindow : public StandardWindow,
+		public Common::EventSystem::Listenable<Profile::CashChangedEvent>,
+		public Common::EventSystem::Listenable<Profile::WarehouseLevelChangedEvent>
 	{
 	public:
 		BuildingWindow();
@@ -15,6 +16,7 @@ namespace PhoneInc
 
 	private:
 		void event(const Profile::CashChangedEvent& e) override;
+		void event(const Profile::WarehouseLevelChangedEvent& e) override;
 
 	private:
 		struct MainPanel
@@ -45,22 +47,13 @@ namespace PhoneInc
 		};
 
 	protected:
-		virtual utf8_string getTitle() const = 0;
-		virtual utf8_string getBuildingName() const = 0;
-		virtual int getLevel() const = 0;
-		virtual int getMaxLevel() const = 0;
-		virtual int getLevelsPerStage() const = 0;
-		virtual std::shared_ptr<Renderer::Texture> getBuildingTexture() const = 0;
-		virtual double getUpgradePrice() const = 0;
-		virtual Parameter getFirstParameter() const = 0;
-		virtual Parameter getSecondParameter() const = 0;
-		virtual void upgrade() = 0;
+		Parameter getFirstParameter() const;
+		Parameter getSecondParameter() const;
 
 	private:
 		MainPanel mMainPanel;
 		ParameterPanel mParameterPanel1;
 		ParameterPanel mParameterPanel2;
-		std::shared_ptr<Helpers::LabelSolid> mTitleLabel;
 		std::shared_ptr<Helpers::StandardLongButton> mUpgradeButton;
 	};
 }
