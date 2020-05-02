@@ -20,7 +20,8 @@ Street::Street()
 	bg->attach(mTruckHolder);
 
 	mWarehouse = std::make_shared<Scene::Sprite>();
-	mWarehouse->setPosition({ 8.0f, 280.0f });
+	mWarehouse->setPosition({ 24.0f, 574.0f });
+	mWarehouse->setPivot({ 0.0f, 1.0f });
 	bg->attach(mWarehouse);
 
 	auto warehouse_button = std::make_shared<Helpers::StandardButton>();
@@ -57,6 +58,7 @@ Street::Street()
 void Street::refresh()
 {
 	mWarehouse->setTexture(TEXTURE(fmt::format("textures/warehouse/{}.png", Balance::GetWarehouseStage())));
+	mWarehouse->setSize(0.0f);
 }
 
 void Street::event(const Profile::WarehouseLevelChangedEvent& e)
@@ -86,7 +88,7 @@ void Street::runTruckAction()
 
 	auto truck = std::make_shared<Truck>();
 	truck->setPivot(0.5f);
-	truck->setPosition({ Start, 454.0f });
+	truck->setPosition({ Start, 484.0f });
 	mTruckHolder->attach(truck);
 
 	runAction(Shared::ActionHelpers::MakeSequence(

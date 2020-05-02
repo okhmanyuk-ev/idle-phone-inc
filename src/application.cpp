@@ -119,6 +119,8 @@ void Application::event(const Profile::ProfileClearedEvent& e)
 	if (!isInitialized())
 		return;
 
+	mGameplay->setEnabled(false);
+
 	mSceneManager->popWindow(mSceneManager->getWindowsCount(), [this] {
 		mSceneManager->switchScreen(nullptr, [this] {
 			mGameplay = std::make_shared<Gameplay>();
