@@ -2,6 +2,7 @@
 
 #include <shared/all.h>
 #include "factory.h"
+#include "helpers.h"
 
 namespace PhoneInc
 {
@@ -31,5 +32,11 @@ namespace PhoneInc
 			{ Animation::Working, "working" },
 			{ Animation::Idle, "idle" }
 		};
+
+	public:
+		auto getProgressbar() { return mProgressbar; }
+
+	private:
+		std::shared_ptr<Helpers::StreetProgressbar> mProgressbar;
 	};
 }

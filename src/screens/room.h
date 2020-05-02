@@ -25,12 +25,8 @@ namespace PhoneInc
 	private:
 		int mIndex = 0;
 		std::shared_ptr<Manager> mManager;
-		std::shared_ptr<Worker> mWorker1;
-		std::shared_ptr<Worker> mWorker2;
-		std::shared_ptr<Worker> mWorker3;
-		std::shared_ptr<PhonesStack> mPhonesStack1;
-		std::shared_ptr<PhonesStack> mPhonesStack2;
-		std::shared_ptr<PhonesStack> mPhonesStack3;
+		std::array<std::shared_ptr<Worker>, Balance::MaxWorkersCount> mWorkers;
+		std::array<std::shared_ptr<PhonesStack>, Balance::MaxWorkersCount> mPhonesStacks;
 	};
 
 	class Factory::LockedRoom : public Scene::Cullable<Scene::Sprite>,

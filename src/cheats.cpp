@@ -83,9 +83,10 @@ void Cheats::ShowDevMenu(std::shared_ptr<Shared::SceneManager> scene_manager)
 				auto room = PROFILE->getRooms().at(i);
 				room.product = Balance::MaxProductLevel;
 				room.manager = Balance::MaxManagerLevel;
-				room.worker1 = Balance::MaxWorkerLevel;
-				room.worker2 = Balance::MaxWorkerLevel;
-				room.worker3 = Balance::MaxWorkerLevel;
+				for (auto& worker : room.workers)
+				{
+					worker = Balance::MaxWorkerLevel;
+				}
 				PROFILE->setRoom(i, room);
 			}
 		}
@@ -100,9 +101,10 @@ void Cheats::ShowDevMenu(std::shared_ptr<Shared::SceneManager> scene_manager)
 				auto room = PROFILE->getRooms().at(i);
 				room.product = 0;
 				room.manager = 0;
-				room.worker1 = 0;
-				room.worker2 = 0;
-				room.worker3 = 0;
+				for (auto& worker : room.workers)
+				{
+					worker = 0;
+				}
 				PROFILE->setRoom(i, room);
 			}
 		}
@@ -117,9 +119,10 @@ void Cheats::ShowDevMenu(std::shared_ptr<Shared::SceneManager> scene_manager)
 				auto room = PROFILE->getRooms().at(i);
 				room.product = glm::linearRand(1, Balance::MaxProductLevel);
 				room.manager = glm::linearRand(1, Balance::MaxManagerLevel);
-				room.worker1 = glm::linearRand(1, Balance::MaxWorkerLevel);
-				room.worker2 = glm::linearRand(1, Balance::MaxWorkerLevel);
-				room.worker3 = glm::linearRand(1, Balance::MaxWorkerLevel);
+				for (auto& worker : room.workers)
+				{
+					worker = glm::linearRand(1, Balance::MaxWorkerLevel);
+				}
 				PROFILE->setRoom(i, room);
 			}
 		}

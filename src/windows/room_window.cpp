@@ -375,7 +375,7 @@ bool RoomWindow::ManagerPanel::isOpenAvailable() const
 {
 	assert(!isOpened());
 	auto& room = getRoom();
-	return room.worker1 > 0 || room.worker2 > 0 || room.worker3 > 0;
+	return room.workers[0] > 0 || room.workers[1] > 0 || room.workers[2] > 0;
 }
 
 double RoomWindow::ManagerPanel::getUpgradeCost() const
@@ -423,14 +423,7 @@ RoomWindow::WorkerPanel::WorkerPanel(int roomIndex, int number) : SmallPanel(roo
 int RoomWindow::WorkerPanel::getLevel() const
 {
 	auto& room = getRoom();
-
-	if (mNumber == 1)
-		return room.worker1;
-	else if (mNumber == 2)
-		return room.worker2;
-	else if (mNumber == 3)
-		return room.worker3;
-
+	return room.workers[mNumber - 1];
 	return 0;
 }
 
@@ -459,14 +452,7 @@ double RoomWindow::WorkerPanel::getUpgradeCost() const
 void RoomWindow::WorkerPanel::increaseLevel() 
 {
 	auto room = getRoom();
-
-	if (mNumber == 1)
-		room.worker1 += 1;
-	else if (mNumber == 2)
-		room.worker2 += 1;
-	else if (mNumber == 3)
-		room.worker3 += 1;
-
+	room.workers[mNumber - 1] += 1;
 	PROFILE->setRoom(getRoomIndex(), room);
 }
 

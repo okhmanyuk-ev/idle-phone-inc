@@ -68,3 +68,25 @@ float Balance::GetWarehouseDuration()
 	const float BaseDuration = 10.0f;
 	return BaseDuration * GetWarehouseDurationMultiplier();
 }
+
+float Balance::GetManagerDuration(int room_index)
+{
+	float MinDuration = 1.0f;
+	float MaxDuration = 5.0f;
+
+	auto& room = PROFILE->getRooms().at(room_index);
+	auto lvl = room.manager;
+
+	return glm::lerp(MaxDuration, MinDuration, (float)lvl / (float)MaxManagerLevel);
+}
+
+float Balance::GetWorkerDuration(int room_index, int worker_index)
+{
+	float MinDuration = 0.25f;
+	float MaxDuration = 2.0f;
+
+	auto& room = PROFILE->getRooms().at(room_index);
+	auto lvl = room.workers.at(worker_index);
+	
+	return glm::lerp(MaxDuration, MinDuration, (float)lvl / (float)MaxWorkerLevel);
+}

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <shared/all.h>
+#include <array>
+#include "balance.h"
 
 #define PROFILE ENGINE->getSystem<PhoneInc::Profile>()
 
@@ -20,9 +22,7 @@ namespace PhoneInc
 		{
 			int product = 0; // 0 means doesnt opened
 			int manager = 0;
-			int worker1 = 0;
-			int worker2 = 0;
-			int worker3 = 0;
+			std::array<int, Balance::MaxWorkersCount> workers = { 0, 0, 0 };
 		};
 
 	public:
@@ -66,9 +66,7 @@ namespace PhoneInc
 		return
 			left.product == right.product &&
 			left.manager == right.manager &&
-			left.worker1 == right.worker1 &&
-			left.worker2 == right.worker2 &&
-			left.worker3 == right.worker3;
+			left.workers == right.workers;
 	}
 
 	inline bool operator!=(const Profile::Room& left, const Profile::Room& right)

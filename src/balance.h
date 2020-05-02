@@ -17,6 +17,8 @@ namespace PhoneInc::Balance
 	const inline int ManagerLevelsPerStage = 10;
 	const inline int WorkerLevelsPerStage = 10;
 
+	const inline int MaxWorkersCount = 3;
+
 	double GetRoomCost(int index);
 	double GetProductCost(int index);
 	double GetManagerCost(int index);
@@ -34,4 +36,7 @@ namespace PhoneInc::Balance
 
 	float GetWarehouseDurationMultiplier();
 	float GetWarehouseDuration();
+
+	float GetManagerDuration(int room_index);
+	float GetWorkerDuration(int room_index, int worker_index);
 }

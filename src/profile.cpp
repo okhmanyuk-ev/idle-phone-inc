@@ -1,5 +1,4 @@
 #include "profile.h"
-#include "balance.h"
 
 using namespace PhoneInc;
 
@@ -39,9 +38,9 @@ void Profile::load()
 			
 			tryReadValue(room.product, "product");
 			tryReadValue(room.manager, "manager");
-			tryReadValue(room.worker1, "worker1");
-			tryReadValue(room.worker2, "worker2");
-			tryReadValue(room.worker3, "worker3");
+			tryReadValue(room.workers[0], "worker1");
+			tryReadValue(room.workers[1], "worker2");
+			tryReadValue(room.workers[2], "worker3");
 
 			mRooms[index] = room;
 		}
@@ -63,9 +62,9 @@ void Profile::save()
 		auto& value = json["rooms"][index];
 		value["product"] = room.product;
 		value["manager"] = room.manager;
-		value["worker1"] = room.worker1;
-		value["worker2"] = room.worker2;
-		value["worker3"] = room.worker3;
+		value["worker1"] = room.workers[0];
+		value["worker2"] = room.workers[1];
+		value["worker3"] = room.workers[2];
 	}
 
 	json["warehouse_level"] = mWarehouseLevel;
@@ -140,10 +139,10 @@ void Profile::setRoom(int index, Room value)
 
 	checkBounds(value.product, Balance::MaxProductLevel);
 	checkBounds(value.manager, Balance::MaxManagerLevel);
-	checkBounds(value.worker1, Balance::MaxWorkerLevel);
-	checkBounds(value.worker2, Balance::MaxWorkerLevel);
-	checkBounds(value.worker3, Balance::MaxWorkerLevel);
-
+	for (auto& worker : value.workers)
+	{
+		checkBounds(worker, Balance::MaxWorkerLevel);
+	}
 	mRooms[index] = value;
 	EVENT->emit(RoomChangedEvent({ index }));
 	saveAsync();
