@@ -8,40 +8,34 @@ using namespace PhoneInc;
 
 Street::Street()
 {
-	setHeight(682.0f);
+	setHeight(670.0f);
 
-	auto city = std::make_shared<Scene::Sprite>();
-	city->setTexture(TEXTURE("textures/street/city.png"));
-	city->setPivot({ 0.5f, 0.0f });
-	city->setAnchor({ 0.5f, 0.0f });
-	attach(city);
-
-	auto floor = std::make_shared<Scene::Sprite>();
-	floor->setTexture(TEXTURE("textures/street/floor.png"));
-	floor->setPivot({ 0.5f, 1.0f });
-	floor->setAnchor({ 0.5f, 1.0f });
-	attach(floor);
+	auto bg = std::make_shared<Scene::Sprite>();
+	bg->setTexture(TEXTURE("textures/street/background.png"));
+	bg->setPivot({ 0.5f, 0.0f });
+	bg->setAnchor({ 0.5f, 0.0f });
+	attach(bg);
 
 	mTruckHolder = std::make_shared<Scene::Node>();
-	floor->attach(mTruckHolder);
+	bg->attach(mTruckHolder);
 
 	mWarehouse = std::make_shared<Scene::Sprite>();
-	mWarehouse->setPosition({ 8.0f, -60.0f });
-	floor->attach(mWarehouse);
+	mWarehouse->setPosition({ 8.0f, 280.0f });
+	bg->attach(mWarehouse);
 
 	auto warehouse_button = std::make_shared<Helpers::StandardButton>();
 	warehouse_button->setPivot(0.5f);
-	warehouse_button->setPosition({ 146.0f, 412.0f });
+	warehouse_button->setPosition({ 966.0f, 538.0f });
 	warehouse_button->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
 	warehouse_button->setClickCallback([this] {
 		auto window = std::make_shared<WarehouseWindow>();
 		EVENT->emit(Helpers::PushWindowEvent({ window }));
-	});
-	mWarehouse->attach(warehouse_button);
+	}); 
+	attach(warehouse_button);
 
 	mWarehouseProgressbar = std::make_shared<Helpers::StreetProgressbar>();
 	mWarehouseProgressbar->setPivot(0.5f);
-	mWarehouseProgressbar->setPosition({ 164.0f, 62.0f });
+	mWarehouseProgressbar->setPosition({ 164.0f, 194.0f });
 	mWarehouseProgressbar->setSize({ 256.0f, 20.0f });
 	mWarehouseProgressbar->setProgress(0.0f);
 	attach(mWarehouseProgressbar);
@@ -92,7 +86,7 @@ void Street::runTruckAction()
 
 	auto truck = std::make_shared<Truck>();
 	truck->setPivot(0.5f);
-	truck->setPosition({ Start, 154.0f });
+	truck->setPosition({ Start, 454.0f });
 	mTruckHolder->attach(truck);
 
 	runAction(Shared::ActionHelpers::MakeSequence(
