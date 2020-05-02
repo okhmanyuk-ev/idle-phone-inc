@@ -7,7 +7,6 @@ using namespace PhoneInc;
 Factory::Worker::Worker() : Scene::MappedAniSprite<WorkerAnimation>(Animations)
 {
 	setFrequency(12.0f);
-	setStateType(Animation::Working);
 }
 
 void Factory::Worker::refresh()

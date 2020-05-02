@@ -17,7 +17,7 @@ void Cheats::ShowDevMenu(std::shared_ptr<Shared::SceneManager> scene_manager)
 
 	ImGui::Begin("dev", nullptr, ImGui::User::ImGuiWindowFlags_ControlPanel);
 
-	auto pos = ImGui::User::TopRightCorner();
+	auto pos = ImGui::User::TopLeftCorner();
 	pos.y += 54.0f;
 
 	ImGui::SetWindowPos(pos);

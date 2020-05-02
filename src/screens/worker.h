@@ -7,6 +7,7 @@ namespace PhoneInc
 {
 	enum class WorkerAnimation
 	{
+		Idle,
 		Working
 	};
 	
@@ -27,6 +28,7 @@ namespace PhoneInc
 
 	private:
 		const static inline StateMap Animations = {
+			{ Animation::Idle, "idle" },
 			{ Animation::Working, "working" }
 		};
 	};

@@ -113,6 +113,12 @@ Factory::Room::Room(int index) : mIndex(index)
 				mPhonesStack3->setVisiblePhones(mPhonesStack3->getVisiblePhones() + 1);
 		}));
 	}));
+
+	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {
+		mWorker1->setStateType(mPhonesStack1->isFilled() ? Worker::Animation::Idle : Worker::Animation::Working);
+		mWorker2->setStateType(mPhonesStack2->isFilled() ? Worker::Animation::Idle : Worker::Animation::Working);
+		mWorker3->setStateType(mPhonesStack3->isFilled() ? Worker::Animation::Idle : Worker::Animation::Working);
+	}));
 }
 
 void Factory::Room::event(const Profile::RoomChangedEvent& e)
