@@ -75,10 +75,9 @@ StandardWindow::StandardWindow()
 	mTitle->setText(LOCALIZE("STANDARD_WINDOW_TITLE"));
 	getBackground()->attach(mTitle);
 
-
 	auto close = std::make_shared<Helpers::CloseButtonWidget>();
 	close->setPivot(0.5f);
 	close->setAnchor({ 1.0f, 0.0f });
-	close->setPosition({ -72.0f, 62.0f });
+	close->setPosition({ -72.0f, 72.0f });
 	getBackground()->attach(close);
 }

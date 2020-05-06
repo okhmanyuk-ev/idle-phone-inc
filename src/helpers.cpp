@@ -200,10 +200,12 @@ Progressbar::Progressbar()
 	mContent->setStretch({ -1.0f, 1.0f });
 	mContent->setAnchor({ 0.0f, 0.5f });
 	mContent->setPivot({ 0.0f, 0.5f });
+	mClip->attach(mContent);
+
 	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {
 		mContent->setWidth(mHolder->getWidth());
+		mContent->setSampler(getSampler());
 	}));
-	mClip->attach(mContent);
 }
 
 StreetProgressbar::StreetProgressbar() : Progressbar()

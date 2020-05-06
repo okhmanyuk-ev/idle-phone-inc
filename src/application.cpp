@@ -121,8 +121,7 @@ void Application::makeLoadingScene()
 	mProgressbar = std::make_shared<Helpers::StreetProgressbar>();
 	mProgressbar->setAnchor({ 0.5f, 0.8f });
 	mProgressbar->setPivot(0.5f);
-	mProgressbar->setSize({ 276.0f, 20.0f });
-	mProgressbar->setScale(Helpers::Scale);
+	mProgressbar->setSize({ 276.0f * Helpers::Scale, 8.0f * Helpers::Scale });
 	bg->attach(mProgressbar);
 }
 
