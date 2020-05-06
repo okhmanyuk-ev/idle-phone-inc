@@ -23,6 +23,7 @@ namespace PhoneInc
 		void initialize() override;
 		void prepare();
 		void frame() override;
+		void makeLoadingScene();
 		
 	public:
 		void event(const Helpers::PushWindowEvent& e) override;
@@ -30,7 +31,8 @@ namespace PhoneInc
 		void event(const Profile::ProfileClearedEvent& e) override;
 
 	private:
-	//	Shared::SceneHelpers::SplashScene mSplashScene = Shared::SceneHelpers::SplashScene(TEXTURE("textures/logo.png"));
+		Scene::Scene mLoadingScene;
+		std::shared_ptr<Helpers::StreetProgressbar> mProgressbar;
 		Scene::Scene mGameScene;
 		std::shared_ptr<Shared::SceneManager> mSceneManager;
 

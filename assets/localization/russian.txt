@@ -34,3 +34,14 @@ ROOM_WINDOW_WORKER_DESCRIPTION:Описание рабочего
 ROOM_WINDOW_WORKER_DESCRIPTION_HIRE_LOCKED:Исследуйте первый продукт чтобы нанять работника
 
 ROOM_WINDOW_LEVEL_DESCRIPTION:Уровень: {}
+
+WAREHOUSE_NAME_1:Амбар
+WAREHOUSE_NAME_2:Большой Амбар
+WAREHOUSE_NAME_3:Лофт
+WAREHOUSE_NAME_4:Большой Лофт
+WAREHOUSE_NAME_5:Гараж
+WAREHOUSE_NAME_6:Большой Гараж
+WAREHOUSE_NAME_7:Станция
+WAREHOUSE_NAME_8:Большая Станция
+WAREHOUSE_NAME_9:Цитадель
+WAREHOUSE_NAME_10:Большая Цитадель

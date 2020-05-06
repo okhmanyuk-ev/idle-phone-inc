@@ -52,6 +52,8 @@ Application::Application() : RichApplication(PROJECT_CODE)
 	mGameScene.setInteractTestCallback([](const auto& pos) {
 		return !ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 	});
+
+	makeLoadingScene();
 }
 
 Application::~Application()
@@ -61,8 +63,8 @@ Application::~Application()
 
 void Application::loading(const std::string& stage, float progress)
 {
-	//mSplashScene.updateProgress(progress);
-	//mSplashScene.frame();
+	mProgressbar->setProgress(progress);
+	mLoadingScene.frame();
 #if defined BUILD_DEVELOPER
 	RichApplication::loading(stage, progress);
 #endif
@@ -102,6 +104,26 @@ void Application::frame()
 {
 	mGameScene.frame();
 	Cheats::ShowDevMenu(mSceneManager);
+}
+
+void Application::makeLoadingScene()
+{
+	auto root = mLoadingScene.getRoot();
+
+	auto bg = std::make_shared<Scene::Sprite>();
+	bg->setTexture(TEXTURE("textures/loading.png"));
+	bg->setAnchor(0.5f);
+	bg->setPivot(0.5f);
+	bg->setScale(Helpers::InvScale);
+	bg->setSampler(Renderer::Sampler::Linear);
+	root->attach(bg);
+
+	mProgressbar = std::make_shared<Helpers::StreetProgressbar>();
+	mProgressbar->setAnchor({ 0.5f, 0.8f });
+	mProgressbar->setPivot(0.5f);
+	mProgressbar->setSize({ 276.0f, 20.0f });
+	mProgressbar->setScale(Helpers::Scale);
+	bg->attach(mProgressbar);
 }
 
 void Application::event(const Helpers::PushWindowEvent& e)
