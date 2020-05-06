@@ -27,6 +27,8 @@ Application::Application() : RichApplication(PROJECT_CODE)
 	addLoadingTasks({
 		{ "fonts", [this] {
 			PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Medium.ttf", "default");
+		} },
+		{ "fonts", [this] {
 			PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Bold.ttf", "default_bold");
 		} },
 		{ "preparing", [this] {
