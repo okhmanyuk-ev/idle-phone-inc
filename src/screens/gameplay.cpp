@@ -56,6 +56,6 @@ Gameplay::Gameplay()
 	}));
 
 	runAction(Shared::ActionHelpers::ExecuteInfinite([] {
-		GAME_STATS("warehouse storage", PROFILE->getWarehouseStorage());
+		GAME_STATS("warehouse storage", Helpers::NumberToString(PROFILE->getWarehouseStorage()));
 	}));
 }

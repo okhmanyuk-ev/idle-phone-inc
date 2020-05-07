@@ -36,6 +36,9 @@ namespace PhoneInc
 		StandardWindow();
 
 	public:
+		virtual void refresh();
+
+	public:
 		auto getBackground() { return mBackground; }
 		auto getTitle() { return mTitle; }
 

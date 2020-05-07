@@ -157,8 +157,8 @@ void Profile::setWarehouseLevel(int value)
 	saveAsync();
 }
 
-void Profile::setWarehouseStorage(int value)
+void Profile::setWarehouseStorage(double value)
 {
-	assert(value >= 0);
+	assert(value >= 0.0);
 	mWarehouseStorage = value;
 }

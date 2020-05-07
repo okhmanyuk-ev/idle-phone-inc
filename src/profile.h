@@ -52,13 +52,13 @@ namespace PhoneInc
 		void setWarehouseLevel(int value);
 
 		auto getWarehouseStorage() const { return mWarehouseStorage; }
-		void setWarehouseStorage(int value);
+		void setWarehouseStorage(double value);
 
 	private:
 		double mCash = 0.0f;
 		std::map<int, Room> mRooms = { };
 		int mWarehouseLevel = 0;
-		int mWarehouseStorage = 0;
+		double mWarehouseStorage = 0;
 	};
 
 	inline bool operator==(const Profile::Room& left, const Profile::Room& right)
