@@ -12,6 +12,8 @@ void Cheats::ShowDevMenu(std::shared_ptr<Shared::SceneManager> scene_manager)
 	auto categorySpacing = [] {
 		ImGui::Spacing();
 		ImGui::Spacing();
+		ImGui::Separator();
+		ImGui::Spacing();
 		ImGui::Spacing();
 	};
 
@@ -137,6 +139,14 @@ void Cheats::ShowDevMenu(std::shared_ptr<Shared::SceneManager> scene_manager)
 		if (ImGui::Button("DOWNGRADE WAREHOUSE"))
 		{
 			PROFILE->setWarehouseLevel(1);
+		}
+
+		categorySpacing();
+
+		if (ImGui::Button("RELOAD STYLEBOOK"))
+		{
+			STYLEBOOK->clear();
+			STYLEBOOK->load("stylebook.json");
 		}
 
 		categorySpacing();

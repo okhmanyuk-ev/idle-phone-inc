@@ -1,0 +1,26 @@
+{
+    "truck": {
+        "anchor": [0, 0],
+        "pivot": [1, 0]
+    },
+    "truck_1": {
+        "parent": "truck",
+        "position": [0, 338]
+    },
+    "truck_2": {
+        "parent": "truck",
+        "position": [0, 338]
+    },
+    "truck_3": {
+        "parent": "truck",
+        "position": [0, 328]
+    },
+    "truck_4": {
+        "parent": "truck",
+        "position": [0, 268]
+    },
+    "truck_5": {
+        "parent": "truck",
+        "position": [0, 262]
+    }
+}

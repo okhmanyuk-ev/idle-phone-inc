@@ -31,7 +31,8 @@ namespace PhoneInc::Balance
 	int GetWorkerStage(int level);
 
 	int GetWarehouseStage();
-	
+	int GetTruckStage();
+
 	double GetWarehouseCost();
 
 	float GetWarehouseDurationMultiplier();

@@ -16,7 +16,10 @@ Street::Street()
 	bg->setAnchor({ 0.5f, 0.0f });
 	attach(bg);
 
-	mTruckHolder = std::make_shared<Scene::Node>();
+	mTruckHolder = std::make_shared<Scene::Clippable<Scene::Node>>();
+	mTruckHolder->setPosition({ 138.0f, 0.0f });
+	mTruckHolder->setStretch(1.0f);
+	mTruckHolder->setMargin({ mTruckHolder->getX(), 0.0f });
 	bg->attach(mTruckHolder);
 
 	mWarehouse = std::make_shared<Scene::Sprite>();
@@ -36,12 +39,13 @@ Street::Street()
 
 	mWarehouseProgressbar = std::make_shared<Helpers::StreetProgressbar>();
 	mWarehouseProgressbar->setPivot(0.5f);
-	mWarehouseProgressbar->setPosition({ 164.0f, 194.0f });
+	mWarehouseProgressbar->setAnchor({ 0.5f, 0.0f });
+	mWarehouseProgressbar->setPosition({ 0.0f, -64.0f });
 	mWarehouseProgressbar->setSize({ 256.0f, 20.0f });
 	mWarehouseProgressbar->setProgress(0.0f);
 	mWarehouseProgressbar->setEnabled(false);
 	mWarehouseProgressbar->setScale(0.0f);
-	attach(mWarehouseProgressbar);
+	mWarehouse->attach(mWarehouseProgressbar);
 
 	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {
 		if (mWarehouseBusy)
@@ -91,16 +95,17 @@ void Street::runWarehouseAction()
 
 void Street::runTruckAction()
 {
-	const float Start = 148.0f;
-	const float Dest = 1080.0f + 100.0f;
-
 	auto truck = std::make_shared<Truck>();
-	truck->setPivot(0.5f);
-	truck->setPosition({ Start, 484.0f });
+	STYLEBOOK->apply(truck, fmt::format("truck_{}", Balance::GetTruckStage()));
 	mTruckHolder->attach(truck);
 
+	const float Duration = 5.0f;
+
 	runAction(Shared::ActionHelpers::MakeSequence(
-		Shared::ActionHelpers::ChangeHorizontalPosition(truck, Dest, 5.0f),
+		Shared::ActionHelpers::MakeParallel(
+			Shared::ActionHelpers::ChangeHorizontalAnchor(truck, 1.0f, Duration),
+			Shared::ActionHelpers::ChangeHorizontalPivot(truck, 0.0f, Duration)
+		),
 		Shared::ActionHelpers::Execute([this] {
 			PROFILE->setCash(PROFILE->getCash() + 100.0);
 		}),

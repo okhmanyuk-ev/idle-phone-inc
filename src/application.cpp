@@ -15,7 +15,7 @@ Application::Application() : RichApplication(PROJECT_CODE)
 
 	LOCALIZATION->loadDicrionaries("localization");
 	LOCALIZATION->setLanguage(Shared::LocalizationSystem::Language::Russian);
-
+	STYLEBOOK->load("stylebook.json");
 	PROFILE->load();
 
 	PLATFORM->initializeBilling({

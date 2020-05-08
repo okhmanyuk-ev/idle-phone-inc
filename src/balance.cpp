@@ -52,6 +52,11 @@ int Balance::GetWarehouseStage()
 	return GetStage(PROFILE->getWarehouseLevel(), WarehouseLevelsPerStage);
 }
 
+int Balance::GetTruckStage()
+{
+	return ((Balance::GetWarehouseStage() - 1) / 2) + 1;
+}
+
 double Balance::GetWarehouseCost()
 {
 	const double BaseCost = 10.0;
