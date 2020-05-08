@@ -1,7 +1,6 @@
 #include "application.h"
 
-int sky_main(int argc, char* argv[])
+void sky_main()
 {
     PhoneInc::Application().run();
-    return 0;
 }
