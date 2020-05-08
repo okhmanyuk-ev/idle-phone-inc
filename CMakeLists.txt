@@ -68,19 +68,9 @@ elseif(APPLE)
         XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET "12.0"
         XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer"
         XCODE_ATTRIBUTE_DEVELOPMENT_TEAM "69RWHMDZA7"
-        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "com.skymunge.${PROJECT_NAME}"
+        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "com.dreamskies.${PROJECT_NAME}"
         XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2"
         MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/ios/Info.plist
-    )
-
-    target_link_libraries(${PROJECT_NAME}
-        "-framework UIKit"
-        "-framework CoreGraphics"
-        "-framework GLKit"
-        "-framework OpenGLES"
-        "-framework Foundation"
-        "-framework AVFoundation"
-        "-framework AudioToolbox"
     )
 elseif(ANDROID)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1z -frtti -fexceptions -Wno-error=format-security")
