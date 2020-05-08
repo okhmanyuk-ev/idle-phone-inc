@@ -65,24 +65,72 @@ void Factory::event(const ProductSpawnEvent& e)
 	auto height = room->getHeight();
 	auto multiplier = (float)e.room_index;
 
-	auto box = std::make_shared<Scene::Actionable<Scene::Cullable<Scene::Sprite>>>();
+	auto y = (height * multiplier) + (height * 0.75f);
+
+	const float MaxDistance = 64.0f;
+
+	for (auto node : mBoxHolder->getNodes())
+	{
+		if (glm::distance(node->getY(), y) > MaxDistance)
+			continue;
+
+		auto box = std::static_pointer_cast<Box>(node);
+		box->setCount(box->getCount() + 1.0);
+		if (box->isSpawnAnimationCompleted())
+		{
+			const float FullDuration = 0.25f;
+			const float Duration = FullDuration / 2.0f;
+
+			box->runAction(
+				Shared::ActionHelpers::MakeSequence(
+					Shared::ActionHelpers::MakeParallel(
+						Shared::ActionHelpers::ChangeHorizontalScale(box, 0.75f, Duration, Common::Easing::BackIn),
+						Shared::ActionHelpers::ChangeVerticalScale(box, 1.25f, Duration, Common::Easing::BackIn)
+					),
+					Shared::ActionHelpers::MakeParallel(
+						Shared::ActionHelpers::ChangeHorizontalScale(box, 1.0f, Duration, Common::Easing::BackIn),
+						Shared::ActionHelpers::ChangeVerticalScale(box, 1.0f, Duration, Common::Easing::BackIn)
+					)
+				)
+			);
+		}
+		return;
+	}
+
+	auto box = std::make_shared<Box>();
 	box->setTexture(TEXTURE("textures/factory/box.png"));
 	box->setPivot({ 0.5f, 1.0f });
 	box->setX(96.0f);
-	box->setY((height * multiplier) + (height * 0.75f));
+	box->setY(y);
 	box->setScale(0.0f);
+	box->setCount(1.0);
 	box->runAction(Shared::ActionHelpers::MakeSequence(
 		Shared::ActionHelpers::ChangeScale(box, { 1.0f, 1.0f }, 0.25f, Common::Easing::BackOut),
+		Shared::ActionHelpers::Execute([box] {
+			box->setSpawnAnimationCompleted(true);
+		}),
 		Shared::ActionHelpers::ExecuteInfinite([box] {
 			auto y = box->getY();
 			y -= Clock::ToSeconds(FRAME->getTimeDelta()) * 100.0f * ConveyorSpeed;
 			box->setY(y);
 			if (y <= 0)
 			{
-				PROFILE->setWarehouseStorage(PROFILE->getWarehouseStorage() + 1);
+				PROFILE->setWarehouseStorage(PROFILE->getWarehouseStorage() + box->getCount());
 				box->runAction(Shared::ActionHelpers::Kill(box));
 			}
 		})
 	));
 	mBoxHolder->attach(box);
+
+	// sort boxes by y
+
+	auto nodes = mBoxHolder->getNodes();
+	nodes.sort([](auto left, auto right) {
+		return left->getY() < right->getY();
+	});
+	mBoxHolder->clear();
+	for (auto node : nodes)
+	{
+		mBoxHolder->attach(node);
+	}
 }

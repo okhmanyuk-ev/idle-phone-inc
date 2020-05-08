@@ -12,7 +12,7 @@ namespace PhoneInc
 		RoomWindow(int index);
 
 	public:
-		void refresh() override;
+		void refresh();
 
 	public:
 		void event(const Profile::RoomChangedEvent& e) override;

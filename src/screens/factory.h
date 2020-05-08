@@ -19,6 +19,7 @@ namespace PhoneInc
 		class LockedRoom;
 		class Worker;
 		class Manager;
+		class Box;
 
 	public:
 		Factory();
@@ -30,5 +31,19 @@ namespace PhoneInc
 	private:
 		std::vector<std::shared_ptr<Node>> mRooms;
 		std::shared_ptr<Scene::Node> mBoxHolder;
+	};
+
+	class Factory::Box : public Scene::Actionable<Scene::Cullable<Scene::Sprite>>
+	{
+	public:
+		auto getCount() const { return mCount; }
+		void setCount(double value) { mCount = value; }
+
+		auto isSpawnAnimationCompleted() const { return mSpawnAnimationCompleted; }
+		void setSpawnAnimationCompleted(bool value) { mSpawnAnimationCompleted = value; }
+
+	private:
+		double mCount = 0.0;
+		bool mSpawnAnimationCompleted = false;
 	};
 }

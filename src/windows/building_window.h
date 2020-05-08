@@ -12,7 +12,7 @@ namespace PhoneInc
 		BuildingWindow();
 
 	public:
-		void refresh() override;
+		void refresh();
 
 	private:
 		void event(const Profile::CashChangedEvent& e) override;
