@@ -93,10 +93,10 @@ void Application::prepare()
 	Scene::Debug::Font = FONT("default");
 
 	auto root = mGameScene.getRoot();
+	root->setScale(Helpers::InvScale);
+	root->setStretch(Helpers::Scale);
 
 	mSceneManager = std::make_shared<Shared::SceneManager>();
-	mSceneManager->setScale(Helpers::InvScale);
-	mSceneManager->setStretch(Helpers::Scale);
 	root->attach(mSceneManager);
 
 	mGameplay = std::make_shared<Gameplay>();
@@ -111,19 +111,20 @@ void Application::frame()
 void Application::makeLoadingScene()
 {
 	auto root = mLoadingScene.getRoot();
+	root->setScale(Helpers::InvScale);
+	root->setStretch(Helpers::Scale);
 
 	auto bg = std::make_shared<Scene::Sprite>();
 	bg->setTexture(TEXTURE("textures/loading.png"));
 	bg->setAnchor(0.5f);
 	bg->setPivot(0.5f);
-	bg->setScale(Helpers::InvScale);
 	bg->setSampler(Renderer::Sampler::Linear);
 	root->attach(bg);
 
 	mProgressbar = std::make_shared<Helpers::StreetProgressbar>();
 	mProgressbar->setAnchor({ 0.5f, 0.8f });
 	mProgressbar->setPivot(0.5f);
-	mProgressbar->setSize({ 276.0f * Helpers::Scale, 8.0f * Helpers::Scale });
+	mProgressbar->setSize({ 828.0f, 24.0f });
 	bg->attach(mProgressbar);
 }
 
