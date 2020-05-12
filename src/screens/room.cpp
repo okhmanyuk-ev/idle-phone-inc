@@ -8,7 +8,9 @@ using namespace PhoneInc;
 
 Factory::Room::Room(int index) : mIndex(index)
 {
-	auto bg_id = (index % 3) + 1;
+	const int BgCount = 7;
+
+	auto bg_id = (index % BgCount) + 1;
 	auto table_id = ((index / 2) % 3) + 1;
 
 	setTexture(TEXTURE(fmt::format("textures/factory/room/background/{}.png", bg_id)));
