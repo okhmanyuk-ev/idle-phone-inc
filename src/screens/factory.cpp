@@ -47,7 +47,7 @@ Factory::Factory()
 
 	auto conveyor_hat = std::make_shared<Scene::Sprite>();
 	conveyor_hat->setTexture(TEXTURE("textures/factory/conveyor_hat.png"));
-	conveyor_hat->setY(-1.0f);
+	conveyor_hat->setY(-2.0f);
 	attach(conveyor_hat);
 }
 
