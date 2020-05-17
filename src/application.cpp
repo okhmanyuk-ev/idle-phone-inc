@@ -55,6 +55,8 @@ Application::Application() : RichApplication(PROJECT_CODE)
 		return !ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
 	});
 
+    Scene::Sampler::DefaultSampler = Renderer::Sampler::Linear;
+    
 	makeLoadingScene();
 }
 
