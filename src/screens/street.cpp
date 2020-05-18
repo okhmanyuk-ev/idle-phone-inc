@@ -47,6 +47,15 @@ Street::Street()
 	mWarehouseProgressbar->setScale(0.0f);
 	mWarehouse->attach(mWarehouseProgressbar);
 
+	mWarehouseStorageLabel = std::make_shared<Helpers::Label>();
+	mWarehouseStorageLabel->setAnchor({ 0.5f, 0.0f });
+	mWarehouseStorageLabel->setPivot({ 0.5f, 0.5f });
+	mWarehouseStorageLabel->setPosition({ 0.0f, -114.0f });
+	mWarehouseStorageLabel->setText("awdawdaw");
+	mWarehouseStorageLabel->setFontSize(12.0f);
+	mWarehouse->attach(mWarehouseStorageLabel);
+	refreshWarehouseStorageLabel();
+
 	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {
 		if (mWarehouseBusy)
 			return;
@@ -70,6 +79,11 @@ void Street::refresh()
 void Street::event(const Profile::WarehouseLevelChangedEvent& e)
 {
 	refresh();
+}
+
+void Street::event(const Profile::WarehouseStorageChangeEvent& e)
+{
+	refreshWarehouseStorageLabel();
 }
 
 void Street::runWarehouseAction()
@@ -111,4 +125,9 @@ void Street::runTruckAction()
 		}),
 		Shared::ActionHelpers::Kill(truck)
 	));
+}
+
+void Street::refreshWarehouseStorageLabel()
+{
+	mWarehouseStorageLabel->setText(Helpers::NumberToString(PROFILE->getWarehouseStorage()));
 }

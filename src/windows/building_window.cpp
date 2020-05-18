@@ -29,13 +29,19 @@ BuildingWindow::BuildingWindow()
 	auto parameter_panel_2 = createParameterPanel(mParameterPanel2);
 	parameter_panel_2->setAnchor({ 0.5f, 0.0f });
 	parameter_panel_2->setPivot({ 0.5f, 0.0f });
-	parameter_panel_2->setPosition({ 0.0f, 662.0f  });
+	parameter_panel_2->setPosition({ 0.0f, 662.0f });
 	white_bg->attach(parameter_panel_2);
+
+	auto parameter_panel_3 = createParameterPanel(mParameterPanel3);
+	parameter_panel_3->setAnchor({ 0.5f, 0.0f });
+	parameter_panel_3->setPivot({ 0.5f, 0.0f });
+	parameter_panel_3->setPosition({ 0.0f, 832.0f });
+	white_bg->attach(parameter_panel_3);
 
 	mUpgradeButton = std::make_shared<Helpers::StandardLongButton>();
 	mUpgradeButton->setAnchor({ 0.5f, 0.0f });
 	mUpgradeButton->setPivot({ 0.5f, 0.0f });
-	mUpgradeButton->setPosition({ 0.0f, 838.0f });
+	mUpgradeButton->setPosition({ 0.0f, 992.0f });
 	mUpgradeButton->setActiveCallback([this] {
 		PROFILE->spendCash(Balance::GetWarehouseCost());
 		PROFILE->setWarehouseLevel(PROFILE->getWarehouseLevel() + 1);
@@ -75,6 +81,11 @@ void BuildingWindow::refresh()
 	mParameterPanel2.icon->setTexture(second.icon_texture);
 	mParameterPanel2.title->setText(second.title_text);
 	mParameterPanel2.effect->setText(second.effect_text);
+
+	auto third = getThirdParameter();
+	mParameterPanel3.icon->setTexture(third.icon_texture);
+	mParameterPanel3.title->setText(third.title_text);
+	mParameterPanel3.effect->setText(third.effect_text);
 }
 
 void BuildingWindow::event(const Profile::CashChangedEvent& e)
@@ -178,5 +189,14 @@ BuildingWindow::Parameter BuildingWindow::getSecondParameter() const
 	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_2");
 	result.effect_text = "+ 5%";
 	result.icon_texture = TEXTURE("textures/windows/building_window/icon2.png");
+	return result;
+}
+
+BuildingWindow::Parameter BuildingWindow::getThirdParameter() const
+{
+	auto result = BuildingWindow::Parameter();
+	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_3");
+	result.effect_text = "100";
+	result.icon_texture = TEXTURE("textures/windows/building_window/icon3.png");
 	return result;
 }

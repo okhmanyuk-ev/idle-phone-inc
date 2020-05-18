@@ -95,8 +95,10 @@ void Application::prepare()
 	Scene::Debug::Font = FONT("default");
 
 	auto root = mGameScene.getRoot();
-	//root->setScale(Helpers::InvScale);
-	//root->setStretch(Helpers::Scale);
+#if defined(PLATFORM_WINDOWS)
+	root->setScale(Helpers::InvScale);
+	root->setStretch(Helpers::Scale);
+#endif
 
 	mSceneManager = std::make_shared<Shared::SceneManager>();
 	root->attach(mSceneManager);
@@ -107,6 +109,7 @@ void Application::prepare()
 void Application::frame()
 {
 	// begin test
+#if defined(PLATFORM_MOBILE)
 	auto root = mGameScene.getRoot();
 	
 	const float Actual = 1080.0f;
@@ -117,6 +120,7 @@ void Application::frame()
 	root->setScale(scale);
 	root->setStretch(1.0f / scale);
 	// end test
+#endif
 
 	mGameScene.frame();
 	Cheats::ShowDevMenu(mSceneManager);

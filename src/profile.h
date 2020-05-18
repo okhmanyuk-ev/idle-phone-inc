@@ -16,6 +16,7 @@ namespace PhoneInc
 		struct RoomUnlockedEvent { int index; };
 		struct RoomChangedEvent { int index; };
 		struct WarehouseLevelChangedEvent { };
+		struct WarehouseStorageChangeEvent { };
 
 	public:
 		struct Room

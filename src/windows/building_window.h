@@ -49,11 +49,13 @@ namespace PhoneInc
 	protected:
 		Parameter getFirstParameter() const;
 		Parameter getSecondParameter() const;
+		Parameter getThirdParameter() const;
 
 	private:
 		MainPanel mMainPanel;
 		ParameterPanel mParameterPanel1;
 		ParameterPanel mParameterPanel2;
+		ParameterPanel mParameterPanel3;
 		std::shared_ptr<Helpers::StandardLongButton> mUpgradeButton;
 	};
 }

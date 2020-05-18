@@ -54,8 +54,4 @@ Gameplay::Gameplay()
 		scrollbox->setHeight(h);
 		scrollbox->setY(top_menu->getHeight());
 	}));
-
-	runAction(Shared::ActionHelpers::ExecuteInfinite([] {
-		GAME_STATS("warehouse storage", Helpers::NumberToString(PROFILE->getWarehouseStorage()));
-	}));
 }

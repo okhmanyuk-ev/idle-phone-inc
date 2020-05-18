@@ -13,7 +13,19 @@ void Profile::load()
 	}
 
 	auto json_file = Platform::Asset(path, Platform::Asset::Path::Absolute);
-	auto json = nlohmann::json::from_bson(std::string((char*)json_file.getMemory(), json_file.getSize()));
+	nlohmann::json json;
+	
+	try
+	{
+		json = nlohmann::json::from_bson(std::string((char*)json_file.getMemory(), json_file.getSize()));
+	}
+	catch (const std::exception& e)
+	{
+		LOGC(e.what(), Console::Color::Red);
+		LOGC("making new profile", Console::Color::Green);
+		clear();
+		return;
+	}
 
 	auto tryRead = [json](auto& src, auto name) {
 		if (json.contains(name))
@@ -150,6 +162,9 @@ void Profile::setRoom(int index, Room value)
 
 void Profile::setWarehouseLevel(int value)
 {
+	if (mWarehouseLevel == value)
+		return;
+
 	assert(value > 0);
 	assert(value <= Balance::MaxWarehouseLevel);
 	mWarehouseLevel = value;
@@ -159,6 +174,11 @@ void Profile::setWarehouseLevel(int value)
 
 void Profile::setWarehouseStorage(double value)
 {
+	if (mWarehouseStorage == value)
+		return;
+
 	assert(value >= 0.0);
 	mWarehouseStorage = value;
+	EVENT->emit(WarehouseStorageChangeEvent());
+	saveAsync();
 }

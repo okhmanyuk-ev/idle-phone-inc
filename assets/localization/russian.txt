@@ -10,7 +10,8 @@ HIRE_BUTTON:Нанять
 
 WAREHOUSE_WINDOW_TITLE:Склад
 WAREHOUSE_WINDOW_PARAM_NAME_1:Скорость обработки
-WAREHOUSE_WINDOW_PARAM_NAME_2:Вместительность склада
+WAREHOUSE_WINDOW_PARAM_NAME_2:Вместимость грузовика
+WAREHOUSE_WINDOW_PARAM_NAME_3:Доход от продажи
 
 SHOP_WINDOW_TITLE:Магазин
 SHOP_WINDOW_PARAM_NAME_1:Скорость продажи
