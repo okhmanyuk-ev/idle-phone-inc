@@ -67,6 +67,7 @@ Application::~Application()
 
 void Application::loading(const std::string& stage, float progress)
 {
+	updateLoadingScale();
 	mProgressbar->setProgress(progress);
 	mLoadingScene.frame();
 #if defined BUILD_DEVELOPER
@@ -95,10 +96,6 @@ void Application::prepare()
 	Scene::Debug::Font = FONT("default");
 
 	auto root = mGameScene.getRoot();
-#if defined(PLATFORM_WINDOWS)
-	root->setScale(Helpers::InvScale);
-	root->setStretch(Helpers::Scale);
-#endif
 
 	mSceneManager = std::make_shared<Shared::SceneManager>();
 	root->attach(mSceneManager);
@@ -108,20 +105,7 @@ void Application::prepare()
 
 void Application::frame()
 {
-	// begin test
-#if defined(PLATFORM_MOBILE)
-	auto root = mGameScene.getRoot();
-	
-	const float Actual = 1080.0f;
-	float target = (float)PLATFORM->getLogicalWidth();
-
-	float scale = target / Actual;
-	
-	root->setScale(scale);
-	root->setStretch(1.0f / scale);
-	// end test
-#endif
-
+	updateGameScale();
 	mGameScene.frame();
 	Cheats::ShowDevMenu(mSceneManager);
 }
@@ -129,8 +113,6 @@ void Application::frame()
 void Application::makeLoadingScene()
 {
 	auto root = mLoadingScene.getRoot();
-	root->setScale(Helpers::InvScale);
-	root->setStretch(Helpers::Scale);
 
 	auto bg = std::make_shared<Scene::Sprite>();
 	bg->setTexture(TEXTURE("textures/loading.png"));
@@ -144,6 +126,47 @@ void Application::makeLoadingScene()
 	mProgressbar->setPivot(0.5f);
 	mProgressbar->setSize({ 828.0f, 24.0f });
 	bg->attach(mProgressbar);
+}
+
+void Application::updateGameScale()
+{
+	{
+		auto root = mSceneManager->getScreenHolder();
+		auto scale = getScaleFactor(Helpers::MaxGameSceneRatio);
+		root->setScale(scale);
+		root->setStretch(1.0f / scale);
+	}
+	{
+		auto root = mSceneManager->getWindowHolder();
+		auto scale = getScaleFactor(Helpers::MaxWindowSceneRatio);
+		root->setScale(scale);
+		root->setStretch(1.0f / scale);
+	}
+}
+
+void Application::updateLoadingScale()
+{
+	{
+		auto root = mLoadingScene.getRoot();
+		auto scale = getScaleFactor(Helpers::MaxLoadingSceneRatio);
+		root->setScale(scale);
+		root->setStretch(1.0f / scale);
+	}
+}
+
+float Application::getScaleFactor(float max_ratio)
+{
+	const float Target = 1080.0f;
+
+	float current = (float)PLATFORM->getLogicalWidth();
+	float max = Target / max_ratio;
+
+	if (current > max)
+		current = max;
+
+	float scale = current / Target;
+
+	return scale;
 }
 
 void Application::event(const Helpers::PushWindowEvent& e)

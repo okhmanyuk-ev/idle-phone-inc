@@ -21,6 +21,10 @@ namespace PhoneInc::Helpers
 	inline static const float Scale = 3.0f;
 	inline static const float InvScale = 1.0f / 3.0f;
 
+	inline static const float MaxGameSceneRatio = 16.0f / 8.0f;
+	inline static const float MaxWindowSceneRatio = 16.0f / 5.5f;
+	inline static const float MaxLoadingSceneRatio = 16.0f / 6.0f;
+
 	// static
 
 	std::string NumberToString(double value);

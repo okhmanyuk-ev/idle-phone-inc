@@ -24,7 +24,10 @@ namespace PhoneInc
 		void prepare();
 		void frame() override;
 		void makeLoadingScene();
-		
+		void updateGameScale();
+		void updateLoadingScale();
+		float getScaleFactor(float max_ratio);
+
 	public:
 		void event(const Helpers::PushWindowEvent& e) override;
 		void event(const Helpers::PopWindowEvent& e) override;
