@@ -123,12 +123,12 @@ void Street::runTruckAction()
 	auto earning = Balance::GetWarehouseEarning() * capacity;
 	truck->setEarning(earning); // TODO: earning
 	
-	const float Duration = 5.0f;
+	float duration = Balance::GetWarehouseTruckDuration();
 
 	runAction(Shared::ActionHelpers::MakeSequence(
 		Shared::ActionHelpers::MakeParallel(
-			Shared::ActionHelpers::ChangeHorizontalAnchor(truck, 1.0f, Duration),
-			Shared::ActionHelpers::ChangeHorizontalPivot(truck, 0.0f, Duration)
+			Shared::ActionHelpers::ChangeHorizontalAnchor(truck, 1.0f, duration),
+			Shared::ActionHelpers::ChangeHorizontalPivot(truck, 0.0f, duration)
 		),
 		Shared::ActionHelpers::Execute([truck] {
 			PROFILE->setCash(PROFILE->getCash() + truck->getEarning());

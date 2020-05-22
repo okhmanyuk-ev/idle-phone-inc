@@ -89,7 +89,7 @@ void Profile::save()
 
 void Profile::clear()
 {
-	setCash(30.0);
+	setCash(Balance::StartCash);
 	mRooms.clear();
 	setWarehouseLevel(1);
 	setWarehouseStorage(0);

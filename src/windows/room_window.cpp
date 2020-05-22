@@ -428,7 +428,7 @@ bool RoomWindow::WorkerPanel::isOpenAvailable() const
 
 double RoomWindow::WorkerPanel::getUpgradeCost() const
 {
-	return Balance::GetRoomWorkerCost(getRoomIndex(), getLevel());
+	return Balance::GetRoomWorkerCost(getRoomIndex(), getLevel(), mNumber);
 }
 
 void RoomWindow::WorkerPanel::increaseLevel() 

@@ -214,8 +214,12 @@ Factory::Room::PhonesStack::PhonesStack(int room_index) : mRoomIndex(room_index)
 
 void Factory::Room::PhonesStack::makeProduct()
 {
+	const auto& room = PROFILE->getRooms().at(mRoomIndex);
+
+	auto produce_count = Balance::GetRoomProduceCount(mRoomIndex, room.product);
+
 	setVisiblePhones(0);
-	EVENT->emit(ProductSpawnEvent({ mRoomIndex }));
+	EVENT->emit(ProductSpawnEvent({ mRoomIndex, produce_count }));
 }
 
 void Factory::Room::PhonesStack::setVisiblePhones(int value)
