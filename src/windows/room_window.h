@@ -15,6 +15,9 @@ namespace PhoneInc
 		void refresh();
 
 	public:
+		static bool CanUpgradeSomething(int room_index);
+
+	public:
 		void event(const Profile::RoomChangedEvent& e) override;
 		void event(const Profile::CashChangedEvent& e) override;
 

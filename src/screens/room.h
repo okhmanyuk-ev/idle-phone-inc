@@ -8,7 +8,8 @@
 namespace PhoneInc
 {
 	class Factory::Room : public Scene::Cullable<Scene::Actionable<Scene::Sprite>>,
-		public Common::EventSystem::Listenable<Profile::RoomChangedEvent>
+		public Common::EventSystem::Listenable<Profile::RoomChangedEvent>,
+		public Common::EventSystem::Listenable<Profile::CashChangedEvent>
 	{
 	public:
 		class PhonesStack;
@@ -18,15 +19,18 @@ namespace PhoneInc
 
 	public:
 		void refresh();
+		void refreshUpgradeButton();
 
 	public:
 		void event(const Profile::RoomChangedEvent& e) override;
+		void event(const Profile::CashChangedEvent& e) override;
 
 	private:
 		int mIndex = 0;
 		std::shared_ptr<Manager> mManager;
 		std::array<std::shared_ptr<Worker>, Balance::MaxWorkersCount> mWorkers;
 		std::array<std::shared_ptr<PhonesStack>, Balance::MaxWorkersCount> mPhonesStacks;
+		std::shared_ptr<Helpers::StandardButton> mUpgradeButton;
 	};
 
 	class Factory::LockedRoom : public Scene::Cullable<Scene::Sprite>,
@@ -49,9 +53,6 @@ namespace PhoneInc
 	class Factory::Room::PhonesStack : public Scene::Clickable<Scene::Node>
 	{
 	public:
-		static const inline int MaxVisiblePhones = 10;
-
-	public:
 		PhonesStack(int room_index);
 
 	public:
@@ -61,7 +62,7 @@ namespace PhoneInc
 		auto getVisiblePhones() const { return mVisiblePhones; }
 		void setVisiblePhones(int value);
 
-		bool isFilled() const { return mVisiblePhones >= MaxVisiblePhones; }
+		bool isFilled() const { return mVisiblePhones >= Balance::PhonesStackCount; }
 
 	private:
 		std::vector<std::shared_ptr<Scene::Sprite>> mPhones;

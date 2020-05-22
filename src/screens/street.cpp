@@ -27,15 +27,16 @@ Street::Street()
 	mWarehouse->setPivot({ 0.0f, 1.0f });
 	bg->attach(mWarehouse);
 
-	auto warehouse_button = std::make_shared<Helpers::StandardButton>();
-	warehouse_button->setPivot(0.5f);
-	warehouse_button->setPosition({ 966.0f, 538.0f });
-	warehouse_button->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
-	warehouse_button->setClickCallback([this] {
+	mWarehouseButton = std::make_shared<Helpers::StandardButton>();
+	mWarehouseButton->setPivot(0.5f);
+	mWarehouseButton->setPosition({ 966.0f, 538.0f });
+	mWarehouseButton->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
+	mWarehouseButton->setClickCallback([this] {
 		auto window = std::make_shared<BuildingWindow>();
 		EVENT->emit(Helpers::PushWindowEvent({ window }));
-	}); 
-	attach(warehouse_button);
+	});
+	refreshWarehouseButton();
+	attach(mWarehouseButton);
 
 	mWarehouseProgressbar = std::make_shared<Helpers::StreetProgressbar>();
 	mWarehouseProgressbar->setPivot(0.5f);
@@ -84,6 +85,11 @@ void Street::event(const Profile::WarehouseLevelChangedEvent& e)
 void Street::event(const Profile::WarehouseStorageChangeEvent& e)
 {
 	refreshWarehouseStorageLabel();
+}
+
+void Street::event(const Profile::CashChangedEvent& e)
+{
+	refreshWarehouseButton();
 }
 
 void Street::runWarehouseAction()
@@ -140,4 +146,9 @@ void Street::runTruckAction()
 void Street::refreshWarehouseStorageLabel()
 {
 	mWarehouseStorageLabel->setText(Helpers::NumberToString(PROFILE->getWarehouseStorage()));
+}
+
+void Street::refreshWarehouseButton()
+{
+	mWarehouseButton->setActive(BuildingWindow::CanUpgrade());
 }

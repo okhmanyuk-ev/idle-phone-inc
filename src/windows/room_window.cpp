@@ -50,6 +50,24 @@ void RoomWindow::refresh()
 	mWorkerPanel3->refresh();
 }
 
+bool RoomWindow::CanUpgradeSomething(int room_index)
+{
+	const auto& room = PROFILE->getRooms().at(room_index);
+
+	bool can_product = PROFILE->isEnoughCash(Balance::GetRoomProductCost(room_index, room.product));
+	bool can_manager = PROFILE->isEnoughCash(Balance::GetRoomManagerCost(room_index, room.manager)); 
+	bool can_worker1 = PROFILE->isEnoughCash(Balance::GetRoomManagerCost(room_index, room.workers[0]));
+	bool can_worker2 = PROFILE->isEnoughCash(Balance::GetRoomManagerCost(room_index, room.workers[1]));
+	bool can_worker3 = PROFILE->isEnoughCash(Balance::GetRoomManagerCost(room_index, room.workers[2]));
+
+	return
+		can_product |
+		can_manager |
+		can_worker1 |
+		can_worker2 |
+		can_worker3;
+}
+
 void RoomWindow::event(const Profile::RoomChangedEvent& e)
 {
 	if (e.index != mIndex)

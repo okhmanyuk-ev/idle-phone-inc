@@ -11,9 +11,9 @@ double Balance::GetRoomCost(int index)
 
 double Balance::GetRoomProductCost(int room_index, int product_level)
 {
-	double result = 20.0;
+	auto result = 20.0;
 	
-	result *= glm::pow(1.22, (double)product_level);
+	result *= glm::pow(1.3, (double)product_level);
 	result *= glm::pow(3.2, (double)room_index);
 
 	return result;
@@ -21,7 +21,7 @@ double Balance::GetRoomProductCost(int room_index, int product_level)
 
 double Balance::GetRoomManagerCost(int room_index, int manager_level)
 {
-	double result = 30.0;
+	auto result = 30.0;
 
 	result *= glm::pow(1.2, (double)manager_level);
 	result *= glm::pow(3.2, (double)room_index);
@@ -31,7 +31,7 @@ double Balance::GetRoomManagerCost(int room_index, int manager_level)
 
 double Balance::GetRoomWorkerCost(int room_index, int worker_level, int worker_index)
 {
-	double result = 10.0;
+	auto result = 10.0;
 
 	result *= glm::pow(1.2, (double)worker_level);
 	result *= glm::pow(3.2, (double)room_index);
@@ -42,8 +42,12 @@ double Balance::GetRoomWorkerCost(int room_index, int worker_level, int worker_i
 
 double Balance::GetRoomProduceCount(int room_index, int product_level)
 {
-	const double BaseCount = 10.0;
-	return BaseCount * glm::pow(1.6, (double)(product_level - 1)) * glm::pow(1.6, (double)room_index);
+	auto result = (double)PhonesStackCount;
+	
+	result *= glm::pow(1.2, (double)(product_level - 1));
+	result *= glm::pow(1.6, (double)room_index);
+
+	return result;
 }
 
 int Balance::GetStage(int level, int levels_per_stage)
@@ -78,8 +82,8 @@ int Balance::GetTruckStage()
 
 double Balance::GetWarehouseCost()
 {
-	const double BaseCost = 26.0;
-	return BaseCost * glm::pow(1.4, (double)(PROFILE->getWarehouseLevel() - 1));
+	const double BaseCost = 50.0;
+	return BaseCost * glm::pow(1.96, (double)(PROFILE->getWarehouseLevel() - 1));
 }
 
 float Balance::GetWarehouseDurationMultiplier()
@@ -89,7 +93,7 @@ float Balance::GetWarehouseDurationMultiplier()
 
 float Balance::GetWarehouseDuration()
 {
-	const float BaseDuration = 10.0f;
+	const float BaseDuration = 5.0f;
 	return BaseDuration * GetWarehouseDurationMultiplier();
 }
 
@@ -100,14 +104,20 @@ float Balance::GetWarehouseTruckDuration()
 
 double Balance::GetWarehouseTruckCapacity()
 {
-	const double BaseCapacity = 3.0;
-	return BaseCapacity * glm::pow(2.4, (double)PROFILE->getWarehouseLevel() - 1);
+	auto result = 4.0;
+
+	result *= glm::pow(1.7, (double)PROFILE->getWarehouseLevel() - 1);
+
+	return result;
 }
 
 double Balance::GetWarehouseEarning()
 {
-	const double BaseEarning = 2.0;
-	return BaseEarning * glm::pow(2.4, (double)PROFILE->getWarehouseLevel() - 1);
+	auto result = 8.0;
+
+	result *= glm::pow(1.3, (double)PROFILE->getWarehouseLevel() - 1);
+
+	return result;
 }
 
 float Balance::GetManagerDuration(int room_index)

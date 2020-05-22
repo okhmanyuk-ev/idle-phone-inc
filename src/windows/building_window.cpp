@@ -58,9 +58,8 @@ void BuildingWindow::refresh()
 	mUpgradeButton->setEnabled(level < Balance::MaxWarehouseLevel);
 	if (mUpgradeButton->isEnabled())
 	{
-		auto cost = Balance::GetWarehouseCost();
-		mUpgradeButton->setActive(PROFILE->isEnoughCash(cost));
-		mUpgradeButton->getLabel()->setText("$ " + Helpers::NumberToString(cost));
+		mUpgradeButton->setActive(CanUpgrade());
+		mUpgradeButton->getLabel()->setText("$ " + Helpers::NumberToString(Balance::GetWarehouseCost()));
 	}
 
 	mMainPanel.level->setText(LOCALIZE_FMT("BUILDING_WINDOW_LEVEL", level));
@@ -86,6 +85,11 @@ void BuildingWindow::refresh()
 	mParameterPanel3.icon->setTexture(third.icon_texture);
 	mParameterPanel3.title->setText(third.title_text);
 	mParameterPanel3.effect->setText(third.effect_text);
+}
+
+bool BuildingWindow::CanUpgrade()
+{
+	return PROFILE->isEnoughCash(Balance::GetWarehouseCost());
 }
 
 void BuildingWindow::event(const Profile::CashChangedEvent& e)

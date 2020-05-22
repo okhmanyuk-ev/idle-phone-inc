@@ -14,6 +14,9 @@ namespace PhoneInc
 	public:
 		void refresh();
 
+	public:
+		static bool CanUpgrade();
+
 	private:
 		void event(const Profile::CashChangedEvent& e) override;
 		void event(const Profile::WarehouseLevelChangedEvent& e) override;

@@ -48,14 +48,14 @@ Factory::Room::Room(int index) : mIndex(index)
 	lvl_label->setFontSize(11.0f);
 	attach(lvl_label);
 
-	auto upgrade_btn = std::make_shared<Helpers::StandardButton>();
-	upgrade_btn->setPosition({ 681.0f, 28.0f });
-	upgrade_btn->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
-	upgrade_btn->setClickCallback([index] {
+	mUpgradeButton = std::make_shared<Helpers::StandardButton>();
+	mUpgradeButton->setPosition({ 681.0f, 28.0f });
+	mUpgradeButton->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
+	mUpgradeButton->setClickCallback([index] {
 		auto window = std::make_shared<RoomWindow>(index);
 		EVENT->emit(Helpers::PushWindowEvent({ window }));
 	});
-	attach(upgrade_btn);
+	attach(mUpgradeButton);
 
 	for (int i = 0; i < Balance::MaxWorkersCount; i++)
 	{
@@ -152,6 +152,11 @@ void Factory::Room::event(const Profile::RoomChangedEvent& e)
 	refresh();
 }
 
+void Factory::Room::event(const Profile::CashChangedEvent& e)
+{
+	refreshUpgradeButton();
+}
+
 void Factory::Room::refresh()
 {
 	auto room = PROFILE->getRooms().at(mIndex);
@@ -161,6 +166,13 @@ void Factory::Room::refresh()
 	{
 		mWorkers[i]->setLevel(room.workers[i]);
 	}
+
+	refreshUpgradeButton();
+}
+
+void Factory::Room::refreshUpgradeButton()
+{
+	mUpgradeButton->setActive(RoomWindow::CanUpgradeSomething(mIndex));
 }
 
 Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
@@ -225,7 +237,7 @@ void Factory::Room::PhonesStack::makeProduct()
 void Factory::Room::PhonesStack::setVisiblePhones(int value)
 {
 	assert(value >= 0);
-	assert(value <= MaxVisiblePhones);
+	assert(value <= Balance::PhonesStackCount);
 
 	mVisiblePhones = value;
 	
