@@ -228,7 +228,7 @@ int RoomWindow::ProductPanel::getLevelsPerStage() const
 
 double RoomWindow::ProductPanel::getUpgradeCost() const
 {
-	return Balance::GetProductCost(getLevel());
+	return Balance::GetRoomProductCost(getRoomIndex(), getLevel());
 }
 
 bool RoomWindow::ProductPanel::isOpenAvailable() const
@@ -362,7 +362,7 @@ bool RoomWindow::ManagerPanel::isOpenAvailable() const
 
 double RoomWindow::ManagerPanel::getUpgradeCost() const
 {
-	return Balance::GetManagerCost(getLevel());
+	return Balance::GetRoomManagerCost(getRoomIndex(), getLevel());
 }
 
 void RoomWindow::ManagerPanel::increaseLevel()
@@ -428,7 +428,7 @@ bool RoomWindow::WorkerPanel::isOpenAvailable() const
 
 double RoomWindow::WorkerPanel::getUpgradeCost() const
 {
-	return Balance::GetWorkerCost(getLevel());
+	return Balance::GetRoomWorkerCost(getRoomIndex(), getLevel());
 }
 
 void RoomWindow::WorkerPanel::increaseLevel() 

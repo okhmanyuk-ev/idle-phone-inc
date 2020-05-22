@@ -81,7 +81,7 @@ void Factory::event(const ProductSpawnEvent& e)
 			continue;
 
 		auto box = std::static_pointer_cast<Box>(node);
-		box->setCount(box->getCount() + 1.0);
+		box->setCount(box->getCount() + 1.0); // TODO: balance
 		if (box->isSpawnAnimationCompleted())
 		{
 			const float FullDuration = 0.25f;
@@ -109,7 +109,7 @@ void Factory::event(const ProductSpawnEvent& e)
 	box->setX(96.0f);
 	box->setY(y);
 	box->setScale(0.0f);
-	box->setCount(1.0);
+	box->setCount(1.0); // TODO: balance
 	box->runAction(Shared::ActionHelpers::MakeSequence(
 		Shared::ActionHelpers::ChangeScale(box, { 1.0f, 1.0f }, 0.25f, Common::Easing::BackOut),
 		Shared::ActionHelpers::Execute([box] {

@@ -9,22 +9,22 @@ double Balance::GetRoomCost(int index)
 	return BaseCost * glm::pow(3.2, (double)index);
 }
 
-double Balance::GetProductCost(int index)
+double Balance::GetRoomProductCost(int room_index, int product_level)
 {
 	const double BaseCost = 10.0;
-	return BaseCost * glm::pow(3.2, (double)index);
+	return BaseCost * glm::pow(3.2, (double)product_level) * glm::pow(3.2, (double)room_index);
 }
 
-double Balance::GetManagerCost(int index)
+double Balance::GetRoomManagerCost(int room_index, int manager_level)
 {
 	const double BaseCost = 10.0;
-	return BaseCost * glm::pow(3.2, (double)index);
+	return BaseCost * glm::pow(3.2, (double)manager_level) * glm::pow(3.2, (double)room_index);
 }
 
-double Balance::GetWorkerCost(int index)
+double Balance::GetRoomWorkerCost(int room_index, int worker_level)
 {
 	const double BaseCost = 10.0;
-	return BaseCost * glm::pow(3.2, (double)index);
+	return BaseCost * glm::pow(3.2, (double)worker_level) * glm::pow(3.2, (double)room_index);
 }
 
 int Balance::GetStage(int level, int levels_per_stage)
@@ -77,13 +77,13 @@ float Balance::GetWarehouseDuration()
 double Balance::GetWarehouseTruckCapacity()
 {
 	const double BaseCapacity = 10.0;
-	return BaseCapacity;
+	return BaseCapacity * glm::pow(3.2, (double)PROFILE->getWarehouseLevel() - 1);
 }
 
 double Balance::GetWarehouseEarning()
 {
 	const double BaseEarning = 10.0;
-	return BaseEarning;
+	return BaseEarning * glm::pow(3.2, (double)PROFILE->getWarehouseLevel() - 1);
 }
 
 float Balance::GetManagerDuration(int room_index)

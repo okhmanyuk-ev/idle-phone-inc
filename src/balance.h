@@ -20,9 +20,9 @@ namespace PhoneInc::Balance
 	const inline int MaxWorkersCount = 3;
 
 	double GetRoomCost(int index);
-	double GetProductCost(int index);
-	double GetManagerCost(int index);
-	double GetWorkerCost(int index);
+	double GetRoomProductCost(int room_index, int product_level);
+	double GetRoomManagerCost(int room_index, int manager_level);
+	double GetRoomWorkerCost(int room_index, int worker_level);
 
 	int GetStage(int level, int levels_per_stage);
 
