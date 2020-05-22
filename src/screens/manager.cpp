@@ -7,7 +7,7 @@ using namespace PhoneInc;
 Factory::Manager::Manager() : Scene::MappedAniSprite<ManagerAnimation>(Animations)
 {
 	setFrequency(6.0f);
-	setStateType(Animation::Working);
+	setStateType(Animation::Idle);
 
 	mProgressbar = std::make_shared<Helpers::StreetProgressbar>();
 	mProgressbar->setSize({ 96.0f, 12.0f });

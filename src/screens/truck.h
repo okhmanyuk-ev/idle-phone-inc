@@ -19,5 +19,12 @@ namespace PhoneInc
 		const static inline StateMap Animations = {
 			{ Animation::Main, "main" }
 		};
+
+	public:
+		auto getEarning() const { return mEarning; }
+		void setEarning(double value) { mEarning = value; }
+
+	private:
+		double mEarning = 0.0f;
 	};
 }

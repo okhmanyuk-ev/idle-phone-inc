@@ -94,6 +94,7 @@ Factory::Room::Room(int index) : mIndex(index)
 
 		return Shared::ActionHelpers::MakeSequence(
 			Shared::ActionHelpers::Execute([this] {
+				mManager->setStateType(ManagerAnimation::Working);
 				mManager->getProgressbar()->setEnabled(true);
 				mManager->getProgressbar()->setProgress(0.0f);
 			}),
@@ -104,6 +105,7 @@ Factory::Room::Room(int index) : mIndex(index)
 			Shared::ActionHelpers::ChangeScale(mManager->getProgressbar(), { 0.0f, 0.0f }, 0.125f, Common::Easing::BackIn),
 			Shared::ActionHelpers::Execute([this] {
 				mManager->getProgressbar()->setEnabled(false);
+				mManager->setStateType(ManagerAnimation::Idle);
 				for (auto phones_stack : mPhonesStacks)
 				{
 					if (!phones_stack->isFilled())

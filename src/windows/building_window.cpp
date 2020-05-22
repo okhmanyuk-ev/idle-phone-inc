@@ -187,7 +187,7 @@ BuildingWindow::Parameter BuildingWindow::getSecondParameter() const
 {
 	auto result = BuildingWindow::Parameter();
 	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_2");
-	result.effect_text = "+ 5%";
+	result.effect_text = Helpers::NumberToString(Balance::GetWarehouseTruckCapacity());
 	result.icon_texture = TEXTURE("textures/windows/building_window/icon2.png");
 	return result;
 }
@@ -196,7 +196,7 @@ BuildingWindow::Parameter BuildingWindow::getThirdParameter() const
 {
 	auto result = BuildingWindow::Parameter();
 	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_3");
-	result.effect_text = "100";
+	result.effect_text = Helpers::NumberToString(Balance::GetWarehouseEarning());
 	result.icon_texture = TEXTURE("textures/windows/building_window/icon3.png");
 	return result;
 }

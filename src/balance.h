@@ -37,6 +37,8 @@ namespace PhoneInc::Balance
 
 	float GetWarehouseDurationMultiplier();
 	float GetWarehouseDuration();
+	double GetWarehouseTruckCapacity();
+	double GetWarehouseEarning();
 
 	float GetManagerDuration(int room_index);
 	float GetWorkerDuration(int room_index, int worker_index);

@@ -74,6 +74,18 @@ float Balance::GetWarehouseDuration()
 	return BaseDuration * GetWarehouseDurationMultiplier();
 }
 
+double Balance::GetWarehouseTruckCapacity()
+{
+	const double BaseCapacity = 10.0;
+	return BaseCapacity;
+}
+
+double Balance::GetWarehouseEarning()
+{
+	const double BaseEarning = 10.0;
+	return BaseEarning;
+}
+
 float Balance::GetManagerDuration(int room_index)
 {
 	float MinDuration = 1.0f;

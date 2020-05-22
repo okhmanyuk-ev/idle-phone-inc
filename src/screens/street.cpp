@@ -98,7 +98,6 @@ void Street::runWarehouseAction()
 		}),
 		Shared::ActionHelpers::ChangeScale(mWarehouseProgressbar, { 0.0f, 0.0f }, 0.125f, Common::Easing::BackIn),
 		Shared::ActionHelpers::Execute([this] {
-			PROFILE->setWarehouseStorage(PROFILE->getWarehouseStorage() - 1);
 			mWarehouseProgressbar->setProgress(0.0f);
 			mWarehouseProgressbar->setEnabled(false);
 			mWarehouseBusy = false;
@@ -113,6 +112,17 @@ void Street::runTruckAction()
 	STYLEBOOK->apply(truck, fmt::format("truck_{}", Balance::GetTruckStage()));
 	mTruckHolder->attach(truck);
 
+	auto storage = PROFILE->getWarehouseStorage();
+	auto capacity = Balance::GetWarehouseTruckCapacity();
+	
+	if (capacity > storage)
+		capacity = storage;
+
+	PROFILE->setWarehouseStorage(storage - capacity);
+
+	auto earning = Balance::GetWarehouseEarning() * capacity;
+	truck->setEarning(earning); // TODO: earning
+	
 	const float Duration = 5.0f;
 
 	runAction(Shared::ActionHelpers::MakeSequence(
@@ -120,8 +130,8 @@ void Street::runTruckAction()
 			Shared::ActionHelpers::ChangeHorizontalAnchor(truck, 1.0f, Duration),
 			Shared::ActionHelpers::ChangeHorizontalPivot(truck, 0.0f, Duration)
 		),
-		Shared::ActionHelpers::Execute([this] {
-			PROFILE->setCash(PROFILE->getCash() + 100.0);
+		Shared::ActionHelpers::Execute([truck] {
+			PROFILE->setCash(PROFILE->getCash() + truck->getEarning());
 		}),
 		Shared::ActionHelpers::Kill(truck)
 	));

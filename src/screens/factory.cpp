@@ -30,10 +30,16 @@ Factory::Factory()
 	conveyor_path->setTextureAddress(Renderer::TextureAddress::Wrap);
 	conveyor_path->setX(6.0f);
 	attach(conveyor_path);
-	runAction(Shared::ActionHelpers::ExecuteInfinite([conveyor_path] {
+	runAction(Shared::ActionHelpers::ExecuteInfinite([this, conveyor_path] {
 		conveyor_path->setTexRegion({ { 0.0f, 0.0f }, { 0.0f, conveyor_path->getHeight() } });
 		auto y = conveyor_path->getY();
-		y -= Clock::ToSeconds(FRAME->getTimeDelta()) * 100.0f * ConveyorSpeed;
+
+		auto speed = ConveyorSpeed;
+
+		if (mBoxHolder->getNodes().empty())
+			speed /= 5.0f;
+
+		y -= Clock::ToSeconds(FRAME->getTimeDelta()) * 100.0f * speed;
 		auto tex_h = (float)conveyor_path->getTexture()->getHeight();
 		while (y <= -tex_h) 
 		{
