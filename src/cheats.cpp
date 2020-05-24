@@ -66,6 +66,12 @@ void Cheats::ShowDevMenu(std::shared_ptr<Shared::SceneManager> scene_manager)
 		PROFILE->setCash(PROFILE->getCash() * 1000.0);
 	}
 
+	if (ImGui::Button("ADD CASH x10000"))
+	{
+		ensureCashNonZero();
+		PROFILE->setCash(PROFILE->getCash() * 10000.0);
+	}
+
 	if (ImGui::Button("REMOVE ALL CASH"))
 	{
 		PROFILE->setCash(0.0);

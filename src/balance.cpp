@@ -86,15 +86,10 @@ double Balance::GetWarehouseCost()
 	return BaseCost * glm::pow(1.96, (double)(PROFILE->getWarehouseLevel() - 1));
 }
 
-float Balance::GetWarehouseDurationMultiplier()
-{
-	return 1.0f - (((float)PROFILE->getWarehouseLevel() / (float)MaxWarehouseLevel) * 0.95f);
-}
-
 float Balance::GetWarehouseDuration()
 {
-	const float BaseDuration = 5.0f;
-	return BaseDuration * GetWarehouseDurationMultiplier();
+	auto progress = (float)PROFILE->getWarehouseLevel() / (float)MaxWarehouseLevel;
+	return glm::lerp(WarehouseMaxDuration, WarehouseMinDuration, progress);
 }
 
 float Balance::GetWarehouseTruckDuration()
@@ -122,22 +117,16 @@ double Balance::GetWarehouseEarning()
 
 float Balance::GetManagerDuration(int room_index)
 {
-	float MinDuration = 1.0f;
-	float MaxDuration = 5.0f;
-
 	auto& room = PROFILE->getRooms().at(room_index);
 	auto lvl = room.manager;
-
-	return glm::lerp(MaxDuration, MinDuration, (float)lvl / (float)MaxManagerLevel);
+	auto progress = (float)lvl / (float)MaxManagerLevel;
+	return glm::lerp(ManagerMaxDuration, ManagerMinDuration, progress);
 }
 
 float Balance::GetWorkerDuration(int room_index, int worker_index)
 {
-	float MinDuration = 0.25f;
-	float MaxDuration = 2.0f;
-
 	auto& room = PROFILE->getRooms().at(room_index);
 	auto lvl = room.workers.at(worker_index);
-	
-	return glm::lerp(MaxDuration, MinDuration, (float)lvl / (float)MaxWorkerLevel);
+	auto progress = (float)lvl / (float)MaxWorkerLevel;
+	return glm::lerp(WorkerMaxDuration, WorkerMinDuration, progress);
 }

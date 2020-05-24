@@ -172,9 +172,17 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	mTitle->setFontSize(12.0f);
 	mTitle->setAnchor({ 0.0f, 0.0f });
 	mTitle->setPivot({ 0.0f, 0.5f });
-	mTitle->setPosition({ 264.0f, 176.0f });
+	mTitle->setPosition({ 264.0f, 126.0f });
 	mTitle->setColor(Graphics::Color::ToNormalized(12, 22, 44));
 	attach(mTitle);
+
+	mNameLabel = std::make_shared<Helpers::LabelSolid>();
+	mNameLabel->setFontSize(13.0f);
+	mNameLabel->setAnchor({ 0.0f, 0.0f });
+	mNameLabel->setPivot({ 0.0f, 0.5f });
+	mNameLabel->setPosition({ 264.0f, 176.0f });
+	mNameLabel->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	attach(mNameLabel);
 
 	mDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
 	mDescriptionLabel->setFontSize(10.0f);
@@ -193,6 +201,31 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	mLevelLabel->setPosition({ 264.0f, 222.0f });
 	mLevelLabel->setColor(Graphics::Color::ToNormalized(23, 0, 164));
 	attach(mLevelLabel);
+
+	mProgressbar = std::make_shared<Helpers::StreetProgressbar>();
+	mProgressbar->setSize({ 422.0f, 28.0f });
+	mProgressbar->setAnchor({ 0.0f, 0.0f });
+	mProgressbar->setPivot({ 0.0f, 0.5f });
+	mProgressbar->setPosition({ 264.0f, 268.0f });
+	attach(mProgressbar);
+
+	mEffectLabelKey = std::make_shared<Helpers::LabelSolid>();
+	mEffectLabelKey->setFontSize(11.0f);
+	mEffectLabelKey->setAnchor({ 0.0f, 0.0f });
+	mEffectLabelKey->setPivot({ 0.0f, 0.5f });
+	mEffectLabelKey->setPosition({ 264.0f, 308.0f });
+	mEffectLabelKey->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_EFFECT_LABEL") + ":");
+	mEffectLabelKey->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	attach(mEffectLabelKey);
+
+	mEffectLabelValue = std::make_shared<Helpers::LabelSolid>();
+	mEffectLabelValue->setFontSize(11.0f);
+	mEffectLabelValue->setScale(1.0f);
+	mEffectLabelValue->setAnchor({ 1.0f, 0.5f });
+	mEffectLabelValue->setPivot({ 0.0f, 0.5f });
+	mEffectLabelValue->setColor(Graphics::Color::ToNormalized(6, 103, 0));
+	mEffectLabelValue->setPosition({ 3.0f, 0.0f });
+	mEffectLabelKey->attach(mEffectLabelValue);
 }
 
 void RoomWindow::ProductPanel::refresh()
@@ -210,6 +243,8 @@ void RoomWindow::ProductPanel::refresh()
 
 	mLevelLabel->setEnabled(isOpened());
 	mDescriptionLabel->setEnabled(!isOpened());
+	mProgressbar->setEnabled(isOpened());
+	mEffectLabelKey->setEnabled(isOpened());
 
 	if (mLevelLabel->isEnabled())
 		mLevelLabel->setText(getLevelText());
@@ -217,15 +252,21 @@ void RoomWindow::ProductPanel::refresh()
 	if (mDescriptionLabel->isEnabled())
 		mDescriptionLabel->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_DESCRIPTION"));
 
+	if (mProgressbar->isEnabled())
+		mProgressbar->setProgress(getProgress());
+
+	if (mEffectLabelKey->isEnabled())
+		mEffectLabelValue->setText(Helpers::NumberToString(Balance::GetRoomProduceCount(getRoomIndex(), getLevel())));
+
 	if (!isOpened())
 	{
-		mTitle->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_TITLE_OPEN"));
+		mTitle->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_TITLE_LOCKED"));
 	}
 	else
 	{
-		mTitle->setText(LOCALIZE(fmt::format("ROOM_WINDOW_PRODUCT_TITLE_{}", stage)));
+		mTitle->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_TITLE"));
+		mNameLabel->setText(LOCALIZE(fmt::format("ROOM_WINDOW_PRODUCT_NAME_{}", stage)));
 	}
-
 }
 
 int RoomWindow::ProductPanel::getLevel() const
@@ -287,34 +328,52 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	mTitle->setFontSize(12.0f);
 	mTitle->setAnchor({ 0.0f, 0.0f });
 	mTitle->setPivot({ 0.0f, 0.5f });
-	mTitle->setPosition({ 264.0f, 64.0f });
+	mTitle->setPosition({ 264.0f, 58.0f });
 	mTitle->setColor(Graphics::Color::ToNormalized(12, 22, 44));
 	attach(mTitle);
 
-	mDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
-	mDescriptionLabel->setFontSize(10.0f);
-	mDescriptionLabel->setMultiline(true);
-	mDescriptionLabel->setWidth(138.0f);
-	mDescriptionLabel->setAnchor({ 0.0f, 0.0f });
-	mDescriptionLabel->setPivot({ 0.0f, 0.5f });
-	mDescriptionLabel->setPosition({ 264.0f, 142.0f });
-	mDescriptionLabel->setColor(Graphics::Color::ToNormalized(12, 22, 44));
-	attach(mDescriptionLabel);
+	mLandingDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
+	mLandingDescriptionLabel->setFontSize(10.0f);
+	mLandingDescriptionLabel->setMultiline(true);
+	mLandingDescriptionLabel->setWidth(138.0f);
+	mLandingDescriptionLabel->setAnchor({ 0.0f, 0.0f });
+	mLandingDescriptionLabel->setPivot({ 0.0f, 0.0f });
+	mLandingDescriptionLabel->setPosition({ 264.0f, 88.0f });
+	mLandingDescriptionLabel->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	attach(mLandingDescriptionLabel);
 
 	mLevelLabel = std::make_shared<Helpers::LabelSolid>();
 	mLevelLabel->setFontSize(12.0f);
 	mLevelLabel->setAnchor({ 0.0f, 0.0f });
 	mLevelLabel->setPivot({ 0.0f, 0.5f });
-	mLevelLabel->setPosition({ 264.0f, 114.0f });
+	mLevelLabel->setPosition({ 264.0f, 102.0f });
 	mLevelLabel->setColor(Graphics::Color::ToNormalized(23, 0, 164));
 	attach(mLevelLabel);
 
 	mProgressbar = std::make_shared<Helpers::StreetProgressbar>();
-	mProgressbar->setSize({ 422.0f, 28.0f });
+	mProgressbar->setSize({ 422.0f, 28.0f }); 
 	mProgressbar->setAnchor({ 0.0f, 0.0f });
 	mProgressbar->setPivot({ 0.0f, 0.5f });
-	mProgressbar->setPosition({ 264.0f, 168.0f });
+	mProgressbar->setPosition({ 264.0f, 148.0f });
 	attach(mProgressbar);
+
+	mEffectLabelKey = std::make_shared<Helpers::LabelSolid>();
+	mEffectLabelKey->setFontSize(11.0f);
+	mEffectLabelKey->setAnchor({ 0.0f, 0.0f });
+	mEffectLabelKey->setPivot({ 0.0f, 0.5f });
+	mEffectLabelKey->setPosition({ 264.0f, 194.0f });
+	mEffectLabelKey->setText(LOCALIZE("ROOM_WINDOW_NPC_EFFECT_LABEL") + ":");
+	mEffectLabelKey->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	attach(mEffectLabelKey);
+
+	mEffectLabelValue = std::make_shared<Helpers::LabelSolid>();
+	mEffectLabelValue->setFontSize(11.0f);
+	mEffectLabelValue->setScale(1.0f);
+	mEffectLabelValue->setAnchor({ 1.0f, 0.5f });
+	mEffectLabelValue->setPivot({ 0.0f, 0.5f });
+	mEffectLabelValue->setColor(Graphics::Color::ToNormalized(6, 103, 0));
+	mEffectLabelValue->setPosition({ 3.0f, 0.0f });
+	mEffectLabelKey->attach(mEffectLabelValue);
 }
 
 void RoomWindow::SmallPanel::refresh()
@@ -326,7 +385,8 @@ void RoomWindow::SmallPanel::refresh()
 
 	mLevelLabel->setEnabled(isOpened());
 	mProgressbar->setEnabled(isOpened());
-	mDescriptionLabel->setEnabled(!isOpened());
+	mLandingDescriptionLabel->setEnabled(!isOpened());
+	mEffectLabelKey->setEnabled(isOpened());
 
 	if (mLevelLabel->isEnabled())
 		mLevelLabel->setText(getLevelText());
@@ -334,8 +394,11 @@ void RoomWindow::SmallPanel::refresh()
 	if (mProgressbar->isEnabled())
 		mProgressbar->setProgress(getProgress());
 
-	if (mDescriptionLabel->isEnabled())
-		mDescriptionLabel->setText(getDescriptionText());
+	if (mEffectLabelKey->isEnabled())
+		mEffectLabelValue->setText(getEffectText());
+
+	if (mLandingDescriptionLabel->isEnabled())
+		mLandingDescriptionLabel->setText(getDescriptionText());
 }
 
 utf8_string RoomWindow::SmallPanel::getOpenButtonText() const
@@ -412,6 +475,17 @@ utf8_string RoomWindow::ManagerPanel::getDescriptionText() const
 		return LOCALIZE("ROOM_WINDOW_MANAGER_DESCRIPTION_HIRE_LOCKED");
 }
 
+utf8_string RoomWindow::ManagerPanel::getEffectText() const
+{
+	auto duration = Balance::GetManagerDuration(getRoomIndex());
+	auto multiplier = Balance::ManagerMaxDuration / duration;
+
+	multiplier -= 1.0f;
+	multiplier *= 100.0f;
+
+	return fmt::format("+{:.0f}%", multiplier);
+}
+
 // worker panel
 
 RoomWindow::WorkerPanel::WorkerPanel(int roomIndex, int number) : SmallPanel(roomIndex), mNumber(number)
@@ -476,4 +550,15 @@ utf8_string RoomWindow::WorkerPanel::getDescriptionText() const
 		return LOCALIZE("ROOM_WINDOW_WORKER_DESCRIPTION");
 	else
 		return LOCALIZE("ROOM_WINDOW_WORKER_DESCRIPTION_HIRE_LOCKED");
+}
+
+utf8_string RoomWindow::WorkerPanel::getEffectText() const
+{
+	auto duration = Balance::GetWorkerDuration(getRoomIndex(), mNumber - 1);
+	auto multiplier = Balance::WorkerMaxDuration / duration;
+	
+	multiplier -= 1.0f;
+	multiplier *= 100.0f;
+
+	return fmt::format("+{:.0f}%", multiplier);
 }

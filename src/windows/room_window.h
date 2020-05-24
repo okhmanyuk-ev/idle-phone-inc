@@ -103,8 +103,12 @@ namespace PhoneInc
 	private:
 		std::shared_ptr<Helpers::Adaptive<Scene::Sprite>> mIcon;
 		std::shared_ptr<Helpers::LabelSolid> mTitle;
+		std::shared_ptr<Helpers::LabelSolid> mNameLabel;
 		std::shared_ptr<Helpers::LabelSolid> mDescriptionLabel;
 		std::shared_ptr<Helpers::LabelSolid> mLevelLabel;
+		std::shared_ptr<Helpers::StreetProgressbar> mProgressbar;
+		std::shared_ptr<Helpers::LabelSolid> mEffectLabelKey;
+		std::shared_ptr<Helpers::LabelSolid> mEffectLabelValue;
 	};
 
 	class RoomWindow::SmallPanel : public Panel
@@ -123,13 +127,16 @@ namespace PhoneInc
 		virtual std::shared_ptr<Renderer::Texture> getIconTexture() const = 0;
 		virtual utf8_string getTitleText() const = 0;
 		virtual utf8_string getDescriptionText() const = 0;
+		virtual utf8_string getEffectText() const = 0;
 
 	private:
 		std::shared_ptr<Scene::Sprite> mIcon;
 		std::shared_ptr<Helpers::LabelSolid> mTitle;
-		std::shared_ptr<Helpers::LabelSolid> mDescriptionLabel;
+		std::shared_ptr<Helpers::LabelSolid> mLandingDescriptionLabel;
 		std::shared_ptr<Helpers::LabelSolid> mLevelLabel;
 		std::shared_ptr<Helpers::StreetProgressbar> mProgressbar;
+		std::shared_ptr<Helpers::LabelSolid> mEffectLabelKey;
+		std::shared_ptr<Helpers::LabelSolid> mEffectLabelValue;
 	};
 
 	class RoomWindow::ManagerPanel : public SmallPanel
@@ -149,6 +156,7 @@ namespace PhoneInc
 		std::shared_ptr<Renderer::Texture> getIconTexture() const override;
 		utf8_string getTitleText() const override;
 		utf8_string getDescriptionText() const override;
+		utf8_string getEffectText() const override;
 	};
 
 	class RoomWindow::WorkerPanel : public SmallPanel
@@ -168,6 +176,7 @@ namespace PhoneInc
 		std::shared_ptr<Renderer::Texture> getIconTexture() const override;
 		utf8_string getTitleText() const override;
 		utf8_string getDescriptionText() const override;
+		utf8_string getEffectText() const override;
 
 	private:
 		int mNumber = 0;

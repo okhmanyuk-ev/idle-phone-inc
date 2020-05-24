@@ -177,7 +177,10 @@ std::shared_ptr<Scene::Node> BuildingWindow::createParameterPanel(ParameterPanel
 
 BuildingWindow::Parameter BuildingWindow::getFirstParameter() const
 {
-	auto multiplier = 1.0f - Balance::GetWarehouseDurationMultiplier();
+	auto duration = Balance::GetWarehouseDuration();
+	auto multiplier = Balance::WarehouseMaxDuration / duration;
+
+	multiplier -= 1.0f;
 	multiplier *= 100.0f;
 
 	auto result = BuildingWindow::Parameter();

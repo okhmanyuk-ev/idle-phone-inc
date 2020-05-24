@@ -23,6 +23,15 @@ namespace PhoneInc::Balance
 
 	const inline int PhonesStackCount = 8;
 
+	const inline float ManagerMinDuration = 1.0f;
+	const inline float ManagerMaxDuration = 5.0f;
+
+	const inline float WorkerMinDuration = 0.25f;
+	const inline float WorkerMaxDuration = 2.0f;
+
+	const inline float WarehouseMinDuration = 0.25f;
+	const inline float WarehouseMaxDuration = 5.0f;
+
 	double GetRoomCost(int index);
 
 	double GetRoomProductCost(int room_index, int product_level);
@@ -41,7 +50,6 @@ namespace PhoneInc::Balance
 
 	double GetWarehouseCost();
 
-	float GetWarehouseDurationMultiplier();
 	float GetWarehouseDuration();
 	float GetWarehouseTruckDuration();
 	double GetWarehouseTruckCapacity();
