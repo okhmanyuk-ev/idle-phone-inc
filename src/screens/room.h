@@ -52,6 +52,8 @@ namespace PhoneInc
 
 	class Factory::Room::PhonesStack : public Scene::Clickable<Scene::Node>
 	{
+	private:
+		using Phone = Scene::Actionable<Scene::Sprite>;
 	public:
 		PhonesStack(int room_index);
 
@@ -64,8 +66,10 @@ namespace PhoneInc
 
 		bool isFilled() const { return mVisiblePhones >= Balance::PhonesStackCount; }
 
+		void runAnimForPhone(int index);
+
 	private:
-		std::vector<std::shared_ptr<Scene::Sprite>> mPhones;
+		std::vector<std::shared_ptr<Phone>> mPhones;
 		int mVisiblePhones = 10;
 		int mRoomIndex = 0;
 	};

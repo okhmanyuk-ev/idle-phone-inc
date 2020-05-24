@@ -126,12 +126,16 @@ Factory::Room::Room(int index) : mIndex(index)
 				return nullptr;
 
 			auto duration = Balance::GetWorkerDuration(mIndex, i);
+			auto phone = mPhonesStacks.at(i);
 
-			return Shared::ActionHelpers::Delayed(duration, Shared::ActionHelpers::Execute([this, i] {
-				if (mPhonesStacks[i]->isFilled())
+			return Shared::ActionHelpers::Delayed(duration, Shared::ActionHelpers::Execute([this, phone] {
+				if (phone->isFilled())
 					return;
 
-				mPhonesStacks[i]->setVisiblePhones(mPhonesStacks[i]->getVisiblePhones() + 1);
+				auto count = phone->getVisiblePhones() + 1;
+
+				phone->setVisiblePhones(count);
+				phone->runAnimForPhone(count - 1);
 			}));
 		}));
 	}
@@ -215,7 +219,7 @@ Factory::Room::PhonesStack::PhonesStack(int room_index) : mRoomIndex(room_index)
 
 	for (int i = -5; i < 5; i++)
 	{
-		auto phone = std::make_shared<Scene::Sprite>();
+		auto phone = std::make_shared<Phone>();
 		phone->setTexture(TEXTURE("textures/factory/room/phone.png"));
 		phone->setPivot(0.5f);
 		phone->setAnchor(0.5f);
@@ -261,4 +265,17 @@ void Factory::Room::PhonesStack::setVisiblePhones(int value)
 		else
 			phone->setColor(Graphics::Color::White);
 	}
+}
+
+void Factory::Room::PhonesStack::runAnimForPhone(int index)
+{
+	auto phone = mPhones.at(index);
+	
+	phone->setScale(0.0f);
+	phone->setVerticalOrigin(64.0f);
+
+	phone->runAction(Shared::ActionHelpers::MakeSequence(
+		Shared::ActionHelpers::ChangeScale(phone, { 1.0f, 1.0f }, 0.25f, Common::Easing::BackOut),
+		Shared::ActionHelpers::ChangeVerticalOrigin(phone, 0.0f, 0.25f, Common::Easing::CubicOut)
+	));
 }
