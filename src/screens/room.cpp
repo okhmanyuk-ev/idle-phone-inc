@@ -179,6 +179,14 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 {
 	setTexture(TEXTURE("textures/factory/room/background/locked.png"));
 
+	auto lvl_label = std::make_shared<Helpers::LabelSolidBold>();
+	lvl_label->setPosition({ 51.0f, 59.0f });
+	lvl_label->setPivot(0.5f);
+	lvl_label->setText(std::to_string(index + 1));
+	lvl_label->setColor(Graphics::Color::Black);
+	lvl_label->setFontSize(11.0f);
+	attach(lvl_label);
+
 	mButton = std::make_shared<Helpers::StandardLongButton>();
 	mButton->getLabel()->setText("$ " + Helpers::NumberToString(Balance::GetRoomCost(index)));
 	mButton->setAnchor(0.5f);

@@ -59,6 +59,7 @@ void Profile::load()
 	}
 
 	tryRead(mWarehouseLevel, "warehouse_level");
+	tryRead(mNightBackground, "night_background");
 }
 
 void Profile::save()
@@ -80,6 +81,7 @@ void Profile::save()
 	}
 
 	json["warehouse_level"] = mWarehouseLevel;
+	json["night_background"] = mNightBackground;
 
 	auto bson = nlohmann::json::to_bson(json);
 	Platform::Asset::Write(PLATFORM->getAppFolder() + "save.bson", bson.data(), bson.size(), Platform::Asset::Path::Absolute);

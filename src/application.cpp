@@ -58,6 +58,8 @@ Application::Application() : RichApplication(PROJECT_CODE)
     Scene::Sampler::DefaultSampler = Renderer::Sampler::Linear;
     
 	makeLoadingScene();
+
+	PROFILE->setNightBackground(!PROFILE->isNightBackground());
 }
 
 Application::~Application()

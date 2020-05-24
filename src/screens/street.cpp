@@ -11,7 +11,12 @@ Street::Street()
 	setHeight(670.0f);
 
 	auto bg = std::make_shared<Scene::Sprite>();
-	bg->setTexture(TEXTURE("textures/street/background.png"));
+
+	if (PROFILE->isNightBackground())
+		bg->setTexture(TEXTURE("textures/street/background_night.png"));
+	else
+		bg->setTexture(TEXTURE("textures/street/background.png"));
+
 	bg->setPivot({ 0.5f, 0.0f });
 	bg->setAnchor({ 0.5f, 0.0f });
 	attach(bg);
@@ -48,13 +53,18 @@ Street::Street()
 	mWarehouseProgressbar->setScale(0.0f);
 	mWarehouse->attach(mWarehouseProgressbar);
 
+	auto storage_bg = std::make_shared<Scene::Sprite>();
+	storage_bg->setTexture(TEXTURE("textures/street/storage_bg.png"));
+	storage_bg->setAnchor({ 0.5f, 0.0f });
+	storage_bg->setPivot(0.5f);
+	storage_bg->setPosition({ 0.0f, -154.0f });
+	mWarehouse->attach(storage_bg);
+
 	mWarehouseStorageLabel = std::make_shared<Helpers::Label>();
-	mWarehouseStorageLabel->setAnchor({ 0.5f, 0.0f });
-	mWarehouseStorageLabel->setPivot({ 0.5f, 0.5f });
-	mWarehouseStorageLabel->setPosition({ 0.0f, -114.0f });
-	mWarehouseStorageLabel->setText("awdawdaw");
+	mWarehouseStorageLabel->setAnchor(0.5f);
+	mWarehouseStorageLabel->setPivot(0.5f);
 	mWarehouseStorageLabel->setFontSize(12.0f);
-	mWarehouse->attach(mWarehouseStorageLabel);
+	storage_bg->attach(mWarehouseStorageLabel);
 	refreshWarehouseStorageLabel();
 
 	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {

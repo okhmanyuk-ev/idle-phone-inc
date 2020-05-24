@@ -55,11 +55,15 @@ namespace PhoneInc
 		auto getWarehouseStorage() const { return mWarehouseStorage; }
 		void setWarehouseStorage(double value);
 
+		bool isNightBackground() const { return mNightBackground; }
+		void setNightBackground(bool value) { mNightBackground = value; }
+
 	private:
 		double mCash = 0.0f;
 		std::map<int, Room> mRooms = { };
 		int mWarehouseLevel = 0;
 		double mWarehouseStorage = 0;
+		bool mNightBackground = true;
 	};
 
 	inline bool operator==(const Profile::Room& left, const Profile::Room& right)

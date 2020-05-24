@@ -129,7 +129,7 @@ void RoomWindow::Panel::refresh()
 			}			
 			mButtonAdditionalLabel->setText(getOpenButtonText());
 		}
-		mButton->getLabel()->setText(Helpers::NumberToString(getUpgradeCost()));
+		mButton->getLabel()->setText("$ " + Helpers::NumberToString(getUpgradeCost()));
 	}
 }
 
