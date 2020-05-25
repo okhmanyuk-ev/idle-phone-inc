@@ -274,8 +274,8 @@ void Factory::Room::PhonesStack::runAnimForPhone(int index)
 	phone->setScale(0.0f);
 	phone->setVerticalOrigin(64.0f);
 
-	phone->runAction(Shared::ActionHelpers::MakeSequence(
-		Shared::ActionHelpers::ChangeScale(phone, { 1.0f, 1.0f }, 0.25f, Common::Easing::BackOut),
+	phone->runAction(Shared::ActionHelpers::MakeParallel(
+		Shared::ActionHelpers::ChangeScale(phone, { 1.0f, 1.0f }, 0.125f, Common::Easing::BackOut),
 		Shared::ActionHelpers::ChangeVerticalOrigin(phone, 0.0f, 0.25f, Common::Easing::CubicOut)
 	));
 }
