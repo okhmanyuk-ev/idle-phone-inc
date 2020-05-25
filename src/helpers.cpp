@@ -87,21 +87,29 @@ LabelSolidBold::LabelSolidBold()
 	setFont(FONT("default_bold"));
 }
 
-Button::Button()
+void Button::onClick()
 {
-	setClickCallback([this] {
-		auto executeCallback = [](auto callback) { if (callback) callback(); };
-		if (isActive())
-			executeCallback(mActiveCallback);
-		else
-			executeCallback(mInactiveCallback);
-	});
-	setChooseCallback([this] {
-		recursiveColorSet(glm::vec4(1.25f), shared_from_this());
-	});
-	setCancelChooseCallback([this] {
-		recursiveColorSet(glm::vec4(1.0f), shared_from_this());
-	});
+	Scene::Clickable<Scene::Sprite>::onClick();
+
+	auto executeCallback = [](auto callback) { if (callback) callback(); };
+	if (isActive())
+		executeCallback(mActiveCallback);
+	else
+		executeCallback(mInactiveCallback);
+}
+
+void Button::onChoose()
+{
+	Scene::Clickable<Scene::Sprite>::onChoose();
+
+	recursiveColorSet(glm::vec4(1.25f), shared_from_this());
+}
+
+void Button::onCancelChoose()
+{
+	Scene::Clickable<Scene::Sprite>::onCancelChoose();
+
+	recursiveColorSet(glm::vec4(1.0f), shared_from_this());
 }
 
 void Button::recursiveColorSet(const glm::vec4& value, std::shared_ptr<Scene::Node> node)

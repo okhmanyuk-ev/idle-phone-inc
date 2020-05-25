@@ -49,12 +49,12 @@ namespace PhoneInc::Helpers
 		LabelSolidBold();
 	};
 
-	// TODO: add overridable callbacks to Scene::Clickable<> class
-	// and use them here
 	class Button : public Scene::Clickable<Scene::Sprite>, public std::enable_shared_from_this<Button>
 	{
-	public:
-		Button();
+	protected:
+		void onClick() override;
+		void onChoose() override;
+		void onCancelChoose() override;
 
 	private:
 		void recursiveColorSet(const glm::vec4& value, std::shared_ptr<Scene::Node> node = nullptr);
