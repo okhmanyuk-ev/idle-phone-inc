@@ -89,6 +89,7 @@ RoomWindow::Panel::Panel(int roomIndex) : mRoomIndex(roomIndex)
 	mButton->setAnchor({ 1.0f, 0.5f });
 	mButton->setPivot({ 1.0f, 0.5f });
 	mButton->setPosition({ -28.0f, 0.0f });
+	mButton->setAutoclick(true);
 	mButton->setActiveCallback([this] {
 		PROFILE->spendCash(getUpgradeCost());
 		increaseLevel();

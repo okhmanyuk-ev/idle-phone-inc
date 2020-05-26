@@ -51,12 +51,19 @@ namespace PhoneInc::Helpers
 
 	class Button : public Scene::Clickable<Scene::Sprite>, public std::enable_shared_from_this<Button>
 	{
+	private:
+		const float MaxAutoclickTime = 0.5f;
+
+	protected:
+		void update() override;
+
 	protected:
 		void onClick() override;
-		void onChoose() override;
-		void onCancelChoose() override;
+		void onChooseBegin() override;
+		void onChooseEnd() override;
 
 	private:
+		void internalClick();
 		void recursiveColorSet(const glm::vec4& value, std::shared_ptr<Scene::Node> node = nullptr);
 
 	public:
@@ -75,6 +82,9 @@ namespace PhoneInc::Helpers
 		auto getInactiveCallback() const { return mInactiveCallback; }
 		void setInactiveCallback(Callback value) { mInactiveCallback = value; }
 
+		auto isAutoclick() const { return mAutoclick; }
+		void setAutoclick(bool value) { mAutoclick = value; }
+
 	private:
 		void ensureTexture();
 
@@ -84,6 +94,9 @@ namespace PhoneInc::Helpers
 		std::shared_ptr<Renderer::Texture> mInactiveTexture = nullptr;
 		Callback mActiveCallback = nullptr;
 		Callback mInactiveCallback = nullptr;
+		bool mAutoclick = false;
+		float mNextAutoclick = 0.0f;
+		int mAutoclickCount = 0;
 	};
 
 	class StandardButton : public Button

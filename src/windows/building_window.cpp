@@ -42,6 +42,7 @@ BuildingWindow::BuildingWindow()
 	mUpgradeButton->setAnchor({ 0.5f, 0.0f });
 	mUpgradeButton->setPivot({ 0.5f, 0.0f });
 	mUpgradeButton->setPosition({ 0.0f, 992.0f });
+	mUpgradeButton->setAutoclick(true);
 	mUpgradeButton->setActiveCallback([this] {
 		PROFILE->spendCash(Balance::GetWarehouseCost());
 		PROFILE->setWarehouseLevel(PROFILE->getWarehouseLevel() + 1);

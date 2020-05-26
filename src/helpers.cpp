@@ -87,7 +87,62 @@ LabelSolidBold::LabelSolidBold()
 	setFont(FONT("default_bold"));
 }
 
+void Button::update()
+{
+	Scene::Clickable<Scene::Sprite>::update();
+
+	if (!mAutoclick)
+		return;
+
+	if (!isChoosed())
+		return;
+
+	mNextAutoclick -= Clock::ToSeconds(FRAME->getTimeDelta());
+
+	if (mNextAutoclick > 0.0f)
+		return;
+
+	internalClick();
+
+	mAutoclickCount += 1;
+	mNextAutoclick = MaxAutoclickTime / ((float)mAutoclickCount / 2.0f);
+}
+
 void Button::onClick()
+{
+	if (!mAutoclick)
+	{
+		internalClick();
+	}
+	else
+	{
+		// nothing here
+		// disable default click behaviour
+	}
+}
+
+void Button::onChooseBegin()
+{
+	Scene::Clickable<Scene::Sprite>::onChooseBegin();
+
+	recursiveColorSet(glm::vec4(1.25f), shared_from_this());
+
+	if (mAutoclick)
+	{
+		internalClick();
+		mNextAutoclick = MaxAutoclickTime;
+		mAutoclickCount = 1;
+	}
+}
+
+void Button::onChooseEnd()
+{
+	Scene::Clickable<Scene::Sprite>::onChooseEnd();
+
+	recursiveColorSet(glm::vec4(1.0f), shared_from_this());
+}
+
+void Button::internalClick()
 {
 	Scene::Clickable<Scene::Sprite>::onClick();
 
@@ -96,20 +151,6 @@ void Button::onClick()
 		executeCallback(mActiveCallback);
 	else
 		executeCallback(mInactiveCallback);
-}
-
-void Button::onChoose()
-{
-	Scene::Clickable<Scene::Sprite>::onChoose();
-
-	recursiveColorSet(glm::vec4(1.25f), shared_from_this());
-}
-
-void Button::onCancelChoose()
-{
-	Scene::Clickable<Scene::Sprite>::onCancelChoose();
-
-	recursiveColorSet(glm::vec4(1.0f), shared_from_this());
 }
 
 void Button::recursiveColorSet(const glm::vec4& value, std::shared_ptr<Scene::Node> node)
