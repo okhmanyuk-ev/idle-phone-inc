@@ -93,6 +93,7 @@ RoomWindow::Panel::Panel(int roomIndex) : mRoomIndex(roomIndex)
 	mButton->setActiveCallback([this] {
 		PROFILE->spendCash(getUpgradeCost());
 		increaseLevel();
+		mDollarEmitter->emitPack();
 	});
 	attach(mButton);
 
@@ -105,6 +106,9 @@ RoomWindow::Panel::Panel(int roomIndex) : mRoomIndex(roomIndex)
 	mButtonAdditionalLabel->setFontSize(12.0f);
 	mButtonAdditionalLabel->setY(-34.0f);
 	mButton->attach(mButtonAdditionalLabel);
+
+	mDollarEmitter = std::make_shared<Helpers::DollarEmitter>();
+	mButton->attach(mDollarEmitter);
 }
 
 void RoomWindow::Panel::refresh()

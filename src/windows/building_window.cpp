@@ -46,8 +46,12 @@ BuildingWindow::BuildingWindow()
 	mUpgradeButton->setActiveCallback([this] {
 		PROFILE->spendCash(Balance::GetWarehouseCost());
 		PROFILE->setWarehouseLevel(PROFILE->getWarehouseLevel() + 1);
+		mDollarEmitter->emitPack();
 	});
 	white_bg->attach(mUpgradeButton);
+
+	mDollarEmitter = std::make_shared<Helpers::DollarEmitter>();
+	mUpgradeButton->attach(mDollarEmitter);
 
 	refresh();
 }

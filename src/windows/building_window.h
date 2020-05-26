@@ -60,5 +60,6 @@ namespace PhoneInc
 		ParameterPanel mParameterPanel2;
 		ParameterPanel mParameterPanel3;
 		std::shared_ptr<Helpers::StandardLongButton> mUpgradeButton;
+		std::shared_ptr<Helpers::DollarEmitter> mDollarEmitter;
 	};
 }

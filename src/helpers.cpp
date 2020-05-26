@@ -267,3 +267,22 @@ StreetProgressbar::StreetProgressbar() : Progressbar()
 	mContent->setTexture(TEXTURE("textures/ui/progressbar_content.png"));
 	mContent->setCenterRegion({ { 6.0f, 6.0f }, { 1.0f, 1.0f } });
 }
+
+// dollar emitter
+
+DollarEmitter::DollarEmitter() : Shared::SceneHelpers::SpriteEmitter(Holder)
+{
+	setTexture(TEXTURE("textures/ui/dollar_particle.png"));
+	setRunning(false);
+	setBeginSize({ 0.0f, 0.0f });
+	setPivot(0.5f);
+	setAnchor(0.5f);
+	setDistance(156.0f);
+	setMinDuration(0.25f);
+	setMaxDuration(0.75f);
+}
+
+void DollarEmitter::emitPack()
+{
+	emit(8);
+}

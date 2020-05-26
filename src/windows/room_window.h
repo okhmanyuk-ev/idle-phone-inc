@@ -77,6 +77,7 @@ namespace PhoneInc
 	private:
 		int mRoomIndex = 0;
 		std::shared_ptr<Helpers::StandardButton> mButton;
+		std::shared_ptr<Helpers::DollarEmitter> mDollarEmitter;
 		std::shared_ptr<Helpers::Label> mButtonAdditionalLabel;
 	};
 

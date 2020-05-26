@@ -103,6 +103,9 @@ void Application::prepare()
 	root->attach(mSceneManager);
 
 	mGameplay = std::make_shared<Gameplay>();
+
+	Helpers::DollarEmitter::Holder = std::make_shared<Scene::Node>();
+	mSceneManager->attach(Helpers::DollarEmitter::Holder);
 }
 
 void Application::frame()
@@ -143,6 +146,8 @@ void Application::updateGameScale()
 		auto scale = getScaleFactor(Helpers::MaxWindowSceneRatio);
 		root->setScale(scale);
 		root->setStretch(1.0f / scale);
+
+		Helpers::DollarEmitter::Holder->setScale(scale);
 	}
 }
 

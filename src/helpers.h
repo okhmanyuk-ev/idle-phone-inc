@@ -191,4 +191,16 @@ namespace PhoneInc::Helpers
 	private:
 		glm::vec2 mAdaptSize = { 0.0f, 0.0f };
 	};
+
+	class DollarEmitter : public Shared::SceneHelpers::SpriteEmitter
+	{
+	public:
+		static inline std::shared_ptr<Scene::Node> Holder = nullptr;
+
+	public:
+		DollarEmitter();
+
+	public:
+		void emitPack();
+	};
 }
