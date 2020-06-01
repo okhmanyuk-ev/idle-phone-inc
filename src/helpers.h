@@ -154,7 +154,7 @@ namespace PhoneInc::Helpers
 
 	template <typename T> class Adaptive : public T
 	{
-		static_assert(std::is_base_of<Scene::Sprite, T>::value, "T must be derived from Node");
+		static_assert(std::is_base_of<Scene::Sprite, T>::value, "T must be derived from Sprite");
 
 	protected:
 		void update() override
