@@ -63,7 +63,7 @@ Street::Street()
 	mWarehouseStorageLabel = std::make_shared<Helpers::Label>();
 	mWarehouseStorageLabel->setAnchor(0.5f);
 	mWarehouseStorageLabel->setPivot(0.5f);
-	mWarehouseStorageLabel->setFontSize(12.0f);
+	mWarehouseStorageLabel->setFontSize(36.0f);
 	storage_bg->attach(mWarehouseStorageLabel);
 	refreshWarehouseStorageLabel();
 

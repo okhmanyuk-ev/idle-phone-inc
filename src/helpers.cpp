@@ -74,7 +74,6 @@ Label::Label() : Scene::Label()
 {
 	setFont(FONT("default"));
 	setOutlineThickness(0.5f);
-	setScale(Scale);
 }
 
 LabelSolid::LabelSolid()
@@ -205,7 +204,7 @@ StandardButton::StandardButton() : Button()
 	mLabel = std::make_shared<Label>();
 	mLabel->setPivot(0.5f);
 	mLabel->setAnchor(0.5f);
-	mLabel->setFontSize(12.0f);
+	mLabel->setFontSize(36.0f);
 	mLabel->setY(-12.0f);
 	attach(mLabel);
 }
@@ -218,7 +217,7 @@ StandardLongButton::StandardLongButton() : Button()
 	mLabel = std::make_shared<Label>();
 	mLabel->setPivot(0.5f);
 	mLabel->setAnchor(0.5f);
-	mLabel->setFontSize(12.0f);
+	mLabel->setFontSize(36.0f);
 	mLabel->setY(-12.0f);
 	attach(mLabel);
 }

@@ -98,12 +98,12 @@ RoomWindow::Panel::Panel(int roomIndex) : mRoomIndex(roomIndex)
 	attach(mButton);
 
 	mButton->getLabel()->setY(12.0f);
-	mButton->getLabel()->setFontSize(12.0f);
+	mButton->getLabel()->setFontSize(36.0f);
 
 	mButtonAdditionalLabel = std::make_shared<Helpers::Label>();
 	mButtonAdditionalLabel->setPivot(0.5f);
 	mButtonAdditionalLabel->setAnchor(0.5f);
-	mButtonAdditionalLabel->setFontSize(12.0f);
+	mButtonAdditionalLabel->setFontSize(36.0f);
 	mButtonAdditionalLabel->setY(-34.0f);
 	mButton->attach(mButtonAdditionalLabel);
 
@@ -174,7 +174,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	attach(mIcon);
 
 	mTitle = std::make_shared<Helpers::LabelSolid>();
-	mTitle->setFontSize(12.0f);
+	mTitle->setFontSize(36.0f);
 	mTitle->setAnchor({ 0.0f, 0.0f });
 	mTitle->setPivot({ 0.0f, 0.5f });
 	mTitle->setPosition({ 264.0f, 126.0f });
@@ -182,7 +182,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	attach(mTitle);
 
 	mNameLabel = std::make_shared<Helpers::LabelSolid>();
-	mNameLabel->setFontSize(13.0f);
+	mNameLabel->setFontSize(39.0f);
 	mNameLabel->setAnchor({ 0.0f, 0.0f });
 	mNameLabel->setPivot({ 0.0f, 0.5f });
 	mNameLabel->setPosition({ 264.0f, 176.0f });
@@ -190,9 +190,9 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	attach(mNameLabel);
 
 	mDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
-	mDescriptionLabel->setFontSize(10.0f);
+	mDescriptionLabel->setFontSize(30.0f);
 	mDescriptionLabel->setMultiline(true);
-	mDescriptionLabel->setWidth(138.0f);
+	mDescriptionLabel->setWidth(414.0f);
 	mDescriptionLabel->setAnchor({ 0.0f, 0.0f });
 	mDescriptionLabel->setPivot({ 0.0f, 0.5f });
 	mDescriptionLabel->setPosition({ 264.0f, 254.0f });
@@ -200,7 +200,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	attach(mDescriptionLabel);
 
 	mLevelLabel = std::make_shared<Helpers::LabelSolid>();
-	mLevelLabel->setFontSize(12.0f);
+	mLevelLabel->setFontSize(36.0f);
 	mLevelLabel->setAnchor({ 0.0f, 0.0f });
 	mLevelLabel->setPivot({ 0.0f, 0.5f });
 	mLevelLabel->setPosition({ 264.0f, 222.0f });
@@ -215,7 +215,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	attach(mProgressbar);
 
 	mEffectLabelKey = std::make_shared<Helpers::LabelSolid>();
-	mEffectLabelKey->setFontSize(11.0f);
+	mEffectLabelKey->setFontSize(33.0f);
 	mEffectLabelKey->setAnchor({ 0.0f, 0.0f });
 	mEffectLabelKey->setPivot({ 0.0f, 0.5f });
 	mEffectLabelKey->setPosition({ 264.0f, 308.0f });
@@ -224,8 +224,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	attach(mEffectLabelKey);
 
 	mEffectLabelValue = std::make_shared<Helpers::LabelSolid>();
-	mEffectLabelValue->setFontSize(11.0f);
-	mEffectLabelValue->setScale(1.0f);
+	mEffectLabelValue->setFontSize(33.0f);
 	mEffectLabelValue->setAnchor({ 1.0f, 0.5f });
 	mEffectLabelValue->setPivot({ 0.0f, 0.5f });
 	mEffectLabelValue->setColor(Graphics::Color::ToNormalized(6, 103, 0));
@@ -330,7 +329,7 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	attach(mIcon);
  
 	mTitle = std::make_shared<Helpers::LabelSolid>();
-	mTitle->setFontSize(12.0f);
+	mTitle->setFontSize(36.0f);
 	mTitle->setAnchor({ 0.0f, 0.0f });
 	mTitle->setPivot({ 0.0f, 0.5f });
 	mTitle->setPosition({ 264.0f, 58.0f });
@@ -338,9 +337,9 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	attach(mTitle);
 
 	mLandingDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
-	mLandingDescriptionLabel->setFontSize(10.0f);
+	mLandingDescriptionLabel->setFontSize(30.0f);
 	mLandingDescriptionLabel->setMultiline(true);
-	mLandingDescriptionLabel->setWidth(138.0f);
+	mLandingDescriptionLabel->setWidth(414.0f);
 	mLandingDescriptionLabel->setAnchor({ 0.0f, 0.0f });
 	mLandingDescriptionLabel->setPivot({ 0.0f, 0.0f });
 	mLandingDescriptionLabel->setPosition({ 264.0f, 88.0f });
@@ -348,7 +347,7 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	attach(mLandingDescriptionLabel);
 
 	mLevelLabel = std::make_shared<Helpers::LabelSolid>();
-	mLevelLabel->setFontSize(12.0f);
+	mLevelLabel->setFontSize(36.0f);
 	mLevelLabel->setAnchor({ 0.0f, 0.0f });
 	mLevelLabel->setPivot({ 0.0f, 0.5f });
 	mLevelLabel->setPosition({ 264.0f, 102.0f });
@@ -363,7 +362,7 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	attach(mProgressbar);
 
 	mEffectLabelKey = std::make_shared<Helpers::LabelSolid>();
-	mEffectLabelKey->setFontSize(11.0f);
+	mEffectLabelKey->setFontSize(33.0f);
 	mEffectLabelKey->setAnchor({ 0.0f, 0.0f });
 	mEffectLabelKey->setPivot({ 0.0f, 0.5f });
 	mEffectLabelKey->setPosition({ 264.0f, 194.0f });
@@ -372,8 +371,7 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	attach(mEffectLabelKey);
 
 	mEffectLabelValue = std::make_shared<Helpers::LabelSolid>();
-	mEffectLabelValue->setFontSize(11.0f);
-	mEffectLabelValue->setScale(1.0f);
+	mEffectLabelValue->setFontSize(33.0f);
 	mEffectLabelValue->setAnchor({ 1.0f, 0.5f });
 	mEffectLabelValue->setPivot({ 0.0f, 0.5f });
 	mEffectLabelValue->setColor(Graphics::Color::ToNormalized(6, 103, 0));

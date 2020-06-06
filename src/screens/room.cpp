@@ -45,7 +45,7 @@ Factory::Room::Room(int index) : mIndex(index)
 	lvl_label->setPivot(0.5f);
 	lvl_label->setText(std::to_string(index + 1));
 	lvl_label->setColor(Graphics::Color::Black);
-	lvl_label->setFontSize(11.0f);
+	lvl_label->setFontSize(33.0f);
 	attach(lvl_label);
 
 	mUpgradeButton = std::make_shared<Helpers::StandardButton>();
@@ -188,7 +188,7 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	lvl_label->setPivot(0.5f);
 	lvl_label->setText(std::to_string(index + 1));
 	lvl_label->setColor(Graphics::Color::Black);
-	lvl_label->setFontSize(11.0f);
+	lvl_label->setFontSize(33.0f);
 	attach(lvl_label);
 
 	mButton = std::make_shared<Helpers::StandardLongButton>();

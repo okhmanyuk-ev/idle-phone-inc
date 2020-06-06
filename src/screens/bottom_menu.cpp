@@ -29,7 +29,7 @@ BottomMenu::BottomMenu()
 	video_text->setPivot({ 0.0f, 0.5f });
 	video_text->setAnchor({ 1.0f, 0.5f });
 	video_text->setPosition({ 8.0f, 0.0f });
-	video_text->setFontSize(14.0f);
+	video_text->setFontSize(42.0f);
 	video_icon->attach(video_text);
 
 	// shop
@@ -46,7 +46,7 @@ BottomMenu::BottomMenu()
 	shop_text->setPivot(0.5f);
 	shop_text->setAnchor(0.5f);
 	shop_text->setPosition({ -454.0f, 35.0f });
-	shop_text->setFontSize(10.0f);
+	shop_text->setFontSize(30.0f);
 	attach(shop_text);
 
 	// boosters
@@ -63,7 +63,7 @@ BottomMenu::BottomMenu()
 	boosters_text->setPivot(0.5f);
 	boosters_text->setAnchor(0.5f);
 	boosters_text->setPosition({ -257.0f, 35.0f });
-	boosters_text->setFontSize(10.0f);
+	boosters_text->setFontSize(30.0f);
 	attach(boosters_text);
 
 	// upgrades
@@ -80,7 +80,7 @@ BottomMenu::BottomMenu()
 	upgrades_text->setPivot(0.5f);
 	upgrades_text->setAnchor(0.5f);
 	upgrades_text->setPosition({ 264.0f, 35.0f });
-	upgrades_text->setFontSize(10.0f);
+	upgrades_text->setFontSize(30.0f);
 	attach(upgrades_text);
 
 	// map
@@ -97,6 +97,6 @@ BottomMenu::BottomMenu()
 	map_text->setPivot(0.5f);
 	map_text->setAnchor(0.5f);
 	map_text->setPosition({ 455.0f, 35.0f });
-	map_text->setFontSize(10.0f);
+	map_text->setFontSize(30.0f);
 	attach(map_text);
 }

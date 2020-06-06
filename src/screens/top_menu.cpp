@@ -28,7 +28,7 @@ TopMenu::TopMenu()
 	mCashLabel->setAnchor({ 1.0f, 0.5f });
 	mCashLabel->setPivot({ 1.0f, 0.5f });
 	mCashLabel->setColor(Graphics::Color::ToNormalized(0, 255, 41));
-	mCashLabel->setFontSize(13.0f);
+	mCashLabel->setFontSize(39.0f);
 	mCashLabel->setX(-64.0f);
 	money_bg->attach(mCashLabel);
 	refreshCashLabel();
@@ -59,7 +59,7 @@ TopMenu::TopMenu()
 	coin_text->setPivot({ 1.0f, 0.5f });
 	coin_text->setText("0");
 	coin_text->setColor(Graphics::Color::ToNormalized(255, 192, 24));
-	coin_text->setFontSize(13.0f);
+	coin_text->setFontSize(39.0f);
 	coin_text->setX(-64.0f);
 	coin_bg->attach(coin_text);
 

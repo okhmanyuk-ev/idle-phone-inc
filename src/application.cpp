@@ -60,6 +60,8 @@ Application::Application() : RichApplication(PROJECT_CODE)
 	makeLoadingScene();
 
 	PROFILE->setNightBackground(!PROFILE->isNightBackground());
+
+	GRAPHICS->setSdfSmoothFactor(Helpers::Scale);
 }
 
 Application::~Application()
@@ -135,41 +137,29 @@ void Application::makeLoadingScene()
 
 void Application::updateGameScale()
 {
-	{
-		auto root = mSceneManager->getScreenHolder();
-		auto scale = getScaleFactor(Helpers::MaxGameSceneRatio);
-		root->setScale(scale);
-		root->setStretch(1.0f / scale);
-	}
-	{
-		auto root = mSceneManager->getWindowHolder();
-		auto scale = getScaleFactor(Helpers::MaxWindowSceneRatio);
-		root->setScale(scale);
-		root->setStretch(1.0f / scale);
-
-		Helpers::DollarEmitter::Holder->setScale(scale);
-	}
+	auto root = mSceneManager;
+	auto scale = getScaleFactor();
+	root->setScale(scale);
+	root->setStretch(1.0f / scale);
 }
 
 void Application::updateLoadingScale()
 {
-	{
-		auto root = mLoadingScene.getRoot();
-		auto scale = getScaleFactor(Helpers::MaxLoadingSceneRatio);
-		root->setScale(scale);
-		root->setStretch(1.0f / scale);
-	}
+	auto root = mLoadingScene.getRoot();
+	auto scale = getScaleFactor();
+	root->setScale(scale);
+	root->setStretch(1.0f / scale);
 }
 
-float Application::getScaleFactor(float max_ratio)
+float Application::getScaleFactor()
 {
 	const float Target = 1080.0f;
 
 	float current = (float)PLATFORM->getLogicalWidth();
-	float max = Target / max_ratio;
+	//float max = Target / max_ratio;
 
-	if (current > max)
-		current = max;
+	if (current > Target)
+		current = Target;
 
 	float scale = current / Target;
 

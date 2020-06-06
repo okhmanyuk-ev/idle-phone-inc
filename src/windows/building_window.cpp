@@ -122,14 +122,14 @@ std::shared_ptr<Scene::Node> BuildingWindow::createMainPanel(MainPanel& panel)
 	building_name->setPivot({ 0.0f, 0.5f });
 	building_name->setPosition({ 340.0f, 114.0f });
 	building_name->setColor(Graphics::Color::ToNormalized(12, 22, 44));
-	building_name->setFontSize(14.0f);
+	building_name->setFontSize(42.0f);
 	bg->attach(building_name);
 
 	auto level = std::make_shared<Helpers::LabelSolid>();
 	level->setPivot({ 0.0f, 0.5f });
 	level->setPosition({ 340.0f, 184.0f });
 	level->setColor(Graphics::Color::ToNormalized(23, 0, 164));
-	level->setFontSize(19.0f);
+	level->setFontSize(57.0f);
 	bg->attach(level);
 
 	auto progressbar = std::make_shared<Helpers::StreetProgressbar>();
@@ -162,7 +162,7 @@ std::shared_ptr<Scene::Node> BuildingWindow::createParameterPanel(ParameterPanel
 	title->setPivot({ 0.0f, 0.5f });
 	title->setPosition({ 176.0f, 0.0f });
 	title->setColor(Graphics::Color::Black);
-	title->setFontSize(12.0f);
+	title->setFontSize(36.0f);
 	bg->attach(title);
 
 	auto effect = std::make_shared<Helpers::LabelSolid>();
@@ -170,7 +170,7 @@ std::shared_ptr<Scene::Node> BuildingWindow::createParameterPanel(ParameterPanel
 	effect->setPivot({ 1.0f, 0.5f });
 	effect->setPosition({ -40.0f, 0.0f });
 	effect->setColor(Graphics::Color::ToNormalized(6, 103, 0));
-	effect->setFontSize(16.0f);
+	effect->setFontSize(48.0f);
 	bg->attach(effect);
 
 	panel.icon = icon;

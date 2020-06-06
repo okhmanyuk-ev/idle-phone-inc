@@ -70,7 +70,7 @@ StandardWindow::StandardWindow()
 	mTitle = std::make_shared<Helpers::LabelSolid>();
 	mTitle->setAnchor({ 0.5f, 0.0f });
 	mTitle->setPivot(0.5f);
-	mTitle->setFontSize(15.0f);
+	mTitle->setFontSize(45.0f);
 	mTitle->setPosition({ 0.0f, 64.0f });
 	mTitle->setText("title");
 	getBackground()->attach(mTitle);
