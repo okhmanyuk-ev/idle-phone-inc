@@ -24,6 +24,11 @@ namespace PhoneInc::Helpers
 
 	std::string NumberToString(double value);
 
+	template <typename T> T GetRandomElement(const std::vector<T>& elements)
+	{
+		return elements.at(glm::linearRand<size_t>(0, elements.size() - 1));
+	}
+
 	// classes
 
 	class Label : public Scene::Label

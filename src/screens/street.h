@@ -5,7 +5,7 @@
 
 namespace PhoneInc
 {
-	class Street : public Scene::Actionable<Scene::Cullable<Scene::Node>>,
+	class Street : public Scene::Clippable<Scene::Actionable<Scene::Cullable<Scene::Node>>>,
 		public Common::EventSystem::Listenable<Profile::WarehouseLevelChangedEvent>,
 		public Common::EventSystem::Listenable<Profile::WarehouseStorageChangeEvent>,
 		public Common::EventSystem::Listenable<Profile::CashChangedEvent>
@@ -29,6 +29,7 @@ namespace PhoneInc
 		void runTruckAction();
 		void refreshWarehouseStorageLabel();
 		void refreshWarehouseButton();
+		void spawnCloud();
 		
 	private:
 		bool mWarehouseBusy = false;
@@ -37,5 +38,6 @@ namespace PhoneInc
 		std::shared_ptr<Scene::Node> mTruckHolder;
 		std::shared_ptr<Scene::Sprite> mWarehouse;
 		std::shared_ptr<Helpers::StandardButton> mWarehouseButton;
+		std::shared_ptr<Scene::Node> mCloudsHolder;
 	};
 }

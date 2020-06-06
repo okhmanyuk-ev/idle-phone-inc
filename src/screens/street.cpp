@@ -21,6 +21,10 @@ Street::Street()
 	bg->setAnchor({ 0.5f, 0.0f });
 	attach(bg);
 
+	mCloudsHolder = std::make_shared<Scene::Node>();
+	mCloudsHolder->setStretch(1.0f);
+	bg->attach(mCloudsHolder);
+
 	mTruckHolder = std::make_shared<Scene::Clippable<Scene::Node>>();
 	mTruckHolder->setPosition({ 138.0f, 0.0f });
 	mTruckHolder->setStretch(1.0f);
@@ -79,6 +83,15 @@ Street::Street()
 	}));
 
 	refresh();
+
+	// cloud spawner
+
+	runAction(Shared::ActionHelpers::RepeatInfinite([this] {
+		auto delay = glm::linearRand(2.5f, 7.5f);
+		return Shared::ActionHelpers::Delayed(delay, Shared::ActionHelpers::Execute([this] {
+			spawnCloud();
+		}));
+	}));
 }
 
 void Street::refresh()
@@ -161,4 +174,31 @@ void Street::refreshWarehouseStorageLabel()
 void Street::refreshWarehouseButton()
 {
 	mWarehouseButton->setActive(BuildingWindow::CanUpgrade());
+}
+
+void Street::spawnCloud()
+{
+	auto texture = TEXTURE(Helpers::GetRandomElement<std::string>({
+		"textures/street/cloud_1.png",
+		"textures/street/cloud_2.png"
+	}));
+
+	float y = glm::linearRand(24.0f, 142.0f);
+
+	auto cloud = std::make_shared<Scene::Actionable<Scene::Sprite>>();
+	cloud->setTexture(texture);
+	cloud->setAnchor(0.0f);
+	cloud->setPivot({ 1.0f, 0.0f });
+	cloud->setPosition({ 0.0f, y });
+	mCloudsHolder->attach(cloud);
+
+	auto duration = glm::linearRand(17.0f, 22.0f);
+
+	cloud->runAction(Shared::ActionHelpers::MakeSequence(
+		Shared::ActionHelpers::MakeParallel(
+			Shared::ActionHelpers::ChangeHorizontalAnchor(cloud, 0.0f, 1.0f, duration),
+			Shared::ActionHelpers::ChangeHorizontalPivot(cloud, 1.0f, 0.0f, duration)
+		),
+		Shared::ActionHelpers::Kill(cloud)
+	));
 }
