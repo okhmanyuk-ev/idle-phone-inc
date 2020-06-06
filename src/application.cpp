@@ -139,13 +139,13 @@ void Application::updateGameScale()
 {
     {
         auto root = mSceneManager->getScreenHolder();
-        auto scale = getScaleFactorWidth(); // TODO: must working with getScaleFactorHeight()
+        auto scale = getScaleFactor(true); // TODO: must working with false
         root->setScale(scale);
         root->setStretch(1.0f / scale);
     }
     {
         auto root = mSceneManager->getWindowHolder();
-        auto scale = getScaleFactorHeight();
+        auto scale = getScaleFactor(false);
         root->setScale(scale);
         root->setStretch(1.0f / scale);
         
@@ -157,37 +157,23 @@ void Application::updateGameScale()
 void Application::updateLoadingScale()
 {
 	auto root = mLoadingScene.getRoot();
-	auto scale = getScaleFactorHeight();
+	auto scale = getScaleFactor(false);
 	root->setScale(scale);
 	root->setStretch(1.0f / scale);
 }
 
-float Application::getScaleFactorWidth()
+float Application::getScaleFactor(bool horizontal_priority)
 {
-    const float Target = 1080.0f;
+	const glm::vec2 target = { 1080.0f, 1920.0f };
 
-    float current = (float)PLATFORM->getLogicalWidth();
+	glm::vec2 size = { (float)PLATFORM->getLogicalWidth(), (float)PLATFORM->getLogicalHeight() };
 
-    if (current > Target)
-        current = Target;
+	auto scale = size / target;
 
-    float scale = current / Target;
-
-    return scale;
-}
-
-float Application::getScaleFactorHeight()
-{
-    const float Target = 1920.0f;
-
-    float current = (float)PLATFORM->getLogicalHeight();
-
-    if (current > Target)
-        current = Target;
-
-    float scale = current / Target;
-
-    return scale;
+	if (horizontal_priority)
+		return scale.x;
+	
+	return glm::min(scale.x, scale.y);
 }
 
 void Application::event(const Helpers::PushWindowEvent& e)
