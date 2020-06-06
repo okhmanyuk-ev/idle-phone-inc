@@ -87,7 +87,7 @@ Street::Street()
 	// cloud spawner
 
 	runAction(Shared::ActionHelpers::RepeatInfinite([this] {
-		auto delay = glm::linearRand(2.5f, 7.5f);
+		auto delay = glm::linearRand(4.0f, 8.0f);
 		return Shared::ActionHelpers::Delayed(delay, Shared::ActionHelpers::Execute([this] {
 			spawnCloud();
 		}));
