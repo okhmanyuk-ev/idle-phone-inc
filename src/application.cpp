@@ -141,6 +141,8 @@ void Application::updateGameScale()
 	auto scale = getScaleFactor();
 	root->setScale(scale);
 	root->setStretch(1.0f / scale);
+
+	GAME_STATS("scale", scale);
 }
 
 void Application::updateLoadingScale()
