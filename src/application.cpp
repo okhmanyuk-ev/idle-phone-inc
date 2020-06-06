@@ -137,35 +137,57 @@ void Application::makeLoadingScene()
 
 void Application::updateGameScale()
 {
-	auto root = mSceneManager;
-	auto scale = getScaleFactor();
-	root->setScale(scale);
-	root->setStretch(1.0f / scale);
-
-	GAME_STATS("scale", scale);
+    {
+        auto root = mSceneManager->getScreenHolder();
+        auto scale = getScaleFactorWidth(); // TODO: must working with getScaleFactorHeight()
+        root->setScale(scale);
+        root->setStretch(1.0f / scale);
+    }
+    {
+        auto root = mSceneManager->getWindowHolder();
+        auto scale = getScaleFactorHeight();
+        root->setScale(scale);
+        root->setStretch(1.0f / scale);
+        
+        Helpers::DollarEmitter::Holder->setScale(scale);
+        Helpers::DollarEmitter::Holder->setStretch(1.0f / scale);
+    }
 }
 
 void Application::updateLoadingScale()
 {
 	auto root = mLoadingScene.getRoot();
-	auto scale = getScaleFactor();
+	auto scale = getScaleFactorHeight();
 	root->setScale(scale);
 	root->setStretch(1.0f / scale);
 }
 
-float Application::getScaleFactor()
+float Application::getScaleFactorWidth()
 {
-	const float Target = 1080.0f;
+    const float Target = 1080.0f;
 
-	float current = (float)PLATFORM->getLogicalWidth();
-	//float max = Target / max_ratio;
+    float current = (float)PLATFORM->getLogicalWidth();
 
-	if (current > Target)
-		current = Target;
+    if (current > Target)
+        current = Target;
 
-	float scale = current / Target;
+    float scale = current / Target;
 
-	return scale;
+    return scale;
+}
+
+float Application::getScaleFactorHeight()
+{
+    const float Target = 1920.0f;
+
+    float current = (float)PLATFORM->getLogicalHeight();
+
+    if (current > Target)
+        current = Target;
+
+    float scale = current / Target;
+
+    return scale;
 }
 
 void Application::event(const Helpers::PushWindowEvent& e)

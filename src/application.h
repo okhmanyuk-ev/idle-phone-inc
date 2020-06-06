@@ -26,7 +26,8 @@ namespace PhoneInc
 		void makeLoadingScene();
 		void updateGameScale();
 		void updateLoadingScale();
-		float getScaleFactor();
+        float getScaleFactorWidth();
+        float getScaleFactorHeight();
 
 	public:
 		void event(const Helpers::PushWindowEvent& e) override;
