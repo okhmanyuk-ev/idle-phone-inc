@@ -32,7 +32,7 @@ Gameplay::Gameplay()
 	scrollbox->setPivot({ 0.5f, 0.0f });
 	scrollbox->setWidth(width);
 	scrollbox->getBounding()->setStretch(1.0f);
-	scrollbox->setSensitivity({ 0.0f, 1.0f * Helpers::Scale });
+	scrollbox->setSensitivity({ 0.0f, 1.0f });
 	scrollbox->getContent()->setHorizontalStretch(1.0f);
 	scrollbox->getContent()->attach(grid);
 	scrollbox->getContent()->setHeight(grid->getHeight());
