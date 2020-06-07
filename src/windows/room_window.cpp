@@ -166,7 +166,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 {
 	setTexture(TEXTURE("textures/windows/room_window/major_panel_backgorund.png"));
 
-	mIcon = std::make_shared<Helpers::Adaptive<Scene::Sprite>>();
+	mIcon = std::make_shared<Shared::SceneHelpers::Adaptive<Scene::Sprite>>();
 	mIcon->setAnchor({ 0.0f, 0.5f });
 	mIcon->setPivot({ 0.5f, 0.5f });
 	mIcon->setPosition({ 124.0f, 0.0f });
@@ -244,6 +244,8 @@ void RoomWindow::ProductPanel::refresh()
 		mIcon->setTexture(TEXTURE(fmt::format("textures/windows/room_window/avatars/products/0.png")));
 	else
 		mIcon->setTexture(TEXTURE(fmt::format("textures/windows/room_window/avatars/products/{}.png", stage)));
+
+	mIcon->applyTextureSize();
 
 	mLevelLabel->setEnabled(isOpened());
 	mDescriptionLabel->setEnabled(!isOpened());

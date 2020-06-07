@@ -152,46 +152,6 @@ namespace PhoneInc::Helpers
 		StreetProgressbar();
 	};
 
-	template <typename T> class Adaptive : public T
-	{
-		static_assert(std::is_base_of<Scene::Sprite, T>::value, "T must be derived from Sprite");
-
-	protected:
-		void update() override
-		{
-			adapt();
-			T::update();
-		}
-
-	private:
-		void adapt()
-		{
-			if (mAdaptSize.x <= 0.0f)
-				return;
-
-			if (mAdaptSize.y <= 0.0f)
-				return;
-
-			auto texture = T::getTexture();
-
-			if (texture == nullptr)
-				return;
-
-			T::setSize({ (float)texture->getWidth(), (float)texture->getHeight() });
-
-			auto scale = mAdaptSize / T::getSize();
-
-			T::setScale(glm::min(scale.x, scale.y));
-		}
-
-	public:
-		auto getAdaptSize() const { return mAdaptSize; }
-		void setAdaptSize(const glm::vec2& value) { mAdaptSize = value; }
-
-	private:
-		glm::vec2 mAdaptSize = { 0.0f, 0.0f };
-	};
-
 	class DollarEmitter : public Shared::SceneHelpers::SpriteEmitter
 	{
 	public:

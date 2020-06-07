@@ -97,7 +97,7 @@ Street::Street()
 void Street::refresh()
 {
 	mWarehouse->setTexture(TEXTURE(fmt::format("textures/warehouse/{}.png", Balance::GetWarehouseStage())));
-	mWarehouse->setSize(0.0f);
+	mWarehouse->applyTextureSize();
 }
 
 void Street::event(const Profile::WarehouseLevelChangedEvent& e)

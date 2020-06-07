@@ -70,7 +70,7 @@ void BuildingWindow::refresh()
 	mMainPanel.level->setText(LOCALIZE_FMT("BUILDING_WINDOW_LEVEL", level));
 	mMainPanel.building_name->setText(LOCALIZE(fmt::format("WAREHOUSE_NAME_{}", Balance::GetWarehouseStage())));
 	mMainPanel.building_icon->setTexture(TEXTURE(fmt::format("textures/warehouse/{}.png", Balance::GetWarehouseStage())));
-	mMainPanel.building_icon->setSize(0.0f);
+	mMainPanel.building_icon->applyTextureSize();
 
 	auto current = (((level - 1) % Balance::WarehouseLevelsPerStage) + 1);
 	auto total = Balance::WarehouseLevelsPerStage;
