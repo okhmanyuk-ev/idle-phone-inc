@@ -13,10 +13,6 @@ WAREHOUSE_WINDOW_PARAM_NAME_1:Скорость обработки
 WAREHOUSE_WINDOW_PARAM_NAME_2:Вместимость грузовика
 WAREHOUSE_WINDOW_PARAM_NAME_3:Доход от продажи
 
-SHOP_WINDOW_TITLE:Магазин
-SHOP_WINDOW_PARAM_NAME_1:Скорость продажи
-SHOP_WINDOW_PARAM_NAME_2:Доход
-
 BUILDING_WINDOW_LEVEL:Уровень: {}
 
 ROOM_WINDOW_TITLE:Рабочий корпус {}

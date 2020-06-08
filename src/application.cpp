@@ -14,7 +14,7 @@ Application::Application() : RichApplication(PROJECT_CODE)
 	ENGINE->addSystem<Profile>(std::make_shared<Profile>());
 
 	LOCALIZATION->loadDicrionaries("localization");
-	LOCALIZATION->setLanguage(Shared::LocalizationSystem::Language::Russian);
+	LOCALIZATION->setLanguage(Shared::LocalizationSystem::Language::English);
 	STYLEBOOK->load("stylebook.json");
 	PROFILE->load();
 
