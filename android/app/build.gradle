@@ -18,9 +18,14 @@ android {
             path '../../CMakeLists.txt'
         }
     }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
 }
 dependencies {
     api files('../../sky/lib/fmod/android/fmod.jar')
-    implementation 'com.android.billingclient:billing:2.1.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+    implementation 'com.android.billingclient:billing:2.2.1'
+    implementation 'androidx.appcompat:appcompat:1.3.0-alpha01'
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
 }
