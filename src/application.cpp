@@ -104,10 +104,10 @@ void Application::prepare()
 	mSceneManager = std::make_shared<Shared::SceneManager>();
 	root->attach(mSceneManager);
 
-	mGameplay = std::make_shared<Gameplay>();
-
 	Helpers::DollarEmitter::Holder = std::make_shared<Scene::Node>();
 	mSceneManager->attach(Helpers::DollarEmitter::Holder);
+
+	mGameplay = std::make_shared<Gameplay>();
 }
 
 void Application::frame()

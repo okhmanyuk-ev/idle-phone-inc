@@ -48,6 +48,7 @@ namespace PhoneInc
 	private:
 		int mIndex = 0;
 		std::shared_ptr<Helpers::StandardLongButton> mButton = nullptr;
+		std::shared_ptr<Helpers::DollarEmitter> mDollarEmitter;
 	};
 
 	class Factory::Room::PhonesStack : public Scene::Clickable<Scene::Node>

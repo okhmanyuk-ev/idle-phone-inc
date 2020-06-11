@@ -196,10 +196,15 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	mButton->setAnchor(0.5f);
 	mButton->setPivot(0.5f);
 	mButton->setActiveCallback([this] {
+		mDollarEmitter->emitPack();
 		PROFILE->spendCash(Balance::GetRoomCost(mIndex));
 		PROFILE->unlockRoom(mIndex);
 	});
 	attach(mButton);
+
+	mDollarEmitter = std::make_shared<Helpers::DollarEmitter>();
+	mButton->attach(mDollarEmitter);
+
 	refresh();
 }
 

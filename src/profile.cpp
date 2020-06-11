@@ -184,3 +184,8 @@ void Profile::setWarehouseStorage(double value)
 	EVENT->emit(WarehouseStorageChangeEvent());
 	saveAsync();
 }
+
+void Profile::setNightBackground(bool value) {
+	mNightBackground = value;
+	saveAsync();
+}

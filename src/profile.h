@@ -56,7 +56,7 @@ namespace PhoneInc
 		void setWarehouseStorage(double value);
 
 		bool isNightBackground() const { return mNightBackground; }
-		void setNightBackground(bool value) { mNightBackground = value; }
+		void setNightBackground(bool value);
 
 	private:
 		double mCash = 0.0f;
