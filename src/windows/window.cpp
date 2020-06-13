@@ -15,11 +15,7 @@ Window::Window()
 		getSceneManager()->popWindow();
 	});
 
-	mFadeRect = std::make_shared<Scene::Rectangle>();
-	mFadeRect->setStretch(1.0f);
-	mFadeRect->setColor(Graphics::Color::Black);
-	mFadeRect->setAlpha(0.0f);
-	attach(mFadeRect);
+	getBackshadeColor()->setColor({ Graphics::Color::Black, 0.0f });
 
 	mContent = std::make_shared<Scene::Node>();
 	mContent->setStretch(1.0f);
@@ -43,7 +39,7 @@ std::unique_ptr<Common::Actions::Action> Window::createOpenAction()
 {
 	return Shared::ActionHelpers::Delayed(0.0f, // do not ruin animation while constructing class
 		Shared::ActionHelpers::MakeParallel(
-			Shared::ActionHelpers::ChangeAlpha(mFadeRect, 0.5f, 0.5f, Common::Easing::CubicOut),
+			Shared::ActionHelpers::ChangeAlpha(getBackshadeColor(), 0.5f, 0.5f, Common::Easing::CubicOut),
 			Shared::ActionHelpers::ChangeVerticalAnchor(mContent, 0.5f, 0.5f, Common::Easing::CubicOut)
 	));
 };
@@ -53,7 +49,7 @@ std::unique_ptr<Common::Actions::Action> Window::createCloseAction()
 	return Shared::ActionHelpers::Delayed(0.0f,
 		Shared::ActionHelpers::MakeParallel(
 			Shared::ActionHelpers::ChangeVerticalAnchor(mContent, -0.5f, 0.5f, Common::Easing::CubicIn),
-			Shared::ActionHelpers::ChangeAlpha(mFadeRect, 0.0f, 0.5f, Common::Easing::CubicIn)
+			Shared::ActionHelpers::ChangeAlpha(getBackshadeColor(), 0.0f, 0.5f, Common::Easing::CubicIn)
 	));
 };
 

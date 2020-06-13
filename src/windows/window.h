@@ -5,7 +5,7 @@
 
 namespace PhoneInc
 {
-	class Window : public Scene::Clickable<Shared::SceneManager::Window>
+	class Window : public Scene::Clickable<Shared::SceneHelpers::Backshaded<Shared::SceneManager::Window>>
 	{
 	public:
 		Window();
@@ -26,7 +26,6 @@ namespace PhoneInc
 
 	private:
 		std::shared_ptr<Scene::Node> mContent;
-		std::shared_ptr<Scene::Rectangle> mFadeRect;
 		bool mCloseOnMissclick = true;
 	};
 
