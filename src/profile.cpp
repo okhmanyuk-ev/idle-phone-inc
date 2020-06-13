@@ -60,6 +60,11 @@ void Profile::load()
 
 	tryRead(mWarehouseLevel, "warehouse_level");
 	tryRead(mNightBackground, "night_background");
+
+	//tryRead(mCompletedTutors, "completed_tutors");
+
+	if (json.contains("completed_tutors"))
+		mCompletedTutors = json["completed_tutors"].get<std::set<std::string>>();
 }
 
 void Profile::save()
@@ -82,6 +87,7 @@ void Profile::save()
 
 	json["warehouse_level"] = mWarehouseLevel;
 	json["night_background"] = mNightBackground;
+	json["completed_tutors"] = mCompletedTutors;
 
 	auto bson = nlohmann::json::to_bson(json);
 	Platform::Asset::Write(PLATFORM->getAppFolder() + "save.bson", bson.data(), bson.size(), Platform::Asset::Path::Absolute);
@@ -95,6 +101,7 @@ void Profile::clear()
 	mRooms.clear();
 	setWarehouseLevel(1);
 	setWarehouseStorage(0);
+	mCompletedTutors.clear();
 	EVENT->emit(ProfileClearedEvent());
 }
 
@@ -187,5 +194,11 @@ void Profile::setWarehouseStorage(double value)
 
 void Profile::setNightBackground(bool value) {
 	mNightBackground = value;
+	saveAsync();
+}
+
+void Profile::setTutorCompleted(const std::string& name)
+{
+	mCompletedTutors.insert(name);
 	saveAsync();
 }

@@ -58,12 +58,16 @@ namespace PhoneInc
 		bool isNightBackground() const { return mNightBackground; }
 		void setNightBackground(bool value);
 
+		bool isTutorCompleted(const std::string& name) { return mCompletedTutors.count(name) > 0; }
+		void setTutorCompleted(const std::string& name);
+
 	private:
 		double mCash = 0.0f;
 		std::map<int, Room> mRooms = { };
 		int mWarehouseLevel = 0;
 		double mWarehouseStorage = 0;
 		bool mNightBackground = true;
+		std::set<std::string> mCompletedTutors = { };
 	};
 
 	inline bool operator==(const Profile::Room& left, const Profile::Room& right)

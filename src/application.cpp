@@ -105,7 +105,12 @@ void Application::prepare()
 	root->attach(mSceneManager);
 
 	Helpers::DollarEmitter::Holder = std::make_shared<Scene::Node>();
-	mSceneManager->attach(Helpers::DollarEmitter::Holder);
+	root->attach(Helpers::DollarEmitter::Holder);
+
+	mTutorHolder = std::make_shared<TutorHolder>();
+	root->attach(mTutorHolder);
+
+	ENGINE->addSystem<ITutor>(mTutorHolder);
 
 	mGameplay = std::make_shared<Gameplay>();
 }
@@ -151,6 +156,9 @@ void Application::updateGameScale()
         
         Helpers::DollarEmitter::Holder->setScale(scale);
         Helpers::DollarEmitter::Holder->setStretch(1.0f / scale);
+
+		mTutorHolder->setScale(scale);
+		mTutorHolder->setStretch(1.0f / scale);
     }
 }
 

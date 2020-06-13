@@ -6,6 +6,7 @@
 #include "cheats.h"
 #include "screens/gameplay.h"
 #include "helpers.h"
+#include "tutor.h"
 
 namespace PhoneInc
 {
@@ -38,6 +39,7 @@ namespace PhoneInc
 		std::shared_ptr<Helpers::StreetProgressbar> mProgressbar;
 		Scene::Scene mGameScene;
 		std::shared_ptr<Shared::SceneManager> mSceneManager;
+		std::shared_ptr<TutorHolder> mTutorHolder;
 
 	private:
 		Shared::SceneEditor mSceneEditor = Shared::SceneEditor(mGameScene);

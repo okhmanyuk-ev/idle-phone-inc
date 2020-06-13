@@ -1,5 +1,6 @@
 #include "room_window.h"
 #include "balance.h"
+#include "tutor.h"
 
 using namespace PhoneInc;
 
@@ -12,7 +13,7 @@ RoomWindow::RoomWindow(int index) : mIndex(index)
 	mProductPanel->setAnchor({ 0.5f, 0.0f });
 	mProductPanel->setPivot({ 0.5f, 0.0f });
 	mProductPanel->setPosition({ 0.0f, 138.0f });
-	getBackground()->attach(mProductPanel);
+ 	getBackground()->attach(mProductPanel);
 
 	mManagerPanel = std::make_shared<ManagerPanel>(index);
 	mManagerPanel->setAnchor({ 0.5f, 0.0f });
@@ -38,7 +39,25 @@ RoomWindow::RoomWindow(int index) : mIndex(index)
 	mWorkerPanel3->setPosition({ 0.0f, 1382.0f });
 	getBackground()->attach(mWorkerPanel3);
 
+	if (index == 0)
+	{
+		TUTOR->play("press_product_button", mProductPanel->getButton());
+		TUTOR->play("press_worker_button", mWorkerPanel1->getButton(), [] {
+			return TUTOR->isCompleted("press_product_button");
+		});
+		TUTOR->play("close_window_button", getCloseButton(), [] {
+			return TUTOR->isCompleted("press_worker_button");
+		});
+	}
+
 	refresh();
+}
+
+void RoomWindow::onCloseBegin()
+{
+	StandardWindow::onCloseBegin();
+
+	TUTOR->complete();
 }
 
 void RoomWindow::refresh()
@@ -94,6 +113,7 @@ RoomWindow::Panel::Panel(int roomIndex) : mRoomIndex(roomIndex)
 		PROFILE->spendCash(getUpgradeCost());
 		increaseLevel();
 		mDollarEmitter->emitPack();
+		TUTOR->complete();
 	});
 	attach(mButton);
 

@@ -3,6 +3,7 @@
 #include "manager.h"
 #include "balance.h"
 #include "windows/room_window.h"
+#include "tutor.h"
 
 using namespace PhoneInc;
 
@@ -54,8 +55,12 @@ Factory::Room::Room(int index) : mIndex(index)
 	mUpgradeButton->setClickCallback([index] {
 		auto window = std::make_shared<RoomWindow>(index);
 		EVENT->emit(Helpers::PushWindowEvent({ window }));
+		TUTOR->complete();
 	});
 	attach(mUpgradeButton);
+
+	if (index == 0)
+		TUTOR->play("press_upgrade_room_button", mUpgradeButton);
 
 	for (int i = 0; i < Balance::MaxWorkersCount; i++)
 	{
@@ -197,6 +202,7 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	mButton->setPivot(0.5f);
 	mButton->setActiveCallback([this] {
 		mDollarEmitter->emitPack();
+		TUTOR->complete();
 		PROFILE->spendCash(Balance::GetRoomCost(mIndex));
 		PROFILE->unlockRoom(mIndex);
 	});
@@ -206,6 +212,9 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	mButton->attach(mDollarEmitter);
 
 	refresh();
+
+	if (index == 0)
+		TUTOR->play("unlock_room", mButton);
 }
 
 void Factory::LockedRoom::event(const Profile::CashChangedEvent& e)

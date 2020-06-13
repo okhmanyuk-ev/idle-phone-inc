@@ -12,6 +12,9 @@ namespace PhoneInc
 		RoomWindow(int index);
 
 	public:
+		void onCloseBegin() override;
+
+	public:
 		void refresh();
 
 	public:
@@ -73,6 +76,8 @@ namespace PhoneInc
 	public:
 		int getRoomIndex() const { return mRoomIndex; }
 		const auto& getRoom() const { return PROFILE->getRooms().at(getRoomIndex()); }
+
+		auto getButton() const { return mButton; }
 
 	private:
 		int mRoomIndex = 0;

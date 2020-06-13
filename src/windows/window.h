@@ -37,9 +37,11 @@ namespace PhoneInc
 	public:
 		auto getBackground() { return mBackground; }
 		auto getTitle() { return mTitle; }
+		auto getCloseButton() { return mCloseButton; }
 
 	private:
 		std::shared_ptr<Scene::SlicedSprite> mBackground;
 		std::shared_ptr<Helpers::LabelSolid> mTitle;
+		std::shared_ptr<Helpers::CloseButtonWidget> mCloseButton;
 	};
 }
