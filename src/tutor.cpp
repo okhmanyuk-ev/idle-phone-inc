@@ -1,5 +1,4 @@
 #include "tutor.h"
-#include "profile.h"
 
 using namespace PhoneInc;
 
@@ -45,6 +44,12 @@ TutorHolder::TutorHolder()
 
 		mFinger->setPosition(unproject(node->project(node->getSize() / 2.0f)));
 	}));
+}
+
+void TutorHolder::event(const Profile::ProfileClearedEvent& e)
+{
+	mTutors.clear();
+	mCurrentTutor = std::nullopt;
 }
 
 bool TutorHolder::hitTest(const glm::vec2& value) const

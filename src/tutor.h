@@ -1,12 +1,13 @@
 #pragma once
 
 #include <shared/all.h>
+#include "profile.h"
 
-#define TUTOR ENGINE->getSystem<PhoneInc::ITutor>()
+#define TUTOR ENGINE->getSystem<PhoneInc::TutorialSystem>()
 
 namespace PhoneInc
 {
-	class ITutor
+	class TutorialSystem
 	{
 	public:
 		using CanStartCallback = std::function<bool()>;
@@ -17,10 +18,14 @@ namespace PhoneInc
 		virtual bool isCompleted(const std::string& name) const = 0;
 	};
 
-	class TutorHolder : public Scene::Actionable<Scene::Node>, public ITutor
+	class TutorHolder : public Scene::Actionable<Scene::Node>, public TutorialSystem,
+		public Common::EventSystem::Listenable<Profile::ProfileClearedEvent>
 	{
 	public:
 		TutorHolder();
+
+	public:
+		void event(const Profile::ProfileClearedEvent& e) override;
 
 	public:
 		bool hitTest(const glm::vec2& value) const override;

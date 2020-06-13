@@ -67,6 +67,7 @@ Application::Application() : RichApplication(PROJECT_CODE)
 Application::~Application()
 {
 	PROFILE->save();
+	ENGINE->removeSystem<TutorialSystem>();
 }
 
 void Application::loading(const std::string& stage, float progress)
@@ -110,7 +111,7 @@ void Application::prepare()
 	mTutorHolder = std::make_shared<TutorHolder>();
 	root->attach(mTutorHolder);
 
-	ENGINE->addSystem<ITutor>(mTutorHolder);
+	ENGINE->addSystem<TutorialSystem>(mTutorHolder);
 
 	mGameplay = std::make_shared<Gameplay>();
 }

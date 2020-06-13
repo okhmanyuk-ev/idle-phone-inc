@@ -41,12 +41,14 @@ RoomWindow::RoomWindow(int index) : mIndex(index)
 
 	if (index == 0)
 	{
-		TUTOR->play("press_product_button", mProductPanel->getButton());
-		TUTOR->play("press_worker_button", mWorkerPanel1->getButton(), [] {
-			return TUTOR->isCompleted("press_product_button");
+		TUTOR->play("press_product_button", mProductPanel->getButton(), [this] {
+			return getState() == State::Opened;
 		});
-		TUTOR->play("close_window_button", getCloseButton(), [] {
-			return TUTOR->isCompleted("press_worker_button");
+		TUTOR->play("press_worker_button", mWorkerPanel1->getButton(), [this] {
+			return TUTOR->isCompleted("press_product_button") && (getState() == State::Opened);
+		});
+		TUTOR->play("close_window_button", getCloseButton(), [this] {
+			return TUTOR->isCompleted("press_worker_button") && (getState() == State::Opened);
 		});
 	}
 

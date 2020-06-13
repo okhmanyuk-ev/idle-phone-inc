@@ -61,8 +61,6 @@ void Profile::load()
 	tryRead(mWarehouseLevel, "warehouse_level");
 	tryRead(mNightBackground, "night_background");
 
-	//tryRead(mCompletedTutors, "completed_tutors");
-
 	if (json.contains("completed_tutors"))
 		mCompletedTutors = json["completed_tutors"].get<std::set<std::string>>();
 }
@@ -97,12 +95,12 @@ void Profile::save()
 
 void Profile::clear()
 {
+	EVENT->emit(ProfileClearedEvent());
 	setCash(Balance::StartCash);
 	mRooms.clear();
 	setWarehouseLevel(1);
 	setWarehouseStorage(0);
 	mCompletedTutors.clear();
-	EVENT->emit(ProfileClearedEvent());
 }
 
 void Profile::saveAsync()
