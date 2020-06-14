@@ -41,8 +41,7 @@ Street::Street()
 	mWarehouseButton->setPosition({ 966.0f, 538.0f });
 	mWarehouseButton->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
 	mWarehouseButton->setClickCallback([this] {
-		auto window = std::make_shared<BuildingWindow>();
-		EVENT->emit(Helpers::PushWindowEvent({ window }));
+		SCENE_MANAGER->pushWindow(std::make_shared<BuildingWindow>());
 	});
 	refreshWarehouseButton();
 	attach(mWarehouseButton);

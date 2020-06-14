@@ -3,19 +3,14 @@
 #include <shared/all.h>
 #include <profile.h>
 
+#define SCENE_MANAGER ENGINE->getSystem<Shared::SceneManager>()
+
 namespace PhoneInc::Helpers
 {
 	// types
 
 	using Callback = std::function<void()>;
-	struct PushWindowEvent 
-	{ 
-		std::shared_ptr<Shared::SceneManager::Window> window; 
-		Callback finishCallback = nullptr;
-	};
-
-	struct PopWindowEvent { };
-
+	
 	struct MoveGlobalScrollEvent { glm::vec2 pos; };
 	struct BlockGlobalScrollEvent { bool blocked; };
 

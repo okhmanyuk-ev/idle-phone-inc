@@ -1,9 +1,10 @@
 #include "cheats.h"
 #include "balance.h"
+#include "helpers.h"
 
 using namespace PhoneInc;
 
-void Cheats::ShowDevMenu(std::shared_ptr<Shared::SceneManager> scene_manager)
+void Cheats::ShowDevMenu()
 {
 #if !defined(BUILD_DEVELOPER)
 	return;

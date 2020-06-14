@@ -6,5 +6,5 @@
 
 namespace PhoneInc::Cheats
 {
-	void ShowDevMenu(std::shared_ptr<Shared::SceneManager> scene_manager);
+	void ShowDevMenu();
 }

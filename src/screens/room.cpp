@@ -53,8 +53,7 @@ Factory::Room::Room(int index) : mIndex(index)
 	mUpgradeButton->setPosition({ 681.0f, 28.0f });
 	mUpgradeButton->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
 	mUpgradeButton->setClickCallback([index] {
-		auto window = std::make_shared<RoomWindow>(index);
-		EVENT->emit(Helpers::PushWindowEvent({ window }));
+		SCENE_MANAGER->pushWindow(std::make_shared<RoomWindow>(index));
 		TUTOR->complete();
 	});
 	attach(mUpgradeButton);
@@ -163,7 +162,7 @@ Factory::Room::Room(int index) : mIndex(index)
 	if (mIndex == 0)
 	{
 		auto canStartCallback = [this] {
-			return mPhonesStacks.at(0)->isFilled();
+			return mPhonesStacks.at(0)->isFilled() && !SCENE_MANAGER->hasWindows();
 		};
 		auto beginCallback = [] {
 			EVENT->emit(Helpers::MoveGlobalScrollEvent({ { 0.0f, 0.0f } }));

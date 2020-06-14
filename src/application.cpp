@@ -62,12 +62,15 @@ Application::Application() : RichApplication(PROJECT_CODE)
 	PROFILE->setNightBackground(!PROFILE->isNightBackground());
 
 	GRAPHICS->setSdfSmoothFactor(Helpers::Scale);
+
+	ENGINE->addSystem<Shared::SceneManager>(std::make_shared<Shared::SceneManager>());
 }
 
 Application::~Application()
 {
 	PROFILE->save();
 	ENGINE->removeSystem<TutorialSystem>();
+	ENGINE->removeSystem<Shared::SceneManager>();
 }
 
 void Application::loading(const std::string& stage, float progress)
@@ -90,7 +93,7 @@ void Application::initialize()
 	STATS->setEnabled(false);
 #endif
 
-	mSceneManager->switchScreen(mGameplay);
+	SCENE_MANAGER->switchScreen(mGameplay);
 }
 
 void Application::prepare()
@@ -102,8 +105,7 @@ void Application::prepare()
 
 	auto root = mGameScene.getRoot();
 
-	mSceneManager = std::make_shared<Shared::SceneManager>();
-	root->attach(mSceneManager);
+	root->attach(SCENE_MANAGER);
 
 	Helpers::DollarEmitter::Holder = std::make_shared<Scene::Node>();
 	root->attach(Helpers::DollarEmitter::Holder);
@@ -120,7 +122,7 @@ void Application::frame()
 {
 	updateGameScale();
 	mGameScene.frame();
-	Cheats::ShowDevMenu(mSceneManager);
+	Cheats::ShowDevMenu();
 }
 
 void Application::makeLoadingScene()
@@ -144,13 +146,13 @@ void Application::makeLoadingScene()
 void Application::updateGameScale()
 {
     {
-        auto root = mSceneManager->getScreenHolder();
+        auto root = SCENE_MANAGER->getScreenHolder();
         auto scale = getScaleFactor(true); // TODO: must working with false
         root->setScale(scale);
         root->setStretch(1.0f / scale);
     }
     {
-        auto root = mSceneManager->getWindowHolder();
+        auto root = SCENE_MANAGER->getWindowHolder();
         auto scale = getScaleFactor(false);
         root->setScale(scale);
         root->setStretch(1.0f / scale);
@@ -185,16 +187,6 @@ float Application::getScaleFactor(bool horizontal_priority)
 	return glm::min(scale.x, scale.y);
 }
 
-void Application::event(const Helpers::PushWindowEvent& e)
-{
-	mSceneManager->pushWindow(e.window, e.finishCallback);
-}
-
-void Application::event(const Helpers::PopWindowEvent& e)
-{
-	mSceneManager->popWindow();
-}
-
 void Application::event(const Profile::ProfileClearedEvent& e)
 {
 	if (!isInitialized())
@@ -202,10 +194,10 @@ void Application::event(const Profile::ProfileClearedEvent& e)
 
 	mGameplay->setEnabled(false);
 
-	mSceneManager->popWindow(mSceneManager->getWindowsCount(), [this] {
-		mSceneManager->switchScreen(nullptr, [this] {
+	SCENE_MANAGER->popWindow(SCENE_MANAGER->getWindowsCount(), [this] {
+		SCENE_MANAGER->switchScreen(nullptr, [this] {
 			mGameplay = std::make_shared<Gameplay>();
-			mSceneManager->switchScreen(mGameplay);
+			SCENE_MANAGER->switchScreen(mGameplay);
 		});
 	});
 }

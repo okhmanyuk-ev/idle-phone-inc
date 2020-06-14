@@ -11,8 +11,6 @@
 namespace PhoneInc
 {
 	class Application : public Shared::RichApplication,
-		public Common::EventSystem::Listenable<Helpers::PushWindowEvent>,
-		public Common::EventSystem::Listenable<Helpers::PopWindowEvent>,
 		public Common::EventSystem::Listenable<Profile::ProfileClearedEvent>
 	{
 	public:
@@ -30,15 +28,12 @@ namespace PhoneInc
 		float getScaleFactor(bool horizontal_priority);
 
 	public:
-		void event(const Helpers::PushWindowEvent& e) override;
-		void event(const Helpers::PopWindowEvent& e) override;
 		void event(const Profile::ProfileClearedEvent& e) override;
 
 	private:
 		Scene::Scene mLoadingScene;
 		std::shared_ptr<Helpers::StreetProgressbar> mProgressbar;
 		Scene::Scene mGameScene;
-		std::shared_ptr<Shared::SceneManager> mSceneManager;
 		std::shared_ptr<TutorHolder> mTutorHolder;
 
 	private:

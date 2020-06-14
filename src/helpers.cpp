@@ -226,7 +226,7 @@ CloseButtonWidget::CloseButtonWidget() : Button()
 {
 	setTexture(TEXTURE("textures/buttons/close.png"));
 	setClickCallback([] {
-		EVENT->emit(PopWindowEvent());
+		SCENE_MANAGER->popWindow();
 	});
 }
 
