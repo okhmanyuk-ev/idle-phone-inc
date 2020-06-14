@@ -174,7 +174,7 @@ void TutorHolder::moveFinger()
 	if (!node->isTransformReady())
 		return;
 
-	mFinger->setPosition(unproject(node->project(node->getSize() / 2.0f)));
+	mFinger->setPosition(unproject(node->project(node->getSize() * glm::vec2(0.5f, 0.75f))));
 }
 
 void TutorHolder::chooseCurrentTutor()

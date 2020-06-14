@@ -61,7 +61,13 @@ Factory::Room::Room(int index) : mIndex(index)
 
 	if (index == 0)
 	{
-		TUTOR->play("press_upgrade_room_button", mUpgradeButton, nullptr);
+		auto beginCallback = [] {
+			EVENT->emit(Helpers::BlockGlobalScrollEvent({ true }));
+		};
+		auto endCallback = [] {
+			EVENT->emit(Helpers::BlockGlobalScrollEvent({ false }));
+		};
+		TUTOR->play("press_upgrade_room_button", mUpgradeButton, nullptr, beginCallback, endCallback);
 	}
 
 	for (int i = 0; i < Balance::MaxWorkersCount; i++)
@@ -231,7 +237,15 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	refresh();
 
 	if (index == 0)
-		TUTOR->play("unlock_room", mButton);
+	{
+		auto beginCallback = [] {
+			EVENT->emit(Helpers::BlockGlobalScrollEvent({ true }));
+		};
+		auto endCallback = [] {
+			EVENT->emit(Helpers::BlockGlobalScrollEvent({ false }));
+		};
+		TUTOR->play("unlock_room", mButton, nullptr, beginCallback, endCallback);
+	}
 }
 
 void Factory::LockedRoom::event(const Profile::CashChangedEvent& e)
