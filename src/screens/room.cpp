@@ -60,7 +60,9 @@ Factory::Room::Room(int index) : mIndex(index)
 	attach(mUpgradeButton);
 
 	if (index == 0)
-		TUTOR->play("press_upgrade_room_button", mUpgradeButton);
+	{
+		TUTOR->play("press_upgrade_room_button", mUpgradeButton, nullptr);
+	}
 
 	for (int i = 0; i < Balance::MaxWorkersCount; i++)
 	{
@@ -151,6 +153,21 @@ Factory::Room::Room(int index) : mIndex(index)
 			mWorkers[i]->setStateType(mPhonesStacks[i]->isFilled() ? Worker::Animation::Idle : Worker::Animation::Working);
 		}
 	}));
+
+	if (mIndex == 0)
+	{
+		auto canStartCallback = [this] {
+			return mPhonesStacks.at(0)->isFilled();
+		};
+		auto beginCallback = [] {
+			EVENT->emit(Helpers::MoveGlobalScrollEvent({ { 0.0f, 0.0f } }));
+			EVENT->emit(Helpers::BlockGlobalScrollEvent({ true }));
+		};
+		auto endCallback = [] {
+			EVENT->emit(Helpers::BlockGlobalScrollEvent({ false }));
+		};
+		TUTOR->play("press_phones_stack", mPhonesStacks.at(0), canStartCallback, beginCallback, endCallback);
+	}
 }
 
 void Factory::Room::event(const Profile::RoomChangedEvent& e)
@@ -247,6 +264,7 @@ Factory::Room::PhonesStack::PhonesStack(int room_index) : mRoomIndex(room_index)
 			return;
 
 		makeProduct();
+		TUTOR->complete();
 	});
 }
 

@@ -27,17 +27,17 @@ Gameplay::Gameplay()
 		{ factory->getHeight(), factory }
 	});
 
-	auto scrollbox = std::make_shared<Scene::Scrollbox>();
-	scrollbox->setAnchor({ 0.5f, 0.0f });
-	scrollbox->setPivot({ 0.5f, 0.0f });
-	scrollbox->setWidth(width);
-	scrollbox->getBounding()->setStretch(1.0f);
-	scrollbox->setSensitivity({ 0.0f, 1.0f });
-	scrollbox->getContent()->setHorizontalStretch(1.0f);
-	scrollbox->getContent()->attach(grid);
-	scrollbox->getContent()->setHeight(grid->getHeight());
-	scrollbox->setTouchMask(1 << 1);
-	attach(scrollbox);
+	mScrollbox = std::make_shared<Scene::Scrollbox>();
+	mScrollbox->setAnchor({ 0.5f, 0.0f });
+	mScrollbox->setPivot({ 0.5f, 0.0f });
+	mScrollbox->setWidth(width);
+	mScrollbox->getBounding()->setStretch(1.0f);
+	mScrollbox->setSensitivity({ 0.0f, 1.0f });
+	mScrollbox->getContent()->setHorizontalStretch(1.0f);
+	mScrollbox->getContent()->attach(grid);
+	mScrollbox->getContent()->setHeight(grid->getHeight());
+	mScrollbox->setTouchMask(1 << 1);
+	attach(mScrollbox);
 
 	auto top_menu = std::make_shared<TopMenu>();
 	top_menu->setAnchor({ 0.5f, 0.0f });
@@ -49,9 +49,19 @@ Gameplay::Gameplay()
 	bottom_menu->setPivot({ 0.5f, 1.0f });
 	attach(bottom_menu);
 
-	runAction(Shared::ActionHelpers::ExecuteInfinite([this, top_menu, scrollbox, bottom_menu] {
-		auto h = getHeight() - scrollbox->getY() - bottom_menu->getHeight();
-		scrollbox->setHeight(h);
-		scrollbox->setY(top_menu->getHeight());
+	runAction(Shared::ActionHelpers::ExecuteInfinite([this, top_menu, bottom_menu] {
+		auto h = getHeight() - mScrollbox->getY() - bottom_menu->getHeight();
+		mScrollbox->setHeight(h);
+		mScrollbox->setY(top_menu->getHeight());
 	}));
+}
+
+void Gameplay::event(const Helpers::MoveGlobalScrollEvent& e)
+{
+	runAction(Shared::ActionHelpers::ChangePosition(mScrollbox->getContent(), e.pos, 0.5f, Common::Easing::CubicInOut));
+}
+
+void Gameplay::event(const Helpers::BlockGlobalScrollEvent& e)
+{
+	mScrollbox->setTouchable(!e.blocked);
 }

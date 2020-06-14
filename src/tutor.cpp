@@ -12,37 +12,35 @@ TutorHolder::TutorHolder()
 	mFinger->setTexture(TEXTURE("textures/tutor_finger.png"));
 	mFinger->setOrigin({ 63.0f, 18.0f });
 	mFinger->setEnabled(false);
+	mFinger->setScale(0.0f);
 	attach(mFinger);
 
 	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {
-		mCurrentTutor = std::nullopt;
-
 		removeOutdatedTutors();
+		chooseCurrentTutor();
+		showFinger(isPlaying());
+		moveFinger();
+	}));
 
-		for (const auto& [name, tutor] : mTutors)
-		{
-			if (tutor.canStartCallback && !tutor.canStartCallback())
-				continue;
+	// finger pulse
 
-			mCurrentTutor = name;
-			break;
-		}
+	runAction(Shared::ActionHelpers::RepeatInfinite([this]() -> Shared::ActionHelpers::Action {
+		const float Delay = 1.25f;
+		const float Duration = 0.125f;
+		const glm::vec2 ModifiedValue = { 0.75f, 0.75f };
+		const glm::vec2 NormalValue = { 1.0f, 1.0f };
 
-		mFinger->setEnabled(isPlaying());
-		
-		if (!isPlaying())
-			return;
+		if (mFingerState != FingerState::Opened)
+			return nullptr;
 
-		if (!mFinger->isTransformReady())
-			return;
-
-		auto tutor = mTutors.at(mCurrentTutor.value());
-		auto node = tutor.node.lock();
-
-		if (!node->isTransformReady())
-			return;
-
-		mFinger->setPosition(unproject(node->project(node->getSize() / 2.0f)));
+		return Shared::ActionHelpers::Limit([this] { return mFingerState == FingerState::Opened; },
+			Shared::ActionHelpers::Delayed(Delay, Shared::ActionHelpers::MakeSequence(
+				Shared::ActionHelpers::ChangeScale(mFinger, ModifiedValue, Duration, Common::Easing::CubicInOut),
+				Shared::ActionHelpers::ChangeScale(mFinger, NormalValue, Duration, Common::Easing::CubicInOut),
+				Shared::ActionHelpers::ChangeScale(mFinger, ModifiedValue, Duration, Common::Easing::CubicInOut),
+				Shared::ActionHelpers::ChangeScale(mFinger, NormalValue, Duration, Common::Easing::CubicInOut)
+			))
+		);
 	}));
 }
 
@@ -63,7 +61,8 @@ bool TutorHolder::hitTest(const glm::vec2& value) const
 	return !node->hitTest(node->unproject(project(value)));
 }
 
-void TutorHolder::play(const std::string& name, std::shared_ptr<Scene::Node> node, CanStartCallback canStartCallback)
+void TutorHolder::play(const std::string& name, std::shared_ptr<Scene::Node> node, CanStartCallback canStartCallback,
+	Callback beginCallback, Callback endCallback)
 {
 	if (PROFILE->isTutorCompleted(name))
 		return;
@@ -73,6 +72,8 @@ void TutorHolder::play(const std::string& name, std::shared_ptr<Scene::Node> nod
 	Tutor tutor;
 	tutor.node = node;
 	tutor.canStartCallback = canStartCallback;
+	tutor.beginCallback = beginCallback;
+	tutor.endCallback = endCallback;
 	mTutors.insert({ name, tutor });
 
 	LOG("tutor \"" + name + "\" added");
@@ -85,10 +86,16 @@ void TutorHolder::complete()
 
 	auto name = mCurrentTutor.value();
 
-	mTutors.erase(name);
+	auto tutor = mTutors.at(name);
 
+	if (tutor.endCallback)
+		tutor.endCallback();
+
+	mTutors.erase(name);
 	PROFILE->setTutorCompleted(name);
 	mCurrentTutor = std::nullopt;
+
+	showFinger(false);
 
 	LOG("tutor \"" + name + "\" completed");
 }
@@ -110,8 +117,81 @@ void TutorHolder::removeOutdatedTutors()
 		if (!tutor.node.expired())
 			continue;
 
+		if (mCurrentTutor.has_value())
+		{
+			assert(name != mCurrentTutor.value());
+		}
 		mTutors.erase(name);
 		removeOutdatedTutors();
+		break;
+	}
+}
+
+void TutorHolder::showFinger(bool visible)
+{
+	const float Duration = 0.25f;
+
+	if (visible && mFingerState == FingerState::Closed)
+	{
+		mFingerState = FingerState::Opening;
+		mFinger->setEnabled(true);
+
+		runAction(Shared::ActionHelpers::MakeSequence(
+			Shared::ActionHelpers::ChangeScale(mFinger, { 1.0f, 1.0f }, Duration, Common::Easing::BackOut),
+			Shared::ActionHelpers::Execute([this] {
+				mFingerState = FingerState::Opened;
+			})
+		));
+	}
+	else if (!visible && mFingerState == FingerState::Opened)
+	{
+		mFingerState = FingerState::Closing;
+
+		runAction(Shared::ActionHelpers::MakeSequence(
+			Shared::ActionHelpers::ChangeScale(mFinger, { 0.0f, 0.0f }, Duration, Common::Easing::BackIn),
+			Shared::ActionHelpers::Execute([this] {
+				mFingerState = FingerState::Closed;
+				mFinger->setEnabled(false);
+			})
+		));
+	}
+}
+
+void TutorHolder::moveFinger()
+{
+	if (!isPlaying())
+		return;
+
+	if (mFingerState != FingerState::Opening && mFingerState != FingerState::Opened)
+		return;
+
+	if (!mFinger->isTransformReady())
+		return;
+
+	auto tutor = mTutors.at(mCurrentTutor.value());
+	auto node = tutor.node.lock();
+
+	if (!node->isTransformReady())
+		return;
+
+	mFinger->setPosition(unproject(node->project(node->getSize() / 2.0f)));
+}
+
+void TutorHolder::chooseCurrentTutor()
+{
+	if (mCurrentTutor.has_value())
+		return;
+
+	for (const auto& [name, tutor] : mTutors)
+	{
+		if (tutor.canStartCallback && !tutor.canStartCallback())
+			continue;
+
+		mCurrentTutor = name;
+		if (tutor.beginCallback)
+		{
+			tutor.beginCallback();
+		}
 		break;
 	}
 }

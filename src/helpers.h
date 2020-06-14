@@ -16,6 +16,9 @@ namespace PhoneInc::Helpers
 
 	struct PopWindowEvent { };
 
+	struct MoveGlobalScrollEvent { glm::vec2 pos; };
+	struct BlockGlobalScrollEvent { bool blocked; };
+
 	// constants
 
 	inline static const float Scale = 3.0f;

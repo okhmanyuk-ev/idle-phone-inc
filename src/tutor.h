@@ -11,9 +11,11 @@ namespace PhoneInc
 	{
 	public:
 		using CanStartCallback = std::function<bool()>;
+		using Callback = std::function<void()>;
 
 	public:
-		virtual void play(const std::string& name, std::shared_ptr<Scene::Node> node, CanStartCallback canStartCallback = nullptr) = 0;
+		virtual void play(const std::string& name, std::shared_ptr<Scene::Node> node, CanStartCallback canStartCallback = nullptr, 
+			Callback beginCallback = nullptr, Callback endCallback = nullptr) = 0;
 		virtual void complete() = 0;
 		virtual bool isCompleted(const std::string& name) const = 0;
 	};
@@ -31,14 +33,18 @@ namespace PhoneInc
 		bool hitTest(const glm::vec2& value) const override;
 
 	public:
-		void play(const std::string& name, std::shared_ptr<Scene::Node> node, CanStartCallback canStartCallback) override;
+		void play(const std::string& name, std::shared_ptr<Scene::Node> node, CanStartCallback canStartCallback = nullptr,
+			Callback beginCallback = nullptr, Callback endCallback = nullptr) override;
 		void complete() override;
 		bool isCompleted(const std::string& name) const override;
 
 	private:
 		bool isPlaying() const;
 		void removeOutdatedTutors();
-		
+		void showFinger(bool visible);
+		void moveFinger();
+		void chooseCurrentTutor();
+
 	private:
 		std::optional<std::string> mCurrentTutor = std::nullopt;
 
@@ -46,9 +52,21 @@ namespace PhoneInc
 		{
 			std::weak_ptr<Scene::Node> node;
 			CanStartCallback canStartCallback;
+			Callback beginCallback;
+			Callback endCallback;
 		};
 
 		std::map<std::string, Tutor> mTutors;
+
+		enum FingerState
+		{
+			Opening,
+			Opened,
+			Closing,
+			Closed,
+		};
+
+		FingerState mFingerState = FingerState::Closed;
 
 	private:
 		std::shared_ptr<Scene::Sprite> mFinger;
