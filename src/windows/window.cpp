@@ -1,4 +1,5 @@
 #include "window.h"
+#include "helpers.h"
 
 using namespace PhoneInc;
 
@@ -12,7 +13,7 @@ Window::Window()
 		if (getState() != State::Opened)
 			return;
 
-		getSceneManager()->popWindow();
+		SCENE_MANAGER->popWindow();
 	});
 
 	getBackshadeColor()->setColor({ Graphics::Color::Black, 0.0f });
