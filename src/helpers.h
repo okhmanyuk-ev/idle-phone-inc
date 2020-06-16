@@ -3,8 +3,6 @@
 #include <shared/all.h>
 #include <profile.h>
 
-#define SCENE_MANAGER ENGINE->getSystem<Shared::SceneManager>()
-
 namespace PhoneInc::Helpers
 {
 	// types
