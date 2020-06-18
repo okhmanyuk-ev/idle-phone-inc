@@ -101,8 +101,6 @@ void Application::prepare()
 	FONT("default")->setCustomVerticalOffset(-4.0f);
 	FONT("default_bold")->setCustomVerticalOffset(-4.0f);
 
-	Scene::Debug::Font = FONT("default");
-
 	auto root = mGameScene.getRoot();
 
 	root->attach(SCENE_MANAGER);
