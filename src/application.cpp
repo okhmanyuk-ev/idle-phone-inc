@@ -1,5 +1,10 @@
 #include "application.h"
 
+#if defined(PLATFORM_IOS)
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#include <platform/system_ios.h>
+#endif
+
 using namespace PhoneInc;
 
 Application::Application() : RichApplication(PROJECT_CODE)
@@ -68,6 +73,14 @@ Application::Application() : RichApplication(PROJECT_CODE)
 #if !defined(BUILD_DEVELOPER)
     CONSOLE_DEVICE->setEnabled(false);
     STATS->setEnabled(false);
+#endif
+    
+#if defined(PLATFORM_IOS)
+    /*auto loginButton = [[FBSDKLoginButton alloc] init];
+    auto window = Platform::SystemIos::Window;
+    auto rootView = [[window rootViewController] view];
+    loginButton.center = rootView.center;
+    [rootView addSubview:loginButton];*/
 #endif
 }
 
