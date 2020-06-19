@@ -39,7 +39,7 @@
     //
 }
 
-- (BOOL)application:(UIApplication *)application
+/*- (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
@@ -47,6 +47,6 @@
                                                         openURL:url
                                               sourceApplication:sourceApplication
                                                      annotation:annotation];
-}
+}*/
 
 @end

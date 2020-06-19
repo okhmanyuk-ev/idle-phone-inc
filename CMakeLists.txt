@@ -89,7 +89,6 @@ elseif(APPLE)
     )
 
     target_link_libraries(${PROJECT_NAME}
-        "-framework Bolts"
         "-framework FBSDKCoreKit"
         "-framework FBSDKLoginKit"
         "-framework FBSDKShareKit"
