@@ -64,6 +64,11 @@ Application::Application() : RichApplication(PROJECT_CODE)
 	GRAPHICS->setSdfSmoothFactor(Helpers::Scale);
 
 	ENGINE->addSystem<Shared::SceneManager>(std::make_shared<Shared::SceneManager>());
+    
+#if !defined(BUILD_DEVELOPER)
+    CONSOLE_DEVICE->setEnabled(false);
+    STATS->setEnabled(false);
+#endif
 }
 
 Application::~Application()
@@ -88,9 +93,6 @@ void Application::initialize()
 #if defined(BUILD_DEVELOPER)
 	CONSOLE->execute("hud_show_fps 1");
 	CONSOLE->execute("hud_show_drawcalls 1");
-#else
-	CONSOLE_DEVICE->setEnabled(false);
-	STATS->setEnabled(false);
 #endif
 
 	SCENE_MANAGER->switchScreen(mGameplay);

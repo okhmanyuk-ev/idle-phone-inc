@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Shared/all.h>
+#include <shared/all.h>
 #include <helpers.h>
 
 namespace PhoneInc
