@@ -174,16 +174,22 @@ void TutorHolder::moveFinger()
 	if (!node->isTransformReady())
 		return;
 
+	if (!node->hasScene())
+		return;
+
 	mFinger->setPosition(unproject(node->project(node->getSize() * glm::vec2(0.5f, 0.75f))));
 }
 
 void TutorHolder::chooseCurrentTutor()
 {
+	if (SCENE_MANAGER->isScreenBusy())
+		return;
+
 	if (mCurrentTutor.has_value())
 		return;
 
 	for (const auto& [name, tutor] : mTutors)
-	{
+	{;
 		if (tutor.canStartCallback && !tutor.canStartCallback())
 			continue;
 

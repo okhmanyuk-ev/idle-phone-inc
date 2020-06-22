@@ -6,12 +6,12 @@
 
 namespace PhoneInc
 {
-	class Gameplay : public Scene::Actionable<Screen>,
+	class GameplayScreen : public Scene::Actionable<Screen>,
 		public Common::EventSystem::Listenable<Helpers::MoveGlobalScrollEvent>,
 		public Common::EventSystem::Listenable<Helpers::BlockGlobalScrollEvent>
 	{
 	public:
-		Gameplay();
+		GameplayScreen();
 
 	public:
 		void event(const Helpers::MoveGlobalScrollEvent& e) override;

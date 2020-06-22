@@ -9,6 +9,15 @@ Screen::Screen()
 	setStretch(1.0f);
 	setAnchor(0.5f);
 	setPivot(0.5f);
+
+	mContent = std::make_shared<Scene::Node>();
+	mContent->setStretch(1.0f);
+	attach(mContent);
+
+	mFadeRectangle = std::make_shared<Scene::Rectangle>();
+	mFadeRectangle->setStretch(1.0f);
+	mFadeRectangle->setColor(Graphics::Color::Black);
+	attach(mFadeRectangle);
 }
 
 void Screen::onEnterBegin()
@@ -29,7 +38,6 @@ void Screen::onLeaveBegin()
 void Screen::onLeaveEnd()
 {
 	setEnabled(false);
-	//	setAlpha(0.0f);
 }
 
 void Screen::onWindowAppearing()
@@ -44,10 +52,16 @@ void Screen::onWindowDisappearing()
 
 std::unique_ptr<Common::Actions::Action> Screen::createEnterAction()
 {
-	return nullptr;
+	return Shared::ActionHelpers::MakeSequence(
+		Shared::ActionHelpers::WaitOneFrame(),
+		Shared::ActionHelpers::ChangeAlpha(mFadeRectangle, 0.0f, 0.5f)
+	);
 };
 
 std::unique_ptr<Common::Actions::Action> Screen::createLeaveAction()
 {
-	return nullptr;
+	return Shared::ActionHelpers::MakeSequence(
+		Shared::ActionHelpers::WaitOneFrame(),
+		Shared::ActionHelpers::ChangeAlpha(mFadeRectangle, 1.0f, 0.5f)
+	);
 };

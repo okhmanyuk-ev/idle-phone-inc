@@ -84,7 +84,12 @@ Factory::Room::Room(int index) : mIndex(index)
 	refresh();
 
 	runAction(Shared::ActionHelpers::RepeatInfinite([this]() -> Shared::ActionHelpers::Action {
-		auto room = PROFILE->getRooms().at(mIndex);
+		const auto& rooms = PROFILE->getRooms();
+
+		if (rooms.count(mIndex) == 0)
+			return nullptr;
+
+		auto room = rooms.at(mIndex);
 
 		if (room.manager == 0)
 			return nullptr;
@@ -132,7 +137,12 @@ Factory::Room::Room(int index) : mIndex(index)
 	for (int i = 0; i < Balance::MaxWorkersCount; i++)
 	{
 		runAction(Shared::ActionHelpers::RepeatInfinite([this, i]() -> Shared::ActionHelpers::Action {
-			auto& room = PROFILE->getRooms().at(mIndex);
+			const auto& rooms = PROFILE->getRooms();
+
+			if (rooms.count(mIndex) == 0)
+				return nullptr;
+
+			auto room = rooms.at(mIndex);
 
 			if (room.workers[i] <= 0)
 				return nullptr;

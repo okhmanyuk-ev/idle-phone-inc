@@ -38,7 +38,8 @@ void Window::onCloseBegin()
 
 std::unique_ptr<Common::Actions::Action> Window::createOpenAction()
 {
-	return Shared::ActionHelpers::Delayed(0.0f, // do not ruin animation while constructing class
+	return Shared::ActionHelpers::MakeSequence(
+		Shared::ActionHelpers::WaitOneFrame(),
 		Shared::ActionHelpers::MakeParallel(
 			Shared::ActionHelpers::ChangeAlpha(getBackshadeColor(), 0.5f, 0.5f, Common::Easing::CubicOut),
 			Shared::ActionHelpers::ChangeVerticalAnchor(mContent, 0.5f, 0.5f, Common::Easing::CubicOut)
@@ -47,7 +48,8 @@ std::unique_ptr<Common::Actions::Action> Window::createOpenAction()
 
 std::unique_ptr<Common::Actions::Action> Window::createCloseAction()
 {
-	return Shared::ActionHelpers::Delayed(0.0f,
+	return Shared::ActionHelpers::MakeSequence(
+		Shared::ActionHelpers::WaitOneFrame(),
 		Shared::ActionHelpers::MakeParallel(
 			Shared::ActionHelpers::ChangeVerticalAnchor(mContent, -0.5f, 0.5f, Common::Easing::CubicIn),
 			Shared::ActionHelpers::ChangeAlpha(getBackshadeColor(), 0.0f, 0.5f, Common::Easing::CubicIn)

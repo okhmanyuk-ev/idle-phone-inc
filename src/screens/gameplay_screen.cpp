@@ -1,4 +1,4 @@
-#include "gameplay.h"
+#include "gameplay_screen.h"
 #include "bottom_menu.h"
 #include "top_menu.h"
 #include "street.h"
@@ -7,12 +7,14 @@
 
 using namespace PhoneInc;
 
-Gameplay::Gameplay()
+GameplayScreen::GameplayScreen()
 {
+	auto root = getContent();
+
 	auto background = std::make_shared<Scene::Sprite>();
 	background->setTexture(TEXTURE("textures/background.png"));
 	background->setStretch(1.0f);
-	attach(background);
+	root->attach(background);
 
 	auto street = std::make_shared<Street>();
 	street->setHorizontalStretch(1.0f);
@@ -37,17 +39,17 @@ Gameplay::Gameplay()
 	mScrollbox->getContent()->attach(grid);
 	mScrollbox->getContent()->setHeight(grid->getHeight());
 	mScrollbox->setTouchMask(1 << 1);
-	attach(mScrollbox);
+	root->attach(mScrollbox);
 
 	auto top_menu = std::make_shared<TopMenu>();
 	top_menu->setAnchor({ 0.5f, 0.0f });
 	top_menu->setPivot({ 0.5f, 0.0f });
-	attach(top_menu);
+	root->attach(top_menu);
 
 	auto bottom_menu = std::make_shared<BottomMenu>();
 	bottom_menu->setAnchor({ 0.5f, 1.0f });
 	bottom_menu->setPivot({ 0.5f, 1.0f });
-	attach(bottom_menu);
+	root->attach(bottom_menu);
 
 	runAction(Shared::ActionHelpers::ExecuteInfinite([this, top_menu, bottom_menu] {
 		auto h = getHeight() - mScrollbox->getY() - bottom_menu->getHeight();
@@ -56,12 +58,12 @@ Gameplay::Gameplay()
 	}));
 }
 
-void Gameplay::event(const Helpers::MoveGlobalScrollEvent& e)
+void GameplayScreen::event(const Helpers::MoveGlobalScrollEvent& e)
 {
 	runAction(Shared::ActionHelpers::ChangePosition(mScrollbox->getContent(), e.pos, 0.5f, Common::Easing::CubicInOut));
 }
 
-void Gameplay::event(const Helpers::BlockGlobalScrollEvent& e)
+void GameplayScreen::event(const Helpers::BlockGlobalScrollEvent& e)
 {
 	mScrollbox->setTouchable(!e.blocked);
 }

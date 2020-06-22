@@ -9,6 +9,9 @@ namespace PhoneInc
 	public:
 		Screen();
 
+	public:
+		auto getContent() const { return mContent; }
+
 	protected:
 		void onEnterBegin() override;
 		void onEnterEnd() override;
@@ -20,5 +23,9 @@ namespace PhoneInc
 	protected:
 		std::unique_ptr<Common::Actions::Action> createEnterAction() override;
 		std::unique_ptr<Common::Actions::Action> createLeaveAction() override;
+
+	private:
+		std::shared_ptr<Scene::Node> mContent;
+		std::shared_ptr<Scene::Rectangle> mFadeRectangle;
 	};
 }
