@@ -98,7 +98,7 @@ void Application::event(const Profile::ProfileClearedEvent& e)
 	SCENE_MANAGER->popWindow(SCENE_MANAGER->getWindowsCount(), [this] {
 		SCENE_MANAGER->switchScreen(nullptr, [this] {
 			auto gameplay_screen = std::make_shared<GameplayScreen>();
-			gameplay_screen->runAction(Shared::ActionHelpers::ExecuteInfinite([this, gameplay_screen = std::weak_ptr(gameplay_screen)]{
+			gameplay_screen->runAction(Shared::ActionHelpers::ExecuteInfinite([this, gameplay_screen = std::weak_ptr<GameplayScreen>(gameplay_screen)]{
 				adaptToScreen(gameplay_screen.lock(), true);
 			}));
 			SCENE_MANAGER->switchScreen(gameplay_screen);
@@ -146,7 +146,7 @@ void Application::initializeScene()
 			// gameplay
 
 			auto gameplay_screen = std::make_shared<GameplayScreen>();
-			gameplay_screen->runAction(Shared::ActionHelpers::ExecuteInfinite([this, gameplay_screen = std::weak_ptr(gameplay_screen)] {
+			gameplay_screen->runAction(Shared::ActionHelpers::ExecuteInfinite([this, gameplay_screen = std::weak_ptr<GameplayScreen>(gameplay_screen)] {
 				adaptToScreen(gameplay_screen.lock(), true);
 			}));
 			SCENE_MANAGER->switchScreen(gameplay_screen);
