@@ -95,6 +95,9 @@ void Application::adaptToScreen(std::shared_ptr<Scene::Node> node, bool horizont
 
 void Application::event(const Profile::ProfileClearedEvent& e)
 {
+    if (!mSceneInitialized)
+        return;
+
 	SCENE_MANAGER->popWindow(SCENE_MANAGER->getWindowsCount(), [this] {
 		SCENE_MANAGER->switchScreen(nullptr, [this] {
 			auto gameplay_screen = std::make_shared<GameplayScreen>();
@@ -108,6 +111,8 @@ void Application::event(const Profile::ProfileClearedEvent& e)
 
 void Application::initializeScene()
 {
+    mSceneInitialized = true;
+
 	ENGINE->addSystem<Shared::SceneManager>(std::make_shared<Shared::SceneManager>());
 	Scene::Sampler::DefaultSampler = Renderer::Sampler::Linear;
 

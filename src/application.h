@@ -33,5 +33,6 @@ namespace PhoneInc
 
 	private:
 		Shared::SceneEditor mSceneEditor = Shared::SceneEditor(mGameScene);
+		bool mSceneInitialized = false;
 	};
 }
