@@ -22,8 +22,7 @@ namespace PhoneInc::Helpers
 
 	template <typename T> T GetRandomElement(const std::vector<T>& elements)
 	{
-        // TODO: int must be size_t, but size_t does not compiles in xcode
-		return elements.at(glm::linearRand<int>(0, elements.size() - 1));
+		return elements.at(glm::linearRand<int>(0, static_cast<int>(elements.size()) - 1));
     }
 
 	// classes
