@@ -86,6 +86,10 @@ void Application::adaptToScreen(std::shared_ptr<Scene::Node> node, bool horizont
 
 	auto scale = size / target;
 
+#if defined(PLATFORM_WINDOWS)
+	horizontal_priority = false;
+#endif
+
 	if (horizontal_priority) 
 	{
 		node->setScale(scale.x);
