@@ -60,8 +60,7 @@ namespace PhoneInc::Helpers
 
 	private:
 		void internalClick();
-		void recursiveColorSet(const glm::vec4& value, std::shared_ptr<Scene::Node> node = nullptr);
-
+		
 	public:
 		auto isActive() const { return mActive; }
 		void setActive(bool value);

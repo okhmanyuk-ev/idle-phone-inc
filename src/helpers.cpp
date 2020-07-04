@@ -123,8 +123,7 @@ void Button::onClick()
 void Button::onChooseBegin()
 {
 	Scene::Clickable<Scene::Sprite>::onChooseBegin();
-
-	recursiveColorSet(glm::vec4(1.25f), shared_from_this());
+	Shared::SceneHelpers::RecursiveColorSet(shared_from_this(), glm::vec4(1.25f));
 
 	if (mAutoclick)
 	{
@@ -137,8 +136,7 @@ void Button::onChooseBegin()
 void Button::onChooseEnd()
 {
 	Scene::Clickable<Scene::Sprite>::onChooseEnd();
-
-	recursiveColorSet(glm::vec4(1.0f), shared_from_this());
+	Shared::SceneHelpers::RecursiveColorSet(shared_from_this(), glm::vec4(1.0f));
 }
 
 void Button::internalClick()
@@ -150,21 +148,6 @@ void Button::internalClick()
 		executeCallback(mActiveCallback);
 	else
 		executeCallback(mInactiveCallback);
-}
-
-void Button::recursiveColorSet(const glm::vec4& value, std::shared_ptr<Scene::Node> node)
-{
-	for (auto child : node->getNodes())
-	{
-		recursiveColorSet(value, child);
-	}
-
-	auto color_node = std::dynamic_pointer_cast<Scene::Color>(node);
-
-	if (!color_node)
-		return;
-
-	color_node->setColor(value);
 }
 
 void Button::setActive(bool value)
