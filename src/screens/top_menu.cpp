@@ -7,12 +7,13 @@ TopMenu::TopMenu()
 {
 	setTouchable(true);
 	setTexture(TEXTURE("textures/top_menu/background.png"));
+	setVerticalOrigin(168.0f);
 	
 	auto settings_button = std::make_shared<Helpers::Button>();
 	settings_button->setTexture(TEXTURE("textures/top_menu/settings.png"));
 	settings_button->setPivot(0.5f);
-	settings_button->setAnchor({ 0.0f, 0.5f });
-	settings_button->setPosition({ 67.0f, 0.0f });
+	settings_button->setAnchor({ 0.0f, 1.0f });
+	settings_button->setPosition({ 67.0f, -56.0f });
 	attach(settings_button);
 
 	// money
@@ -20,8 +21,8 @@ TopMenu::TopMenu()
 	auto money_bg = std::make_shared<Scene::Sprite>();
 	money_bg->setTexture(TEXTURE("textures/top_menu/money_bg.png"));
 	money_bg->setPivot(0.5f);
-	money_bg->setAnchor({ 0.0f, 0.5f });
-	money_bg->setPosition({ 454.0f, 0.0f });
+	money_bg->setAnchor({ 0.0f, 1.0f });
+	money_bg->setPosition({ 454.0f, -56.0f });
 	attach(money_bg);
 
 	mCashLabel = std::make_shared<Helpers::LabelSolid>();
@@ -50,8 +51,8 @@ TopMenu::TopMenu()
 	auto coin_bg = std::make_shared<Scene::Sprite>();
 	coin_bg->setTexture(TEXTURE("textures/top_menu/coin_bg.png"));
 	coin_bg->setPivot(0.5f);
-	coin_bg->setAnchor({ 0.0f, 0.5f });
-	coin_bg->setPosition({ 900.0f, 0.0f });
+	coin_bg->setAnchor({ 0.0f, 1.0f });
+	coin_bg->setPosition({ 900.0f, -56.0f });
 	attach(coin_bg);
 
 	auto coin_text = std::make_shared<Helpers::LabelSolid>();

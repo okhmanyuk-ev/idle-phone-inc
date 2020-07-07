@@ -64,8 +64,9 @@ GameplayScreen::GameplayScreen()
 		top_menu->setY(unprojectedTopSafeMargin);
 		bottom_menu->setY(-unprojectedBottomSafeMargin);
 
-		mScrollbox->setY(top_menu->getY() + top_menu->getHeight());
-		mScrollbox->setHeight(getHeight() - mScrollbox->getY() - bottom_menu->getHeight() + bottom_menu->getY());
+		mScrollbox->setY(top_menu->getY() - top_menu->getVerticalOrigin() + top_menu->getHeight());
+		mScrollbox->setHeight(getHeight() - mScrollbox->getY() - bottom_menu->getHeight() + 
+			bottom_menu->getY() - bottom_menu->getVerticalOrigin());
 	}));
 }
 
