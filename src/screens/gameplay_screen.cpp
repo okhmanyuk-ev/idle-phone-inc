@@ -52,9 +52,17 @@ GameplayScreen::GameplayScreen()
 	root->attach(bottom_menu);
 
 	runAction(Shared::ActionHelpers::ExecuteInfinite([this, top_menu, bottom_menu] {
-		auto h = getHeight() - mScrollbox->getY() - bottom_menu->getHeight();
-		mScrollbox->setHeight(h);
-		mScrollbox->setY(top_menu->getHeight());
+		if (!isTransformReady())
+			return;
+
+		auto topSafeMargin = unproject({ 0.0f, PLATFORM->getSafeAreaTopMargin() }).y;
+		auto bottomSafeMargin = unproject({ 0.0f, PLATFORM->getSafeAreaBottomMargin() }).y;
+
+		top_menu->setY(topSafeMargin);
+		bottom_menu->setY(-bottomSafeMargin);
+
+		mScrollbox->setY(top_menu->getY() + top_menu->getHeight());
+		mScrollbox->setHeight(getHeight() - mScrollbox->getY() - bottom_menu->getHeight() + bottom_menu->getY());
 	}));
 }
 
