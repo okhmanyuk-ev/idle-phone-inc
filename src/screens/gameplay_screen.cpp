@@ -54,12 +54,15 @@ GameplayScreen::GameplayScreen()
 	runAction(Shared::ActionHelpers::ExecuteInfinite([this, top_menu, bottom_menu] {
 		if (!isTransformReady())
 			return;
+        
+        auto topSafeMargin = PLATFORM->getSafeAreaTopMargin() * PLATFORM->getScale();
+        auto bottomSafeMargin = PLATFORM->getSafeAreaBottomMargin() * PLATFORM->getScale();
+        
+		auto unprojectedTopSafeMargin = unproject({ 0.0f, topSafeMargin }).y;
+		auto unprojectedBottomSafeMargin = unproject({ 0.0f, bottomSafeMargin }).y;
 
-		auto topSafeMargin = unproject({ 0.0f, PLATFORM->getSafeAreaTopMargin() }).y;
-		auto bottomSafeMargin = unproject({ 0.0f, PLATFORM->getSafeAreaBottomMargin() }).y;
-
-		top_menu->setY(topSafeMargin);
-		bottom_menu->setY(-bottomSafeMargin);
+		top_menu->setY(unprojectedTopSafeMargin);
+		bottom_menu->setY(-unprojectedBottomSafeMargin);
 
 		mScrollbox->setY(top_menu->getY() + top_menu->getHeight());
 		mScrollbox->setHeight(getHeight() - mScrollbox->getY() - bottom_menu->getHeight() + bottom_menu->getY());
