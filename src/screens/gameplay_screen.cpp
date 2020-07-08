@@ -55,8 +55,8 @@ GameplayScreen::GameplayScreen()
 		if (!isTransformReady())
 			return;
         
-        auto topSafeMargin = PLATFORM->getSafeAreaTopMargin() * PLATFORM->getScale();
-        auto bottomSafeMargin = PLATFORM->getSafeAreaBottomMargin() * PLATFORM->getScale();
+        auto topSafeMargin = PLATFORM->getSafeAreaTopMargin();
+        auto bottomSafeMargin = PLATFORM->getSafeAreaBottomMargin();
         
 		auto unprojectedTopSafeMargin = unproject({ 0.0f, topSafeMargin }).y;
 		auto unprojectedBottomSafeMargin = unproject({ 0.0f, bottomSafeMargin }).y;
