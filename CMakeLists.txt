@@ -56,7 +56,6 @@ elseif(APPLE)
     source_group("all" FILES ${IOS_SRC})
 
     set(RESOURCES
-        ios/Main.storyboard
         ios/LaunchScreen.storyboard
         ios/Images.xcassets
         assets
