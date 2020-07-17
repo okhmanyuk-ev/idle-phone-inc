@@ -145,9 +145,15 @@ void Button::internalClick()
 
 	auto executeCallback = [](auto callback) { if (callback) callback(); };
 	if (isActive())
+	{
 		executeCallback(mActiveCallback);
+		AUDIO->play(mActiveSound);
+	}
 	else
+	{
 		executeCallback(mInactiveCallback);
+		AUDIO->play(mInactiveSound);
+	}
 }
 
 void Button::setActive(bool value)

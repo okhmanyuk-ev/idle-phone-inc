@@ -232,6 +232,7 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	mButton->getLabel()->setText("$ " + Helpers::NumberToString(Balance::GetRoomCost(index)));
 	mButton->setAnchor(0.5f);
 	mButton->setPivot(0.5f);
+	mButton->setActiveSound(SOUND("sounds/success.wav"));
 	mButton->setActiveCallback([this] {
 		mDollarEmitter->emitPack();
 		TUTOR->complete();
@@ -288,12 +289,18 @@ Factory::Room::PhonesStack::PhonesStack(int room_index) : mRoomIndex(room_index)
 
 		makeProduct();
 		TUTOR->complete();
+		AUDIO->play(SOUND("sounds/click.wav"));
 	});
 }
 
 void Factory::Room::PhonesStack::makeProduct()
 {
-	const auto& room = PROFILE->getRooms().at(mRoomIndex);
+	const auto& rooms = PROFILE->getRooms();
+
+	if (rooms.count(mRoomIndex) == 0)
+		return;
+
+	const auto& room = rooms.at(mRoomIndex);
 
 	auto produce_count = Balance::GetRoomProduceCount(mRoomIndex, room.product);
 

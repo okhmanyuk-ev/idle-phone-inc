@@ -44,9 +44,12 @@ BuildingWindow::BuildingWindow()
 	mUpgradeButton->setPosition({ 0.0f, 992.0f });
 	mUpgradeButton->setAutoclick(true);
 	mUpgradeButton->setActiveCallback([this] {
+		auto prev_stage = Balance::GetWarehouseStage();
 		PROFILE->spendCash(Balance::GetWarehouseCost());
 		PROFILE->setWarehouseLevel(PROFILE->getWarehouseLevel() + 1);
 		mDollarEmitter->emitPack();
+		if (Balance::GetWarehouseStage() != prev_stage)
+			AUDIO->play(SOUND("sounds/success.wav"));
 	});
 	white_bg->attach(mUpgradeButton);
 

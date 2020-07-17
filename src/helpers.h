@@ -80,6 +80,9 @@ namespace PhoneInc::Helpers
 		auto isAutoclick() const { return mAutoclick; }
 		void setAutoclick(bool value) { mAutoclick = value; }
 
+		void setActiveSound(std::shared_ptr<Audio::Sound> value) { mActiveSound = value; }
+		void setInactiveSound(std::shared_ptr<Audio::Sound> value) { mInactiveSound = value; }
+
 	private:
 		void ensureTexture();
 
@@ -87,6 +90,8 @@ namespace PhoneInc::Helpers
 		bool mActive = true;
 		std::shared_ptr<Renderer::Texture> mActiveTexture = nullptr;
 		std::shared_ptr<Renderer::Texture> mInactiveTexture = nullptr;
+		std::shared_ptr<Audio::Sound> mActiveSound = SOUND("sounds/click.wav");
+		std::shared_ptr<Audio::Sound> mInactiveSound = SOUND("sounds/click.wav");
 		Callback mActiveCallback = nullptr;
 		Callback mInactiveCallback = nullptr;
 		bool mAutoclick = false;

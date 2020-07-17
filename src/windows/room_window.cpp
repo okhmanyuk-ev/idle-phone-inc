@@ -328,6 +328,9 @@ void RoomWindow::ProductPanel::increaseLevel()
 	auto room = getRoom();
 	room.product += 1;
 	PROFILE->setRoom(getRoomIndex(), room);
+
+	if (Balance::GetProductStage(room.product) != Balance::GetProductStage(room.product - 1) || room.product == 1)
+		AUDIO->play(SOUND("sounds/success.wav"));
 }
 
 utf8_string RoomWindow::ProductPanel::getOpenButtonText() const
@@ -478,6 +481,9 @@ void RoomWindow::ManagerPanel::increaseLevel()
 	auto room = getRoom();
 	room.manager += 1;
 	PROFILE->setRoom(getRoomIndex(), room);
+
+	if (Balance::GetManagerStage(room.manager) != Balance::GetManagerStage(room.manager - 1) || room.manager == 1)
+		AUDIO->play(SOUND("sounds/success.wav"));
 }
 
 std::shared_ptr<Renderer::Texture> RoomWindow::ManagerPanel::getIconTexture() const
@@ -553,8 +559,12 @@ double RoomWindow::WorkerPanel::getUpgradeCost() const
 void RoomWindow::WorkerPanel::increaseLevel() 
 {
 	auto room = getRoom();
-	room.workers[mNumber - 1] += 1;
+	auto& worker = room.workers[mNumber - 1];
+	worker += 1;
 	PROFILE->setRoom(getRoomIndex(), room);
+
+	if (Balance::GetWorkerStage(worker) != Balance::GetWorkerStage(worker - 1) || worker == 1)
+		AUDIO->play(SOUND("sounds/success.wav"));
 }
 
 std::shared_ptr<Renderer::Texture> RoomWindow::WorkerPanel::getIconTexture() const
