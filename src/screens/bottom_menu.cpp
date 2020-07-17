@@ -1,5 +1,6 @@
 #include "bottom_menu.h"
 #include "helpers.h"
+#include "windows/bottom_menu_locked_window.h"
 
 using namespace PhoneInc;
 
@@ -9,6 +10,10 @@ BottomMenu::BottomMenu()
 	setTexture(TEXTURE("textures/bottom_menu/background.png"));
 	setVerticalOrigin(-153.0f);
 
+	auto openLockedWindow = [] {
+		SCENE_MANAGER->pushWindow(std::make_shared<BottomMenuLockedWindow>());
+	};
+
 	// video
 
 	auto video_button = std::make_shared<Helpers::Button>();
@@ -16,6 +21,7 @@ BottomMenu::BottomMenu()
 	video_button->setAnchor({ 0.5f, 0.0f });
 	video_button->setPivot({ 0.5f, 0.0f });
 	video_button->setY(-16.0f);
+	video_button->setClickCallback(openLockedWindow);
 	attach(video_button);
 
 	auto video_icon = std::make_shared<Scene::Sprite>();
@@ -35,11 +41,12 @@ BottomMenu::BottomMenu()
 
 	// shop
 
-	auto shop_icon = std::make_shared<Scene::Sprite>();
+	auto shop_icon = std::make_shared<Helpers::Button>();
 	shop_icon->setTexture(TEXTURE("textures/bottom_menu/shop.png"));
 	shop_icon->setAnchor({ 0.5f, 0.0f });
 	shop_icon->setPivot(0.5f);
 	shop_icon->setPosition({ -454.0f, -32.0f + 63.5 });
+	shop_icon->setClickCallback(openLockedWindow);
 	attach(shop_icon);
 
 	auto shop_text = std::make_shared<Helpers::Label>();
@@ -52,11 +59,12 @@ BottomMenu::BottomMenu()
 
 	// boosters
 
-	auto boosters_icon = std::make_shared<Scene::Sprite>();
+	auto boosters_icon = std::make_shared<Helpers::Button>();
 	boosters_icon->setTexture(TEXTURE("textures/bottom_menu/boosters.png"));
 	boosters_icon->setAnchor({ 0.5f, 0.0f });
 	boosters_icon->setPivot(0.5f);
 	boosters_icon->setPosition({ -257.0f, -28.0f + 63.5 });
+	boosters_icon->setClickCallback(openLockedWindow);
 	attach(boosters_icon);
 
 	auto boosters_text = std::make_shared<Helpers::Label>();
@@ -69,11 +77,12 @@ BottomMenu::BottomMenu()
 
 	// upgrades
 
-	auto upgrades_icon = std::make_shared<Scene::Sprite>();
+	auto upgrades_icon = std::make_shared<Helpers::Button>();
 	upgrades_icon->setTexture(TEXTURE("textures/bottom_menu/upgrades.png"));
 	upgrades_icon->setAnchor({ 0.5f, 0.0f });
 	upgrades_icon->setPivot(0.5f);
 	upgrades_icon->setPosition({ 264.0f, -29.0f + 63.5 });
+	upgrades_icon->setClickCallback(openLockedWindow);
 	attach(upgrades_icon);
 
 	auto upgrades_text = std::make_shared<Helpers::Label>();
@@ -86,11 +95,12 @@ BottomMenu::BottomMenu()
 
 	// map
 
-	auto map_icon = std::make_shared<Scene::Sprite>();
+	auto map_icon = std::make_shared<Helpers::Button>();
 	map_icon->setTexture(TEXTURE("textures/bottom_menu/map.png"));
 	map_icon->setAnchor({ 0.5f, 0.0f });
 	map_icon->setPivot(0.5f);
 	map_icon->setPosition({ 455.0f, -29.0f + 63.5 });
+	map_icon->setClickCallback(openLockedWindow);
 	attach(map_icon);
 
 	auto map_text = std::make_shared<Helpers::Label>();

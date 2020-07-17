@@ -61,3 +61,5 @@ WAREHOUSE_NAME_7:Station
 WAREHOUSE_NAME_8:Big Station
 WAREHOUSE_NAME_9:Citadel
 WAREHOUSE_NAME_10:Big Citadel
+
+BOTTOM_MENU_LOCKED_WINDOW_DESCRIPTION:Unlock first 7 rooms to open the menu
