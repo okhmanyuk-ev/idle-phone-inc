@@ -104,7 +104,7 @@ void Button::update()
 	internalClick();
 
 	mAutoclickCount += 1;
-	mNextAutoclick = MaxAutoclickTime / ((float)mAutoclickCount / 2.0f);
+	mNextAutoclick = MaxAutoclickTime / ((float)mAutoclickCount / 1.5f);
 }
 
 void Button::onClick()

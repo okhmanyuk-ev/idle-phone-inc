@@ -33,9 +33,11 @@ Application::Application() : RichApplication(PROJECT_CODE)
 	LOCALIZATION->setLanguage(Shared::LocalizationSystem::Language::English);
 
 	ENGINE->addSystem<Profile>(std::make_shared<Profile>());
-
+	
 	PROFILE->load();
 	PROFILE->setNightBackground(!PROFILE->isNightBackground());
+
+	ENGINE->addSystem<Microtasks>(std::make_shared<Microtasks>());
 
 	STYLEBOOK->load("stylebook.json");
 

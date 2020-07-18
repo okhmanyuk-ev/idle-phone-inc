@@ -8,6 +8,7 @@
 #include "screens/gameplay_screen.h"
 #include "helpers.h"
 #include "tutor.h"
+#include "microtasks.h"
 
 namespace PhoneInc
 {
