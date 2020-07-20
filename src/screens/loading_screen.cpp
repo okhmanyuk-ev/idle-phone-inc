@@ -24,13 +24,15 @@ void LoadingScreen::runTasks()
 {
 	auto seq = Shared::ActionHelpers::MakeSequence();
 
+	const float Duration = 0.5f / (float)mTasks.size();
+
 	for (size_t i = 0; i < mTasks.size(); i++)
 	{
-		seq->add(Shared::ActionHelpers::Insert([this, i] {
+		seq->add(Shared::ActionHelpers::Insert([this, i, Duration] {
 			auto start = mProgressbar->getProgress();
 			auto dest = float(i + 1) / (float)mTasks.size();
 
-			return Shared::ActionHelpers::Interpolate(start, dest, 0.25f, Common::Easing::Linear, [this](float value) {
+			return Shared::ActionHelpers::Interpolate(start, dest, Duration, Common::Easing::CubicInOut, [this](float value) {
 				mProgressbar->setProgress(value);
 			});
 		}));
