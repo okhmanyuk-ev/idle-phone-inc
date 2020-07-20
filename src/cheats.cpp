@@ -1,5 +1,6 @@
 #include "cheats.h"
 #include "balance.h"
+#include "microtasks.h"
 #include "helpers.h"
 
 using namespace PhoneInc;
@@ -163,6 +164,13 @@ void Cheats::ShowDevMenu()
 	{
 		STYLEBOOK->clear();
 		STYLEBOOK->load("stylebook.json");
+	}
+
+	categorySpacing();
+
+	if (ImGui::Button("COMPLETE MICROTASK"))
+	{
+		MICROTASKS->complete();
 	}
 
 	categorySpacing();

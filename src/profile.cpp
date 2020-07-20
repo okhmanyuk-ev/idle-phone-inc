@@ -63,6 +63,19 @@ void Profile::load()
 
 	if (json.contains("completed_tutors"))
 		mCompletedTutors = json["completed_tutors"].get<std::set<std::string>>();
+
+	if (json.contains("microtasks"))
+	{
+		for (auto field : json.at("microtasks").items())
+		{
+			auto type = Microtasks::StringToTaskType(field.key());
+			int progress = field.value();
+
+			mMicrotaskProgresses[type] = progress;
+		}
+	}
+
+	tryRead(mMicrotaskIndex, "microtask_index");
 }
 
 void Profile::save()
@@ -75,17 +88,25 @@ void Profile::save()
 
 	for (const auto& [index, room] : mRooms)
 	{
-		auto& value = json["rooms"][index];
-		value["product"] = room.product;
-		value["manager"] = room.manager;
-		value["worker1"] = room.workers[0];
-		value["worker2"] = room.workers[1];
-		value["worker3"] = room.workers[2];
+		auto& entry = json["rooms"][index];
+		entry["product"] = room.product;
+		entry["manager"] = room.manager;
+		entry["worker1"] = room.workers[0];
+		entry["worker2"] = room.workers[1];
+		entry["worker3"] = room.workers[2];
 	}
 
 	json["warehouse_level"] = mWarehouseLevel;
 	json["night_background"] = mNightBackground;
 	json["completed_tutors"] = mCompletedTutors;
+
+	for (const auto& [type, progress] : mMicrotaskProgresses)
+	{
+		auto& entry = json["microtasks"][Microtasks::TaskTypeToString(type)];
+		entry = progress;
+	}
+
+	json["microtask_index"] = mMicrotaskIndex;
 
 	auto bson = nlohmann::json::to_bson(json);
 	Platform::Asset::Write(PLATFORM->getAppFolder() + "save.bson", bson.data(), bson.size(), Platform::Asset::Path::Absolute);
@@ -101,6 +122,8 @@ void Profile::clear()
 	setWarehouseLevel(1);
 	setWarehouseStorage(0);
 	mCompletedTutors.clear();
+	mMicrotaskProgresses.clear();
+	mMicrotaskIndex = 0;
 }
 
 void Profile::saveAsync()
@@ -132,6 +155,7 @@ void Profile::unlockRoom(int index)
 	assert(isRoomLocked(index));
 	mRooms.insert({ index, Room() });
 	EVENT->emit(RoomUnlockedEvent({ index }));
+	setMicrotaskProgress(Microtasks::Task::Type::UnlockRooms, mRooms.size());
 	saveAsync();
 }
 
@@ -164,6 +188,13 @@ void Profile::setRoom(int index, Room value)
 	}
 	mRooms[index] = value;
 	EVENT->emit(RoomChangedEvent({ index }));
+
+	setMicrotaskProgress(Microtasks::Task::Type::ProductLevel, value.product);
+	setMicrotaskProgress(Microtasks::Task::Type::ManagerLevel, value.manager);
+	setMicrotaskProgress(Microtasks::Task::Type::WorkerLevel, value.workers[0]);
+	setMicrotaskProgress(Microtasks::Task::Type::WorkerLevel, value.workers[1]);
+	setMicrotaskProgress(Microtasks::Task::Type::WorkerLevel, value.workers[2]);
+
 	saveAsync();
 }
 
@@ -176,6 +207,7 @@ void Profile::setWarehouseLevel(int value)
 	assert(value <= Balance::MaxWarehouseLevel);
 	mWarehouseLevel = value;
 	EVENT->emit(WarehouseLevelChangedEvent());
+	setMicrotaskProgress(Microtasks::Task::Type::WarehouseLevel, value);
 	saveAsync();
 }
 
@@ -198,5 +230,23 @@ void Profile::setNightBackground(bool value) {
 void Profile::setTutorCompleted(const std::string& name)
 {
 	mCompletedTutors.insert(name);
+	saveAsync();
+}
+
+void Profile::setMicrotaskProgress(Microtasks::Task::Type type, int value)
+{
+	auto& progress = mMicrotaskProgresses[type];
+	
+	if (progress >= value)
+		return;
+
+	progress = value;
+	MICROTASKS->checkForCompletion();
+	saveAsync();
+}
+
+void Profile::setMicrotaskIndex(int value)
+{
+	mMicrotaskIndex = value;
 	saveAsync();
 }

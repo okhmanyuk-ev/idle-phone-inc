@@ -3,6 +3,8 @@
 #include "screen.h"
 #include "tutor.h"
 #include "helpers.h"
+#include "microtasks.h"
+#include "microtasks_holder.h"
 
 namespace PhoneInc
 {

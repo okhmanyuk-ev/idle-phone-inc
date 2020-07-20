@@ -3,6 +3,7 @@
 #include <shared/all.h>
 #include <array>
 #include "balance.h"
+#include "microtasks.h"
 
 #define PROFILE ENGINE->getSystem<PhoneInc::Profile>()
 
@@ -61,6 +62,12 @@ namespace PhoneInc
 		bool isTutorCompleted(const std::string& name) { return mCompletedTutors.count(name) > 0; }
 		void setTutorCompleted(const std::string& name);
 
+		void setMicrotaskProgress(Microtasks::Task::Type type, int value);
+		auto getMicrotaskProgress(Microtasks::Task::Type type) { return mMicrotaskProgresses[type]; }
+
+		void setMicrotaskIndex(int value);
+		auto getMicrotaskIndex() const { return mMicrotaskIndex; }
+
 	private:
 		double mCash = 0.0f;
 		std::map<int, Room> mRooms = { };
@@ -68,6 +75,8 @@ namespace PhoneInc
 		double mWarehouseStorage = 0;
 		bool mNightBackground = true;
 		std::set<std::string> mCompletedTutors = { };
+		std::map<Microtasks::Task::Type, int> mMicrotaskProgresses;
+		int mMicrotaskIndex = 0;
 	};
 
 	inline bool operator==(const Profile::Room& left, const Profile::Room& right)

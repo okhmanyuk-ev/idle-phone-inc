@@ -1,0 +1,9 @@
+{
+    "microtasks": [
+        { "type": "unlock_rooms",		"target": 1,	"reward": 100,	"locale": "MICROTASK_UNLOCK_ONE_ROOM" },
+        { "type": "worker_level",		"target": 10,	"reward": 100,	"locale": "MICROTASK_WORKER_LEVEL" },
+        { "type": "manager_level",		"target": 10,	"reward": 100,	"locale": "MICROTASK_MANAGER_LEVEL" },
+        { "type": "warehouse_level",	"target": 16,	"reward": 100,	"locale": "MICROTASK_WAREHOUSE_LEVEL" },
+        { "type": "product_level",		"target": 16,	"reward": 100,	"locale": "MICROTASK_PRODUCT_LEVEL" }
+    ]
+}

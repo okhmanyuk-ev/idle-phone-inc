@@ -18,10 +18,10 @@ GameplayScreen::GameplayScreen()
 
 	auto street = std::make_shared<Street>();
 	street->setHorizontalStretch(1.0f);
-	
+
 	auto factory = std::make_shared<Factory>();
 	factory->setHorizontalStretch(1.0f);
-	
+
 	auto width = 1080.0f;
 
 	auto grid = Shared::SceneHelpers::MakeVerticalGrid(width, {
@@ -54,10 +54,10 @@ GameplayScreen::GameplayScreen()
 	runAction(Shared::ActionHelpers::ExecuteInfinite([this, top_menu, bottom_menu] {
 		if (!isTransformReady())
 			return;
-        
-        auto topSafeMargin = PLATFORM->getSafeAreaTopMargin();
-        auto bottomSafeMargin = PLATFORM->getSafeAreaBottomMargin();
-        
+
+		auto topSafeMargin = PLATFORM->getSafeAreaTopMargin();
+		auto bottomSafeMargin = PLATFORM->getSafeAreaBottomMargin();
+
 		auto unprojectedTopSafeMargin = unproject({ 0.0f, topSafeMargin }).y;
 		auto unprojectedBottomSafeMargin = unproject({ 0.0f, bottomSafeMargin }).y;
 
@@ -65,9 +65,22 @@ GameplayScreen::GameplayScreen()
 		bottom_menu->setY(-unprojectedBottomSafeMargin);
 
 		mScrollbox->setY(top_menu->getY() - top_menu->getVerticalOrigin() + top_menu->getHeight());
-		mScrollbox->setHeight(getHeight() - mScrollbox->getY() - bottom_menu->getHeight() + 
+		mScrollbox->setHeight(getHeight() - mScrollbox->getY() - bottom_menu->getHeight() +
 			bottom_menu->getY() - bottom_menu->getVerticalOrigin());
 	}));
+
+	// microtasks
+
+	auto microtasks = std::make_shared<MicrotasksHolder>();
+	street->attach(microtasks);
+
+	auto predicate = [this] { 
+		return getState() != State::Entered; 
+	};
+
+	runAction(Shared::ActionHelpers::Delayed(predicate, Shared::ActionHelpers::Execute([microtasks] {
+		microtasks->start();
+	})));
 }
 
 void GameplayScreen::event(const Helpers::MoveGlobalScrollEvent& e)
