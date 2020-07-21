@@ -38,6 +38,8 @@ Application::Application() : RichApplication(PROJECT_CODE)
 	PROFILE->load();
 	PROFILE->setNightBackground(!PROFILE->isNightBackground());
 
+	MICROTASKS->checkForCompletion();
+
 	STYLEBOOK->load("stylebook.json");
 
 	PLATFORM->initializeBilling({

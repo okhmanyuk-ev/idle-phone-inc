@@ -7,6 +7,7 @@
 namespace PhoneInc
 {
 	class MicrotasksHolder : public Scene::Actionable<Scene::Node>,
+		public Common::EventSystem::Listenable<Microtasks::TaskReadyEvent>,
 		public Common::EventSystem::Listenable<Microtasks::TaskCompletedEvent>
 	{
 	public:
@@ -19,8 +20,10 @@ namespace PhoneInc
 		void show();
 		void hide(std::function<void()> finishCallback);
 		void refresh();
+		void refreshWithAnim();
 
 	private:
+		void event(const Microtasks::TaskReadyEvent& e) override;
 		void event(const Microtasks::TaskCompletedEvent& e) override;
 
 	private:
@@ -28,5 +31,6 @@ namespace PhoneInc
 		std::shared_ptr<Scene::Sprite> mBackground;
 		std::shared_ptr<Scene::Sprite> mIcon;
 		std::shared_ptr<Helpers::Label> mLabel;
+		std::shared_ptr<Helpers::StandardLongButton> mRewardButton;
 	};
 }

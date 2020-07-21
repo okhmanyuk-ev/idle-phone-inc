@@ -9,6 +9,7 @@ namespace PhoneInc
 	class Microtasks
 	{
 	public:
+		struct TaskReadyEvent { };
 		struct TaskCompletedEvent { };
 
 		struct Task
@@ -37,15 +38,17 @@ namespace PhoneInc
 		Microtasks();
 
 	public:
-		void complete(); // published for cheats
 		void checkForCompletion();
+		void complete();
 
 	public:
 		const Task& getCurrentTask() const;
 		const auto& getTasks() const { return mTasks; }
 		bool hasUnfinishedTasks() const;
+		bool isReady() const { return mReady; }
 
 	private:
 		std::vector<Task> mTasks;
+		bool mReady = false;
 	};
 }

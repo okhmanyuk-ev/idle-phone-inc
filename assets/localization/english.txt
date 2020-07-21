@@ -69,3 +69,5 @@ MICROTASK_UNLOCK_ONE_ROOM:Откройте новый корпус
 MICROTASK_WORKER_LEVEL:Улучшите рабочего до {} уровня
 MICROTASK_WAREHOUSE_LEVEL:Улучшите склад до {} уровня
 MICROTASK_PRODUCT_LEVEL:Улучшите телефон до {} уровня
+
+MICROTASK_REWARD_BUTTON:Take reward

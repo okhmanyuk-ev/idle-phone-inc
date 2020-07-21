@@ -168,13 +168,6 @@ void Cheats::ShowDevMenu()
 
 	categorySpacing();
 
-	if (ImGui::Button("COMPLETE MICROTASK"))
-	{
-		MICROTASKS->complete();
-	}
-
-	categorySpacing();
-
 	if (ImGui::Button("CLEAR PROFILE"))
 	{
 		PROFILE->clear();

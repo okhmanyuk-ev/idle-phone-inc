@@ -55,13 +55,20 @@ Microtasks::Microtasks()
 
 void Microtasks::checkForCompletion()
 {
+	if (mReady)
+		return;
+
+	if (!hasUnfinishedTasks())
+		return;
+
 	const auto& task = getCurrentTask();
 	auto progress = PROFILE->getMicrotaskProgress(task.type);
 	
 	if (progress < task.target)
 		return;
 
-	complete();
+	mReady = true;
+	EVENT->emit(TaskReadyEvent());
 }
 
 const Microtasks::Task& Microtasks::getCurrentTask() const
@@ -79,5 +86,6 @@ bool Microtasks::hasUnfinishedTasks() const
 void Microtasks::complete()
 {
 	PROFILE->setMicrotaskIndex(PROFILE->getMicrotaskIndex() + 1);
+	mReady = false;
 	EVENT->emit(TaskCompletedEvent());
 }
