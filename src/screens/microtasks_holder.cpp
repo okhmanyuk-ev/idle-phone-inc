@@ -38,8 +38,11 @@ MicrotasksHolder::MicrotasksHolder()
 	mRewardButton->setPivot({ 0.5f, 0.0f });
 	mRewardButton->setY(32.0f);
 	mRewardButton->getLabel()->setText(LOCALIZE("MICROTASK_REWARD_BUTTON"));
-	mRewardButton->setActiveCallback([] {
-		MICROTASKS->complete();
+	mRewardButton->setActiveCallback([this] {
+		runAction(Shared::ActionHelpers::Delayed(0.25f, Shared::ActionHelpers::Execute([this] {
+			MICROTASKS->complete();
+		})));
+		mRewardButton->setEnabled(false);
 	});
 	mBackground->attach(mRewardButton);
 }
