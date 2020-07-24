@@ -124,6 +124,7 @@ void Profile::clear()
 	mCompletedTutors.clear();
 	mMicrotaskProgresses.clear();
 	mMicrotaskIndex = 0;
+	MICROTASKS->clear();
 }
 
 void Profile::saveAsync()

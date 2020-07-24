@@ -73,13 +73,18 @@ void RoomWindow::refresh()
 
 bool RoomWindow::CanUpgradeSomething(int room_index)
 {
-	const auto& room = PROFILE->getRooms().at(room_index);
+	const auto& rooms = PROFILE->getRooms();
+
+	if (rooms.count(room_index) == 0)
+		return false;
+
+	const auto& room = rooms.at(room_index);
 
 	bool can_product = PROFILE->isEnoughCash(Balance::GetRoomProductCost(room_index, room.product));
 	bool can_manager = PROFILE->isEnoughCash(Balance::GetRoomManagerCost(room_index, room.manager)); 
-	bool can_worker1 = PROFILE->isEnoughCash(Balance::GetRoomManagerCost(room_index, room.workers[0]));
-	bool can_worker2 = PROFILE->isEnoughCash(Balance::GetRoomManagerCost(room_index, room.workers[1]));
-	bool can_worker3 = PROFILE->isEnoughCash(Balance::GetRoomManagerCost(room_index, room.workers[2]));
+	bool can_worker1 = PROFILE->isEnoughCash(Balance::GetRoomWorkerCost(room_index, room.workers[0], 1));
+	bool can_worker2 = PROFILE->isEnoughCash(Balance::GetRoomWorkerCost(room_index, room.workers[1], 2));
+	bool can_worker3 = PROFILE->isEnoughCash(Balance::GetRoomWorkerCost(room_index, room.workers[2], 3));
 
 	return
 		can_product |

@@ -1,9 +1,22 @@
 {
     "microtasks": [
-        { "type": "unlock_rooms",		"target": 1,	"reward": 100,	"locale": "MICROTASK_UNLOCK_ONE_ROOM" },
-        { "type": "worker_level",		"target": 10,	"reward": 100,	"locale": "MICROTASK_WORKER_LEVEL" },
-        { "type": "manager_level",		"target": 10,	"reward": 100,	"locale": "MICROTASK_MANAGER_LEVEL" },
-        { "type": "warehouse_level",	"target": 16,	"reward": 100,	"locale": "MICROTASK_WAREHOUSE_LEVEL" },
-        { "type": "product_level",		"target": 16,	"reward": 100,	"locale": "MICROTASK_PRODUCT_LEVEL" }
+        { "type": "manager_level",      "target": 1,    "reward": 1,    "locale": "MICROTASK_HIRE_MANAGER" },
+        { "type": "product_level",      "target": 5,    "reward": 4,    "locale": "MICROTASK_PRODUCT_LEVEL" },
+        { "type": "warehouse_level",	"target": 5,	"reward": 10,	"locale": "MICROTASK_WAREHOUSE_LEVEL" },
+        { "type": "worker_level",		"target": 10,	"reward": 15,	"locale": "MICROTASK_WORKER_LEVEL" },
+        { "type": "manager_level",		"target": 15,	"reward": 20,	"locale": "MICROTASK_MANAGER_LEVEL" },
+        { "type": "unlock_rooms",		"target": 2,	"reward": 25,	"locale": "MICROTASK_UNLOCK_ONE_ROOM" },
+        { "type": "warehouse_level",	"target": 10,	"reward": 10,	"locale": "MICROTASK_WAREHOUSE_LEVEL" },
+        { "type": "product_level",      "target": 20,   "reward": 4,    "locale": "MICROTASK_PRODUCT_LEVEL" },
+        { "type": "manager_level",		"target": 30,   "reward": 20,	"locale": "MICROTASK_MANAGER_LEVEL" },
+        { "type": "unlock_rooms",		"target": 3,	"reward": 25,	"locale": "MICROTASK_UNLOCK_ONE_ROOM" },
+        { "type": "warehouse_level",    "target": 20,   "reward": 20,	"locale": "MICROTASK_WAREHOUSE_LEVEL" },
+        { "type": "unlock_rooms",		"target": 4,	"reward": 25,	"locale": "MICROTASK_UNLOCK_ONE_ROOM" },
+        { "type": "product_level",      "target": 75,   "reward": 4,    "locale": "MICROTASK_PRODUCT_LEVEL" },
+        { "type": "warehouse_level",    "target": 25,   "reward": 20,	"locale": "MICROTASK_WAREHOUSE_LEVEL" },
+        { "type": "unlock_rooms",		"target": 5,	"reward": 25,	"locale": "MICROTASK_UNLOCK_ONE_ROOM" },
+        { "type": "warehouse_level",    "target": 35,   "reward": 20,	"locale": "MICROTASK_WAREHOUSE_LEVEL" },
+        { "type": "unlock_rooms",		"target": 6,	"reward": 25,	"locale": "MICROTASK_UNLOCK_ONE_ROOM" },
+        { "type": "unlock_rooms",		"target": 7,	"reward": 25,	"locale": "MICROTASK_UNLOCK_ONE_ROOM" }
     ]
 }

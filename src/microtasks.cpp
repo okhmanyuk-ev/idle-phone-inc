@@ -89,3 +89,8 @@ void Microtasks::complete()
 	mReady = false;
 	EVENT->emit(TaskCompletedEvent());
 }
+
+void Microtasks::clear()
+{
+	mReady = false;
+}

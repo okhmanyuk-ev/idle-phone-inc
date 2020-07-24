@@ -40,6 +40,7 @@ namespace PhoneInc
 	public:
 		void checkForCompletion();
 		void complete();
+		void clear();
 
 	public:
 		const Task& getCurrentTask() const;

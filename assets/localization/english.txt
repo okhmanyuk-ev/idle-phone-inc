@@ -64,10 +64,11 @@ WAREHOUSE_NAME_10:Big Citadel
 
 BOTTOM_MENU_LOCKED_WINDOW_DESCRIPTION:Unlock first 7 rooms to open the menu
 
-MICROTASK_MANAGER_LEVEL:Улучшите менеджера до {} уровня
-MICROTASK_UNLOCK_ONE_ROOM:Откройте новый корпус
-MICROTASK_WORKER_LEVEL:Улучшите рабочего до {} уровня
-MICROTASK_WAREHOUSE_LEVEL:Улучшите склад до {} уровня
-MICROTASK_PRODUCT_LEVEL:Улучшите телефон до {} уровня
+MICROTASK_HIRE_MANAGER:Hire a manager
+MICROTASK_MANAGER_LEVEL:Upgrade manager to level {}
+MICROTASK_UNLOCK_ONE_ROOM:Unlock a new room
+MICROTASK_WORKER_LEVEL:Upgrade worker to level {}
+MICROTASK_WAREHOUSE_LEVEL:Upgrade warehouse to level {}
+MICROTASK_PRODUCT_LEVEL:Upgrade product to level {}
 
 MICROTASK_REWARD_BUTTON:Take reward
