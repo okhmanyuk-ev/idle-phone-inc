@@ -13,7 +13,7 @@ double Balance::GetRoomProductCost(int room_index, int product_level)
 {
 	auto result = 20.0;
 	
-	result *= glm::pow(1.3, (double)product_level);
+	result *= glm::pow(1.2, (double)product_level);
 	result *= glm::pow(3.2, (double)room_index);
 
 	return result;
@@ -44,7 +44,7 @@ double Balance::GetRoomProduceCount(int room_index, int product_level)
 {
 	auto result = (double)PhonesStackCount;
 	
-	result *= glm::pow(1.2, (double)(product_level - 1));
+	result *= glm::pow(1.1, (double)(product_level - 1));
 	result *= glm::pow(1.6, (double)room_index);
 
 	return result;
