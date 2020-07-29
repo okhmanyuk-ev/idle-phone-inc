@@ -33,6 +33,7 @@ void Profile::load()
 	};
 	
 	tryRead(mCash, "cash");
+    tryRead(mCoins, "coins");
 
 	if (json.contains("rooms"))
 	{
@@ -85,6 +86,7 @@ void Profile::save()
 	auto json = nlohmann::json();
 	
 	json["cash"] = mCash;
+    json["coins"] = mCoins;
 
 	for (const auto& [index, room] : mRooms)
 	{
@@ -168,6 +170,16 @@ void Profile::setCash(double value)
 	mCash = value;
 	EVENT->emit(CashChangedEvent());
 	saveAsync();
+}
+
+void Profile::setCoins(double value)
+{
+    if (mCoins == value)
+        return;
+    
+    mCoins = value;
+    EVENT->emit(CoinsChangedEvent());
+    saveAsync();
 }
 
 void Profile::setRoom(int index, Room value)

@@ -85,6 +85,8 @@ bool Microtasks::hasUnfinishedTasks() const
 
 void Microtasks::complete()
 {
+    const auto& task = getCurrentTask();
+    PROFILE->setCoins(PROFILE->getCoins() + task.reward);
 	PROFILE->setMicrotaskIndex(PROFILE->getMicrotaskIndex() + 1);
 	mReady = false;
 	EVENT->emit(TaskCompletedEvent());

@@ -14,6 +14,7 @@ namespace PhoneInc
 	public:
 		struct ProfileClearedEvent { };
 		struct CashChangedEvent { };
+        struct CoinsChangedEvent { };
 		struct RoomUnlockedEvent { int index; };
 		struct RoomChangedEvent { int index; };
 		struct WarehouseLevelChangedEvent { };
@@ -46,6 +47,9 @@ namespace PhoneInc
 	public:
 		auto getCash() const { return mCash; }
 		void setCash(double value);
+        
+        auto getCoins() const { return mCoins; }
+        void setCoins(double value);
 		
 		const auto& getRooms() const { return mRooms; }
 		void setRoom(int index, Room value);
@@ -70,6 +74,7 @@ namespace PhoneInc
 
 	private:
 		double mCash = 0.0f;
+        double mCoins = 0.0f;
 		std::map<int, Room> mRooms = { };
 		int mWarehouseLevel = 0;
 		double mWarehouseStorage = 0;
