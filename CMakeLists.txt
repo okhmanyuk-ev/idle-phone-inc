@@ -91,6 +91,11 @@ elseif(APPLE)
         "-framework FBSDKCoreKit"
         "-framework FBSDKLoginKit"
         "-framework FBSDKShareKit"
+        
+        # tenjin
+        "-framework AdSupport"
+        "-framework StoreKit"
+        "-framework iAd"
     )
     
 elseif(ANDROID)
@@ -108,3 +113,11 @@ target_include_directories(${PROJECT_NAME} PUBLIC src)
 add_subdirectory(sky)
 target_link_libraries(${PROJECT_NAME} sky)
 copy_required_libs(${PROJECT_NAME})
+
+# tenjin sdk
+
+if(APPLE)
+target_include_directories(${PROJECT_NAME} PUBLIC ios/tenjin-sdk/include)
+target_link_libraries(${PROJECT_NAME} debug ${PROJECT_SOURCE_DIR}/ios/tenjin-sdk/lib/libTenjinSDK.a)
+target_link_libraries(${PROJECT_NAME} optimized ${PROJECT_SOURCE_DIR}/ios/tenjin-sdk/lib/libTenjinSDKUniversal.a)
+endif()

@@ -1,5 +1,6 @@
 #import <platform/system_ios.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <TenjinSDK.h>
 
 @interface AppDelegate : SkyDelegate
 
@@ -10,7 +11,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // tenjin
+    [TenjinSDK init:@"16CM9RAXOZCSZH9YDN749D42CFY3QGVM"]; // homa games
+    [TenjinSDK connect];
+    
+    // fb
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    
     return [super application: application didFinishLaunchingWithOptions:launchOptions];
 }
 
