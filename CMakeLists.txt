@@ -1,12 +1,19 @@
 cmake_minimum_required(VERSION 3.8.0)
 project(phoneinc)
 
-set(PRODUCT_NAME "Idle Phone Inc")
+set(PRODUCT_NAME "Idle Phone Inc.")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # main
+
+if(BUILD_DEVELOPER)
+	add_definitions(-DBUILD_DEVELOPER)
+endif()
+
+add_definitions(-DPROJECT_NAME="${PROJECT_NAME}")
+add_definitions(-DPRODUCT_NAME="${PRODUCT_NAME}")
 
 file(GLOB MAIN_SRC
 	src/*.cpp

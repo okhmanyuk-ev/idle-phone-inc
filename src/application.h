@@ -1,7 +1,6 @@
 #pragma once
 
 #include <shared/all.h>
-#include "defines.h"
 #include "profile.h"
 #include "cheats.h"
 #include "screens/loading_screen.h"

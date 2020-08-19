@@ -7,9 +7,9 @@
 
 using namespace PhoneInc;
 
-Application::Application() : RichApplication(PROJECT_CODE)
+Application::Application() : RichApplication(PROJECT_NAME)
 {
-	PLATFORM->setTitle(PROJECT_NAME);
+	PLATFORM->setTitle(PRODUCT_NAME);
 	PLATFORM->resize(360, 640);
 #if !defined(PLATFORM_MOBILE)
 	PLATFORM->rescale(1.5f);

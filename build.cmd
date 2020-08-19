@@ -1,5 +1,5 @@
 mkdir build
 cd build
-cmake ..
+cmake .. -DBUILD_DEVELOPER=TRUE
 cd ..
 pause
