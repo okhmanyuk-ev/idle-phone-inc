@@ -21,7 +21,7 @@ namespace PhoneInc
 
 	private:
 		void frame() override;
-		void adaptToScreen(std::shared_ptr<Scene::Node> node, bool horizontal_priority);
+		void adaptToScreen(std::shared_ptr<Scene::Node> node);
 
 		void initializeScene();
 

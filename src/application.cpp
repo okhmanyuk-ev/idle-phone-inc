@@ -76,12 +76,12 @@ Application::~Application()
 
 void Application::frame()
 {
-	adaptToScreen(SCENE_MANAGER->getWindowHolder(), false);
+	adaptToScreen(mGameScene.getRoot());
 	mGameScene.frame();
 	Cheats::ShowDevMenu();
 }
 
-void Application::adaptToScreen(std::shared_ptr<Scene::Node> node, bool horizontal_priority)
+void Application::adaptToScreen(std::shared_ptr<Scene::Node> node)
 {
 	const glm::vec2 target = { 1080.0f, 1920.0f };
 
@@ -89,18 +89,7 @@ void Application::adaptToScreen(std::shared_ptr<Scene::Node> node, bool horizont
 
 	auto scale = size / target;
 
-#if defined(PLATFORM_WINDOWS)
-	horizontal_priority = false;
-#endif
-
-	if (horizontal_priority) 
-	{
-		node->setScale(scale.x);
-	}
-	else
-	{
-		node->setScale(glm::min(scale.x, scale.y));
-	}
+	node->setScale(glm::min(scale.x, scale.y));
 }
 
 void Application::event(const Profile::ProfileClearedEvent& e)
@@ -110,11 +99,7 @@ void Application::event(const Profile::ProfileClearedEvent& e)
 
 	SCENE_MANAGER->popWindow(SCENE_MANAGER->getWindowsCount(), [this] {
 		SCENE_MANAGER->switchScreen(nullptr, [this] {
-			auto gameplay_screen = std::make_shared<GameplayScreen>();
-			gameplay_screen->runAction(Shared::ActionHelpers::ExecuteInfinite([this, gameplay_screen = std::weak_ptr<GameplayScreen>(gameplay_screen)]{
-				adaptToScreen(gameplay_screen.lock(), true);
-			}));
-			SCENE_MANAGER->switchScreen(gameplay_screen);
+			SCENE_MANAGER->switchScreen(std::make_shared<GameplayScreen>());
 		});
 	});
 }
@@ -142,36 +127,22 @@ void Application::initializeScene()
 			// particles holder
 
 			auto particles_holder = std::make_shared<Scene::Actionable<Scene::Node>>();
-			particles_holder->runAction(Shared::ActionHelpers::ExecuteInfinite([particles_holder, this] {
-				adaptToScreen(particles_holder, false);
-			}));
 			root->attach(particles_holder);
 			Helpers::DollarEmitter::Holder = particles_holder;
 
 			// turor holder
 
 			auto tutor_holder = std::make_shared<TutorHolder>();
-			tutor_holder->runAction(Shared::ActionHelpers::ExecuteInfinite([this, tutor_holder] {
-				adaptToScreen(tutor_holder, false);
-			})); 
 			root->attach(tutor_holder);
 
 			ENGINE->addSystem<TutorialSystem>(tutor_holder);
 
 			// gameplay
 
-			auto gameplay_screen = std::make_shared<GameplayScreen>();
-			gameplay_screen->runAction(Shared::ActionHelpers::ExecuteInfinite([this, gameplay_screen = std::weak_ptr<GameplayScreen>(gameplay_screen)] {
-				adaptToScreen(gameplay_screen.lock(), true);
-			}));
-			SCENE_MANAGER->switchScreen(gameplay_screen);
+			SCENE_MANAGER->switchScreen(std::make_shared<GameplayScreen>());
 		}
 	});
 	SCENE_MANAGER->switchScreen(loading, [loading] {
 		loading->runTasks();
 	});
-
-	loading->runAction(Shared::ActionHelpers::ExecuteInfinite([this, loading] {
-		adaptToScreen(loading, false);
-	}));
 }
