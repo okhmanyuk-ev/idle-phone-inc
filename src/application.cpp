@@ -76,19 +76,15 @@ Application::~Application()
 
 void Application::frame()
 {
-	adaptToScreen(mGameScene.getRoot());
+	adaptToScreen(mGameScene.getRoot(), { 1080.0f, 1920.0f });
 	mGameScene.frame();
 	Cheats::ShowDevMenu();
 }
 
-void Application::adaptToScreen(std::shared_ptr<Scene::Node> node)
+void Application::adaptToScreen(std::shared_ptr<Scene::Node> node, const glm::vec2& dimensions)
 {
-	const glm::vec2 target = { 1080.0f, 1920.0f };
-
 	glm::vec2 size = { (float)PLATFORM->getLogicalWidth(), (float)PLATFORM->getLogicalHeight() };
-
-	auto scale = size / target;
-
+	auto scale = size / dimensions;
 	node->setScale(glm::min(scale.x, scale.y));
 }
 
@@ -97,8 +93,8 @@ void Application::event(const Profile::ProfileClearedEvent& e)
     if (!mSceneInitialized)
         return;
 
-	SCENE_MANAGER->popWindow(SCENE_MANAGER->getWindowsCount(), [this] {
-		SCENE_MANAGER->switchScreen(nullptr, [this] {
+	SCENE_MANAGER->popWindow(SCENE_MANAGER->getWindowsCount(), [] {
+		SCENE_MANAGER->switchScreen(nullptr, [] {
 			SCENE_MANAGER->switchScreen(std::make_shared<GameplayScreen>());
 		});
 	});
@@ -118,7 +114,7 @@ void Application::initializeScene()
 	loading->setTasks({
 		[] { PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Medium.ttf", "default"); },
 		[] { PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Bold.ttf", "default_bold"); },
-		[this, root] {
+		[root] {
 			// prepare
 			
 			FONT("default")->setCustomVerticalOffset(-4.0f);
