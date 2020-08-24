@@ -9,10 +9,9 @@
 
 namespace PhoneInc
 {
-	class Profile
+	class Profile : public Shared::Profile
 	{
 	public:
-		struct ProfileClearedEvent { };
 		struct CashChangedEvent { };
         struct CoinsChangedEvent { };
 		struct RoomUnlockedEvent { int index; };
@@ -28,14 +27,10 @@ namespace PhoneInc
 			std::array<int, Balance::MaxWorkersCount> workers = { 0, 0, 0 };
 		};
 
-	public:
-		void load();
-		void save();
-		void saveAsync();
-		void clear();
-
-	private:
-		std::mutex mSaveMutex;
+	protected:
+		void read(const nlohmann::json& json) override;
+		void write(nlohmann::json& json) override;
+		void makeDefault() override;
 
 	public:
 		bool isEnoughCash(double value) const;

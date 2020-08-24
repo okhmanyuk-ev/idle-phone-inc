@@ -2,31 +2,8 @@
 
 using namespace PhoneInc;
 
-void Profile::load()
+void Profile::read(const nlohmann::json& json)
 {
-	auto path = PLATFORM->getAppFolder() + "save.bson";
-
-	if (!Platform::Asset::Exists(path, Platform::Asset::Path::Absolute))
-	{
-		clear();
-		return;
-	}
-
-	auto json_file = Platform::Asset(path, Platform::Asset::Path::Absolute);
-	nlohmann::json json;
-	
-	try
-	{
-		json = nlohmann::json::from_bson(std::string((char*)json_file.getMemory(), json_file.getSize()));
-	}
-	catch (const std::exception& e)
-	{
-		LOGC(e.what(), Console::Color::Red);
-		LOGC("making new profile", Console::Color::Green);
-		clear();
-		return;
-	}
-
 	auto tryRead = [json](auto& src, auto name) {
 		if (json.contains(name))
 			src = json.at(name);
@@ -79,12 +56,8 @@ void Profile::load()
 	tryRead(mMicrotaskIndex, "microtask_index");
 }
 
-void Profile::save()
-{
-	mSaveMutex.lock();
-
-	auto json = nlohmann::json();
-	
+void Profile::write(nlohmann::json& json)
+{	
 	json["cash"] = mCash;
     json["coins"] = mCoins;
 
@@ -109,16 +82,10 @@ void Profile::save()
 	}
 
 	json["microtask_index"] = mMicrotaskIndex;
-
-	auto bson = nlohmann::json::to_bson(json);
-	Platform::Asset::Write(PLATFORM->getAppFolder() + "save.bson", bson.data(), bson.size(), Platform::Asset::Path::Absolute);
-
-	mSaveMutex.unlock();
 }
 
-void Profile::clear()
+void Profile::makeDefault()
 {
-	EVENT->emit(ProfileClearedEvent());
 	setCash(Balance::StartCash);
 	mRooms.clear();
 	setWarehouseLevel(1);
@@ -127,13 +94,6 @@ void Profile::clear()
 	mMicrotaskProgresses.clear();
 	mMicrotaskIndex = 0;
 	MICROTASKS->clear();
-}
-
-void Profile::saveAsync()
-{
-	TASK->addTask([this] {
-		save();
-	});
 }
 
 bool Profile::isEnoughCash(double value) const

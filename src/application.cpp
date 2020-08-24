@@ -90,9 +90,6 @@ void Application::adaptToScreen(std::shared_ptr<Scene::Node> node, const glm::ve
 
 void Application::event(const Profile::ProfileClearedEvent& e)
 {
-    if (!mSceneInitialized)
-        return;
-
 	SCENE_MANAGER->popWindow(SCENE_MANAGER->getWindowsCount(), [] {
 		SCENE_MANAGER->switchScreen(nullptr, [] {
 			SCENE_MANAGER->switchScreen(std::make_shared<GameplayScreen>());
