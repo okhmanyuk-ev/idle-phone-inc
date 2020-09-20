@@ -20,9 +20,6 @@ Application::Application() : RichApplication(PROJECT_NAME)
 
 	std::srand((unsigned int)std::time(nullptr));
 
-	CONSOLE->registerCVar("g_editor", { "bool" }, CVAR_GETTER_BOOL_FUNC(mSceneEditor.isEnabled), CVAR_SETTER_BOOL_FUNC(mSceneEditor.setEnabled));
-	CONSOLE->registerCVar("g_stats", { "bool" }, CVAR_GETTER_BOOL_FUNC(STATS->isEnabled), CVAR_SETTER_BOOL_FUNC(STATS->setEnabled));
-
 	STATS->setAlignment(Shared::StatsSystem::Align::BottomRight);
 
 	mGameScene.setInteractTestCallback([](const auto& pos) {
