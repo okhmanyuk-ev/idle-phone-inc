@@ -11,7 +11,7 @@
 
 namespace PhoneInc
 {
-	class Application : public Shared::RichApplication,
+	class Application : public Shared::Application,
 		public Common::FrameSystem::Frameable,
 		public Common::EventSystem::Listenable<Profile::ProfileClearedEvent>
 	{
@@ -27,12 +27,5 @@ namespace PhoneInc
 
 	public:
 		void event(const Profile::ProfileClearedEvent& e) override;
-
-	private:
-		Scene::Scene mGameScene;
-
-	private:
-		Shared::SceneEditor mSceneEditor = Shared::SceneEditor(mGameScene);
-		bool mSceneInitialized = false;
 	};
 }

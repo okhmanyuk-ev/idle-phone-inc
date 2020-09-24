@@ -7,7 +7,7 @@
 
 using namespace PhoneInc;
 
-Application::Application() : RichApplication(PROJECT_NAME)
+Application::Application() : Shared::Application(PROJECT_NAME, { Flag::Audio, Flag::Scene })
 {
 	PLATFORM->setTitle(PRODUCT_NAME);
 	PLATFORM->resize(360, 640);
@@ -18,16 +18,7 @@ Application::Application() : RichApplication(PROJECT_NAME)
 
 	GRAPHICS->setSdfSmoothFactor(Helpers::Scale);
 
-	std::srand((unsigned int)std::time(nullptr));
-
 	STATS->setAlignment(Shared::StatsSystem::Align::BottomRight);
-
-	mGameScene.setInteractTestCallback([](const auto& pos) {
-		return !ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow | ImGuiHoveredFlags_AllowWhenBlockedByPopup);
-	});
-
-	LOCALIZATION->loadDicrionaries("localization");
-	LOCALIZATION->setLanguage(Shared::LocalizationSystem::Language::English);
 
 	ENGINE->addSystem<Microtasks>(std::make_shared<Microtasks>());
 	ENGINE->addSystem<Profile>(std::make_shared<Profile>());
@@ -36,8 +27,6 @@ Application::Application() : RichApplication(PROJECT_NAME)
 	PROFILE->setNightBackground(!PROFILE->isNightBackground());
 
 	MICROTASKS->checkForCompletion();
-
-	STYLEBOOK->load("stylebook.json");
 
 	PLATFORM->initializeBilling({
 		//{ "rubies.001", [this] { 
@@ -68,13 +57,11 @@ Application::~Application()
 {
 	PROFILE->save();
 	ENGINE->removeSystem<TutorialSystem>();
-	ENGINE->removeSystem<Shared::SceneManager>();
 }
 
 void Application::frame()
 {
-	adaptToScreen(mGameScene.getRoot(), { 1080.0f, 1920.0f });
-	mGameScene.frame();
+	adaptToScreen(mScene->getRoot(), { 1080.0f, 1920.0f });
 	Cheats::ShowDevMenu();
 }
 
@@ -96,19 +83,13 @@ void Application::event(const Profile::ProfileClearedEvent& e)
 
 void Application::initializeScene()
 {
-    mSceneInitialized = true;
-
-	ENGINE->addSystem<Shared::SceneManager>(std::make_shared<Shared::SceneManager>());
 	Scene::Sampler::DefaultSampler = Renderer::Sampler::Linear;
-
-	auto root = mGameScene.getRoot();
-	root->attach(SCENE_MANAGER);
 
 	auto loading = std::make_shared<Scene::Actionable<LoadingScreen>>();
 	loading->setTasks({
 		[] { PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Medium.ttf", "default"); },
 		[] { PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Bold.ttf", "default_bold"); },
-		[root] {
+		[] {
 			// prepare
 			
 			FONT("default")->setCustomVerticalOffset(-4.0f);
@@ -117,13 +98,13 @@ void Application::initializeScene()
 			// particles holder
 
 			auto particles_holder = std::make_shared<Scene::Actionable<Scene::Node>>();
-			root->attach(particles_holder);
+			SCENE_MANAGER->attach(particles_holder);
 			Helpers::DollarEmitter::Holder = particles_holder;
 
 			// turor holder
 
 			auto tutor_holder = std::make_shared<TutorHolder>();
-			root->attach(tutor_holder);
+			SCENE_MANAGER->attach(tutor_holder);
 
 			ENGINE->addSystem<TutorialSystem>(tutor_holder);
 
