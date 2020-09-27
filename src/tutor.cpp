@@ -33,7 +33,7 @@ TutorHolder::TutorHolder()
 		if (mFingerState != FingerState::Opened)
 			return nullptr;
 
-		return Shared::ActionHelpers::Limit([this] { return mFingerState == FingerState::Opened; },
+		return Shared::ActionHelpers::Breakable([this] { return mFingerState == FingerState::Opened; },
 			Shared::ActionHelpers::Delayed(Delay, Shared::ActionHelpers::MakeSequence(
 				Shared::ActionHelpers::ChangeScale(mFinger, ModifiedValue, Duration, Common::Easing::CubicInOut),
 				Shared::ActionHelpers::ChangeScale(mFinger, NormalValue, Duration, Common::Easing::CubicInOut),
