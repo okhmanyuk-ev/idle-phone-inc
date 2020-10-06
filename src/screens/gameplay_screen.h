@@ -9,15 +9,15 @@
 namespace PhoneInc
 {
 	class GameplayScreen : public Scene::Actionable<Screen>,
-		public Common::EventSystem::Listenable<Helpers::MoveGlobalScrollEvent>,
-		public Common::EventSystem::Listenable<Helpers::BlockGlobalScrollEvent>
+		public Common::Event::Listenable<Helpers::MoveGlobalScrollEvent>,
+		public Common::Event::Listenable<Helpers::BlockGlobalScrollEvent>
 	{
 	public:
 		GameplayScreen();
 
 	public:
-		void event(const Helpers::MoveGlobalScrollEvent& e) override;
-		void event(const Helpers::BlockGlobalScrollEvent& e) override;
+		void onEvent(const Helpers::MoveGlobalScrollEvent& e) override;
+		void onEvent(const Helpers::BlockGlobalScrollEvent& e) override;
 
 	private:
 		std::shared_ptr<Scene::Scrollbox> mScrollbox;

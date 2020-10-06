@@ -8,8 +8,8 @@
 namespace PhoneInc
 {
 	class Factory::Room : public Scene::Cullable<Scene::Actionable<Scene::Sprite>>,
-		public Common::EventSystem::Listenable<Profile::RoomChangedEvent>,
-		public Common::EventSystem::Listenable<Profile::CashChangedEvent>
+		public Common::Event::Listenable<Profile::RoomChangedEvent>,
+		public Common::Event::Listenable<Profile::CashChangedEvent>
 	{
 	public:
 		class PhonesStack;
@@ -22,8 +22,8 @@ namespace PhoneInc
 		void refreshUpgradeButton();
 
 	public:
-		void event(const Profile::RoomChangedEvent& e) override;
-		void event(const Profile::CashChangedEvent& e) override;
+		void onEvent(const Profile::RoomChangedEvent& e) override;
+		void onEvent(const Profile::CashChangedEvent& e) override;
 
 	private:
 		int mIndex = 0;
@@ -34,13 +34,13 @@ namespace PhoneInc
 	};
 
 	class Factory::LockedRoom : public Scene::Cullable<Scene::Sprite>,
-		public Common::EventSystem::Listenable<Profile::CashChangedEvent>
+		public Common::Event::Listenable<Profile::CashChangedEvent>
 	{
 	public:
 		LockedRoom(int index);
 
 	public:
-		void event(const Profile::CashChangedEvent& e) override;
+		void onEvent(const Profile::CashChangedEvent& e) override;
 
 	public:
 		void refresh();

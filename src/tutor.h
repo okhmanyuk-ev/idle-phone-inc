@@ -21,13 +21,13 @@ namespace PhoneInc
 	};
 
 	class TutorHolder : public Scene::Actionable<Scene::Node>, public TutorialSystem,
-		public Common::EventSystem::Listenable<Profile::ProfileClearedEvent>
+		public Common::Event::Listenable<Profile::ProfileClearedEvent>
 	{
 	public:
 		TutorHolder();
 
 	public:
-		void event(const Profile::ProfileClearedEvent& e) override;
+		void onEvent(const Profile::ProfileClearedEvent& e) override;
 
 	public:
 		bool hitTest(const glm::vec2& value) const override;

@@ -57,7 +57,7 @@ Factory::Factory()
 	attach(conveyor_hat);
 }
 
-void Factory::event(const Profile::RoomUnlockedEvent& e)
+void Factory::onEvent(const Profile::RoomUnlockedEvent& e)
 {
 	auto locked_room = mRooms.at(e.index);
 	auto parent = mRooms[e.index]->getParent();
@@ -65,7 +65,7 @@ void Factory::event(const Profile::RoomUnlockedEvent& e)
 	parent->attach(std::make_shared<Room>(e.index));
 }
 
-void Factory::event(const ProductSpawnEvent& e)
+void Factory::onEvent(const ProductSpawnEvent& e)
 {
 	auto room = mRooms.at(e.room_index);
 	auto height = room->getHeight();

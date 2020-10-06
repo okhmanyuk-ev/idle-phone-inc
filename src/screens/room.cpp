@@ -185,7 +185,7 @@ Factory::Room::Room(int index) : mIndex(index)
 	}
 }
 
-void Factory::Room::event(const Profile::RoomChangedEvent& e)
+void Factory::Room::onEvent(const Profile::RoomChangedEvent& e)
 {
 	if (e.index != mIndex)
 		return;
@@ -193,7 +193,7 @@ void Factory::Room::event(const Profile::RoomChangedEvent& e)
 	refresh();
 }
 
-void Factory::Room::event(const Profile::CashChangedEvent& e)
+void Factory::Room::onEvent(const Profile::CashChangedEvent& e)
 {
 	refreshUpgradeButton();
 }
@@ -258,7 +258,7 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	}
 }
 
-void Factory::LockedRoom::event(const Profile::CashChangedEvent& e)
+void Factory::LockedRoom::onEvent(const Profile::CashChangedEvent& e)
 {
 	refresh();
 }

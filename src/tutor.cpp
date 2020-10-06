@@ -44,7 +44,7 @@ TutorHolder::TutorHolder()
 	}));
 }
 
-void TutorHolder::event(const Profile::ProfileClearedEvent& e)
+void TutorHolder::onEvent(const Profile::ProfileClearedEvent& e)
 {
 	mTutors.clear();
 	mCurrentTutor = std::nullopt;

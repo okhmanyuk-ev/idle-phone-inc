@@ -5,8 +5,8 @@
 namespace PhoneInc
 {
 	class BuildingWindow : public StandardWindow,
-		public Common::EventSystem::Listenable<Profile::CashChangedEvent>,
-		public Common::EventSystem::Listenable<Profile::WarehouseLevelChangedEvent>
+		public Common::Event::Listenable<Profile::CashChangedEvent>,
+		public Common::Event::Listenable<Profile::WarehouseLevelChangedEvent>
 	{
 	public:
 		BuildingWindow();
@@ -18,8 +18,8 @@ namespace PhoneInc
 		static bool CanUpgrade();
 
 	private:
-		void event(const Profile::CashChangedEvent& e) override;
-		void event(const Profile::WarehouseLevelChangedEvent& e) override;
+		void onEvent(const Profile::CashChangedEvent& e) override;
+		void onEvent(const Profile::WarehouseLevelChangedEvent& e) override;
 
 	private:
 		struct MainPanel

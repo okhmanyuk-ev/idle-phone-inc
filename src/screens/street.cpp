@@ -99,17 +99,17 @@ void Street::refresh()
 	mWarehouse->applyTextureSize();
 }
 
-void Street::event(const Profile::WarehouseLevelChangedEvent& e)
+void Street::onEvent(const Profile::WarehouseLevelChangedEvent& e)
 {
 	refresh();
 }
 
-void Street::event(const Profile::WarehouseStorageChangeEvent& e)
+void Street::onEvent(const Profile::WarehouseStorageChangeEvent& e)
 {
 	refreshWarehouseStorageLabel();
 }
 
-void Street::event(const Profile::CashChangedEvent& e)
+void Street::onEvent(const Profile::CashChangedEvent& e)
 {
 	refreshWarehouseButton();
 }

@@ -72,7 +72,7 @@ void Application::adaptToScreen(std::shared_ptr<Scene::Node> node, const glm::ve
 	node->setScale(glm::min(scale.x, scale.y));
 }
 
-void Application::event(const Profile::ProfileClearedEvent& e)
+void Application::onEvent(const Profile::ProfileClearedEvent& e)
 {
 	SCENE_MANAGER->popWindow(SCENE_MANAGER->getWindowsCount(), [] {
 		SCENE_MANAGER->switchScreen(nullptr, [] {

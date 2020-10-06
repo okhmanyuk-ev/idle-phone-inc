@@ -6,9 +6,9 @@
 namespace PhoneInc
 {
 	class Street : public Scene::Clippable<Scene::Actionable<Scene::Cullable<Scene::Node>>>,
-		public Common::EventSystem::Listenable<Profile::WarehouseLevelChangedEvent>,
-		public Common::EventSystem::Listenable<Profile::WarehouseStorageChangeEvent>,
-		public Common::EventSystem::Listenable<Profile::CashChangedEvent>
+		public Common::Event::Listenable<Profile::WarehouseLevelChangedEvent>,
+		public Common::Event::Listenable<Profile::WarehouseStorageChangeEvent>,
+		public Common::Event::Listenable<Profile::CashChangedEvent>
 	{
 	public:
 		class Truck;
@@ -20,9 +20,9 @@ namespace PhoneInc
 		void refresh();
 
 	private:
-		void event(const Profile::WarehouseLevelChangedEvent& e) override;
-		void event(const Profile::WarehouseStorageChangeEvent& e) override;
-		void event(const Profile::CashChangedEvent& e) override;
+		void onEvent(const Profile::WarehouseLevelChangedEvent& e) override;
+		void onEvent(const Profile::WarehouseStorageChangeEvent& e) override;
+		void onEvent(const Profile::CashChangedEvent& e) override;
 
 	private:
 		void runWarehouseAction();

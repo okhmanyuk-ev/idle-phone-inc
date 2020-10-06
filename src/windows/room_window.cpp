@@ -94,7 +94,7 @@ bool RoomWindow::CanUpgradeSomething(int room_index)
 		can_worker3;
 }
 
-void RoomWindow::event(const Profile::RoomChangedEvent& e)
+void RoomWindow::onEvent(const Profile::RoomChangedEvent& e)
 {
 	if (e.index != mIndex)
 		return;
@@ -102,7 +102,7 @@ void RoomWindow::event(const Profile::RoomChangedEvent& e)
 	refresh();
 }
 
-void RoomWindow::event(const Profile::CashChangedEvent& e)
+void RoomWindow::onEvent(const Profile::CashChangedEvent& e)
 {
 	refresh();
 }

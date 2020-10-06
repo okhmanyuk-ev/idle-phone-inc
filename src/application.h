@@ -13,7 +13,7 @@ namespace PhoneInc
 {
 	class Application : public Shared::Application,
 		public Common::FrameSystem::Frameable,
-		public Common::EventSystem::Listenable<Profile::ProfileClearedEvent>
+		public Common::Event::Listenable<Profile::ProfileClearedEvent>
 	{
 	public:
 		Application();
@@ -26,6 +26,6 @@ namespace PhoneInc
 		void initializeScene();
 
 	public:
-		void event(const Profile::ProfileClearedEvent& e) override;
+		void onEvent(const Profile::ProfileClearedEvent& e) override;
 	};
 }

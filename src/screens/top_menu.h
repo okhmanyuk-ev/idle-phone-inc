@@ -8,15 +8,15 @@
 namespace PhoneInc
 {
 	class TopMenu : public Scene::Sprite,
-		public Common::EventSystem::Listenable<Profile::CashChangedEvent>,
-        public Common::EventSystem::Listenable<Profile::CoinsChangedEvent>
+		public Common::Event::Listenable<Profile::CashChangedEvent>,
+        public Common::Event::Listenable<Profile::CoinsChangedEvent>
 	{
 	public:
 		TopMenu();
 
 	public:
-		void event(const Profile::CashChangedEvent& e) override;
-        void event(const Profile::CoinsChangedEvent& e) override;
+		void onEvent(const Profile::CashChangedEvent& e) override;
+        void onEvent(const Profile::CoinsChangedEvent& e) override;
 
 	private:
 		void refreshCashLabel();

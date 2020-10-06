@@ -7,8 +7,8 @@
 namespace PhoneInc
 {
 	class MicrotasksHolder : public Scene::Actionable<Scene::Node>,
-		public Common::EventSystem::Listenable<Microtasks::TaskReadyEvent>,
-		public Common::EventSystem::Listenable<Microtasks::TaskCompletedEvent>
+		public Common::Event::Listenable<Microtasks::TaskReadyEvent>,
+		public Common::Event::Listenable<Microtasks::TaskCompletedEvent>
 	{
 	public:
 		MicrotasksHolder();
@@ -23,8 +23,8 @@ namespace PhoneInc
 		void refreshWithAnim();
 
 	private:
-		void event(const Microtasks::TaskReadyEvent& e) override;
-		void event(const Microtasks::TaskCompletedEvent& e) override;
+		void onEvent(const Microtasks::TaskReadyEvent& e) override;
+		void onEvent(const Microtasks::TaskCompletedEvent& e) override;
 
 	private:
 		std::shared_ptr<Scene::Node> mHolder;

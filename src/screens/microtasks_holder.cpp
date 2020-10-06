@@ -47,12 +47,12 @@ MicrotasksHolder::MicrotasksHolder()
 	mBackground->attach(mRewardButton);
 }
 
-void MicrotasksHolder::event(const Microtasks::TaskReadyEvent& e)
+void MicrotasksHolder::onEvent(const Microtasks::TaskReadyEvent& e)
 {
 	refreshWithAnim();
 }
 
-void MicrotasksHolder::event(const Microtasks::TaskCompletedEvent& e)
+void MicrotasksHolder::onEvent(const Microtasks::TaskCompletedEvent& e)
 {
 	refreshWithAnim();
 }

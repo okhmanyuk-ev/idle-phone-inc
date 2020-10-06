@@ -100,12 +100,12 @@ bool BuildingWindow::CanUpgrade()
 	return PROFILE->isEnoughCash(Balance::GetWarehouseCost());
 }
 
-void BuildingWindow::event(const Profile::CashChangedEvent& e)
+void BuildingWindow::onEvent(const Profile::CashChangedEvent& e)
 {
 	refresh();
 }
 
-void BuildingWindow::event(const Profile::WarehouseLevelChangedEvent& e)
+void BuildingWindow::onEvent(const Profile::WarehouseLevelChangedEvent& e)
 {
 	refresh();
 }

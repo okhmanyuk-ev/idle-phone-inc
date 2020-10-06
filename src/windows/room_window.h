@@ -5,8 +5,8 @@
 namespace PhoneInc
 {
 	class RoomWindow : public StandardWindow,
-		public Common::EventSystem::Listenable<Profile::RoomChangedEvent>,
-		public Common::EventSystem::Listenable<Profile::CashChangedEvent>
+		public Common::Event::Listenable<Profile::RoomChangedEvent>,
+		public Common::Event::Listenable<Profile::CashChangedEvent>
 	{
 	public:
 		RoomWindow(int index);
@@ -21,8 +21,8 @@ namespace PhoneInc
 		static bool CanUpgradeSomething(int room_index);
 
 	public:
-		void event(const Profile::RoomChangedEvent& e) override;
-		void event(const Profile::CashChangedEvent& e) override;
+		void onEvent(const Profile::RoomChangedEvent& e) override;
+		void onEvent(const Profile::CashChangedEvent& e) override;
 
 	private:
 		class Panel;

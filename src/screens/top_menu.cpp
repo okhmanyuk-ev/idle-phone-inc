@@ -77,12 +77,12 @@ TopMenu::TopMenu()
 	coin_bg->attach(coin_add_button);
 }
 
-void TopMenu::event(const Profile::CashChangedEvent& e)
+void TopMenu::onEvent(const Profile::CashChangedEvent& e)
 {
     refreshCashLabel();
 }
 
-void TopMenu::event(const Profile::CoinsChangedEvent& e)
+void TopMenu::onEvent(const Profile::CoinsChangedEvent& e)
 {
     refreshCoinsLabel();
 }

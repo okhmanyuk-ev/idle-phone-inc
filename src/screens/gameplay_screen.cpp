@@ -98,12 +98,12 @@ GameplayScreen::GameplayScreen()
 	}));
 }
 
-void GameplayScreen::event(const Helpers::MoveGlobalScrollEvent& e)
+void GameplayScreen::onEvent(const Helpers::MoveGlobalScrollEvent& e)
 {
 	runAction(Shared::ActionHelpers::ChangePosition(mScrollbox->getContent(), e.pos, 0.5f, Common::Easing::CubicInOut));
 }
 
-void GameplayScreen::event(const Helpers::BlockGlobalScrollEvent& e)
+void GameplayScreen::onEvent(const Helpers::BlockGlobalScrollEvent& e)
 {
 	mScrollbox->setTouchable(!e.blocked);
 }
