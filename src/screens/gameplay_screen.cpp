@@ -87,7 +87,7 @@ GameplayScreen::GameplayScreen()
 			return;
 
 #if defined(PLATFORM_WINDOWS)
-		//return;
+		return;
 #endif
 
 		const glm::vec2 target = { 1080.0f, 1920.0f };

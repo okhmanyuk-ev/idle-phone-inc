@@ -111,7 +111,10 @@ void RoomWindow::onEvent(const Profile::CashChangedEvent& e)
 
 RoomWindow::Panel::Panel(int roomIndex) : mRoomIndex(roomIndex)
 {
+	setBatchGroup(fmt::format("room_window_{}_panel", roomIndex));
+
 	mButton = std::make_shared<Helpers::StandardButton>();
+	mButton->setBatchGroup(fmt::format("room_window_{}_panel_button", roomIndex));
 	mButton->setAnchor({ 1.0f, 0.5f });
 	mButton->setPivot({ 1.0f, 0.5f });
 	mButton->setPosition({ -28.0f, 0.0f });
@@ -355,6 +358,7 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	setTexture(TEXTURE("textures/windows/room_window/minor_panel_backgorund.png"));
 
 	mIcon = std::make_shared<Scene::Sprite>();
+	mIcon->setBatchGroup(fmt::format("room_window_{}_small_panel_icon", roomIndex));
 	mIcon->setAnchor({ 0.0f, 0.5f });
 	mIcon->setPivot({ 0.5f, 0.5f });
 	mIcon->setPosition({ 124.0f, 0.0f });

@@ -9,6 +9,8 @@ using namespace PhoneInc;
 
 Factory::Room::Room(int index) : mIndex(index)
 {
+	setBatchGroup("room");
+
 	const int BgCount = 7;
 
 	auto bg_id = (index % BgCount) + 1;
@@ -21,12 +23,14 @@ Factory::Room::Room(int index) : mIndex(index)
 	table->setAnchor({ 0.5f, 1.0f });
 	table->setPivot({ 0.5f, 1.0f });
 	table->setY(-56.0f);
+	table->setBatchGroup("room_table");
 	attach(table);
 
 	auto room_profile = PROFILE->getRooms().at(index);
 
 	mManager = std::make_shared<Manager>();
 	mManager->setPosition({ -18.0f, 116.0f });
+	mManager->getSprite()->setBatchGroup("room_manager");
 	attach(mManager);
 
 	for (int i = 0; i < Balance::MaxWorkersCount; i++)
@@ -34,6 +38,7 @@ Factory::Room::Room(int index) : mIndex(index)
 		mWorkers[i] = std::make_shared<Worker>();
 		mWorkers[i]->setAnchor({ 0.5f, 0.0f });
 		mWorkers[i]->setPivot({ 0.5f, 1.0f });
+		mWorkers[i]->getSprite()->setBatchGroup("room_worker");
 		table->attach(mWorkers[i]);
 	}
 
@@ -42,6 +47,7 @@ Factory::Room::Room(int index) : mIndex(index)
 	mWorkers[2]->setPosition({ 152.0f, 24.0f });
 
 	auto lvl_label = std::make_shared<Helpers::LabelSolidBold>();
+	lvl_label->setBatchGroup("room_lvl_label");
 	lvl_label->setPosition({ 51.0f, 59.0f });
 	lvl_label->setPivot(0.5f);
 	lvl_label->setText(std::to_string(index + 1));
@@ -50,6 +56,7 @@ Factory::Room::Room(int index) : mIndex(index)
 	attach(lvl_label);
 
 	mUpgradeButton = std::make_shared<Helpers::StandardButton>();
+	mUpgradeButton->setBatchGroup("room_upgrade_button");
 	mUpgradeButton->setPosition({ 681.0f, 28.0f });
 	mUpgradeButton->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
 	mUpgradeButton->setClickCallback([index] {
@@ -218,9 +225,11 @@ void Factory::Room::refreshUpgradeButton()
 
 Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 {
+	setBatchGroup("locked_room");
 	setTexture(TEXTURE("textures/factory/room/background/locked.png"));
 
 	auto lvl_label = std::make_shared<Helpers::LabelSolidBold>();
+	lvl_label->setBatchGroup("locked_room_lvl_label");
 	lvl_label->setPosition({ 51.0f, 59.0f });
 	lvl_label->setPivot(0.5f);
 	lvl_label->setText(std::to_string(index + 1));
@@ -229,6 +238,7 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	attach(lvl_label);
 
 	mButton = std::make_shared<Helpers::StandardLongButton>();
+	mButton->setBatchGroup("locked_room_button");
 	mButton->getLabel()->setText("$ " + Helpers::NumberToString(Balance::GetRoomCost(index)));
 	mButton->setAnchor(0.5f);
 	mButton->setPivot(0.5f);
@@ -275,6 +285,7 @@ Factory::Room::PhonesStack::PhonesStack(int room_index) : mRoomIndex(room_index)
 	for (int i = -5; i < 5; i++)
 	{
 		auto phone = std::make_shared<Phone>();
+		phone->setBatchGroup("room_phonestack");
 		phone->setTexture(TEXTURE("textures/factory/room/phone.png"));
 		phone->setPivot(0.5f);
 		phone->setAnchor(0.5f);

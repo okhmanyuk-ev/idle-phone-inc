@@ -67,7 +67,7 @@ void Application::frame()
 
 void Application::adaptToScreen(std::shared_ptr<Scene::Node> node, const glm::vec2& dimensions)
 {
-	glm::vec2 size = { (float)PLATFORM->getLogicalWidth(), (float)PLATFORM->getLogicalHeight() };
+	glm::vec2 size = { PLATFORM->getLogicalWidth(), PLATFORM->getLogicalHeight() };
 	auto scale = size / dimensions;
 	node->setScale(glm::min(scale.x, scale.y));
 }

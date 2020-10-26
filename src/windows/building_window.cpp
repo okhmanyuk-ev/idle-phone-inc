@@ -152,9 +152,11 @@ std::shared_ptr<Scene::Node> BuildingWindow::createMainPanel(MainPanel& panel)
 std::shared_ptr<Scene::Node> BuildingWindow::createParameterPanel(ParameterPanel& panel)
 {
 	auto bg = std::make_shared<Scene::Sprite>();
+	bg->setBatchGroup("building_window_panel");
 	bg->setTexture(TEXTURE("textures/windows/building_window/additional_panel.png"));
 
 	auto icon = std::make_shared<Scene::Sprite>();
+	icon->setBatchGroup("building_window_icon");
 	icon->setAnchor({ 0.0f, 0.5f });
 	icon->setPivot({ 0.0f, 0.5f });
 	icon->setPosition({ 32.0f, 0.0f });
