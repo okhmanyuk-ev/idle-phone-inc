@@ -7,7 +7,7 @@ namespace PhoneInc
 {
 	struct ProductSpawnEvent { int room_index; double produce_count; };
 
-	class Factory : public Scene::Actionable<Scene::Clippable<Scene::Cullable<Scene::Node>>>,
+	class Factory : public Scene::Actionable<Scene::ClippableScissor<Scene::Cullable<Scene::Node>>>,
 		public Common::Event::Listenable<Profile::RoomUnlockedEvent>,
 		public Common::Event::Listenable<ProductSpawnEvent>
 	{

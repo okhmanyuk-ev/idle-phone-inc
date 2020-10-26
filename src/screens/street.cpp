@@ -25,7 +25,7 @@ Street::Street()
 	mCloudsHolder->setStretch(1.0f);
 	bg->attach(mCloudsHolder);
 
-	mTruckHolder = std::make_shared<Scene::Clippable<Scene::Node>>();
+	mTruckHolder = std::make_shared<Scene::ClippableScissor<Scene::Node>>();
 	mTruckHolder->setPosition({ 138.0f, 0.0f });
 	mTruckHolder->setStretch(1.0f);
 	mTruckHolder->setMargin({ mTruckHolder->getX(), 0.0f });

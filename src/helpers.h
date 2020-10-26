@@ -143,7 +143,7 @@ namespace PhoneInc::Helpers
 		std::shared_ptr<Scene::SlicedSprite> mContent;
 
 	private:
-		std::shared_ptr<Scene::Clippable<Scene::Node>> mClip;
+		std::shared_ptr<Scene::ClippableScissor<Scene::Node>> mClip;
 	};
 
 	class StreetProgressbar : public Progressbar

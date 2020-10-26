@@ -227,7 +227,7 @@ Progressbar::Progressbar()
 	mHolder->setStretch(1.0f);
 	attach(mHolder);
 
-	mClip = std::make_shared<Scene::Clippable<Scene::Node>>();
+	mClip = std::make_shared<Scene::ClippableScissor<Scene::Node>>();
 	mClip->setStretch(1.0f);
 	mClip->setAnchor({ 0.0f, 0.5f });
 	mClip->setPivot({ 0.0f, 0.5f });

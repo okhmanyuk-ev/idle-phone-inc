@@ -5,7 +5,7 @@
 
 namespace PhoneInc
 {
-	class Street : public Scene::Clippable<Scene::Actionable<Scene::Cullable<Scene::Node>>>,
+	class Street : public Scene::ClippableScissor<Scene::Actionable<Scene::Cullable<Scene::Node>>>,
 		public Common::Event::Listenable<Profile::WarehouseLevelChangedEvent>,
 		public Common::Event::Listenable<Profile::WarehouseStorageChangeEvent>,
 		public Common::Event::Listenable<Profile::CashChangedEvent>
