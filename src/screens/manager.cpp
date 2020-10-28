@@ -31,21 +31,12 @@ void Factory::Manager::refresh()
 	setEnabled(true);
 
 	auto stage = Balance::GetManagerStage(mLevel);
-	auto name = fmt::format("manager_{}", stage);
 	
-	auto load_atlas = [stage] {
-		auto texture_path = fmt::format("textures/managers/{}.png", stage);
-		auto atlas_path = "textures/managers/atlas.json";
-		return std::make_shared<Graphics::Atlas>(TEXTURE(texture_path), Platform::Asset(atlas_path));
-	};
-	
-	auto load_animation = [name, load_atlas] {
-		auto atlas = ATLAS(name, load_atlas);
-		auto animation_path = "textures/managers/animation.json";
-		return std::make_shared<Graphics::Animation>(atlas, Platform::Asset(animation_path));
-	};
+	auto texture = TEXTURE(fmt::format("textures/managers/{}.png", stage));
+	auto atlas = ATLAS("textures/managers/atlas.json");
+	auto animation = ANIMATION("textures/managers/animation.json");
 
-	setAnimation(ANIMATION(name, load_animation));
+	setAnimation(texture, atlas, animation);
 
 	//randomizeProgress();
 }

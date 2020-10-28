@@ -10,19 +10,11 @@ Street::Truck::Truck() : Scene::MappedAniSprite<TruckAnimation>(Animations)
 	setStateType(Animation::Main);
 
 	auto stage = Balance::GetTruckStage();
-	auto name = fmt::format("truck_{}", stage);
+	
+	auto texture = TEXTURE(fmt::format("textures/trucks/{}.png", stage));
+	auto atlas = ATLAS(fmt::format("textures/trucks/{}_atlas.json", stage));
+	auto animation = ANIMATION(fmt::format("textures/trucks/{}_animation.json", stage));
 
-	auto load_atlas = [stage] {
-		auto texture_path = fmt::format("textures/trucks/{}.png", stage);
-		auto atlas_path = fmt::format("textures/trucks/{}_atlas.json", stage);
-		return std::make_shared<Graphics::Atlas>(TEXTURE(texture_path), Platform::Asset(atlas_path));
-	};
+	setAnimation(texture, atlas, animation);
 
-	auto load_animation = [name, stage, load_atlas] {
-		auto atlas = ATLAS(name, load_atlas);
-		auto animation_path = fmt::format("textures/trucks/{}_animation.json", stage);
-		return std::make_shared<Graphics::Animation>(atlas, Platform::Asset(animation_path));
-	};
-
-	setAnimation(ANIMATION(name, load_animation));
 }
