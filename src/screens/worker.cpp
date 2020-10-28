@@ -20,14 +20,22 @@ void Factory::Worker::refresh()
 	setEnabled(true);
 
 	auto stage = Balance::GetWorkerStage(mLevel);
+	auto name = fmt::format("worker_{}", stage);
 
-	auto image_path = fmt::format("textures/workers/{}.png", stage);
-	auto atlas_path = "textures/workers/atlas.json";
-	auto animation_path = "textures/workers/animation.json";
-	auto animation = std::make_shared<Graphics::Animation>(Graphics::Animation::OpenFromFile(image_path, atlas_path, animation_path));
-	auto anim_name = fmt::format("worker_{}", stage);
-	CACHE->loadAnimation(animation, anim_name);
-	setAnimation(TEXTURE(image_path), ANIMATION(anim_name));
+	auto load_atlas = [stage] {
+		auto texture_path = fmt::format("textures/workers/{}.png", stage);
+		auto atlas_path = "textures/workers/atlas.json";
+		return std::make_shared<Graphics::Atlas>(TEXTURE(texture_path), Platform::Asset(atlas_path));
+	};
+
+	auto load_animation = [name, load_atlas] {
+		auto atlas = ATLAS(name, load_atlas);
+		auto animation_path = "textures/workers/animation.json";
+		return std::make_shared<Graphics::Animation>(atlas, Platform::Asset(animation_path));
+	};
+
+	setAnimation(ANIMATION(name, load_animation));
+
 	//randomizeProgress();
 }
 
