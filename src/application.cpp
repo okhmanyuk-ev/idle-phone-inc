@@ -89,6 +89,7 @@ void Application::initializeScene()
 	loading->setTasks({
 		[] { PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Medium.ttf", "default"); },
 		[] { PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Bold.ttf", "default_bold"); },
+		[] { CACHE->makeAtlases(); },
 		[] {
 			// prepare
 			

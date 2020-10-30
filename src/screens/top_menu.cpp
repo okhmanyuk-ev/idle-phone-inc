@@ -5,20 +5,15 @@ using namespace PhoneInc;
 
 TopMenu::TopMenu()
 {
+	setBatchGroup("ui_menu");
 	setTouchable(true);
 	setTexture(TEXTURE("textures/top_menu/background.png"));
 	setVerticalOrigin(168.0f);
-	
-	auto settings_button = std::make_shared<Helpers::Button>();
-	settings_button->setTexture(TEXTURE("textures/top_menu/settings.png"));
-	settings_button->setPivot(0.5f);
-	settings_button->setAnchor({ 0.0f, 1.0f });
-	settings_button->setPosition({ 67.0f, -56.0f });
-	attach(settings_button);
 
 	// money
 
 	auto money_bg = std::make_shared<Scene::Sprite>();
+	money_bg->setBatchGroup("ui_menu_background");
 	money_bg->setTexture(TEXTURE("textures/top_menu/money_bg.png"));
 	money_bg->setPivot(0.5f);
 	money_bg->setAnchor({ 0.0f, 1.0f });
@@ -35,12 +30,14 @@ TopMenu::TopMenu()
 	refreshCashLabel();
 
 	auto money_ico = std::make_shared<Scene::Sprite>();
+	money_ico->setBatchGroup("ui_menu_icon");
 	money_ico->setTexture(TEXTURE("textures/top_menu/money.png"));
 	money_ico->setPivot(0.5f);
 	money_ico->setAnchor({ 0.0f, 0.5f });
 	money_bg->attach(money_ico);
 
 	auto money_add_button = std::make_shared<Helpers::Button>();
+	money_add_button->setBatchGroup("ui_menu_icon");
 	money_add_button->setTexture(TEXTURE("textures/top_menu/add.png"));
 	money_add_button->setPivot({ 0.5f, 0.5f });
 	money_add_button->setAnchor({ 1.0f, 0.5f });
@@ -49,6 +46,7 @@ TopMenu::TopMenu()
 	// coins
 
 	auto coin_bg = std::make_shared<Scene::Sprite>();
+	coin_bg->setBatchGroup("ui_menu_background");
 	coin_bg->setTexture(TEXTURE("textures/top_menu/coin_bg.png"));
 	coin_bg->setPivot(0.5f);
 	coin_bg->setAnchor({ 0.0f, 1.0f });
@@ -65,16 +63,26 @@ TopMenu::TopMenu()
     refreshCoinsLabel();
     
 	auto coin_ico = std::make_shared<Scene::Sprite>();
+	coin_ico->setBatchGroup("ui_menu_icon");
 	coin_ico->setTexture(TEXTURE("textures/top_menu/coin.png"));
 	coin_ico->setPivot(0.5f);
 	coin_ico->setAnchor({ 0.0f, 0.5f });
 	coin_bg->attach(coin_ico);
 
 	auto coin_add_button = std::make_shared<Helpers::Button>();
+	coin_add_button->setBatchGroup("ui_menu_icon");
 	coin_add_button->setTexture(TEXTURE("textures/top_menu/add.png"));
 	coin_add_button->setPivot({ 0.5f, 0.5f });
 	coin_add_button->setAnchor({ 1.0f, 0.5f });
 	coin_bg->attach(coin_add_button);
+
+	auto settings_button = std::make_shared<Helpers::Button>();
+	settings_button->setBatchGroup("ui_menu_icon");
+	settings_button->setTexture(TEXTURE("textures/top_menu/settings.png"));
+	settings_button->setPivot(0.5f);
+	settings_button->setAnchor({ 0.0f, 1.0f });
+	settings_button->setPosition({ 67.0f, -56.0f });
+	attach(settings_button);
 }
 
 void TopMenu::onEvent(const Profile::CashChangedEvent& e)

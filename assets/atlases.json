@@ -1,0 +1,100 @@
+{
+    "rooms": [
+        "textures/factory/room/background/1.png",
+        "textures/factory/room/background/2.png",
+        "textures/factory/room/background/3.png",
+        "textures/factory/room/background/4.png",
+        "textures/factory/room/background/5.png",
+        "textures/factory/room/background/6.png",
+        "textures/factory/room/background/7.png",
+        "textures/factory/room/background/locked.png"
+    ],
+    "room_tables": [
+        "textures/factory/room/table/1.png",
+        "textures/factory/room/table/2.png",
+        "textures/factory/room/table/3.png"
+    ],
+    "room_window_panels": [
+        "textures/windows/room_window/major_panel_backgorund.png",
+        "textures/windows/room_window/minor_panel_backgorund.png"
+    ],
+    "room_window_avatars": [
+        "textures/windows/room_window/avatars/managers/1.png",
+        "textures/windows/room_window/avatars/managers/2.png",
+        "textures/windows/room_window/avatars/managers/3.png",
+        "textures/windows/room_window/avatars/managers/4.png",
+        "textures/windows/room_window/avatars/managers/5.png",
+        
+        "textures/windows/room_window/avatars/workers/1.png",
+        "textures/windows/room_window/avatars/workers/2.png",
+        "textures/windows/room_window/avatars/workers/3.png",
+        "textures/windows/room_window/avatars/workers/4.png",
+        "textures/windows/room_window/avatars/workers/5.png",
+        
+        "textures/windows/room_window/avatars/products/0.png",
+        "textures/windows/room_window/avatars/products/1.png",
+        "textures/windows/room_window/avatars/products/2.png",
+        "textures/windows/room_window/avatars/products/3.png",
+        "textures/windows/room_window/avatars/products/4.png",
+        "textures/windows/room_window/avatars/products/5.png",
+        "textures/windows/room_window/avatars/products/6.png",
+        "textures/windows/room_window/avatars/products/7.png",
+        "textures/windows/room_window/avatars/products/8.png",
+        "textures/windows/room_window/avatars/products/9.png",
+        "textures/windows/room_window/avatars/products/10.png",
+        "textures/windows/room_window/avatars/products/11.png",
+        "textures/windows/room_window/avatars/products/12.png",
+        "textures/windows/room_window/avatars/products/13.png",
+        "textures/windows/room_window/avatars/products/14.png",
+        "textures/windows/room_window/avatars/products/15.png"        
+    ],
+    "building_window_panels": [
+        "textures/windows/building_window/additional_panel.png",
+        "textures/windows/building_window/main_panel.png"
+    ],
+    "building_window_icons": [
+        "textures/windows/building_window/icon1.png",
+        "textures/windows/building_window/icon2.png",
+        "textures/windows/building_window/icon3.png"
+    ],
+    "ui": [
+        "textures/buttons/button_active.png",
+        "textures/buttons/button_inactive.png",
+        "textures/buttons/button_long_active.png",
+        "textures/buttons/button_long_inactive.png",
+        "textures/buttons/close.png",
+
+        "textures/bottom_menu/background.png",
+        "textures/bottom_menu/boosters.png",
+        "textures/bottom_menu/button.png",
+        "textures/bottom_menu/map.png",
+        "textures/bottom_menu/shop.png",
+        "textures/bottom_menu/upgrades.png",
+        "textures/bottom_menu/video.png",
+
+        "textures/top_menu/background.png",
+        "textures/top_menu/add.png",
+        "textures/top_menu/coin.png",
+        "textures/top_menu/coin_bg.png",
+        "textures/top_menu/money.png",
+        "textures/top_menu/money_bg.png",
+        "textures/top_menu/settings.png",
+
+        "textures/microtasks/bg.png",
+        "textures/microtasks/done.png",
+        "textures/microtasks/manager_level.png",
+        "textures/microtasks/product_level.png",
+        "textures/microtasks/unlock_rooms.png",
+        "textures/microtasks/warehouse_level.png",
+        "textures/microtasks/worker_level.png"
+    ],
+    "clouds": [
+        "textures/street/background.png",
+        "textures/street/background_night.png",
+        
+        "textures/street/storage_bg.png",
+
+        "textures/street/cloud_1.png",
+        "textures/street/cloud_2.png"
+    ]
+}

@@ -113,6 +113,7 @@ void BuildingWindow::onEvent(const Profile::WarehouseLevelChangedEvent& e)
 std::shared_ptr<Scene::Node> BuildingWindow::createMainPanel(MainPanel& panel)
 {
 	auto bg = std::make_shared<Scene::Sprite>();
+	bg->setBatchGroup("building_window_panel");
 	bg->setTexture(TEXTURE("textures/windows/building_window/main_panel.png"));
 	
 	auto building_icon = std::make_shared<Scene::Sprite>();

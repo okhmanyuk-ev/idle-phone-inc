@@ -114,7 +114,7 @@ RoomWindow::Panel::Panel(int roomIndex) : mRoomIndex(roomIndex)
 	setBatchGroup(fmt::format("room_window_{}_panel", roomIndex));
 
 	mButton = std::make_shared<Helpers::StandardButton>();
-	mButton->setBatchGroup(fmt::format("room_window_{}_panel_button", roomIndex));
+	mButton->setBatchGroup(fmt::format("room_window_{}_button", roomIndex));
 	mButton->setAnchor({ 1.0f, 0.5f });
 	mButton->setPivot({ 1.0f, 0.5f });
 	mButton->setPosition({ -28.0f, 0.0f });
@@ -197,6 +197,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	setTexture(TEXTURE("textures/windows/room_window/major_panel_backgorund.png"));
 
 	mIcon = std::make_shared<Shared::SceneHelpers::Adaptive<Scene::Sprite>>();
+	mIcon->setBatchGroup(fmt::format("room_window_{}_avatar", roomIndex));
 	mIcon->setAnchor({ 0.0f, 0.5f });
 	mIcon->setPivot({ 0.5f, 0.5f });
 	mIcon->setPosition({ 124.0f, 0.0f });
@@ -238,6 +239,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	attach(mLevelLabel);
 
 	mProgressbar = std::make_shared<Helpers::StreetProgressbar>();
+	mProgressbar->setBatchGroup(fmt::format("room_window_{}_progressbar", roomIndex));
 	mProgressbar->setSize({ 422.0f, 28.0f });
 	mProgressbar->setAnchor({ 0.0f, 0.0f });
 	mProgressbar->setPivot({ 0.0f, 0.5f });
@@ -358,7 +360,7 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	setTexture(TEXTURE("textures/windows/room_window/minor_panel_backgorund.png"));
 
 	mIcon = std::make_shared<Scene::Sprite>();
-	mIcon->setBatchGroup(fmt::format("room_window_{}_small_panel_icon", roomIndex));
+	mIcon->setBatchGroup(fmt::format("room_window_{}_avatar", roomIndex));
 	mIcon->setAnchor({ 0.0f, 0.5f });
 	mIcon->setPivot({ 0.5f, 0.5f });
 	mIcon->setPosition({ 124.0f, 0.0f });
@@ -391,6 +393,7 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	attach(mLevelLabel);
 
 	mProgressbar = std::make_shared<Helpers::StreetProgressbar>();
+	mProgressbar->setBatchGroup(fmt::format("room_window_{}_progressbar", roomIndex));
 	mProgressbar->setSize({ 422.0f, 28.0f }); 
 	mProgressbar->setAnchor({ 0.0f, 0.0f });
 	mProgressbar->setPivot({ 0.0f, 0.5f });
@@ -495,7 +498,7 @@ void RoomWindow::ManagerPanel::increaseLevel()
 		AUDIO->play(SOUND("sounds/success.wav"));
 }
 
-std::shared_ptr<Renderer::Texture> RoomWindow::ManagerPanel::getIconTexture() const
+Graphics::TexCell RoomWindow::ManagerPanel::getIconTexture() const
 {
 	auto avatar = Balance::GetManagerStage(getLevel());
 	return TEXTURE(fmt::format("textures/windows/room_window/avatars/managers/{}.png", avatar));
@@ -576,7 +579,7 @@ void RoomWindow::WorkerPanel::increaseLevel()
 		AUDIO->play(SOUND("sounds/success.wav"));
 }
 
-std::shared_ptr<Renderer::Texture> RoomWindow::WorkerPanel::getIconTexture() const
+Graphics::TexCell RoomWindow::WorkerPanel::getIconTexture() const
 {
 	auto avatar = Balance::GetWorkerStage(getLevel());
 	return TEXTURE(fmt::format("textures/windows/room_window/avatars/workers/{}.png", avatar));

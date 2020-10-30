@@ -56,7 +56,7 @@ Factory::Room::Room(int index) : mIndex(index)
 	attach(lvl_label);
 
 	mUpgradeButton = std::make_shared<Helpers::StandardButton>();
-	mUpgradeButton->setBatchGroup("room_upgrade_button");
+	mUpgradeButton->setBatchGroup("room_button");
 	mUpgradeButton->setPosition({ 681.0f, 28.0f });
 	mUpgradeButton->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
 	mUpgradeButton->setClickCallback([index] {
@@ -225,11 +225,11 @@ void Factory::Room::refreshUpgradeButton()
 
 Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 {
-	setBatchGroup("locked_room");
+	setBatchGroup("room");
 	setTexture(TEXTURE("textures/factory/room/background/locked.png"));
 
 	auto lvl_label = std::make_shared<Helpers::LabelSolidBold>();
-	lvl_label->setBatchGroup("locked_room_lvl_label");
+	lvl_label->setBatchGroup("room_lvl_label");
 	lvl_label->setPosition({ 51.0f, 59.0f });
 	lvl_label->setPivot(0.5f);
 	lvl_label->setText(std::to_string(index + 1));
@@ -238,7 +238,7 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	attach(lvl_label);
 
 	mButton = std::make_shared<Helpers::StandardLongButton>();
-	mButton->setBatchGroup("locked_room_button");
+	mButton->setBatchGroup("room_button");
 	mButton->getLabel()->setText("$ " + Helpers::NumberToString(Balance::GetRoomCost(index)));
 	mButton->setAnchor(0.5f);
 	mButton->setPivot(0.5f);

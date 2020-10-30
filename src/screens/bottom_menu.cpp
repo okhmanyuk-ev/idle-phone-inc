@@ -6,6 +6,7 @@ using namespace PhoneInc;
 
 BottomMenu::BottomMenu()
 {
+	setBatchGroup("ui_menu");
 	setTouchable(true);
 	setTexture(TEXTURE("textures/bottom_menu/background.png"));
 	setVerticalOrigin(-153.0f);
@@ -17,6 +18,7 @@ BottomMenu::BottomMenu()
 	// video
 
 	auto video_button = std::make_shared<Helpers::Button>();
+	video_button->setBatchGroup("ui_menu_icon");
 	video_button->setTexture(TEXTURE("textures/bottom_menu/button.png"));
 	video_button->setAnchor({ 0.5f, 0.0f });
 	video_button->setPivot({ 0.5f, 0.0f });
@@ -42,6 +44,7 @@ BottomMenu::BottomMenu()
 	// shop
 
 	auto shop_icon = std::make_shared<Helpers::Button>();
+	shop_icon->setBatchGroup("ui_menu_icon");
 	shop_icon->setTexture(TEXTURE("textures/bottom_menu/shop.png"));
 	shop_icon->setAnchor({ 0.5f, 0.0f });
 	shop_icon->setPivot(0.5f);
@@ -60,6 +63,7 @@ BottomMenu::BottomMenu()
 	// boosters
 
 	auto boosters_icon = std::make_shared<Helpers::Button>();
+	boosters_icon->setBatchGroup("ui_menu_icon");
 	boosters_icon->setTexture(TEXTURE("textures/bottom_menu/boosters.png"));
 	boosters_icon->setAnchor({ 0.5f, 0.0f });
 	boosters_icon->setPivot(0.5f);
@@ -78,6 +82,7 @@ BottomMenu::BottomMenu()
 	// upgrades
 
 	auto upgrades_icon = std::make_shared<Helpers::Button>();
+	upgrades_icon->setBatchGroup("ui_menu_icon");
 	upgrades_icon->setTexture(TEXTURE("textures/bottom_menu/upgrades.png"));
 	upgrades_icon->setAnchor({ 0.5f, 0.0f });
 	upgrades_icon->setPivot(0.5f);
@@ -96,6 +101,7 @@ BottomMenu::BottomMenu()
 	// map
 
 	auto map_icon = std::make_shared<Helpers::Button>();
+	map_icon->setBatchGroup("ui_menu_icon");
 	map_icon->setTexture(TEXTURE("textures/bottom_menu/map.png"));
 	map_icon->setAnchor({ 0.5f, 0.0f });
 	map_icon->setPivot(0.5f);

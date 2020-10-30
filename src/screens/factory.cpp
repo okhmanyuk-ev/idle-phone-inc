@@ -25,7 +25,7 @@ Factory::Factory()
 	setHeight(grid->getHeight());
 	 
 	auto conveyor_path = std::make_shared<Scene::Sprite>();
-	conveyor_path->setTexture(TEXTURE("textures/factory/conveyor_segment.png"));
+	conveyor_path->setTexture(TEXTURE("textures/factory/conveyor/segment.png"));
 	conveyor_path->setStretch({ -1.0f, 2.0f });
 	conveyor_path->setTextureAddress(Renderer::TextureAddress::Wrap);
 	conveyor_path->setX(6.0f);
@@ -52,7 +52,7 @@ Factory::Factory()
 	attach(mBoxHolder);
 
 	auto conveyor_hat = std::make_shared<Scene::Sprite>();
-	conveyor_hat->setTexture(TEXTURE("textures/factory/conveyor_hat.png"));
+	conveyor_hat->setTexture(TEXTURE("textures/factory/conveyor/hat.png"));
 	conveyor_hat->setY(-2.0f);
 	attach(conveyor_hat);
 }
@@ -104,7 +104,7 @@ void Factory::onEvent(const ProductSpawnEvent& e)
 	}
 
 	auto box = std::make_shared<Box>();
-	box->setTexture(TEXTURE("textures/factory/box.png"));
+	box->setTexture(TEXTURE("textures/factory/conveyor/box.png"));
 	box->setPivot({ 0.5f, 1.0f });
 	box->setX(96.0f);
 	box->setY(y);

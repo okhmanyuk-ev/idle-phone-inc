@@ -162,13 +162,13 @@ void Button::setActive(bool value)
 	ensureTexture();
 }
 
-void Button::setActiveTexture(std::shared_ptr<Renderer::Texture> value)
+void Button::setActiveTexture(Graphics::TexCell value)
 {
 	mActiveTexture = value;
 	ensureTexture();
 }
 
-void Button::setInactiveTexture(std::shared_ptr<Renderer::Texture> value)
+void Button::setInactiveTexture(Graphics::TexCell value)
 {
 	mInactiveTexture = value;
 	ensureTexture();
@@ -176,9 +176,6 @@ void Button::setInactiveTexture(std::shared_ptr<Renderer::Texture> value)
 
 void Button::ensureTexture()
 {
-	if (!mActiveTexture || !mInactiveTexture)
-		return;
-
 	if (mActive)
 		setTexture(mActiveTexture);
 	else

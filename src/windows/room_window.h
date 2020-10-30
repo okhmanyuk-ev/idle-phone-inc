@@ -130,7 +130,7 @@ namespace PhoneInc
 		utf8_string getUpgradeButtonText() const override;
 
 	public:
-		virtual std::shared_ptr<Renderer::Texture> getIconTexture() const = 0;
+		virtual Graphics::TexCell getIconTexture() const = 0;
 		virtual utf8_string getTitleText() const = 0;
 		virtual utf8_string getDescriptionText() const = 0;
 		virtual utf8_string getEffectText() const = 0;
@@ -159,7 +159,7 @@ namespace PhoneInc
 		void increaseLevel() override;
 
 	public:
-		std::shared_ptr<Renderer::Texture> getIconTexture() const override;
+		Graphics::TexCell getIconTexture() const override;
 		utf8_string getTitleText() const override;
 		utf8_string getDescriptionText() const override;
 		utf8_string getEffectText() const override;
@@ -179,7 +179,7 @@ namespace PhoneInc
 		void increaseLevel() override;
 
 	public:
-		std::shared_ptr<Renderer::Texture> getIconTexture() const override;
+		Graphics::TexCell getIconTexture() const override;
 		utf8_string getTitleText() const override;
 		utf8_string getDescriptionText() const override;
 		utf8_string getEffectText() const override;

@@ -44,7 +44,7 @@ namespace PhoneInc
 	protected:
 		struct Parameter
 		{
-			std::shared_ptr<Renderer::Texture> icon_texture;
+			Graphics::TexCell icon_texture;
 			utf8_string title_text;
 			utf8_string effect_text;
 		};

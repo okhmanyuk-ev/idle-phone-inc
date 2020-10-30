@@ -66,10 +66,10 @@ namespace PhoneInc::Helpers
 		void setActive(bool value);
 
 		auto getActiveTexture() const { return mActiveTexture; }
-		void setActiveTexture(std::shared_ptr<Renderer::Texture> value);
+		void setActiveTexture(Graphics::TexCell value);
 
 		auto getInactiveTexture() const { return mInactiveTexture; }
-		void setInactiveTexture(std::shared_ptr<Renderer::Texture> value);
+		void setInactiveTexture(Graphics::TexCell value);
 
 		auto getActiveCallback() const { return mActiveCallback; }
 		void setActiveCallback(Callback value) { mActiveCallback = value; }
@@ -88,8 +88,8 @@ namespace PhoneInc::Helpers
 
 	private:
 		bool mActive = true;
-		std::shared_ptr<Renderer::Texture> mActiveTexture = nullptr;
-		std::shared_ptr<Renderer::Texture> mInactiveTexture = nullptr;
+		Graphics::TexCell mActiveTexture;
+		Graphics::TexCell mInactiveTexture;
 		std::shared_ptr<Audio::Sound> mActiveSound = SOUND("sounds/click.wav");
 		std::shared_ptr<Audio::Sound> mInactiveSound = SOUND("sounds/click.wav");
 		Callback mActiveCallback = nullptr;
@@ -137,6 +137,8 @@ namespace PhoneInc::Helpers
 	public:
 		float getProgress() const { return mClip->getHorizontalStretch(); }
 		void setProgress(float value) { mClip->setHorizontalStretch(value); }
+
+		auto getContent() const { return mContent; }
 
 	protected:
 		std::shared_ptr<Scene::Node> mHolder;
