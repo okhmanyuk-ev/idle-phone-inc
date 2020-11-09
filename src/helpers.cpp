@@ -255,11 +255,11 @@ StreetProgressbar::StreetProgressbar() : Progressbar()
 
 // dollar emitter
 
-DollarEmitter::DollarEmitter() : Shared::SceneHelpers::SpriteEmitter(Holder)
+DollarEmitter::DollarEmitter()
 {
+	setHolder(Holder);
 	setTexture(TEXTURE("textures/ui/dollar_particle.png"));
 	setRunning(false);
-	setBeginSize({ 0.0f, 0.0f });
 	setPivot(0.5f);
 	setAnchor(0.5f);
 	setDistance(156.0f);
