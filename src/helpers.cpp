@@ -231,13 +231,13 @@ Progressbar::Progressbar()
 	mHolder->attach(mClip);
 
 	mContent = std::make_shared<Scene::SlicedSprite>();
-	mContent->setStretch({ -1.0f, 1.0f });
+	mContent->setStretch({ 0.0f, 1.0f });
 	mContent->setAnchor({ 0.0f, 0.5f });
 	mContent->setPivot({ 0.0f, 0.5f });
 	mClip->attach(mContent);
 
 	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {
-		mContent->setWidth(mHolder->getWidth());
+		mContent->setWidth(mHolder->getAbsoluteWidth());
 		mContent->setSampler(getSampler());
 	}));
 }

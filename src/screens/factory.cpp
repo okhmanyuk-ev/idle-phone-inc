@@ -26,12 +26,12 @@ Factory::Factory()
 	 
 	auto conveyor_path = std::make_shared<Scene::Sprite>();
 	conveyor_path->setTexture(TEXTURE("textures/factory/conveyor/segment.png"));
-	conveyor_path->setStretch({ -1.0f, 2.0f });
+	conveyor_path->setStretch({ 0.0f, 2.0f });
 	conveyor_path->setTextureAddress(Renderer::TextureAddress::Wrap);
 	conveyor_path->setX(6.0f);
 	attach(conveyor_path);
 	runAction(Shared::ActionHelpers::ExecuteInfinite([this, conveyor_path] {
-		conveyor_path->setTexRegion({ { 0.0f, 0.0f }, { 0.0f, conveyor_path->getHeight() } });
+		conveyor_path->setTexRegion({ { 0.0f, 0.0f }, { 0.0f, conveyor_path->getAbsoluteHeight() } });
 		auto y = conveyor_path->getY();
 
 		auto speed = ConveyorSpeed;

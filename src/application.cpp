@@ -61,7 +61,7 @@ Application::~Application()
 
 void Application::frame()
 {
-	adaptToScreen(mScene->getRoot(), { 1080.0f, 1920.0f });
+	adaptToScreen(getScene()->getRoot(), { 1080.0f, 1920.0f });
 	Cheats::ShowDevMenu();
 }
 
