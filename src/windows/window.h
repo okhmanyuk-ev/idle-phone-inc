@@ -15,8 +15,8 @@ namespace PhoneInc
 		void onCloseBegin() override;
 
 	public:
-		std::unique_ptr<Common::Actions::Action> createOpenAction() override;
-		std::unique_ptr<Common::Actions::Action> createCloseAction() override;
+		std::unique_ptr<Actions::Action> createOpenAction() override;
+		std::unique_ptr<Actions::Action> createCloseAction() override;
 
 	public:
 		auto getContent() { return mContent; }

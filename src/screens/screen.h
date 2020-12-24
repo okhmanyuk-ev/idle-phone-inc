@@ -21,8 +21,8 @@ namespace PhoneInc
 		void onWindowDisappearing() override;
 
 	protected:
-		std::unique_ptr<Common::Actions::Action> createEnterAction() override;
-		std::unique_ptr<Common::Actions::Action> createLeaveAction() override;
+		std::unique_ptr<Actions::Action> createEnterAction() override;
+		std::unique_ptr<Actions::Action> createLeaveAction() override;
 
 	private:
 		std::shared_ptr<Scene::Node> mContent;

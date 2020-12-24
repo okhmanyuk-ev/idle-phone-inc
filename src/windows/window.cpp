@@ -36,24 +36,26 @@ void Window::onCloseBegin()
 	mContent->setInteractions(false);
 }
 
-std::unique_ptr<Common::Actions::Action> Window::createOpenAction()
+std::unique_ptr<Actions::Action> Window::createOpenAction()
 {
-	return Shared::ActionHelpers::MakeSequence(
-		Shared::ActionHelpers::WaitOneFrame(),
-		Shared::ActionHelpers::MakeParallel(
-			Shared::ActionHelpers::ChangeAlpha(getBackshadeColor(), 0.5f, 0.5f, Common::Easing::CubicOut),
-			Shared::ActionHelpers::ChangeVerticalAnchor(mContent, 0.5f, 0.5f, Common::Easing::CubicOut)
-	));
+	return Actions::Factory::MakeSequence(
+		Actions::Factory::WaitOneFrame(),
+		Actions::Factory::MakeParallel(
+			Actions::Factory::ChangeAlpha(getBackshadeColor(), 0.5f, 0.5f, Easing::CubicOut),
+			Actions::Factory::ChangeVerticalAnchor(mContent, 0.5f, 0.5f, Easing::CubicOut)
+		)
+	);
 };
 
-std::unique_ptr<Common::Actions::Action> Window::createCloseAction()
+std::unique_ptr<Actions::Action> Window::createCloseAction()
 {
-	return Shared::ActionHelpers::MakeSequence(
-		Shared::ActionHelpers::WaitOneFrame(),
-		Shared::ActionHelpers::MakeParallel(
-			Shared::ActionHelpers::ChangeVerticalAnchor(mContent, -0.5f, 0.5f, Common::Easing::CubicIn),
-			Shared::ActionHelpers::ChangeAlpha(getBackshadeColor(), 0.0f, 0.5f, Common::Easing::CubicIn)
-	));
+	return Actions::Factory::MakeSequence(
+		Actions::Factory::WaitOneFrame(),
+		Actions::Factory::MakeParallel(
+			Actions::Factory::ChangeVerticalAnchor(mContent, -0.5f, 0.5f, Easing::CubicIn),
+			Actions::Factory::ChangeAlpha(getBackshadeColor(), 0.0f, 0.5f, Easing::CubicIn)
+		)
+	);
 };
 
 StandardWindow::StandardWindow()

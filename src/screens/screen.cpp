@@ -50,18 +50,18 @@ void Screen::onWindowDisappearing()
 	setInteractions(true);
 }
 
-std::unique_ptr<Common::Actions::Action> Screen::createEnterAction()
+std::unique_ptr<Actions::Action> Screen::createEnterAction()
 {
-	return Shared::ActionHelpers::MakeSequence(
-		Shared::ActionHelpers::WaitOneFrame(),
-		Shared::ActionHelpers::ChangeAlpha(mFadeRectangle, 0.0f, 0.5f)
+	return Actions::Factory::MakeSequence(
+		Actions::Factory::WaitOneFrame(),
+		Actions::Factory::ChangeAlpha(mFadeRectangle, 0.0f, 0.5f)
 	);
 };
 
-std::unique_ptr<Common::Actions::Action> Screen::createLeaveAction()
+std::unique_ptr<Actions::Action> Screen::createLeaveAction()
 {
-	return Shared::ActionHelpers::MakeSequence(
-		Shared::ActionHelpers::WaitOneFrame(),
-		Shared::ActionHelpers::ChangeAlpha(mFadeRectangle, 1.0f, 0.5f)
+	return Actions::Factory::MakeSequence(
+		Actions::Factory::WaitOneFrame(),
+		Actions::Factory::ChangeAlpha(mFadeRectangle, 1.0f, 0.5f)
 	);
 };

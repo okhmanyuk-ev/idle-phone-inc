@@ -70,7 +70,7 @@ Street::Street()
 	storage_bg->attach(mWarehouseStorageLabel);
 	refreshWarehouseStorageLabel();
 
-	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {
+	runAction(Actions::Factory::ExecuteInfinite([this] {
 		if (mWarehouseBusy)
 			return;
 
@@ -85,9 +85,9 @@ Street::Street()
 
 	// cloud spawner
 
-	runAction(Shared::ActionHelpers::RepeatInfinite([this] {
+	runAction(Actions::Factory::RepeatInfinite([this] {
 		auto delay = glm::linearRand(4.0f, 8.0f);
-		return Shared::ActionHelpers::Delayed(delay, Shared::ActionHelpers::Execute([this] {
+		return Actions::Factory::Delayed(delay, Actions::Factory::Execute([this] {
 			spawnCloud();
 		}));
 	}));
@@ -116,16 +116,16 @@ void Street::onEvent(const Profile::CashChangedEvent& e)
 
 void Street::runWarehouseAction()
 {
-	runAction(Shared::ActionHelpers::MakeSequence(
-		Shared::ActionHelpers::Execute([this] {
+	runAction(Actions::Factory::MakeSequence(
+		Actions::Factory::Execute([this] {
 			mWarehouseProgressbar->setEnabled(true);
 		}),
-		Shared::ActionHelpers::ChangeScale(mWarehouseProgressbar, { 1.0f, 1.0f }, 0.125f, Common::Easing::BackOut),
-		Shared::ActionHelpers::Interpolate(0.0f, 1.0f, Balance::GetWarehouseDuration(), Common::Easing::Linear, [this](float value) {
+		Actions::Factory::ChangeScale(mWarehouseProgressbar, { 1.0f, 1.0f }, 0.125f, Easing::BackOut),
+			Actions::Factory::Interpolate(0.0f, 1.0f, Balance::GetWarehouseDuration(), Easing::Linear, [this](float value) {
 			mWarehouseProgressbar->setProgress(value);
 		}),
-		Shared::ActionHelpers::ChangeScale(mWarehouseProgressbar, { 0.0f, 0.0f }, 0.125f, Common::Easing::BackIn),
-		Shared::ActionHelpers::Execute([this] {
+		Actions::Factory::ChangeScale(mWarehouseProgressbar, { 0.0f, 0.0f }, 0.125f, Easing::BackIn),
+		Actions::Factory::Execute([this] {
 			mWarehouseProgressbar->setProgress(0.0f);
 			mWarehouseProgressbar->setEnabled(false);
 			mWarehouseBusy = false;
@@ -153,15 +153,15 @@ void Street::runTruckAction()
 	
 	float duration = Balance::GetWarehouseTruckDuration();
 
-	runAction(Shared::ActionHelpers::MakeSequence(
-		Shared::ActionHelpers::MakeParallel(
-			Shared::ActionHelpers::ChangeHorizontalAnchor(truck, 1.0f, duration),
-			Shared::ActionHelpers::ChangeHorizontalPivot(truck, 0.0f, duration)
+	runAction(Actions::Factory::MakeSequence(
+		Actions::Factory::MakeParallel(
+			Actions::Factory::ChangeHorizontalAnchor(truck, 1.0f, duration),
+			Actions::Factory::ChangeHorizontalPivot(truck, 0.0f, duration)
 		),
-		Shared::ActionHelpers::Execute([truck] {
+		Actions::Factory::Execute([truck] {
 			PROFILE->setCash(PROFILE->getCash() + truck->getEarning());
 		}),
-		Shared::ActionHelpers::Kill(truck)
+		Actions::Factory::Kill(truck)
 	));
 }
 
@@ -193,11 +193,11 @@ void Street::spawnCloud()
 
 	auto duration = glm::linearRand(17.0f, 22.0f);
 
-	cloud->runAction(Shared::ActionHelpers::MakeSequence(
-		Shared::ActionHelpers::MakeParallel(
-			Shared::ActionHelpers::ChangeHorizontalAnchor(cloud, 0.0f, 1.0f, duration),
-			Shared::ActionHelpers::ChangeHorizontalPivot(cloud, 1.0f, 0.0f, duration)
+	cloud->runAction(Actions::Factory::MakeSequence(
+		Actions::Factory::MakeParallel(
+			Actions::Factory::ChangeHorizontalAnchor(cloud, 0.0f, 1.0f, duration),
+			Actions::Factory::ChangeHorizontalPivot(cloud, 1.0f, 0.0f, duration)
 		),
-		Shared::ActionHelpers::Kill(cloud)
+		Actions::Factory::Kill(cloud)
 	));
 }

@@ -15,7 +15,7 @@ TutorHolder::TutorHolder()
 	mFinger->setScale(0.0f);
 	attach(mFinger);
 
-	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {
+	runAction(Actions::Factory::ExecuteInfinite([this] {
 		removeOutdatedTutors();
 		chooseCurrentTutor();
 		showFinger(isPlaying());
@@ -24,7 +24,7 @@ TutorHolder::TutorHolder()
 
 	// finger pulse
 
-	runAction(Shared::ActionHelpers::RepeatInfinite([this]() -> Shared::ActionHelpers::Action {
+	runAction(Actions::Factory::RepeatInfinite([this]() -> Actions::Factory::UAction {
 		const float Delay = 1.25f;
 		const float Duration = 0.125f;
 		const glm::vec2 ModifiedValue = { 0.75f, 0.75f };
@@ -33,12 +33,12 @@ TutorHolder::TutorHolder()
 		if (mFingerState != FingerState::Opened)
 			return nullptr;
 
-		return Shared::ActionHelpers::Breakable([this] { return mFingerState == FingerState::Opened; },
-			Shared::ActionHelpers::Delayed(Delay, Shared::ActionHelpers::MakeSequence(
-				Shared::ActionHelpers::ChangeScale(mFinger, ModifiedValue, Duration, Common::Easing::CubicInOut),
-				Shared::ActionHelpers::ChangeScale(mFinger, NormalValue, Duration, Common::Easing::CubicInOut),
-				Shared::ActionHelpers::ChangeScale(mFinger, ModifiedValue, Duration, Common::Easing::CubicInOut),
-				Shared::ActionHelpers::ChangeScale(mFinger, NormalValue, Duration, Common::Easing::CubicInOut)
+		return Actions::Factory::Breakable([this] { return mFingerState == FingerState::Opened; },
+			Actions::Factory::Delayed(Delay, Actions::Factory::MakeSequence(
+				Actions::Factory::ChangeScale(mFinger, ModifiedValue, Duration, Easing::CubicInOut),
+				Actions::Factory::ChangeScale(mFinger, NormalValue, Duration, Easing::CubicInOut),
+				Actions::Factory::ChangeScale(mFinger, ModifiedValue, Duration, Easing::CubicInOut),
+				Actions::Factory::ChangeScale(mFinger, NormalValue, Duration, Easing::CubicInOut)
 			))
 		);
 	}));
@@ -136,9 +136,9 @@ void TutorHolder::showFinger(bool visible)
 		mFingerState = FingerState::Opening;
 		mFinger->setEnabled(true);
 
-		runAction(Shared::ActionHelpers::MakeSequence(
-			Shared::ActionHelpers::ChangeScale(mFinger, { 1.0f, 1.0f }, Duration, Common::Easing::BackOut),
-			Shared::ActionHelpers::Execute([this] {
+		runAction(Actions::Factory::MakeSequence(
+			Actions::Factory::ChangeScale(mFinger, { 1.0f, 1.0f }, Duration, Easing::BackOut),
+			Actions::Factory::Execute([this] {
 				mFingerState = FingerState::Opened;
 			})
 		));
@@ -147,9 +147,9 @@ void TutorHolder::showFinger(bool visible)
 	{
 		mFingerState = FingerState::Closing;
 
-		runAction(Shared::ActionHelpers::MakeSequence(
-			Shared::ActionHelpers::ChangeScale(mFinger, { 0.0f, 0.0f }, Duration, Common::Easing::BackIn),
-			Shared::ActionHelpers::Execute([this] {
+		runAction(Actions::Factory::MakeSequence(
+			Actions::Factory::ChangeScale(mFinger, { 0.0f, 0.0f }, Duration, Easing::BackIn),
+			Actions::Factory::Execute([this] {
 				mFingerState = FingerState::Closed;
 				mFinger->setEnabled(false);
 			})

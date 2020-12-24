@@ -39,7 +39,7 @@ MicrotasksHolder::MicrotasksHolder()
 	mRewardButton->setY(32.0f);
 	mRewardButton->getLabel()->setText(LOCALIZE("MICROTASK_REWARD_BUTTON"));
 	mRewardButton->setActiveCallback([this] {
-		runAction(Shared::ActionHelpers::Delayed(0.25f, Shared::ActionHelpers::Execute([this] {
+		runAction(Actions::Factory::Delayed(0.25f, Actions::Factory::Execute([this] {
 			MICROTASKS->complete();
 		})));
 		mRewardButton->setEnabled(false);
@@ -65,13 +65,13 @@ void MicrotasksHolder::start()
 
 void MicrotasksHolder::show()
 {
-	runAction(Shared::ActionHelpers::MakeSequence(
-		Shared::ActionHelpers::ChangeVerticalPivot(mHolder, 0.0f, 0.25f, Common::Easing::CubicOut),
-		Shared::ActionHelpers::Execute([this] {
+	runAction(Actions::Factory::MakeSequence(
+		Actions::Factory::ChangeVerticalPivot(mHolder, 0.0f, 0.25f, Easing::CubicOut),
+		Actions::Factory::Execute([this] {
 			mRewardButton->setEnabled(MICROTASKS->isReady());
 		}),
-		Shared::ActionHelpers::Wait(0.5f),
-		Shared::ActionHelpers::Execute([this] {
+		Actions::Factory::Wait(0.5f),
+			Actions::Factory::Execute([this] {
 			MICROTASKS->checkForCompletion();
 		})
 	));
@@ -79,12 +79,12 @@ void MicrotasksHolder::show()
 
 void MicrotasksHolder::hide(std::function<void()> finishCallback)
 {
-	runAction(Shared::ActionHelpers::MakeSequence(
-		Shared::ActionHelpers::Execute([this] { 
+	runAction(Actions::Factory::MakeSequence(
+		Actions::Factory::Execute([this] {
 			mRewardButton->setEnabled(false);
 		}),
-		Shared::ActionHelpers::ChangeVerticalPivot(mHolder, 1.0f, 0.25f, Common::Easing::CubicOut),
-		Shared::ActionHelpers::Execute(finishCallback)
+		Actions::Factory::ChangeVerticalPivot(mHolder, 1.0f, 0.25f, Easing::CubicOut),
+		Actions::Factory::Execute(finishCallback)
 	));
 }
 
@@ -112,7 +112,7 @@ void MicrotasksHolder::refresh()
 void MicrotasksHolder::refreshWithAnim()
 {
 	hide([this] {
-		runAction(Shared::ActionHelpers::Delayed(0.25f, Shared::ActionHelpers::Execute([this] {
+		runAction(Actions::Factory::Delayed(0.25f, Actions::Factory::Execute([this] {
 			refresh();
 			show();
 		})));

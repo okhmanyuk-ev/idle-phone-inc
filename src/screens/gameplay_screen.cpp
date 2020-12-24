@@ -51,7 +51,7 @@ GameplayScreen::GameplayScreen()
 	bottom_menu->setPivot({ 0.5f, 1.0f });
 	root->attach(bottom_menu);
 
-	runAction(Shared::ActionHelpers::ExecuteInfinite([this, top_menu, bottom_menu] {
+	runAction(Actions::Factory::ExecuteInfinite([this, top_menu, bottom_menu] {
 		if (!isTransformReady())
 			return;
 
@@ -78,11 +78,11 @@ GameplayScreen::GameplayScreen()
 		return getState() != State::Entered; 
 	};
 
-	runAction(Shared::ActionHelpers::Delayed(predicate, Shared::ActionHelpers::Execute([microtasks] {
+	runAction(Actions::Factory::Delayed(predicate, Actions::Factory::Execute([microtasks] {
 		microtasks->start();
 	})));
 
-	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {
+	runAction(Actions::Factory::ExecuteInfinite([this] {
 		if (!isTransformReady())
 			return;
 
@@ -100,7 +100,7 @@ GameplayScreen::GameplayScreen()
 
 void GameplayScreen::onEvent(const Helpers::MoveGlobalScrollEvent& e)
 {
-	runAction(Shared::ActionHelpers::ChangePosition(mScrollbox->getContent(), e.pos, 0.5f, Common::Easing::CubicInOut));
+	runAction(Actions::Factory::ChangePosition(mScrollbox->getContent(), e.pos, 0.5f, Easing::CubicInOut));
 }
 
 void GameplayScreen::onEvent(const Helpers::BlockGlobalScrollEvent& e)

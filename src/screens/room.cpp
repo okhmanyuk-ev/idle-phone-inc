@@ -90,7 +90,7 @@ Factory::Room::Room(int index) : mIndex(index)
 	
 	refresh();
 
-	runAction(Shared::ActionHelpers::RepeatInfinite([this]() -> Shared::ActionHelpers::Action {
+	runAction(Actions::Factory::RepeatInfinite([this]() -> Actions::Factory::UAction {
 		const auto& rooms = PROFILE->getRooms();
 
 		if (rooms.count(mIndex) == 0)
@@ -116,18 +116,18 @@ Factory::Room::Room(int index) : mIndex(index)
 
 		auto duration = Balance::GetManagerDuration(mIndex);
 
-		return Shared::ActionHelpers::MakeSequence(
-			Shared::ActionHelpers::Execute([this] {
+		return Actions::Factory::MakeSequence(
+			Actions::Factory::Execute([this] {
 				mManager->setStateType(ManagerAnimation::Working);
 				mManager->getProgressbar()->setEnabled(true);
 				mManager->getProgressbar()->setProgress(0.0f);
 			}),
-			Shared::ActionHelpers::ChangeScale(mManager->getProgressbar(), { 1.0f, 1.0f }, 0.125f, Common::Easing::BackOut),
-			Shared::ActionHelpers::Interpolate(0.0f, 1.0f, duration, Common::Easing::Linear, [this](float value) {
+			Actions::Factory::ChangeScale(mManager->getProgressbar(), { 1.0f, 1.0f }, 0.125f, Easing::BackOut),
+				Actions::Factory::Interpolate(0.0f, 1.0f, duration, Easing::Linear, [this](float value) {
 				mManager->getProgressbar()->setProgress(value);
 			}), 
-			Shared::ActionHelpers::ChangeScale(mManager->getProgressbar(), { 0.0f, 0.0f }, 0.125f, Common::Easing::BackIn),
-			Shared::ActionHelpers::Execute([this] {
+			Actions::Factory::ChangeScale(mManager->getProgressbar(), { 0.0f, 0.0f }, 0.125f, Easing::BackIn),
+				Actions::Factory::Execute([this] {
 				mManager->getProgressbar()->setEnabled(false);
 				mManager->setStateType(ManagerAnimation::Idle);
 				for (auto phones_stack : mPhonesStacks)
@@ -143,7 +143,7 @@ Factory::Room::Room(int index) : mIndex(index)
 
 	for (int i = 0; i < Balance::MaxWorkersCount; i++)
 	{
-		runAction(Shared::ActionHelpers::RepeatInfinite([this, i]() -> Shared::ActionHelpers::Action {
+		runAction(Actions::Factory::RepeatInfinite([this, i]() -> Actions::Factory::UAction {
 			const auto& rooms = PROFILE->getRooms();
 
 			if (rooms.count(mIndex) == 0)
@@ -157,7 +157,7 @@ Factory::Room::Room(int index) : mIndex(index)
 			auto duration = Balance::GetWorkerDuration(mIndex, i);
 			auto phone = mPhonesStacks.at(i);
 
-			return Shared::ActionHelpers::Delayed(duration, Shared::ActionHelpers::Execute([this, phone] {
+			return Actions::Factory::Delayed(duration, Actions::Factory::Execute([this, phone] {
 				if (phone->isFilled())
 					return;
 
@@ -169,7 +169,7 @@ Factory::Room::Room(int index) : mIndex(index)
 		}));
 	}
 
-	runAction(Shared::ActionHelpers::ExecuteInfinite([this] {
+	runAction(Actions::Factory::ExecuteInfinite([this] {
 		for (int i = 0; i < Balance::MaxWorkersCount; i++)
 		{
 			mWorkers[i]->setStateType(mPhonesStacks[i]->isFilled() ? Worker::Animation::Idle : Worker::Animation::Working);
@@ -347,8 +347,8 @@ void Factory::Room::PhonesStack::runAnimForPhone(int index)
 	phone->setScale(0.0f);
 	phone->setVerticalOrigin(64.0f);
 
-	phone->runAction(Shared::ActionHelpers::MakeParallel(
-		Shared::ActionHelpers::ChangeScale(phone, { 1.0f, 1.0f }, 0.125f, Common::Easing::BackOut),
-		Shared::ActionHelpers::ChangeVerticalOrigin(phone, 0.0f, 0.25f, Common::Easing::CubicOut)
+	phone->runAction(Actions::Factory::MakeParallel(
+		Actions::Factory::ChangeScale(phone, { 1.0f, 1.0f }, 0.125f, Easing::BackOut),
+		Actions::Factory::ChangeVerticalOrigin(phone, 0.0f, 0.25f, Easing::CubicOut)
 	));
 }
