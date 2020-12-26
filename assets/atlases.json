@@ -58,10 +58,8 @@
         "textures/windows/building_window/icon3.png"
     ],
     "ui": [
-        "textures/buttons/button_active.png",
-        "textures/buttons/button_inactive.png",
-        "textures/buttons/button_long_active.png",
-        "textures/buttons/button_long_inactive.png",
+        "textures/buttons/button.png",
+        "textures/buttons/button_long.png",
         "textures/buttons/close.png",
 
         "textures/bottom_menu/background.png",

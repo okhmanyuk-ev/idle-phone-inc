@@ -45,10 +45,13 @@ namespace PhoneInc::Helpers
 		LabelSolidBold();
 	};
 
-	class Button : public Scene::Clickable<Scene::Sprite>, public std::enable_shared_from_this<Button>
+	class Button : public Scene::Clickable<Shared::SceneHelpers::InactiveSprite>, public std::enable_shared_from_this<Button>
 	{
 	private:
 		const float MaxAutoclickTime = 0.5f;
+
+	public:
+		Button();
 
 	protected:
 		void update() override;
@@ -62,15 +65,6 @@ namespace PhoneInc::Helpers
 		void internalClick();
 		
 	public:
-		auto isActive() const { return mActive; }
-		void setActive(bool value);
-
-		auto getActiveTexture() const { return mActiveTexture; }
-		void setActiveTexture(Graphics::TexCell value);
-
-		auto getInactiveTexture() const { return mInactiveTexture; }
-		void setInactiveTexture(Graphics::TexCell value);
-
 		auto getActiveCallback() const { return mActiveCallback; }
 		void setActiveCallback(Callback value) { mActiveCallback = value; }
 	
@@ -84,12 +78,6 @@ namespace PhoneInc::Helpers
 		void setInactiveSound(std::shared_ptr<Audio::Sound> value) { mInactiveSound = value; }
 
 	private:
-		void ensureTexture();
-
-	private:
-		bool mActive = true;
-		Graphics::TexCell mActiveTexture;
-		Graphics::TexCell mInactiveTexture;
 		std::shared_ptr<Audio::Sound> mActiveSound = SOUND("sounds/click.wav");
 		std::shared_ptr<Audio::Sound> mInactiveSound = SOUND("sounds/click.wav");
 		Callback mActiveCallback = nullptr;

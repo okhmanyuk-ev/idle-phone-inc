@@ -86,9 +86,14 @@ LabelSolidBold::LabelSolidBold()
 	setFont(FONT("default_bold"));
 }
 
+Button::Button()
+{
+	setActive(true);
+}
+
 void Button::update()
 {
-	Scene::Clickable<Scene::Sprite>::update();
+	Scene::Clickable<Shared::SceneHelpers::InactiveSprite>::update();
 
 	if (!mAutoclick)
 		return;
@@ -122,7 +127,7 @@ void Button::onClick()
 
 void Button::onChooseBegin()
 {
-	Scene::Clickable<Scene::Sprite>::onChooseBegin();
+	Scene::Clickable<Shared::SceneHelpers::InactiveSprite>::onChooseBegin();
 	Shared::SceneHelpers::RecursiveColorSet(shared_from_this(), glm::vec4(1.25f));
 
 	if (mAutoclick)
@@ -135,13 +140,13 @@ void Button::onChooseBegin()
 
 void Button::onChooseEnd()
 {
-	Scene::Clickable<Scene::Sprite>::onChooseEnd();
+	Scene::Clickable<Shared::SceneHelpers::InactiveSprite>::onChooseEnd();
 	Shared::SceneHelpers::RecursiveColorSet(shared_from_this(), glm::vec4(1.0f));
 }
 
 void Button::internalClick()
 {
-	Scene::Clickable<Scene::Sprite>::onClick();
+	Scene::Clickable<Shared::SceneHelpers::InactiveSprite>::onClick();
 
 	auto executeCallback = [](auto callback) { if (callback) callback(); };
 	if (isActive())
@@ -156,36 +161,9 @@ void Button::internalClick()
 	}
 }
 
-void Button::setActive(bool value)
-{
-	mActive = value;
-	ensureTexture();
-}
-
-void Button::setActiveTexture(Graphics::TexCell value)
-{
-	mActiveTexture = value;
-	ensureTexture();
-}
-
-void Button::setInactiveTexture(Graphics::TexCell value)
-{
-	mInactiveTexture = value;
-	ensureTexture();
-}
-
-void Button::ensureTexture()
-{
-	if (mActive)
-		setTexture(mActiveTexture);
-	else
-		setTexture(mInactiveTexture);
-}
-
 StandardButton::StandardButton() : Button()
 {
-	setActiveTexture(TEXTURE("textures/buttons/button_active.png"));
-	setInactiveTexture(TEXTURE("textures/buttons/button_inactive.png"));
+	setTexture(TEXTURE("textures/buttons/button.png"));
 
 	mLabel = std::make_shared<Label>();
 	mLabel->setPivot(0.5f);
@@ -197,8 +175,7 @@ StandardButton::StandardButton() : Button()
 
 StandardLongButton::StandardLongButton() : Button()
 {
-	setActiveTexture(TEXTURE("textures/buttons/button_long_active.png"));
-	setInactiveTexture(TEXTURE("textures/buttons/button_long_inactive.png"));
+	setTexture(TEXTURE("textures/buttons/button_long.png"));
 
 	mLabel = std::make_shared<Label>();
 	mLabel->setPivot(0.5f);
