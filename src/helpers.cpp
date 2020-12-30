@@ -93,7 +93,7 @@ Button::Button()
 
 void Button::update()
 {
-	Scene::Clickable<Shared::SceneHelpers::InactiveSprite>::update();
+	Scene::Actionable<Scene::Clickable<Shared::SceneHelpers::InactiveSprite>>::update();
 
 	if (!mAutoclick)
 		return;
@@ -112,6 +112,17 @@ void Button::update()
 	mNextAutoclick = MaxAutoclickTime / ((float)mAutoclickCount / 1.5f);
 }
 
+void Button::updateTransform()
+{
+	Scene::Actionable<Scene::Clickable<Shared::SceneHelpers::InactiveSprite>>::updateTransform();
+
+	auto transform = getTransform();
+	transform = glm::translate(transform, { 0.5f * getAbsoluteSize(), 0.0f });
+	transform = glm::scale(transform, { mRelativeScale, mRelativeScale, 1.0f });
+	transform = glm::translate(transform, { 0.5f * -getAbsoluteSize(), 0.0f });
+	setTransform(transform);
+}
+
 void Button::onClick()
 {
 	if (!mAutoclick)
@@ -127,8 +138,21 @@ void Button::onClick()
 
 void Button::onChooseBegin()
 {
-	Scene::Clickable<Shared::SceneHelpers::InactiveSprite>::onChooseBegin();
-	Shared::SceneHelpers::RecursiveColorSet(shared_from_this(), glm::vec4(1.25f));
+	Scene::Actionable<Scene::Clickable<Shared::SceneHelpers::InactiveSprite>>::onChooseBegin();
+	
+	if (!mChooseAnimationProcessing)
+	{
+		mChooseAnimationStarted = true;
+		runAction(Actions::Factory::MakeSequence(
+			Actions::Factory::Execute([this] { 
+				mChooseAnimationProcessing = true; 
+			}),
+			Actions::Factory::Interpolate(1.0f - 0.125f, 0.125f / 4.0f, mRelativeScale),
+			Actions::Factory::Execute([this] {
+				mChooseAnimationProcessing = false;
+			})
+		));
+	}
 
 	if (mAutoclick)
 	{
@@ -140,13 +164,30 @@ void Button::onChooseBegin()
 
 void Button::onChooseEnd()
 {
-	Scene::Clickable<Shared::SceneHelpers::InactiveSprite>::onChooseEnd();
-	Shared::SceneHelpers::RecursiveColorSet(shared_from_this(), glm::vec4(1.0f));
+	Scene::Actionable<Scene::Clickable<Shared::SceneHelpers::InactiveSprite>>::onChooseEnd();
+
+	const float Duration = 0.125f / 1.5f;
+
+	if (mChooseAnimationStarted)
+	{
+		mChooseAnimationStarted = false;
+		runAction(Actions::Factory::MakeSequence(
+			Actions::Factory::Wait(mChooseAnimationProcessing),
+			Actions::Factory::Execute([this] { 
+				mChooseAnimationProcessing = true; 
+			}),
+			Actions::Factory::Interpolate(1.125f, Duration / 2.0f, mRelativeScale),
+			Actions::Factory::Interpolate(1.0f, Duration / 2.0f, mRelativeScale),
+			Actions::Factory::Execute([this] {
+				mChooseAnimationProcessing = false;
+			})
+		));
+	}
 }
 
 void Button::internalClick()
 {
-	Scene::Clickable<Shared::SceneHelpers::InactiveSprite>::onClick();
+	Scene::Actionable<Scene::Clickable<Shared::SceneHelpers::InactiveSprite>>::onClick();
 
 	auto executeCallback = [](auto callback) { if (callback) callback(); };
 	if (isActive())

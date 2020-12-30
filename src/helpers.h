@@ -45,7 +45,7 @@ namespace PhoneInc::Helpers
 		LabelSolidBold();
 	};
 
-	class Button : public Scene::Clickable<Shared::SceneHelpers::InactiveSprite>, public std::enable_shared_from_this<Button>
+	class Button : public Scene::Actionable<Scene::Clickable<Shared::SceneHelpers::InactiveSprite>>
 	{
 	private:
 		const float MaxAutoclickTime = 0.5f;
@@ -55,6 +55,9 @@ namespace PhoneInc::Helpers
 
 	protected:
 		void update() override;
+
+	public:
+		void updateTransform() override;
 
 	protected:
 		void onClick() override;
@@ -85,6 +88,9 @@ namespace PhoneInc::Helpers
 		bool mAutoclick = false;
 		float mNextAutoclick = 0.0f;
 		int mAutoclickCount = 0;
+		float mRelativeScale = 1.0f;
+		bool mChooseAnimationProcessing = false;
+		bool mChooseAnimationStarted = false;
 	};
 
 	class StandardButton : public Button
