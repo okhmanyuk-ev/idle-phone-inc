@@ -118,7 +118,7 @@ void Profile::unlockRoom(int index)
 	assert(isRoomLocked(index));
 	mRooms.insert({ index, Room() });
 	EVENT->emit(RoomUnlockedEvent({ index }));
-	setMicrotaskProgress(Microtasks::Task::Type::UnlockRooms, mRooms.size());
+	setMicrotaskProgress(Microtasks::Task::Type::UnlockRooms, (int)mRooms.size());
 	saveAsync();
 }
 

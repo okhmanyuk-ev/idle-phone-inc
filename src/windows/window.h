@@ -42,6 +42,6 @@ namespace PhoneInc
 	private:
 		std::shared_ptr<Scene::SlicedSprite> mBackground;
 		std::shared_ptr<Helpers::LabelSolid> mTitle;
-		std::shared_ptr<Helpers::CloseButtonWidget> mCloseButton;
+		std::shared_ptr<Helpers::CloseButton> mCloseButton;
 	};
 }

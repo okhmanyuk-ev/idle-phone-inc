@@ -45,13 +45,10 @@ namespace PhoneInc::Helpers
 		LabelSolidBold();
 	};
 
-	class Button : public Scene::Actionable<Scene::Clickable<Shared::SceneHelpers::InactiveSprite>>
+	class Button : public Scene::Actionable<Shared::SceneHelpers::GrayscaleSpriteButton>
 	{
 	private:
 		const float MaxAutoclickTime = 0.5f;
-
-	public:
-		Button();
 
 	protected:
 		void update() override;
@@ -117,10 +114,10 @@ namespace PhoneInc::Helpers
 		std::shared_ptr<Label> mLabel;
 	};
 
-	class CloseButtonWidget : public Button
+	class CloseButton : public Button
 	{
 	public:
-		CloseButtonWidget();
+		CloseButton();
 	};
 
 	class Progressbar : public Scene::Actionable<Scene::SlicedSprite>

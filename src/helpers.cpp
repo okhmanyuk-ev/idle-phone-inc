@@ -86,14 +86,9 @@ LabelSolidBold::LabelSolidBold()
 	setFont(FONT("default_bold"));
 }
 
-Button::Button()
-{
-	setActive(true);
-}
-
 void Button::update()
 {
-	Scene::Actionable<Scene::Clickable<Shared::SceneHelpers::InactiveSprite>>::update();
+	Scene::Actionable<Shared::SceneHelpers::GrayscaleSpriteButton>::update();
 
 	if (!mAutoclick)
 		return;
@@ -114,7 +109,7 @@ void Button::update()
 
 void Button::updateTransform()
 {
-	Scene::Actionable<Scene::Clickable<Shared::SceneHelpers::InactiveSprite>>::updateTransform();
+	Scene::Actionable<Shared::SceneHelpers::GrayscaleSpriteButton>::updateTransform();
 
 	auto transform = getTransform();
 	transform = glm::translate(transform, { 0.5f * getAbsoluteSize(), 0.0f });
@@ -138,7 +133,7 @@ void Button::onClick()
 
 void Button::onChooseBegin()
 {
-	Scene::Actionable<Scene::Clickable<Shared::SceneHelpers::InactiveSprite>>::onChooseBegin();
+	Scene::Actionable<Shared::SceneHelpers::GrayscaleSpriteButton>::onChooseBegin();
 	
 	if (!mChooseAnimationProcessing)
 	{
@@ -164,7 +159,7 @@ void Button::onChooseBegin()
 
 void Button::onChooseEnd()
 {
-	Scene::Actionable<Scene::Clickable<Shared::SceneHelpers::InactiveSprite>>::onChooseEnd();
+	Scene::Actionable<Shared::SceneHelpers::GrayscaleSpriteButton>::onChooseEnd();
 
 	const float Duration = 0.125f / 1.5f;
 
@@ -187,7 +182,7 @@ void Button::onChooseEnd()
 
 void Button::internalClick()
 {
-	Scene::Actionable<Scene::Clickable<Shared::SceneHelpers::InactiveSprite>>::onClick();
+	Scene::Actionable<Shared::SceneHelpers::GrayscaleSpriteButton>::onClick();
 
 	auto executeCallback = [](auto callback) { if (callback) callback(); };
 	if (isActive())
@@ -226,7 +221,7 @@ StandardLongButton::StandardLongButton() : Button()
 	attach(mLabel);
 }
 
-CloseButtonWidget::CloseButtonWidget() : Button()
+CloseButton::CloseButton() : Button()
 {
 	setTexture(TEXTURE("textures/buttons/close.png"));
 	setClickCallback([] {

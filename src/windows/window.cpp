@@ -76,7 +76,7 @@ StandardWindow::StandardWindow()
 	mTitle->setText("title");
 	getBackground()->attach(mTitle);
 
-	mCloseButton = std::make_shared<Helpers::CloseButtonWidget>();
+	mCloseButton = std::make_shared<Helpers::CloseButton>();
 	mCloseButton->setPivot(0.5f);
 	mCloseButton->setAnchor({ 1.0f, 0.0f });
 	mCloseButton->setPosition({ -72.0f, 72.0f });

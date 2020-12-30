@@ -10,7 +10,7 @@ BottomMenuLockedWindow::BottomMenuLockedWindow()
 	bg->setPivot(0.5f);
 	getContent()->attach(bg);
 
-	auto close_button = std::make_shared<Helpers::CloseButtonWidget>();
+	auto close_button = std::make_shared<Helpers::CloseButton>();
 	close_button->setPosition({ 708.0f, 32.0f });
 	bg->attach(close_button);
 
