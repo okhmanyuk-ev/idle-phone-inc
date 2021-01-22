@@ -94,7 +94,7 @@ Button::Button()
 
 void Button::update()
 {
-	Shared::SceneHelpers::GrayscaleSpriteButton::update();
+	Shared::SceneHelpers::BouncingButtonBehavior<Shared::SceneHelpers::GrayscaleSpriteButton>::update();
 
 	if (!mAutoclick)
 		return;
@@ -113,17 +113,6 @@ void Button::update()
 	mNextAutoclick = MaxAutoclickTime / ((float)mAutoclickCount / 1.5f);
 }
 
-void Button::updateTransform()
-{
-	Shared::SceneHelpers::GrayscaleSpriteButton::updateTransform();
-
-	auto transform = getTransform();
-	transform = glm::translate(transform, { 0.5f * getAbsoluteSize(), 0.0f });
-	transform = glm::scale(transform, { mRelativeScale, mRelativeScale, 1.0f });
-	transform = glm::translate(transform, { 0.5f * -getAbsoluteSize(), 0.0f });
-	setTransform(transform);
-}
-
 void Button::onClick()
 {
 	if (!mAutoclick)
@@ -139,22 +128,8 @@ void Button::onClick()
 
 void Button::onChooseBegin()
 {
-	Shared::SceneHelpers::GrayscaleSpriteButton::onChooseBegin();
+	Shared::SceneHelpers::BouncingButtonBehavior<Shared::SceneHelpers::GrayscaleSpriteButton>::onChooseBegin();
 	
-	if (!mChooseAnimationProcessing)
-	{
-		mChooseAnimationStarted = true;
-		runAction(Actions::Factory::MakeSequence(
-			Actions::Factory::Execute([this] { 
-				mChooseAnimationProcessing = true; 
-			}),
-			Actions::Factory::Interpolate(1.0f - 0.125f, 0.125f / 4.0f, mRelativeScale),
-			Actions::Factory::Execute([this] {
-				mChooseAnimationProcessing = false;
-			})
-		));
-	}
-
 	if (mAutoclick)
 	{
 		internalClick();
@@ -163,32 +138,9 @@ void Button::onChooseBegin()
 	}
 }
 
-void Button::onChooseEnd()
-{
-	Shared::SceneHelpers::GrayscaleSpriteButton::onChooseEnd();
-
-	const float Duration = 0.125f / 1.5f;
-
-	if (mChooseAnimationStarted)
-	{
-		mChooseAnimationStarted = false;
-		runAction(Actions::Factory::MakeSequence(
-			Actions::Factory::Wait(mChooseAnimationProcessing),
-			Actions::Factory::Execute([this] { 
-				mChooseAnimationProcessing = true; 
-			}),
-			Actions::Factory::Interpolate(1.125f, Duration / 2.0f, mRelativeScale),
-			Actions::Factory::Interpolate(1.0f, Duration / 2.0f, mRelativeScale),
-			Actions::Factory::Execute([this] {
-				mChooseAnimationProcessing = false;
-			})
-		));
-	}
-}
-
 void Button::internalClick()
 {
-	Shared::SceneHelpers::GrayscaleSpriteButton::onClick();
+	Shared::SceneHelpers::BouncingButtonBehavior<Shared::SceneHelpers::GrayscaleSpriteButton>::onClick();
 }
 
 StandardButton::StandardButton() : Button()

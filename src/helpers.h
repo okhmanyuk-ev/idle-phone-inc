@@ -45,7 +45,7 @@ namespace PhoneInc::Helpers
 		LabelSolidBold();
 	};
 
-	class Button : public Shared::SceneHelpers::GrayscaleSpriteButton
+	class Button : public Shared::SceneHelpers::BouncingButtonBehavior<Shared::SceneHelpers::GrayscaleSpriteButton>
 	{
 	private:
 		const float MaxAutoclickTime = 0.5f;
@@ -56,13 +56,9 @@ namespace PhoneInc::Helpers
 	protected:
 		void update() override;
 
-	public:
-		void updateTransform() override;
-
 	protected:
 		void onClick() override;
 		void onChooseBegin() override;
-		void onChooseEnd() override;
 
 	private:
 		void internalClick();
@@ -75,9 +71,6 @@ namespace PhoneInc::Helpers
 		bool mAutoclick = false;
 		float mNextAutoclick = 0.0f;
 		int mAutoclickCount = 0;
-		float mRelativeScale = 1.0f;
-		bool mChooseAnimationProcessing = false;
-		bool mChooseAnimationStarted = false;
 	};
 
 	class StandardButton : public Button
