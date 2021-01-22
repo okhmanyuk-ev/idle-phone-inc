@@ -184,7 +184,7 @@ void Street::spawnCloud()
 
 	float y = glm::linearRand(24.0f, 142.0f);
 
-	auto cloud = std::make_shared<Scene::Actionable<Scene::Sprite>>();
+	auto cloud = std::make_shared<Scene::Sprite>();
 	cloud->setTexture(texture);
 	cloud->setAnchor(0.0f);
 	cloud->setPivot({ 1.0f, 0.0f });

@@ -6,7 +6,7 @@
 
 namespace PhoneInc
 {
-	class MicrotasksHolder : public Scene::Actionable<Scene::Node>,
+	class MicrotasksHolder : public Scene::Node,
 		public Common::Event::Listenable<Microtasks::TaskReadyEvent>,
 		public Common::Event::Listenable<Microtasks::TaskCompletedEvent>
 	{

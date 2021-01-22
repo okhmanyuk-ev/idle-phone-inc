@@ -5,7 +5,7 @@
 
 namespace PhoneInc
 {
-	class LoadingScreen : public Scene::Actionable<Screen>
+	class LoadingScreen : public Screen
 	{
 	public:
 		using Callback = std::function<void()>;

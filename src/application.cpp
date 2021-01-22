@@ -85,7 +85,7 @@ void Application::initializeScene()
 {
 	Scene::Sampler::DefaultSampler = Renderer::Sampler::Linear;
 
-	auto loading = std::make_shared<Scene::Actionable<LoadingScreen>>();
+	auto loading = std::make_shared<LoadingScreen>();
 	loading->setTasks({
 		[] { PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Medium.ttf", "default"); },
 		[] { PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Bold.ttf", "default_bold"); },
@@ -98,7 +98,7 @@ void Application::initializeScene()
 
 			// particles holder
 
-			auto particles_holder = std::make_shared<Scene::Actionable<Scene::Node>>();
+			auto particles_holder = std::make_shared<Scene::Node>();
 			SCENE_MANAGER->attach(particles_holder);
 			Helpers::DollarEmitter::Holder = particles_holder;
 

@@ -8,7 +8,7 @@
 
 namespace PhoneInc
 {
-	class GameplayScreen : public Scene::Actionable<Screen>,
+	class GameplayScreen : public Screen,
 		public Common::Event::Listenable<Helpers::MoveGlobalScrollEvent>,
 		public Common::Event::Listenable<Helpers::BlockGlobalScrollEvent>
 	{

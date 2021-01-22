@@ -45,7 +45,7 @@ namespace PhoneInc::Helpers
 		LabelSolidBold();
 	};
 
-	class Button : public Scene::Actionable<Shared::SceneHelpers::GrayscaleSpriteButton>
+	class Button : public Shared::SceneHelpers::GrayscaleSpriteButton
 	{
 	private:
 		const float MaxAutoclickTime = 0.5f;
@@ -110,7 +110,7 @@ namespace PhoneInc::Helpers
 		CloseButton();
 	};
 
-	class Progressbar : public Scene::Actionable<Scene::SlicedSprite>
+	class Progressbar : public Scene::SlicedSprite
 	{
 	public:
 		Progressbar();

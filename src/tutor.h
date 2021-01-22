@@ -20,7 +20,7 @@ namespace PhoneInc
 		virtual bool isCompleted(const std::string& name) const = 0;
 	};
 
-	class TutorHolder : public Scene::Actionable<Scene::Node>, public TutorialSystem,
+	class TutorHolder : public Scene::Node, public TutorialSystem,
 		public Common::Event::Listenable<Profile::ProfileClearedEvent>
 	{
 	public:

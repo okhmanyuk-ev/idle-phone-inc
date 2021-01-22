@@ -94,7 +94,7 @@ Button::Button()
 
 void Button::update()
 {
-	Scene::Actionable<Shared::SceneHelpers::GrayscaleSpriteButton>::update();
+	Shared::SceneHelpers::GrayscaleSpriteButton::update();
 
 	if (!mAutoclick)
 		return;
@@ -115,7 +115,7 @@ void Button::update()
 
 void Button::updateTransform()
 {
-	Scene::Actionable<Shared::SceneHelpers::GrayscaleSpriteButton>::updateTransform();
+	Shared::SceneHelpers::GrayscaleSpriteButton::updateTransform();
 
 	auto transform = getTransform();
 	transform = glm::translate(transform, { 0.5f * getAbsoluteSize(), 0.0f });
@@ -139,7 +139,7 @@ void Button::onClick()
 
 void Button::onChooseBegin()
 {
-	Scene::Actionable<Shared::SceneHelpers::GrayscaleSpriteButton>::onChooseBegin();
+	Shared::SceneHelpers::GrayscaleSpriteButton::onChooseBegin();
 	
 	if (!mChooseAnimationProcessing)
 	{
@@ -165,7 +165,7 @@ void Button::onChooseBegin()
 
 void Button::onChooseEnd()
 {
-	Scene::Actionable<Shared::SceneHelpers::GrayscaleSpriteButton>::onChooseEnd();
+	Shared::SceneHelpers::GrayscaleSpriteButton::onChooseEnd();
 
 	const float Duration = 0.125f / 1.5f;
 
@@ -188,7 +188,7 @@ void Button::onChooseEnd()
 
 void Button::internalClick()
 {
-	Scene::Actionable<Shared::SceneHelpers::GrayscaleSpriteButton>::onClick();
+	Shared::SceneHelpers::GrayscaleSpriteButton::onClick();
 }
 
 StandardButton::StandardButton() : Button()

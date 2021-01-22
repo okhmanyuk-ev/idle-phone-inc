@@ -7,7 +7,7 @@ namespace PhoneInc
 {
 	struct ProductSpawnEvent { int room_index; double produce_count; };
 
-	class Factory : public Scene::Actionable<Scene::ClippableScissor<Scene::Cullable<Scene::Node>>>,
+	class Factory : public Scene::ClippableScissor<Scene::Cullable<Scene::Node>>,
 		public Common::Event::Listenable<Profile::RoomUnlockedEvent>,
 		public Common::Event::Listenable<ProductSpawnEvent>
 	{
@@ -33,7 +33,7 @@ namespace PhoneInc
 		std::shared_ptr<Scene::Node> mBoxHolder;
 	};
 
-	class Factory::Box : public Scene::Actionable<Scene::Cullable<Scene::Sprite>>
+	class Factory::Box : public Scene::Cullable<Scene::Sprite>
 	{
 	public:
 		auto getCount() const { return mCount; }

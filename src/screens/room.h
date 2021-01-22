@@ -7,7 +7,7 @@
 
 namespace PhoneInc
 {
-	class Factory::Room : public Scene::Cullable<Scene::Actionable<Scene::Sprite>>,
+	class Factory::Room : public Scene::Cullable<Scene::Sprite>,
 		public Common::Event::Listenable<Profile::RoomChangedEvent>,
 		public Common::Event::Listenable<Profile::CashChangedEvent>
 	{
@@ -54,7 +54,8 @@ namespace PhoneInc
 	class Factory::Room::PhonesStack : public Scene::Clickable<Scene::Node>
 	{
 	private:
-		using Phone = Scene::Actionable<Scene::Sprite>;
+		using Phone = Scene::Sprite;
+
 	public:
 		PhonesStack(int room_index);
 
