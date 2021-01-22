@@ -86,6 +86,12 @@ LabelSolidBold::LabelSolidBold()
 	setFont(FONT("default_bold"));
 }
 
+Button::Button()
+{
+	setActiveSound(SOUND("sounds/click.wav"));
+	setInactiveSound(SOUND("sounds/click.wav"));
+}
+
 void Button::update()
 {
 	Scene::Actionable<Shared::SceneHelpers::GrayscaleSpriteButton>::update();
@@ -183,18 +189,6 @@ void Button::onChooseEnd()
 void Button::internalClick()
 {
 	Scene::Actionable<Shared::SceneHelpers::GrayscaleSpriteButton>::onClick();
-
-	auto executeCallback = [](auto callback) { if (callback) callback(); };
-	if (isActive())
-	{
-		executeCallback(mActiveCallback);
-		AUDIO->play(mActiveSound);
-	}
-	else
-	{
-		executeCallback(mInactiveCallback);
-		AUDIO->play(mInactiveSound);
-	}
 }
 
 StandardButton::StandardButton() : Button()

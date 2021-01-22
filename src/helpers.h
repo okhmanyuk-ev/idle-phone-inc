@@ -50,6 +50,9 @@ namespace PhoneInc::Helpers
 	private:
 		const float MaxAutoclickTime = 0.5f;
 
+	public:
+		Button();
+
 	protected:
 		void update() override;
 
@@ -65,23 +68,10 @@ namespace PhoneInc::Helpers
 		void internalClick();
 		
 	public:
-		auto getActiveCallback() const { return mActiveCallback; }
-		void setActiveCallback(Callback value) { mActiveCallback = value; }
-	
-		auto getInactiveCallback() const { return mInactiveCallback; }
-		void setInactiveCallback(Callback value) { mInactiveCallback = value; }
-
 		auto isAutoclick() const { return mAutoclick; }
 		void setAutoclick(bool value) { mAutoclick = value; }
 
-		void setActiveSound(std::shared_ptr<Audio::Sound> value) { mActiveSound = value; }
-		void setInactiveSound(std::shared_ptr<Audio::Sound> value) { mInactiveSound = value; }
-
 	private:
-		std::shared_ptr<Audio::Sound> mActiveSound = SOUND("sounds/click.wav");
-		std::shared_ptr<Audio::Sound> mInactiveSound = SOUND("sounds/click.wav");
-		Callback mActiveCallback = nullptr;
-		Callback mInactiveCallback = nullptr;
 		bool mAutoclick = false;
 		float mNextAutoclick = 0.0f;
 		int mAutoclickCount = 0;
