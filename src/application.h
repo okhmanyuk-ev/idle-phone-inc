@@ -20,7 +20,7 @@ namespace PhoneInc
 		~Application();
 
 	private:
-		void frame() override;
+		void onFrame() override;
 		void adaptToScreen(std::shared_ptr<Scene::Node> node, const glm::vec2& dimensions);
 
 		void initializeScene();

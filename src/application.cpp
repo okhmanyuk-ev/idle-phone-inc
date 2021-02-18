@@ -59,7 +59,7 @@ Application::~Application()
 	ENGINE->removeSystem<TutorialSystem>();
 }
 
-void Application::frame()
+void Application::onFrame()
 {
 	adaptToScreen(getScene()->getRoot(), { 1080.0f, 1920.0f });
 	Cheats::ShowDevMenu();
@@ -70,6 +70,7 @@ void Application::adaptToScreen(std::shared_ptr<Scene::Node> node, const glm::ve
 	glm::vec2 size = { PLATFORM->getLogicalWidth(), PLATFORM->getLogicalHeight() };
 	auto scale = size / dimensions;
 	node->setScale(glm::min(scale.x, scale.y));
+	node->setStretch(1.0f / node->getScale());
 }
 
 void Application::onEvent(const Profile::ProfileClearedEvent& e)
