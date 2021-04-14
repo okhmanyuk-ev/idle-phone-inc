@@ -39,7 +39,7 @@ MicrotasksHolder::MicrotasksHolder()
 	mRewardButton->setY(32.0f);
 	mRewardButton->getLabel()->setText(LOCALIZE("MICROTASK_REWARD_BUTTON"));
 	mRewardButton->setActiveCallback([this] {
-		runAction(Actions::Factory::Delayed(0.25f, Actions::Factory::Execute([this] {
+		runAction(Actions::Collection::Delayed(0.25f, Actions::Collection::Execute([this] {
 			MICROTASKS->complete();
 		})));
 		mRewardButton->setEnabled(false);
@@ -65,13 +65,13 @@ void MicrotasksHolder::start()
 
 void MicrotasksHolder::show()
 {
-	runAction(Actions::Factory::MakeSequence(
-		Actions::Factory::ChangeVerticalPivot(mHolder, 0.0f, 0.25f, Easing::CubicOut),
-		Actions::Factory::Execute([this] {
+	runAction(Actions::Collection::MakeSequence(
+		Actions::Collection::ChangeVerticalPivot(mHolder, 0.0f, 0.25f, Easing::CubicOut),
+		Actions::Collection::Execute([this] {
 			mRewardButton->setEnabled(MICROTASKS->isReady());
 		}),
-		Actions::Factory::Wait(0.5f),
-			Actions::Factory::Execute([this] {
+		Actions::Collection::Wait(0.5f),
+			Actions::Collection::Execute([this] {
 			MICROTASKS->checkForCompletion();
 		})
 	));
@@ -79,12 +79,12 @@ void MicrotasksHolder::show()
 
 void MicrotasksHolder::hide(std::function<void()> finishCallback)
 {
-	runAction(Actions::Factory::MakeSequence(
-		Actions::Factory::Execute([this] {
+	runAction(Actions::Collection::MakeSequence(
+		Actions::Collection::Execute([this] {
 			mRewardButton->setEnabled(false);
 		}),
-		Actions::Factory::ChangeVerticalPivot(mHolder, 1.0f, 0.25f, Easing::CubicOut),
-		Actions::Factory::Execute(finishCallback)
+		Actions::Collection::ChangeVerticalPivot(mHolder, 1.0f, 0.25f, Easing::CubicOut),
+			Actions::Collection::Execute(finishCallback)
 	));
 }
 
@@ -112,7 +112,7 @@ void MicrotasksHolder::refresh()
 void MicrotasksHolder::refreshWithAnim()
 {
 	hide([this] {
-		runAction(Actions::Factory::Delayed(0.25f, Actions::Factory::Execute([this] {
+		runAction(Actions::Collection::Delayed(0.25f, Actions::Collection::Execute([this] {
 			refresh();
 			show();
 		})));

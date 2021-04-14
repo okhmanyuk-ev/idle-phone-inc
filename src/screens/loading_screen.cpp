@@ -22,22 +22,22 @@ LoadingScreen::LoadingScreen()
 
 void LoadingScreen::runTasks()
 {
-	auto seq = Actions::Factory::MakeSequence();
+	auto seq = Actions::Collection::MakeSequence();
 
 	const float Duration = 0.5f / (float)mTasks.size();
 
 	for (size_t i = 0; i < mTasks.size(); i++)
 	{
-		seq->add(Actions::Factory::Insert([this, i, Duration] {
+		seq->add(Actions::Collection::Insert([this, i, Duration] {
 			auto start = mProgressbar->getProgress();
 			auto dest = float(i + 1) / (float)mTasks.size();
 
-			return Actions::Factory::Interpolate(start, dest, Duration, Easing::CubicInOut, [this](float value) {
+			return Actions::Collection::Interpolate(start, dest, Duration, Easing::CubicInOut, [this](float value) {
 				mProgressbar->setProgress(value);
 			});
 		}));
-		seq->add(Actions::Factory::Execute(mTasks.at(i)));
-		seq->add(Actions::Factory::WaitOneFrame());
+		seq->add(Actions::Collection::Execute(mTasks.at(i)));
+		seq->add(Actions::Collection::WaitOneFrame());
 	}
 
 	runAction(std::move(seq));

@@ -90,7 +90,7 @@ Factory::Room::Room(int index) : mIndex(index)
 	
 	refresh();
 
-	runAction(Actions::Factory::RepeatInfinite([this]() -> Actions::Factory::UAction {
+	runAction(Actions::Collection::RepeatInfinite([this]() -> Actions::Collection::UAction {
 		const auto& rooms = PROFILE->getRooms();
 
 		if (rooms.count(mIndex) == 0)
@@ -116,18 +116,18 @@ Factory::Room::Room(int index) : mIndex(index)
 
 		auto duration = Balance::GetManagerDuration(mIndex);
 
-		return Actions::Factory::MakeSequence(
-			Actions::Factory::Execute([this] {
+		return Actions::Collection::MakeSequence(
+			Actions::Collection::Execute([this] {
 				mManager->setStateType(ManagerAnimation::Working);
 				mManager->getProgressbar()->setEnabled(true);
 				mManager->getProgressbar()->setProgress(0.0f);
 			}),
-			Actions::Factory::ChangeScale(mManager->getProgressbar(), { 1.0f, 1.0f }, 0.125f, Easing::BackOut),
-				Actions::Factory::Interpolate(0.0f, 1.0f, duration, Easing::Linear, [this](float value) {
+			Actions::Collection::ChangeScale(mManager->getProgressbar(), { 1.0f, 1.0f }, 0.125f, Easing::BackOut),
+			Actions::Collection::Interpolate(0.0f, 1.0f, duration, Easing::Linear, [this](float value) {
 				mManager->getProgressbar()->setProgress(value);
 			}), 
-			Actions::Factory::ChangeScale(mManager->getProgressbar(), { 0.0f, 0.0f }, 0.125f, Easing::BackIn),
-				Actions::Factory::Execute([this] {
+			Actions::Collection::ChangeScale(mManager->getProgressbar(), { 0.0f, 0.0f }, 0.125f, Easing::BackIn),
+			Actions::Collection::Execute([this] {
 				mManager->getProgressbar()->setEnabled(false);
 				mManager->setStateType(ManagerAnimation::Idle);
 				for (auto phones_stack : mPhonesStacks)
@@ -143,7 +143,7 @@ Factory::Room::Room(int index) : mIndex(index)
 
 	for (int i = 0; i < Balance::MaxWorkersCount; i++)
 	{
-		runAction(Actions::Factory::RepeatInfinite([this, i]() -> Actions::Factory::UAction {
+		runAction(Actions::Collection::RepeatInfinite([this, i]() -> Actions::Collection::UAction {
 			const auto& rooms = PROFILE->getRooms();
 
 			if (rooms.count(mIndex) == 0)
@@ -157,7 +157,7 @@ Factory::Room::Room(int index) : mIndex(index)
 			auto duration = Balance::GetWorkerDuration(mIndex, i);
 			auto phone = mPhonesStacks.at(i);
 
-			return Actions::Factory::Delayed(duration, Actions::Factory::Execute([this, phone] {
+			return Actions::Collection::Delayed(duration, Actions::Collection::Execute([this, phone] {
 				if (phone->isFilled())
 					return;
 
@@ -169,7 +169,7 @@ Factory::Room::Room(int index) : mIndex(index)
 		}));
 	}
 
-	runAction(Actions::Factory::ExecuteInfinite([this] {
+	runAction(Actions::Collection::ExecuteInfinite([this] {
 		for (int i = 0; i < Balance::MaxWorkersCount; i++)
 		{
 			mWorkers[i]->setStateType(mPhonesStacks[i]->isFilled() ? Worker::Animation::Idle : Worker::Animation::Working);
@@ -347,8 +347,8 @@ void Factory::Room::PhonesStack::runAnimForPhone(int index)
 	phone->setScale(0.0f);
 	phone->setVerticalOrigin(64.0f);
 
-	phone->runAction(Actions::Factory::MakeParallel(
-		Actions::Factory::ChangeScale(phone, { 1.0f, 1.0f }, 0.125f, Easing::BackOut),
-		Actions::Factory::ChangeVerticalOrigin(phone, 0.0f, 0.25f, Easing::CubicOut)
+	phone->runAction(Actions::Collection::MakeParallel(
+		Actions::Collection::ChangeScale(phone, { 1.0f, 1.0f }, 0.125f, Easing::BackOut),
+		Actions::Collection::ChangeVerticalOrigin(phone, 0.0f, 0.25f, Easing::CubicOut)
 	));
 }

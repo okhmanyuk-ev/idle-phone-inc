@@ -30,7 +30,7 @@ Factory::Factory()
 	conveyor_path->setTextureAddress(Renderer::TextureAddress::Wrap);
 	conveyor_path->setX(6.0f);
 	attach(conveyor_path);
-	runAction(Actions::Factory::ExecuteInfinite([this, conveyor_path] {
+	runAction(Actions::Collection::ExecuteInfinite([this, conveyor_path] {
 		conveyor_path->setTexRegion({ { 0.0f, 0.0f }, { 0.0f, conveyor_path->getAbsoluteHeight() } });
 		auto y = conveyor_path->getY();
 
@@ -88,14 +88,14 @@ void Factory::onEvent(const ProductSpawnEvent& e)
 			const float Duration = FullDuration / 2.0f;
 
 			box->runAction(
-				Actions::Factory::MakeSequence(
-					Actions::Factory::MakeParallel(
-						Actions::Factory::ChangeHorizontalScale(box, 0.75f, Duration, Easing::BackIn),
-						Actions::Factory::ChangeVerticalScale(box, 1.25f, Duration, Easing::BackIn)
+				Actions::Collection::MakeSequence(
+					Actions::Collection::MakeParallel(
+						Actions::Collection::ChangeHorizontalScale(box, 0.75f, Duration, Easing::BackIn),
+						Actions::Collection::ChangeVerticalScale(box, 1.25f, Duration, Easing::BackIn)
 					),
-					Actions::Factory::MakeParallel(
-						Actions::Factory::ChangeHorizontalScale(box, 1.0f, Duration, Easing::BackIn),
-						Actions::Factory::ChangeVerticalScale(box, 1.0f, Duration, Easing::BackIn)
+					Actions::Collection::MakeParallel(
+						Actions::Collection::ChangeHorizontalScale(box, 1.0f, Duration, Easing::BackIn),
+						Actions::Collection::ChangeVerticalScale(box, 1.0f, Duration, Easing::BackIn)
 					)
 				)
 			);
@@ -110,19 +110,19 @@ void Factory::onEvent(const ProductSpawnEvent& e)
 	box->setY(y);
 	box->setScale(0.0f);
 	box->setCount(e.produce_count);
-	box->runAction(Actions::Factory::MakeSequence(
-		Actions::Factory::ChangeScale(box, { 1.0f, 1.0f }, 0.25f, Easing::BackOut),
-		Actions::Factory::Execute([box] {
+	box->runAction(Actions::Collection::MakeSequence(
+		Actions::Collection::ChangeScale(box, { 1.0f, 1.0f }, 0.25f, Easing::BackOut),
+		Actions::Collection::Execute([box] {
 			box->setSpawnAnimationCompleted(true);
 		}),
-		Actions::Factory::ExecuteInfinite([box] {
+		Actions::Collection::ExecuteInfinite([box] {
 			auto y = box->getY();
 			y -= Clock::ToSeconds(FRAME->getTimeDelta()) * 100.0f * ConveyorSpeed;
 			box->setY(y);
 			if (y <= 0)
 			{
 				PROFILE->setWarehouseStorage(PROFILE->getWarehouseStorage() + box->getCount());
-				box->runAction(Actions::Factory::Kill(box));
+				box->runAction(Actions::Collection::Kill(box));
 			}
 		})
 	));

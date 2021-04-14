@@ -38,22 +38,22 @@ void Window::onCloseBegin()
 
 std::unique_ptr<Actions::Action> Window::createOpenAction()
 {
-	return Actions::Factory::MakeSequence(
-		Actions::Factory::WaitOneFrame(),
-		Actions::Factory::MakeParallel(
-			Actions::Factory::ChangeAlpha(getBackshadeColor(), 0.5f, 0.5f, Easing::CubicOut),
-			Actions::Factory::ChangeVerticalAnchor(mContent, 0.5f, 0.5f, Easing::CubicOut)
+	return Actions::Collection::MakeSequence(
+		Actions::Collection::WaitOneFrame(),
+		Actions::Collection::MakeParallel(
+			Actions::Collection::ChangeAlpha(getBackshadeColor(), 0.5f, 0.5f, Easing::CubicOut),
+			Actions::Collection::ChangeVerticalAnchor(mContent, 0.5f, 0.5f, Easing::CubicOut)
 		)
 	);
 };
 
 std::unique_ptr<Actions::Action> Window::createCloseAction()
 {
-	return Actions::Factory::MakeSequence(
-		Actions::Factory::WaitOneFrame(),
-		Actions::Factory::MakeParallel(
-			Actions::Factory::ChangeVerticalAnchor(mContent, -0.5f, 0.5f, Easing::CubicIn),
-			Actions::Factory::ChangeAlpha(getBackshadeColor(), 0.0f, 0.5f, Easing::CubicIn)
+	return Actions::Collection::MakeSequence(
+		Actions::Collection::WaitOneFrame(),
+		Actions::Collection::MakeParallel(
+			Actions::Collection::ChangeVerticalAnchor(mContent, -0.5f, 0.5f, Easing::CubicIn),
+			Actions::Collection::ChangeAlpha(getBackshadeColor(), 0.0f, 0.5f, Easing::CubicIn)
 		)
 	);
 };

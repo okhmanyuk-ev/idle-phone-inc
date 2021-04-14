@@ -52,16 +52,16 @@ void Screen::onWindowDisappearing()
 
 std::unique_ptr<Actions::Action> Screen::createEnterAction()
 {
-	return Actions::Factory::MakeSequence(
-		Actions::Factory::WaitOneFrame(),
-		Actions::Factory::ChangeAlpha(mFadeRectangle, 0.0f, 0.5f)
+	return Actions::Collection::MakeSequence(
+		Actions::Collection::WaitOneFrame(),
+		Actions::Collection::ChangeAlpha(mFadeRectangle, 0.0f, 0.5f)
 	);
 };
 
 std::unique_ptr<Actions::Action> Screen::createLeaveAction()
 {
-	return Actions::Factory::MakeSequence(
-		Actions::Factory::WaitOneFrame(),
-		Actions::Factory::ChangeAlpha(mFadeRectangle, 1.0f, 0.5f)
+	return Actions::Collection::MakeSequence(
+		Actions::Collection::WaitOneFrame(),
+		Actions::Collection::ChangeAlpha(mFadeRectangle, 1.0f, 0.5f)
 	);
 };

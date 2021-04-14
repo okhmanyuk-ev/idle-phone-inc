@@ -195,7 +195,7 @@ Progressbar::Progressbar()
 	mContent->setPivot({ 0.0f, 0.5f });
 	mClip->attach(mContent);
 
-	runAction(Actions::Factory::ExecuteInfinite([this] {
+	runAction(Actions::Collection::ExecuteInfinite([this] {
 		mContent->setWidth(mHolder->getAbsoluteWidth());
 		mContent->setSampler(getSampler());
 	}));
