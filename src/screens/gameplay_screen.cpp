@@ -85,13 +85,13 @@ GameplayScreen::GameplayScreen()
 	runAction(Actions::Collection::ExecuteInfinite([this] {
 		if (!isTransformReady())
 			return;
-
+        
 #if defined(PLATFORM_WINDOWS)
 		return;
 #endif
 
 		const glm::vec2 target = { 1080.0f, 1920.0f };
-		auto size = getSize() * getScale();
+		auto size = getAbsoluteSize();
 		auto scale = size / target;
 	
 		setScale(scale.x);
