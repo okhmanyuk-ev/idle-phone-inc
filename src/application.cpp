@@ -97,6 +97,8 @@ void Application::initializeScene()
 			FONT("default")->setCustomVerticalOffset(-4.0f);
 			FONT("default_bold")->setCustomVerticalOffset(-4.0f);
 
+			Scene::Sprite::DefaultTexture = TEXTURE("textures/pink.png");
+
 			// particles holder
 
 			auto particles_holder = std::make_shared<Scene::Node>();
