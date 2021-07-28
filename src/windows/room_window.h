@@ -107,7 +107,7 @@ namespace PhoneInc
 		utf8_string getUpgradeButtonText() const override;
 
 	private:
-		std::shared_ptr<Shared::SceneHelpers::Adaptive<Scene::Sprite>> mIcon;
+		std::shared_ptr<Scene::Adaptive<Scene::Sprite>> mIcon;
 		std::shared_ptr<Helpers::LabelSolid> mTitle;
 		std::shared_ptr<Helpers::LabelSolid> mNameLabel;
 		std::shared_ptr<Helpers::LabelSolid> mDescriptionLabel;

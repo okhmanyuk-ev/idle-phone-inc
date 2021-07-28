@@ -196,7 +196,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 {
 	setTexture(TEXTURE("textures/windows/room_window/major_panel_backgorund.png"));
 
-	mIcon = std::make_shared<Shared::SceneHelpers::Adaptive<Scene::Sprite>>();
+	mIcon = std::make_shared<Scene::Adaptive<Scene::Sprite>>();
 	mIcon->setBatchGroup(fmt::format("room_window_{}_avatar", roomIndex));
 	mIcon->setAnchor({ 0.0f, 0.5f });
 	mIcon->setPivot({ 0.5f, 0.5f });

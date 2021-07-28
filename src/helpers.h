@@ -54,9 +54,6 @@ namespace PhoneInc::Helpers
 		Button();
 
 	protected:
-		void update() override;
-
-	protected:
 		void onClick() override;
 		void onChooseBegin() override;
 
@@ -128,7 +125,7 @@ namespace PhoneInc::Helpers
 		StreetProgressbar();
 	};
 
-	class DollarEmitter : public Shared::SceneHelpers::SpriteEmitter
+	class DollarEmitter : public Scene::SpriteEmitter
 	{
 	public:
 		static inline std::shared_ptr<Scene::Node> Holder = nullptr;

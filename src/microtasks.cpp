@@ -39,8 +39,7 @@ Microtasks::Task::Type Microtasks::StringToTaskType(const std::string& name)
 
 Microtasks::Microtasks()
 {
-	auto json_file = Platform::Asset("microtasks.json");
-	auto json = nlohmann::json::parse(std::string((char*)json_file.getMemory(), json_file.getSize()));
+	auto json = JSON("microtasks.json");
 	
 	for (auto entry : json.at("microtasks"))
 	{

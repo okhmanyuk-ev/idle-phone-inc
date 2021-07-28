@@ -36,6 +36,7 @@ void LoadingScreen::runTasks()
 				mProgressbar->setProgress(value);
 			});
 		}));
+		seq->add(Actions::Collection::WaitOneFrame());
 		seq->add(Actions::Collection::Execute(mTasks.at(i)));
 		seq->add(Actions::Collection::WaitOneFrame());
 	}

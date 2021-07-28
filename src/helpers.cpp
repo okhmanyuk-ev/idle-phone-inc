@@ -90,27 +90,24 @@ Button::Button()
 {
 	setActiveSound(SOUND("sounds/click.wav"));
 	setInactiveSound(SOUND("sounds/click.wav"));
-}
 
-void Button::update()
-{
-	Shared::SceneHelpers::BouncingButtonBehavior<Shared::SceneHelpers::GrayscaleSpriteButton>::update();
+	runAction(Actions::Collection::ExecuteInfinite([this](auto delta) {
+		if (!mAutoclick)
+			return;
 
-	if (!mAutoclick)
-		return;
+		if (!isChoosed())
+			return;
 
-	if (!isChoosed())
-		return;
+		mNextAutoclick -= Clock::ToSeconds(delta);
 
-	mNextAutoclick -= Clock::ToSeconds(FRAME->getTimeDelta());
+		if (mNextAutoclick > 0.0f)
+			return;
 
-	if (mNextAutoclick > 0.0f)
-		return;
+		internalClick();
 
-	internalClick();
-
-	mAutoclickCount += 1;
-	mNextAutoclick = MaxAutoclickTime / ((float)mAutoclickCount / 1.5f);
+		mAutoclickCount += 1;
+		mNextAutoclick = MaxAutoclickTime / ((float)mAutoclickCount / 1.5f);
+	}));
 }
 
 void Button::onClick()
