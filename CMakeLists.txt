@@ -3,7 +3,7 @@ project(phoneinc)
 
 set(PRODUCT_NAME "Idle Phone Inc.")
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # main
