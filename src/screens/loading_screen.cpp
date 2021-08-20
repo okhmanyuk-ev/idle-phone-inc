@@ -4,13 +4,11 @@ using namespace PhoneInc;
 
 LoadingScreen::LoadingScreen()
 {
-	auto root = getContent();
-
 	auto bg = std::make_shared<Scene::Sprite>();
 	bg->setTexture(TEXTURE("textures/loading.png"));
 	bg->setAnchor(0.5f);
 	bg->setPivot(0.5f);
-	root->attach(bg);
+	attach(bg);
 
 	mProgressbar = std::make_shared<Helpers::StreetProgressbar>();
 	mProgressbar->setAnchor({ 0.5f, 0.8f });

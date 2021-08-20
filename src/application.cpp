@@ -36,14 +36,6 @@ Application::Application() : Shared::Application(PROJECT_NAME, { Flag::Audio, Fl
 
 	initializeScene();
 
-#if defined(BUILD_DEVELOPER)
-	CONSOLE->execute("hud_show_fps 1");
-	CONSOLE->execute("hud_show_drawcalls 1");
-#else
-    CONSOLE_DEVICE->setEnabled(false);
-    STATS->setEnabled(false);
-#endif
-
 #if defined(PLATFORM_IOS)
     /*auto loginButton = [[FBSDKLoginButton alloc] init];
     auto window = Platform::SystemIos::Window;
