@@ -45,7 +45,7 @@ namespace PhoneInc::Helpers
 		LabelSolidBold();
 	};
 
-	class Button : public Shared::SceneHelpers::BouncingButtonBehavior<Shared::SceneHelpers::GrayscaleSpriteButton>
+	class Button : public Shared::SceneHelpers::BouncingButtonBehavior<Shared::SceneHelpers::SpriteButton>
 	{
 	private:
 		const float MaxAutoclickTime = 0.5f;

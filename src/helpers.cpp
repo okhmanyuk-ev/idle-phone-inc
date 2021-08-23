@@ -125,7 +125,7 @@ void Button::onClick()
 
 void Button::onChooseBegin()
 {
-	Shared::SceneHelpers::BouncingButtonBehavior<Shared::SceneHelpers::GrayscaleSpriteButton>::onChooseBegin();
+	Shared::SceneHelpers::BouncingButtonBehavior<Shared::SceneHelpers::SpriteButton>::onChooseBegin();
 	
 	if (mAutoclick)
 	{
@@ -137,7 +137,7 @@ void Button::onChooseBegin()
 
 void Button::internalClick()
 {
-	Shared::SceneHelpers::BouncingButtonBehavior<Shared::SceneHelpers::GrayscaleSpriteButton>::onClick();
+	Shared::SceneHelpers::BouncingButtonBehavior<Shared::SceneHelpers::SpriteButton>::onClick();
 }
 
 StandardButton::StandardButton() : Button()
