@@ -125,7 +125,7 @@ namespace PhoneInc::Helpers
 		StreetProgressbar();
 	};
 
-	class DollarEmitter : public Scene::SpriteEmitter
+	class DollarEmitter : public Scene::Emitter
 	{
 	public:
 		static inline std::shared_ptr<Scene::Node> Holder = nullptr;

@@ -30,7 +30,7 @@ Factory::Factory()
 	conveyor_path->setTextureAddress(Renderer::TextureAddress::Wrap);
 	conveyor_path->setX(6.0f);
 	attach(conveyor_path);
-	runAction(Actions::Collection::ExecuteInfinite([this, conveyor_path] {
+	runAction(Actions::Collection::ExecuteInfinite([this, conveyor_path](auto dt) {
 		conveyor_path->setTexRegion({ { 0.0f, 0.0f }, { 0.0f, conveyor_path->getAbsoluteHeight() } });
 		auto y = conveyor_path->getY();
 
@@ -39,7 +39,7 @@ Factory::Factory()
 		if (mBoxHolder->getNodes().empty())
 			speed /= 5.0f;
 
-		y -= Clock::ToSeconds(FRAME->getTimeDelta()) * 100.0f * speed;
+		y -= Clock::ToSeconds(dt) * 100.0f * speed;
 		auto tex_h = (float)conveyor_path->getTexture()->getHeight();
 		while (y <= -tex_h) 
 		{
@@ -115,9 +115,9 @@ void Factory::onEvent(const ProductSpawnEvent& e)
 		Actions::Collection::Execute([box] {
 			box->setSpawnAnimationCompleted(true);
 		}),
-		Actions::Collection::ExecuteInfinite([box] {
+		Actions::Collection::ExecuteInfinite([box](auto dt) {
 			auto y = box->getY();
-			y -= Clock::ToSeconds(FRAME->getTimeDelta()) * 100.0f * ConveyorSpeed;
+			y -= Clock::ToSeconds(dt) * 100.0f * ConveyorSpeed;
 			box->setY(y);
 			if (y <= 0)
 			{

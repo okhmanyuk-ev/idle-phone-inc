@@ -214,13 +214,17 @@ StreetProgressbar::StreetProgressbar() : Progressbar()
 DollarEmitter::DollarEmitter()
 {
 	setHolder(Holder);
-	setTexture(TEXTURE("textures/ui/dollar_particle.png"));
 	setRunning(false);
 	setPivot(0.5f);
 	setAnchor(0.5f);
 	setDistance(156.0f);
 	setMinDuration(0.25f);
 	setMaxDuration(0.75f);
+	setCreateParticleCallback([] {
+		auto particle = std::make_shared<Scene::Sprite>();
+		particle->setTexture(TEXTURE("textures/ui/dollar_particle.png"));
+		return particle;
+	});
 }
 
 void DollarEmitter::emitPack()
