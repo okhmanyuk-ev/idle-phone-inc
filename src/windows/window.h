@@ -5,7 +5,11 @@
 
 namespace PhoneInc
 {
-	using Window = Shared::SceneHelpers::StandardWindow;
+	class Window : public Shared::SceneHelpers::StandardWindow
+	{
+	public:
+		Window();
+	};
 
 	class StandardWindow : public Window
 	{

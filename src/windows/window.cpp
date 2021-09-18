@@ -3,6 +3,11 @@
 
 using namespace PhoneInc;
 
+Window::Window() : Shared::SceneHelpers::StandardWindow({ Flag::Blur })
+{
+	//
+}
+
 StandardWindow::StandardWindow()
 {
 	mBackground = std::make_shared<Scene::SlicedSprite>();
