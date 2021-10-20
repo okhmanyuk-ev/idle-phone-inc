@@ -16,6 +16,8 @@ Application::Application() : Shared::Application(PROJECT_NAME, { Flag::Audio, Fl
 #endif
 	RENDERER->setVsync(true);
 
+	getScene()->getTimestepFixer().setEnabled(false);
+
 	GRAPHICS->setSdfSmoothFactor(Helpers::Scale);
 
 	STATS->setAlignment(Shared::StatsSystem::Align::BottomRight);
