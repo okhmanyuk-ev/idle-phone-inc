@@ -3,7 +3,7 @@
 
 using namespace PhoneInc;
 
-Window::Window() : Shared::SceneHelpers::StandardWindow({ Flag::Blur })
+Window::Window()
 {
 	//
 }
