@@ -12,7 +12,7 @@ GameplayScreen::GameplayScreen()
 	auto background = std::make_shared<Scene::Sprite>();
 	background->setTexture(TEXTURE("textures/background.png"));
 	background->setStretch(1.0f);
-	attach(background);
+	getContent()->attach(background);
 
 	auto street = std::make_shared<Street>();
 	street->setHorizontalStretch(1.0f);
@@ -37,17 +37,17 @@ GameplayScreen::GameplayScreen()
 	mScrollbox->getContent()->attach(grid);
 	mScrollbox->getContent()->setHeight(grid->getHeight());
 	mScrollbox->setTouchMask(1 << 1);
-	attach(mScrollbox);
+	getContent()->attach(mScrollbox);
 
 	auto top_menu = std::make_shared<TopMenu>();
 	top_menu->setAnchor({ 0.5f, 0.0f });
 	top_menu->setPivot({ 0.5f, 0.0f });
-	attach(top_menu);
+	getContent()->attach(top_menu);
 
 	auto bottom_menu = std::make_shared<BottomMenu>();
 	bottom_menu->setAnchor({ 0.5f, 1.0f });
 	bottom_menu->setPivot({ 0.5f, 1.0f });
-	attach(bottom_menu);
+	getContent()->attach(bottom_menu);
 
 	runAction(Actions::Collection::ExecuteInfinite([this, top_menu, bottom_menu] {
 		if (!isTransformReady())

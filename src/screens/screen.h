@@ -4,5 +4,9 @@
 
 namespace PhoneInc
 {
-	using Screen = Shared::SceneHelpers::StandardScreen;
+	class Screen : public Shared::SceneHelpers::StandardScreen
+	{
+	public:
+		Screen();
+	};
 }

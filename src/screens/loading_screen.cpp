@@ -8,7 +8,7 @@ LoadingScreen::LoadingScreen()
 	bg->setTexture(TEXTURE("textures/loading.png"));
 	bg->setAnchor(0.5f);
 	bg->setPivot(0.5f);
-	attach(bg);
+	getContent()->attach(bg);
 
 	mProgressbar = std::make_shared<Helpers::StreetProgressbar>();
 	mProgressbar->setAnchor({ 0.5f, 0.8f });
