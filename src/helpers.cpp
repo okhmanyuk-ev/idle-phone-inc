@@ -70,7 +70,7 @@ std::string Helpers::NumberToString(double value)
 
 // classes
 
-Label::Label() : Scene::Label()
+Label::Label()
 {
 	setFont(FONT("default"));
 	setOutlineThickness(0.5f);
