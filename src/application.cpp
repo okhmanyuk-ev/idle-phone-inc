@@ -37,14 +37,6 @@ Application::Application() : Shared::Application(PROJECT_NAME, { Flag::Audio, Fl
 	});
 
 	initializeScene();
-
-#if defined(PLATFORM_IOS)
-    /*auto loginButton = [[FBSDKLoginButton alloc] init];
-    auto window = Platform::SystemIos::Window;
-    auto rootView = [[window rootViewController] view];
-    loginButton.center = rootView.center;
-    [rootView addSubview:loginButton];*/
-#endif
 }
 
 Application::~Application()
@@ -55,7 +47,7 @@ Application::~Application()
 
 void Application::onFrame()
 {
-	adaptToScreen(getScene()->getRoot(), { 1080.0f, 1920.0f });
+	adaptToScreen(SCENE_MANAGER, { 1080.0f, 1920.0f });
 	Cheats::ShowDevMenu();
 }
 
@@ -92,6 +84,7 @@ void Application::initializeScene()
 			FONT("default_bold")->setCustomVerticalOffset(-4.0f);
 
 			Scene::Sprite::DefaultTexture = TEXTURE("textures/pink.png");
+			Scene::Label::DefaultFont = FONT("default");
 
 			// particles holder
 
