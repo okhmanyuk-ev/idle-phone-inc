@@ -1,6 +1,6 @@
 # Idle Phone Inc 
 
-### Game developed in middle of 2019 in my spare time using my own engine
+### Game developed in my spare time using my own engine
 
 # Building
 
