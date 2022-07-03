@@ -48,7 +48,7 @@ Factory::Factory()
 		conveyor_path->setY(y);
 	}));
 
-	mBoxHolder = std::make_shared<Scene::Sprite>();
+	mBoxHolder = std::make_shared<Scene::Node>();
 	attach(mBoxHolder);
 
 	auto conveyor_hat = std::make_shared<Scene::Sprite>();

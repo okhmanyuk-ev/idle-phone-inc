@@ -16,5 +16,4 @@ Street::Truck::Truck() : Scene::MappedAniSprite<TruckAnimation>(Animations)
 	auto animation = ANIMATION(fmt::format("textures/trucks/{}_animation.json", stage));
 
 	setAnimation(texture, atlas, animation);
-
 }
