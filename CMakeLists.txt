@@ -97,19 +97,7 @@ elseif(APPLE)
         XCODE_ATTRIBUTE_PRODUCT_NAME "${PRODUCT_NAME}"
         XCODE_ATTRIBUTE_FRAMEWORK_SEARCH_PATHS "ios/frameworks"
         MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/ios/Info.plist
-    )
-
-    target_link_libraries(${PROJECT_NAME}
-        "-framework FBSDKCoreKit"
-        "-framework FBSDKLoginKit"
-        "-framework FBSDKShareKit"
-        
-        # tenjin
-        "-framework AdSupport"
-        "-framework StoreKit"
-        "-framework iAd"
-    )
-    
+    )    
 elseif(ANDROID)
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -u ANativeActivity_onCreate")
 
@@ -125,11 +113,3 @@ target_include_directories(${PROJECT_NAME} PUBLIC src)
 add_subdirectory(sky)
 target_link_libraries(${PROJECT_NAME} sky)
 copy_required_libs(${PROJECT_NAME})
-
-# tenjin sdk
-
-if(APPLE)
-target_include_directories(${PROJECT_NAME} PUBLIC ios/tenjin-sdk/include)
-target_link_libraries(${PROJECT_NAME} debug ${PROJECT_SOURCE_DIR}/ios/tenjin-sdk/lib/libTenjinSDK.a)
-target_link_libraries(${PROJECT_NAME} optimized ${PROJECT_SOURCE_DIR}/ios/tenjin-sdk/lib/libTenjinSDKUniversal.a)
-endif()

@@ -1,10 +1,5 @@
 #include "application.h"
 
-#if defined(PLATFORM_IOS)
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#include <platform/system_ios.h>
-#endif
-
 using namespace PhoneInc;
 
 Application::Application() : Shared::Application(PROJECT_NAME, { Flag::Audio, Flag::Scene })
