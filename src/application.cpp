@@ -65,7 +65,7 @@ void Application::onEvent(const Profile::ProfileClearedEvent& e)
 
 void Application::initializeScene()
 {
-	Scene::Sampler::DefaultSampler = Renderer::Sampler::Linear;
+	Scene::Sampler::DefaultSampler = skygfx::Sampler::Linear;
 
 	auto loading = std::make_shared<LoadingScreen>();
 	loading->setTasks({

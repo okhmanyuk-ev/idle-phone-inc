@@ -27,7 +27,7 @@ Factory::Factory()
 	auto conveyor_path = std::make_shared<Scene::Sprite>();
 	conveyor_path->setTexture(TEXTURE("textures/factory/conveyor/segment.png"));
 	conveyor_path->setStretch({ 0.0f, 2.0f });
-	conveyor_path->setTextureAddress(Renderer::TextureAddress::Wrap);
+	conveyor_path->setTextureAddress(skygfx::TextureAddress::Wrap);
 	conveyor_path->setX(6.0f);
 	attach(conveyor_path);
 	runAction(Actions::Collection::ExecuteInfinite([this, conveyor_path](auto dt) {
