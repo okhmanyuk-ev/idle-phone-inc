@@ -20,14 +20,13 @@ TopMenu::TopMenu()
 	money_bg->setPosition({ 454.0f, -56.0f });
 	attach(money_bg);
 
-	mCashLabel = std::make_shared<Helpers::LabelSolid>();
-	mCashLabel->setAnchor({ 1.0f, 0.5f });
-	mCashLabel->setPivot({ 1.0f, 0.5f });
-	mCashLabel->setColor(Graphics::Color::ToNormalized(0, 255, 41));
-	mCashLabel->setFontSize(39.0f);
-	mCashLabel->setX(-64.0f);
-	money_bg->attach(mCashLabel);
-	refreshCashLabel();
+	auto cash_label = std::make_shared<Helpers::LabelSolid>();
+	cash_label->setAnchor({ 1.0f, 0.5f });
+	cash_label->setPivot({ 1.0f, 0.5f });
+	cash_label->setColor(Graphics::Color::ToNormalized(0, 255, 41));
+	cash_label->setFontSize(39.0f);
+	cash_label->setX(-64.0f);
+	money_bg->attach(cash_label);
 
 	auto money_ico = std::make_shared<Scene::Sprite>();
 	money_ico->setBatchGroup("ui_menu_icon");
@@ -53,14 +52,13 @@ TopMenu::TopMenu()
 	coin_bg->setPosition({ 900.0f, -56.0f });
 	attach(coin_bg);
 
-	mCoinsLabel = std::make_shared<Helpers::LabelSolid>();
-	mCoinsLabel->setAnchor({ 1.0f, 0.5f });
-	mCoinsLabel->setPivot({ 1.0f, 0.5f });
-	mCoinsLabel->setColor(Graphics::Color::ToNormalized(255, 192, 24));
-	mCoinsLabel->setFontSize(39.0f);
-	mCoinsLabel->setX(-64.0f);
-	coin_bg->attach(mCoinsLabel);
-    refreshCoinsLabel();
+	auto coins_label = std::make_shared<Helpers::LabelSolid>();
+	coins_label->setAnchor({ 1.0f, 0.5f });
+	coins_label->setPivot({ 1.0f, 0.5f });
+	coins_label->setColor(Graphics::Color::ToNormalized(255, 192, 24));
+	coins_label->setFontSize(39.0f);
+	coins_label->setX(-64.0f);
+	coin_bg->attach(coins_label);
     
 	auto coin_ico = std::make_shared<Scene::Sprite>();
 	coin_ico->setBatchGroup("ui_menu_icon");
@@ -83,24 +81,15 @@ TopMenu::TopMenu()
 	settings_button->setAnchor({ 0.0f, 1.0f });
 	settings_button->setPosition({ 67.0f, -56.0f });
 	attach(settings_button);
-}
 
-void TopMenu::onEvent(const Profile::CashChangedEvent& e)
-{
-    refreshCashLabel();
-}
-
-void TopMenu::onEvent(const Profile::CoinsChangedEvent& e)
-{
-    refreshCoinsLabel();
-}
-
-void TopMenu::refreshCashLabel()
-{
-	mCashLabel->setText("$ " + Helpers::NumberToString(PROFILE->getCash()));
-}
-
-void TopMenu::refreshCoinsLabel()
-{
-    mCoinsLabel->setText(Helpers::NumberToString(PROFILE->getCoins()));
+	runAction(Actions::Collection::ExecuteInfinite([coins_label, cash_label](auto dTime) {
+		static double cash = 0.0;
+		cash = Common::Helpers::SmoothValueAssign(cash, PROFILE->getCash(), dTime);
+		
+		static double coins = 0.0;
+		coins = Common::Helpers::SmoothValueAssign(coins, PROFILE->getCoins(), dTime);
+		
+		cash_label->setText("$ " + Helpers::NumberToString(cash));
+		coins_label->setText(Helpers::NumberToString(coins));
+	}));
 }
