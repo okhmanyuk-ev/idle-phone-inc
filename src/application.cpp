@@ -6,7 +6,7 @@ Application::Application() : Shared::Application(PROJECT_NAME, { Flag::Audio, Fl
 {
 	PLATFORM->setTitle(PRODUCT_NAME);
 	PLATFORM->resize(360, 640);
-#if !defined(PLATFORM_MOBILE)
+#if defined(PLATFORM_WINDOWS)
 	PLATFORM->rescale(1.5f);
 #endif
 	RENDERER->setVsync(true);
