@@ -5,7 +5,11 @@ using namespace PhoneInc;
 Application::Application() : Shared::Application(PROJECT_NAME, { Flag::Audio, Flag::Scene })
 {
 	PLATFORM->setTitle(PRODUCT_NAME);
+#if defined(PLATFORM_MAC)
+	PLATFORM->resize(720, 1280);
+#else
 	PLATFORM->resize(360, 640);
+#endif
 #if defined(PLATFORM_WINDOWS)
 	PLATFORM->rescale(1.5f);
 #endif
