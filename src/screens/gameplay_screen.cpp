@@ -84,7 +84,7 @@ GameplayScreen::GameplayScreen()
 		if (!isTransformReady())
 			return;
         
-#if defined(PLATFORM_WINDOWS)
+#if !defined(PLATFORM_MOBILE)
 		return;
 #endif
 
