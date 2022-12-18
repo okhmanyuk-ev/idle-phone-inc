@@ -1,6 +1,8 @@
 # Idle Phone Inc 
+A game that was developed in my spare time using my own engine
 
-### Game developed in my spare time using my own engine
+# Emscripten build 
+https://okhmanyuk-ev.github.io/idle-phone-inc/output/
 
 # Building
 
