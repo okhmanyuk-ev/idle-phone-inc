@@ -133,7 +133,7 @@ elseif(EMSCRIPTEN)
 	set(LINKER_FLAGS "${LINKER_FLAGS} -s ALLOW_MEMORY_GROWTH")
 	set(LINKER_FLAGS "${LINKER_FLAGS} -s USE_WEBGL2")
 	set(LINKER_FLAGS "${LINKER_FLAGS} -s USE_GLFW=3")
-	set(LINKER_FLAGS "${LINKER_FLAGS} --shell-file ${CMAKE_SOURCE_DIR}/emscripten/shell.html")
+	set(LINKER_FLAGS "${LINKER_FLAGS} --shell-file ${CMAKE_SOURCE_DIR}/sky/src/platform/emscripten/shell.html")
 	set(LINKER_FLAGS "${LINKER_FLAGS} --preload-file ${ASSETS_FOLDER_PATH}@${ASSETS_FOLDER_NAME}")
 	set(LINKER_FLAGS "${LINKER_FLAGS} --use-preload-cache")
 
