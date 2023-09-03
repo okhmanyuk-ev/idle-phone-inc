@@ -45,8 +45,8 @@ namespace PhoneInc
 		struct Parameter
 		{
 			Graphics::TexCell icon_texture;
-			utf8_string title_text;
-			utf8_string effect_text;
+			tiny_utf8::string title_text;
+			tiny_utf8::string effect_text;
 		};
 
 	protected:

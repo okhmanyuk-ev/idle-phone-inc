@@ -37,6 +37,7 @@ void Factory::Manager::refresh()
 	auto animation = ANIMATION("textures/managers/animation.json");
 
 	setAnimation(texture, atlas, animation);
+	getSprite()->setBatchGroup(fmt::format("room_manager_{}", stage));
 
 	//randomizeProgress();
 }

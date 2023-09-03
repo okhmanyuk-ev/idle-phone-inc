@@ -30,7 +30,6 @@ Factory::Room::Room(int index) : mIndex(index)
 
 	mManager = std::make_shared<Manager>();
 	mManager->setPosition({ -18.0f, 116.0f });
-	mManager->getSprite()->setBatchGroup("room_manager");
 	attach(mManager);
 
 	for (int i = 0; i < Balance::MaxWorkersCount; i++)
@@ -38,7 +37,6 @@ Factory::Room::Room(int index) : mIndex(index)
 		mWorkers[i] = std::make_shared<Worker>();
 		mWorkers[i]->setAnchor({ 0.5f, 0.0f });
 		mWorkers[i]->setPivot({ 0.5f, 1.0f });
-		mWorkers[i]->getSprite()->setBatchGroup("room_worker");
 		table->attach(mWorkers[i]);
 	}
 

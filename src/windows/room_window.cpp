@@ -185,7 +185,7 @@ float RoomWindow::Panel::getProgress() const
 	return (float)current / (float)total;
 }
 
-utf8_string RoomWindow::Panel::getLevelText() const
+tiny_utf8::string RoomWindow::Panel::getLevelText() const
 {
 	return LOCALIZE_FMT("ROOM_WINDOW_LEVEL_DESCRIPTION", getLevel());
 }
@@ -343,12 +343,12 @@ void RoomWindow::ProductPanel::increaseLevel()
 		AUDIO->play(SOUND("sounds/success.wav"));
 }
 
-utf8_string RoomWindow::ProductPanel::getOpenButtonText() const
+tiny_utf8::string RoomWindow::ProductPanel::getOpenButtonText() const
 {
 	return LOCALIZE("UNLOCK_BUTTON");
 }
 
-utf8_string RoomWindow::ProductPanel::getUpgradeButtonText() const
+tiny_utf8::string RoomWindow::ProductPanel::getUpgradeButtonText() const
 {
 	return LOCALIZE("UPGRADE_BUTTON");
 }
@@ -443,12 +443,12 @@ void RoomWindow::SmallPanel::refresh()
 		mLandingDescriptionLabel->setText(getDescriptionText());
 }
 
-utf8_string RoomWindow::SmallPanel::getOpenButtonText() const
+tiny_utf8::string RoomWindow::SmallPanel::getOpenButtonText() const
 {
 	return LOCALIZE("HIRE_BUTTON");
 }
 
-utf8_string RoomWindow::SmallPanel::getUpgradeButtonText() const
+tiny_utf8::string RoomWindow::SmallPanel::getUpgradeButtonText() const
 {
 	return LOCALIZE("UPGRADE_BUTTON");
 }
@@ -504,7 +504,7 @@ Graphics::TexCell RoomWindow::ManagerPanel::getIconTexture() const
 	return TEXTURE(fmt::format("textures/windows/room_window/avatars/managers/{}.png", avatar));
 }
 
-utf8_string RoomWindow::ManagerPanel::getTitleText() const
+tiny_utf8::string RoomWindow::ManagerPanel::getTitleText() const
 {
 	if (isOpened())
 		return LOCALIZE("ROOM_WINDOW_MANAGER_TITLE");
@@ -512,7 +512,7 @@ utf8_string RoomWindow::ManagerPanel::getTitleText() const
 		return LOCALIZE("ROOM_WINDOW_MANAGER_TITLE_HIRE");
 }
 
-utf8_string RoomWindow::ManagerPanel::getDescriptionText() const
+tiny_utf8::string RoomWindow::ManagerPanel::getDescriptionText() const
 {
 	if (isOpenAvailable())
 		return LOCALIZE("ROOM_WINDOW_MANAGER_DESCRIPTION");
@@ -520,7 +520,7 @@ utf8_string RoomWindow::ManagerPanel::getDescriptionText() const
 		return LOCALIZE("ROOM_WINDOW_MANAGER_DESCRIPTION_HIRE_LOCKED");
 }
 
-utf8_string RoomWindow::ManagerPanel::getEffectText() const
+tiny_utf8::string RoomWindow::ManagerPanel::getEffectText() const
 {
 	auto duration = Balance::GetManagerDuration(getRoomIndex());
 	auto multiplier = Balance::ManagerMaxDuration / duration;
@@ -585,7 +585,7 @@ Graphics::TexCell RoomWindow::WorkerPanel::getIconTexture() const
 	return TEXTURE(fmt::format("textures/windows/room_window/avatars/workers/{}.png", avatar));
 }
 
-utf8_string RoomWindow::WorkerPanel::getTitleText() const
+tiny_utf8::string RoomWindow::WorkerPanel::getTitleText() const
 {
 	if (isOpened())
 		return LOCALIZE_FMT("ROOM_WINDOW_WORKER_TITLE", mNumber);
@@ -593,7 +593,7 @@ utf8_string RoomWindow::WorkerPanel::getTitleText() const
 		return LOCALIZE("ROOM_WINDOW_WORKER_TITLE_HIRE");
 }
 
-utf8_string RoomWindow::WorkerPanel::getDescriptionText() const
+tiny_utf8::string RoomWindow::WorkerPanel::getDescriptionText() const
 {
 	if (isOpenAvailable())
 		return LOCALIZE("ROOM_WINDOW_WORKER_DESCRIPTION");
@@ -601,7 +601,7 @@ utf8_string RoomWindow::WorkerPanel::getDescriptionText() const
 		return LOCALIZE("ROOM_WINDOW_WORKER_DESCRIPTION_HIRE_LOCKED");
 }
 
-utf8_string RoomWindow::WorkerPanel::getEffectText() const
+tiny_utf8::string RoomWindow::WorkerPanel::getEffectText() const
 {
 	auto duration = Balance::GetWorkerDuration(getRoomIndex(), mNumber - 1);
 	auto multiplier = Balance::WorkerMaxDuration / duration;

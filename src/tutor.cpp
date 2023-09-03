@@ -76,7 +76,7 @@ void TutorHolder::play(const std::string& name, std::shared_ptr<Scene::Node> nod
 	tutor.endCallback = endCallback;
 	mTutors.insert({ name, tutor });
 
-	LOG("tutor \"" + name + "\" added");
+	sky::Log("tutor \"" + name + "\" added");
 }
 
 void TutorHolder::complete()
@@ -97,7 +97,7 @@ void TutorHolder::complete()
 
 	showFinger(false);
 
-	LOG("tutor \"" + name + "\" completed");
+	sky::Log("tutor \"" + name + "\" completed");
 }
 
 bool TutorHolder::isCompleted(const std::string& name) const

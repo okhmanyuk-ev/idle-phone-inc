@@ -26,6 +26,7 @@ void Factory::Worker::refresh()
 	auto animation = ANIMATION("textures/workers/animation.json");
 
 	setAnimation(texture, atlas, animation);
+	getSprite()->setBatchGroup(fmt::format("room_worker_{}", stage));
 
 	//randomizeProgress();
 }

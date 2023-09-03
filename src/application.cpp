@@ -13,7 +13,6 @@ Application::Application() : Shared::Application(PROJECT_NAME, { Flag::Audio, Fl
 #if defined(PLATFORM_WINDOWS)
 	PLATFORM->rescale(1.5f);
 #endif
-	RENDERER->setVsync(true);
 
 	// limit maximum time delta to avoid animation breaks
 	FRAME->setTimeDeltaLimit(Clock::FromSeconds(1.0f / 30.0f));
