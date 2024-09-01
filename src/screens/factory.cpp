@@ -17,13 +17,21 @@ Factory::Factory()
 			mRooms.push_back(std::make_shared<Room>(i));
 	}
 
-	auto grid = Shared::SceneHelpers::MakeVerticalGrid(cell_size, mRooms);
-	grid->setAnchor({ 1.0f, 0.0f });
-	grid->setPivot({ 1.0f, 0.0f });
-	attach(grid);
+	auto column = std::make_shared<Scene::Column>();
+	for (auto node : mRooms)
+	{
+		auto cell = std::make_shared<Scene::Node>();
+		cell->setSize(cell_size);
+		column->attach(cell);
+		cell->attach(node);
+	}
+	column->setSize({ cell_size.x, cell_size.y * mRooms.size() });
+	column->setAnchor({ 1.0f, 0.0f });
+	column->setPivot({ 1.0f, 0.0f });
+	attach(column);
 
-	setHeight(grid->getHeight());
-	 
+	setHeight(column->getHeight());
+
 	auto conveyor_path = std::make_shared<Scene::Sprite>();
 	conveyor_path->setTexture(TEXTURE("textures/factory/conveyor/segment.png"));
 	conveyor_path->setStretch({ 0.0f, 2.0f });
@@ -41,7 +49,7 @@ Factory::Factory()
 
 		y -= Clock::ToSeconds(dt) * 100.0f * speed;
 		auto tex_h = (float)conveyor_path->getTexture()->getHeight();
-		while (y <= -tex_h) 
+		while (y <= -tex_h)
 		{
 			y += tex_h;
 		}

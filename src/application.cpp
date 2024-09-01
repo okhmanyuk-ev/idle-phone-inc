@@ -19,20 +19,20 @@ Application::Application() : Shared::Application(PROJECT_NAME, { Flag::Audio, Fl
 
 	getScene()->getTimestepFixer().setEnabled(false);
 
-	GRAPHICS->setSdfSmoothFactor(Helpers::Scale);
+	//GRAPHICS->setSdfSmoothFactor(Helpers::Scale);
 
 	STATS->setAlignment(Shared::StatsSystem::Align::BottomRight);
 
 	ENGINE->addSystem<Microtasks>(std::make_shared<Microtasks>());
 	ENGINE->addSystem<Profile>(std::make_shared<Profile>());
-	
+
 	PROFILE->load();
 	PROFILE->setNightBackground(!PROFILE->isNightBackground());
 
 	MICROTASKS->checkForCompletion();
 
 	PLATFORM->initializeBilling({
-		//{ "rubies.001", [this] { 
+		//{ "rubies.001", [this] {
 		//	addRubies(500);
 		//} }
 	});
@@ -48,16 +48,7 @@ Application::~Application()
 
 void Application::onFrame()
 {
-	adaptToScreen(SCENE_MANAGER, { 1080.0f, 1920.0f });
 	Cheats::ShowDevMenu();
-}
-
-void Application::adaptToScreen(std::shared_ptr<Scene::Node> node, const glm::vec2& dimensions)
-{
-	glm::vec2 size = { PLATFORM->getLogicalWidth(), PLATFORM->getLogicalHeight() };
-	auto scale = size / dimensions;
-	node->setScale(glm::min(scale.x, scale.y));
-	node->setStretch(1.0f / node->getScale());
 }
 
 void Application::onEvent(const Profile::ProfileClearedEvent& e)
@@ -71,6 +62,7 @@ void Application::onEvent(const Profile::ProfileClearedEvent& e)
 
 void Application::initializeScene()
 {
+	getScene()->setScreenAdaption(glm::vec2{ 1080.0f, 1920.0f });
 	Scene::Sampler::DefaultSampler = skygfx::Sampler::Linear;
 
 	auto loading = std::make_shared<LoadingScreen>();
@@ -80,7 +72,7 @@ void Application::initializeScene()
 		[] { CACHE->makeAtlases(); },
 		[] {
 			// prepare
-			
+
 			FONT("default")->setCustomVerticalOffset(-4.0f);
 			FONT("default_bold")->setCustomVerticalOffset(-4.0f);
 

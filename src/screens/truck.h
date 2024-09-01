@@ -9,16 +9,11 @@ namespace PhoneInc
 	{
 		Main
 	};
-	
+
 	class Street::Truck : public Scene::MappedAniSprite<TruckAnimation>
 	{
 	public:
 		Truck();
-
-	private:
-		const static inline StateMap Animations = {
-			{ Animation::Main, "main" }
-		};
 
 	public:
 		auto getEarning() const { return mEarning; }

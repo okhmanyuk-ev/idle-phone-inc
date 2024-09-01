@@ -22,10 +22,15 @@ GameplayScreen::GameplayScreen()
 
 	auto width = 1080.0f;
 
-	auto grid = Shared::SceneHelpers::MakeVerticalGrid(width, {
-		{ street->getHeight(), street },
-		{ factory->getHeight(), factory }
-	});
+	auto column = std::make_shared<Scene::Column>();
+	for (auto node : std::vector<std::shared_ptr<Scene::Node>>{ street, factory })
+	{
+		auto cell = std::make_shared<Scene::Node>();
+		cell->setSize({ width, node->getHeight() });
+		column->attach(cell);
+		cell->attach(node);
+	}
+	column->setSize({ width, street->getHeight() + factory->getHeight() });
 
 	mScrollbox = std::make_shared<Scene::Scrollbox>();
 	mScrollbox->setAnchor({ 0.5f, 0.0f });
@@ -34,8 +39,8 @@ GameplayScreen::GameplayScreen()
 	mScrollbox->getBounding()->setStretch(1.0f);
 	mScrollbox->setSensitivity({ 0.0f, 1.0f });
 	mScrollbox->getContent()->setHorizontalStretch(1.0f);
-	mScrollbox->getContent()->attach(grid);
-	mScrollbox->getContent()->setHeight(grid->getHeight());
+	mScrollbox->getContent()->attach(column);
+	mScrollbox->getContent()->setHeight(column->getHeight());
 	mScrollbox->setTouchMask(1 << 1);
 	getContent()->attach(mScrollbox);
 
@@ -72,8 +77,8 @@ GameplayScreen::GameplayScreen()
 	auto microtasks = std::make_shared<MicrotasksHolder>();
 	street->attach(microtasks);
 
-	auto predicate = [this] { 
-		return getState() != State::Entered; 
+	auto predicate = [this] {
+		return getState() != State::Entered;
 	};
 
 	runAction(Actions::Collection::Delayed(predicate, Actions::Collection::Execute([microtasks] {
@@ -83,7 +88,7 @@ GameplayScreen::GameplayScreen()
 	runAction(Actions::Collection::ExecuteInfinite([this] {
 		if (!isTransformReady())
 			return;
-        
+
 #if !defined(PLATFORM_MOBILE)
 		return;
 #endif
@@ -91,7 +96,7 @@ GameplayScreen::GameplayScreen()
 		const glm::vec2 target = { 1080.0f, 1920.0f };
 		auto size = getAbsoluteSize();
 		auto scale = size / target;
-	
+
 		setScale(scale.x);
 	}));
 }

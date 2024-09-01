@@ -5,7 +5,6 @@ using namespace PhoneInc;
 
 Window::Window()
 {
-	//
 }
 
 StandardWindow::StandardWindow()
@@ -23,7 +22,7 @@ StandardWindow::StandardWindow()
 	mTitle->setPivot(0.5f);
 	mTitle->setFontSize(45.0f);
 	mTitle->setPosition({ 0.0f, 64.0f });
-	mTitle->setText("title");
+	mTitle->setText(L"title");
 	getBackground()->attach(mTitle);
 
 	mCloseButton = std::make_shared<Helpers::CloseButton>();

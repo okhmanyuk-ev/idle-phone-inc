@@ -10,7 +10,7 @@ namespace PhoneInc
 		Idle,
 		Working
 	};
-	
+
 	class Factory::Worker : public Scene::MappedAniSprite<WorkerAnimation>
 	{
 	public:
@@ -25,11 +25,5 @@ namespace PhoneInc
 
 	private:
 		int mLevel = 0;
-
-	private:
-		const static inline StateMap Animations = {
-			{ Animation::Idle, "idle" },
-			{ Animation::Working, "working" }
-		};
 	};
 }

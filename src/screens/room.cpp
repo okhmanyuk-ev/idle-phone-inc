@@ -48,7 +48,7 @@ Factory::Room::Room(int index) : mIndex(index)
 	lvl_label->setBatchGroup("room_lvl_label");
 	lvl_label->setPosition({ 51.0f, 59.0f });
 	lvl_label->setPivot(0.5f);
-	lvl_label->setText(std::to_string(index + 1));
+	lvl_label->setText(std::to_wstring(index + 1));
 	lvl_label->setColor(Graphics::Color::Black);
 	lvl_label->setFontSize(33.0f);
 	attach(lvl_label);
@@ -81,14 +81,14 @@ Factory::Room::Room(int index) : mIndex(index)
 		mPhonesStacks[i]->setVisiblePhones(0);
 		table->attach(mPhonesStacks[i]);
 	}
-	
+
 	mPhonesStacks[0]->setPosition({ 46.0f, -12.0f });
 	mPhonesStacks[1]->setPosition({ 196.0f, -12.0f });
 	mPhonesStacks[2]->setPosition({ 346.0f, -12.0f });
-	
+
 	refresh();
 
-	runAction(Actions::Collection::RepeatInfinite([this]() -> Actions::Collection::UAction {
+	runAction(Actions::Collection::RepeatInfinite([this]() -> std::unique_ptr<Actions::Action> {
 		const auto& rooms = PROFILE->getRooms();
 
 		if (rooms.count(mIndex) == 0)
@@ -141,7 +141,7 @@ Factory::Room::Room(int index) : mIndex(index)
 
 	for (int i = 0; i < Balance::MaxWorkersCount; i++)
 	{
-		runAction(Actions::Collection::RepeatInfinite([this, i]() -> Actions::Collection::UAction {
+		runAction(Actions::Collection::RepeatInfinite([this, i]() -> std::unique_ptr<Actions::Action> {
 			const auto& rooms = PROFILE->getRooms();
 
 			if (rooms.count(mIndex) == 0)
@@ -230,18 +230,18 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	lvl_label->setBatchGroup("room_lvl_label");
 	lvl_label->setPosition({ 51.0f, 59.0f });
 	lvl_label->setPivot(0.5f);
-	lvl_label->setText(std::to_string(index + 1));
+	lvl_label->setText(std::to_wstring(index + 1));
 	lvl_label->setColor(Graphics::Color::Black);
 	lvl_label->setFontSize(33.0f);
 	attach(lvl_label);
 
 	mButton = std::make_shared<Helpers::StandardLongButton>();
 	mButton->setBatchGroup("room_button");
-	mButton->getLabel()->setText("$ " + Helpers::NumberToString(Balance::GetRoomCost(index)));
+	mButton->getLabel()->setText(L"$ " + Helpers::NumberToString(Balance::GetRoomCost(index)));
 	mButton->setAnchor(0.5f);
 	mButton->setPivot(0.5f);
-	mButton->setActiveSound(SOUND("sounds/success.wav"));
 	mButton->setActiveCallback([this] {
+		sky::PlaySound(SOUND("sounds/success.wav"));
 		mDollarEmitter->emitPack();
 		TUTOR->complete();
 		PROFILE->spendCash(Balance::GetRoomCost(mIndex));

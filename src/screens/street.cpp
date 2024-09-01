@@ -142,7 +142,7 @@ void Street::runTruckAction()
 
 	auto storage = PROFILE->getWarehouseStorage();
 	auto capacity = Balance::GetWarehouseTruckCapacity();
-	
+
 	if (capacity > storage)
 		capacity = storage;
 
@@ -150,7 +150,7 @@ void Street::runTruckAction()
 
 	auto earning = Balance::GetWarehouseEarning() * capacity;
 	truck->setEarning(earning);
-	
+
 	float duration = Balance::GetWarehouseTruckDuration();
 
 	runAction(Actions::Collection::MakeSequence(

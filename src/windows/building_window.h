@@ -40,13 +40,13 @@ namespace PhoneInc
 	private:
 		std::shared_ptr<Scene::Node> createMainPanel(MainPanel& panel);
 		std::shared_ptr<Scene::Node> createParameterPanel(ParameterPanel& panel);
-		
+
 	protected:
 		struct Parameter
 		{
 			Graphics::TexCell icon_texture;
-			tiny_utf8::string title_text;
-			tiny_utf8::string effect_text;
+			std::wstring title_text;
+			std::wstring effect_text;
 		};
 
 	protected:

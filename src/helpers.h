@@ -8,17 +8,17 @@ namespace PhoneInc::Helpers
 	// types
 
 	using Callback = std::function<void()>;
-	
+
 	struct MoveGlobalScrollEvent { glm::vec2 pos; };
 	struct BlockGlobalScrollEvent { bool blocked; };
 
 	// constants
 
 	inline static const float Scale = 3.0f;
-	
+
 	// static
 
-	std::string NumberToString(double value);
+	std::wstring NumberToString(double value);
 
 	template <typename T> T GetRandomElement(const std::vector<T>& elements)
 	{
@@ -45,7 +45,8 @@ namespace PhoneInc::Helpers
 		LabelSolidBold();
 	};
 
-	class Button : public Shared::SceneHelpers::BouncingButtonBehavior<Shared::SceneHelpers::SpriteButton>
+	class Button : public Shared::SceneHelpers::SoundButtonBehavior<Shared::SceneHelpers::BouncingButtonBehavior<
+		Shared::SceneHelpers::SpriteButton>>
 	{
 	private:
 		const float MaxAutoclickTime = 0.5f;
@@ -59,7 +60,7 @@ namespace PhoneInc::Helpers
 
 	private:
 		void internalClick();
-		
+
 	public:
 		auto isAutoclick() const { return mAutoclick; }
 		void setAutoclick(bool value) { mAutoclick = value; }

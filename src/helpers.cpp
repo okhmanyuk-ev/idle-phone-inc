@@ -6,7 +6,7 @@ using namespace PhoneInc::Helpers;
 
 // static
 
-std::string Helpers::NumberToString(double value)
+std::wstring Helpers::NumberToString(double value)
 {
 	auto frexp10 = [](double arg, int& exp) -> double {
 		exp = (arg == 0) ? 0 : (int)std::floor(std::log10(std::fabs(arg)));
@@ -65,7 +65,7 @@ std::string Helpers::NumberToString(double value)
 		stream << normalized_value << getExpName(exp);
 	}
 
-	return stream.str();
+	return sky::to_wstring(stream.str());
 }
 
 // classes
@@ -88,9 +88,7 @@ LabelSolidBold::LabelSolidBold()
 
 Button::Button()
 {
-	setActiveSound(SOUND("sounds/click.wav"));
-	setInactiveSound(SOUND("sounds/click.wav"));
-
+	setClickSound(SOUND("sounds/click.wav"));
 	runAction(Actions::Collection::ExecuteInfinite([this](auto delta) {
 		if (!mAutoclick)
 			return;
@@ -125,8 +123,9 @@ void Button::onClick()
 
 void Button::onChooseBegin()
 {
-	Shared::SceneHelpers::BouncingButtonBehavior<Shared::SceneHelpers::SpriteButton>::onChooseBegin();
-	
+	Shared::SceneHelpers::SoundButtonBehavior<Shared::SceneHelpers::BouncingButtonBehavior<
+		Shared::SceneHelpers::SpriteButton>>::onChooseBegin();
+
 	if (mAutoclick)
 	{
 		internalClick();
@@ -137,7 +136,8 @@ void Button::onChooseBegin()
 
 void Button::internalClick()
 {
-	Shared::SceneHelpers::BouncingButtonBehavior<Shared::SceneHelpers::SpriteButton>::onClick();
+	Shared::SceneHelpers::SoundButtonBehavior<Shared::SceneHelpers::BouncingButtonBehavior<
+		Shared::SceneHelpers::SpriteButton>>::onClick();
 }
 
 StandardButton::StandardButton() : Button()

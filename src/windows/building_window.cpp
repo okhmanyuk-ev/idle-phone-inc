@@ -67,10 +67,10 @@ void BuildingWindow::refresh()
 	if (mUpgradeButton->isEnabled())
 	{
 		mUpgradeButton->setActive(CanUpgrade());
-		mUpgradeButton->getLabel()->setText("$ " + Helpers::NumberToString(Balance::GetWarehouseCost()));
+		mUpgradeButton->getLabel()->setText(L"$ " + Helpers::NumberToString(Balance::GetWarehouseCost()));
 	}
 
-	mMainPanel.level->setText(LOCALIZE_FMT("BUILDING_WINDOW_LEVEL", level));
+	mMainPanel.level->setText(fmt::format(LOCALIZE("BUILDING_WINDOW_LEVEL"), level));
 	mMainPanel.building_name->setText(LOCALIZE(fmt::format("WAREHOUSE_NAME_{}", Balance::GetWarehouseStage())));
 	mMainPanel.building_icon->setTexture(TEXTURE(fmt::format("textures/warehouse/{}.png", Balance::GetWarehouseStage())));
 	mMainPanel.building_icon->applyTextureSize();
@@ -196,7 +196,7 @@ BuildingWindow::Parameter BuildingWindow::getFirstParameter() const
 
 	auto result = BuildingWindow::Parameter();
 	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_1");
-	result.effect_text = fmt::format("+{:.0f}%", multiplier); // https://fmt.dev/latest/syntax.html
+	result.effect_text = fmt::format(L"+{:.0f}%", multiplier); // https://fmt.dev/latest/syntax.html
 	result.icon_texture = TEXTURE("textures/windows/building_window/icon1.png");
 	return result;
 }

@@ -4,7 +4,7 @@
 
 using namespace PhoneInc;
 
-Factory::Worker::Worker() : Scene::MappedAniSprite<WorkerAnimation>(Animations)
+Factory::Worker::Worker()
 {
 	setFrequency(12.0f);
 }
@@ -20,7 +20,7 @@ void Factory::Worker::refresh()
 	setEnabled(true);
 
 	auto stage = Balance::GetWorkerStage(mLevel);
-	
+
 	auto texture = TEXTURE(fmt::format("textures/workers/{}.png", stage));
 	auto atlas = ATLAS("textures/workers/atlas.json");
 	auto animation = ANIMATION("textures/workers/animation.json");

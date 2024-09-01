@@ -59,7 +59,7 @@ TopMenu::TopMenu()
 	coins_label->setFontSize(39.0f);
 	coins_label->setX(-64.0f);
 	coin_bg->attach(coins_label);
-    
+
 	auto coin_ico = std::make_shared<Scene::Sprite>();
 	coin_ico->setBatchGroup("ui_menu_icon");
 	coin_ico->setTexture(TEXTURE("textures/top_menu/coin.png"));
@@ -85,11 +85,11 @@ TopMenu::TopMenu()
 	runAction(Actions::Collection::ExecuteInfinite([coins_label, cash_label](auto dTime) {
 		static double cash = 0.0;
 		cash = Common::Helpers::SmoothValue(cash, PROFILE->getCash(), dTime);
-		
+
 		static double coins = 0.0;
 		coins = Common::Helpers::SmoothValue(coins, PROFILE->getCoins(), dTime);
-		
-		cash_label->setText("$ " + Helpers::NumberToString(cash));
+
+		cash_label->setText(L"$ " + Helpers::NumberToString(cash));
 		coins_label->setText(Helpers::NumberToString(coins));
 	}));
 }

@@ -7,7 +7,7 @@ using namespace PhoneInc;
 RoomWindow::RoomWindow(int index) : mIndex(index)
 {
 	getBackground()->setSize({ 986.0f, 1658.0f });
-	getTitle()->setText(LOCALIZE_FMT("ROOM_WINDOW_TITLE", index + 1));
+	getTitle()->setText(fmt::format(LOCALIZE("ROOM_WINDOW_TITLE"), index + 1));
 
 	mProductPanel = std::make_shared<ProductPanel>(index);
 	mProductPanel->setAnchor({ 0.5f, 0.0f });
@@ -161,33 +161,33 @@ void RoomWindow::Panel::refresh()
 			else
 			{
 				mButton->setActive(false);
-			}			
+			}
 			mButtonAdditionalLabel->setText(getOpenButtonText());
 		}
-		mButton->getLabel()->setText("$ " + Helpers::NumberToString(getUpgradeCost()));
+		mButton->getLabel()->setText(L"$ " + Helpers::NumberToString(getUpgradeCost()));
 	}
 }
 
-bool RoomWindow::Panel::isOpened() const 
-{ 
-	return getLevel() > 0; 
+bool RoomWindow::Panel::isOpened() const
+{
+	return getLevel() > 0;
 }
 
-bool RoomWindow::Panel::isLastLevel() const 
-{ 
-	return getLevel() >= getMaxLevel(); 
+bool RoomWindow::Panel::isLastLevel() const
+{
+	return getLevel() >= getMaxLevel();
 }
 
-float RoomWindow::Panel::getProgress() const 
+float RoomWindow::Panel::getProgress() const
 {
 	auto current = (((getLevel() - 1) % getLevelsPerStage()) + 1);
 	auto total = getLevelsPerStage();
 	return (float)current / (float)total;
 }
 
-tiny_utf8::string RoomWindow::Panel::getLevelText() const
+std::wstring RoomWindow::Panel::getLevelText() const
 {
-	return LOCALIZE_FMT("ROOM_WINDOW_LEVEL_DESCRIPTION", getLevel());
+	return fmt::format(LOCALIZE("ROOM_WINDOW_LEVEL_DESCRIPTION"), getLevel());
 }
 
 // product panel
@@ -251,7 +251,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	mEffectLabelKey->setAnchor({ 0.0f, 0.0f });
 	mEffectLabelKey->setPivot({ 0.0f, 0.5f });
 	mEffectLabelKey->setPosition({ 264.0f, 308.0f });
-	mEffectLabelKey->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_EFFECT_LABEL") + ":");
+	mEffectLabelKey->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_EFFECT_LABEL") + L":");
 	mEffectLabelKey->setColor(Graphics::Color::ToNormalized(12, 22, 44));
 	attach(mEffectLabelKey);
 
@@ -343,12 +343,12 @@ void RoomWindow::ProductPanel::increaseLevel()
 		AUDIO->play(SOUND("sounds/success.wav"));
 }
 
-tiny_utf8::string RoomWindow::ProductPanel::getOpenButtonText() const
+std::wstring RoomWindow::ProductPanel::getOpenButtonText() const
 {
 	return LOCALIZE("UNLOCK_BUTTON");
 }
 
-tiny_utf8::string RoomWindow::ProductPanel::getUpgradeButtonText() const
+std::wstring RoomWindow::ProductPanel::getUpgradeButtonText() const
 {
 	return LOCALIZE("UPGRADE_BUTTON");
 }
@@ -405,7 +405,7 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	mEffectLabelKey->setAnchor({ 0.0f, 0.0f });
 	mEffectLabelKey->setPivot({ 0.0f, 0.5f });
 	mEffectLabelKey->setPosition({ 264.0f, 194.0f });
-	mEffectLabelKey->setText(LOCALIZE("ROOM_WINDOW_NPC_EFFECT_LABEL") + ":");
+	mEffectLabelKey->setText(LOCALIZE("ROOM_WINDOW_NPC_EFFECT_LABEL") + L":");
 	mEffectLabelKey->setColor(Graphics::Color::ToNormalized(12, 22, 44));
 	attach(mEffectLabelKey);
 
@@ -443,12 +443,12 @@ void RoomWindow::SmallPanel::refresh()
 		mLandingDescriptionLabel->setText(getDescriptionText());
 }
 
-tiny_utf8::string RoomWindow::SmallPanel::getOpenButtonText() const
+std::wstring RoomWindow::SmallPanel::getOpenButtonText() const
 {
 	return LOCALIZE("HIRE_BUTTON");
 }
 
-tiny_utf8::string RoomWindow::SmallPanel::getUpgradeButtonText() const
+std::wstring RoomWindow::SmallPanel::getUpgradeButtonText() const
 {
 	return LOCALIZE("UPGRADE_BUTTON");
 }
@@ -504,7 +504,7 @@ Graphics::TexCell RoomWindow::ManagerPanel::getIconTexture() const
 	return TEXTURE(fmt::format("textures/windows/room_window/avatars/managers/{}.png", avatar));
 }
 
-tiny_utf8::string RoomWindow::ManagerPanel::getTitleText() const
+std::wstring RoomWindow::ManagerPanel::getTitleText() const
 {
 	if (isOpened())
 		return LOCALIZE("ROOM_WINDOW_MANAGER_TITLE");
@@ -512,7 +512,7 @@ tiny_utf8::string RoomWindow::ManagerPanel::getTitleText() const
 		return LOCALIZE("ROOM_WINDOW_MANAGER_TITLE_HIRE");
 }
 
-tiny_utf8::string RoomWindow::ManagerPanel::getDescriptionText() const
+std::wstring RoomWindow::ManagerPanel::getDescriptionText() const
 {
 	if (isOpenAvailable())
 		return LOCALIZE("ROOM_WINDOW_MANAGER_DESCRIPTION");
@@ -520,7 +520,7 @@ tiny_utf8::string RoomWindow::ManagerPanel::getDescriptionText() const
 		return LOCALIZE("ROOM_WINDOW_MANAGER_DESCRIPTION_HIRE_LOCKED");
 }
 
-tiny_utf8::string RoomWindow::ManagerPanel::getEffectText() const
+std::wstring RoomWindow::ManagerPanel::getEffectText() const
 {
 	auto duration = Balance::GetManagerDuration(getRoomIndex());
 	auto multiplier = Balance::ManagerMaxDuration / duration;
@@ -528,7 +528,7 @@ tiny_utf8::string RoomWindow::ManagerPanel::getEffectText() const
 	multiplier -= 1.0f;
 	multiplier *= 100.0f;
 
-	return fmt::format("+{:.0f}%", multiplier);
+	return fmt::format(L"+{:.0f}%", multiplier);
 }
 
 // worker panel
@@ -585,15 +585,15 @@ Graphics::TexCell RoomWindow::WorkerPanel::getIconTexture() const
 	return TEXTURE(fmt::format("textures/windows/room_window/avatars/workers/{}.png", avatar));
 }
 
-tiny_utf8::string RoomWindow::WorkerPanel::getTitleText() const
+std::wstring RoomWindow::WorkerPanel::getTitleText() const
 {
 	if (isOpened())
-		return LOCALIZE_FMT("ROOM_WINDOW_WORKER_TITLE", mNumber);
+		return fmt::format(LOCALIZE("ROOM_WINDOW_WORKER_TITLE"), mNumber);
 	else
 		return LOCALIZE("ROOM_WINDOW_WORKER_TITLE_HIRE");
 }
 
-tiny_utf8::string RoomWindow::WorkerPanel::getDescriptionText() const
+std::wstring RoomWindow::WorkerPanel::getDescriptionText() const
 {
 	if (isOpenAvailable())
 		return LOCALIZE("ROOM_WINDOW_WORKER_DESCRIPTION");
@@ -601,13 +601,13 @@ tiny_utf8::string RoomWindow::WorkerPanel::getDescriptionText() const
 		return LOCALIZE("ROOM_WINDOW_WORKER_DESCRIPTION_HIRE_LOCKED");
 }
 
-tiny_utf8::string RoomWindow::WorkerPanel::getEffectText() const
+std::wstring RoomWindow::WorkerPanel::getEffectText() const
 {
 	auto duration = Balance::GetWorkerDuration(getRoomIndex(), mNumber - 1);
 	auto multiplier = Balance::WorkerMaxDuration / duration;
-	
+
 	multiplier -= 1.0f;
 	multiplier *= 100.0f;
 
-	return fmt::format("+{:.0f}%", multiplier);
+	return fmt::format(L"+{:.0f}%", multiplier);
 }

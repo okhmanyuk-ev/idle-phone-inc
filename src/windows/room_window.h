@@ -67,11 +67,11 @@ namespace PhoneInc
 		float getProgress() const;
 
 	public:
-		virtual tiny_utf8::string getOpenButtonText() const = 0;
-		virtual tiny_utf8::string getUpgradeButtonText() const = 0;
+		virtual std::wstring getOpenButtonText() const = 0;
+		virtual std::wstring getUpgradeButtonText() const = 0;
 
 	protected:
-		tiny_utf8::string getLevelText() const;
+		std::wstring getLevelText() const;
 
 	public:
 		int getRoomIndex() const { return mRoomIndex; }
@@ -103,8 +103,8 @@ namespace PhoneInc
 		void increaseLevel() override;
 
 	public:
-		tiny_utf8::string getOpenButtonText() const override;
-		tiny_utf8::string getUpgradeButtonText() const override;
+		std::wstring getOpenButtonText() const override;
+		std::wstring getUpgradeButtonText() const override;
 
 	private:
 		std::shared_ptr<Scene::Adaptive<Scene::Sprite>> mIcon;
@@ -126,14 +126,14 @@ namespace PhoneInc
 		void refresh() override;
 
 	public:
-		tiny_utf8::string getOpenButtonText() const override;
-		tiny_utf8::string getUpgradeButtonText() const override;
+		std::wstring getOpenButtonText() const override;
+		std::wstring getUpgradeButtonText() const override;
 
 	public:
 		virtual Graphics::TexCell getIconTexture() const = 0;
-		virtual tiny_utf8::string getTitleText() const = 0;
-		virtual tiny_utf8::string getDescriptionText() const = 0;
-		virtual tiny_utf8::string getEffectText() const = 0;
+		virtual std::wstring getTitleText() const = 0;
+		virtual std::wstring getDescriptionText() const = 0;
+		virtual std::wstring getEffectText() const = 0;
 
 	private:
 		std::shared_ptr<Scene::Sprite> mIcon;
@@ -160,9 +160,9 @@ namespace PhoneInc
 
 	public:
 		Graphics::TexCell getIconTexture() const override;
-		tiny_utf8::string getTitleText() const override;
-		tiny_utf8::string getDescriptionText() const override;
-		tiny_utf8::string getEffectText() const override;
+		std::wstring getTitleText() const override;
+		std::wstring getDescriptionText() const override;
+		std::wstring getEffectText() const override;
 	};
 
 	class RoomWindow::WorkerPanel : public SmallPanel
@@ -180,9 +180,9 @@ namespace PhoneInc
 
 	public:
 		Graphics::TexCell getIconTexture() const override;
-		tiny_utf8::string getTitleText() const override;
-		tiny_utf8::string getDescriptionText() const override;
-		tiny_utf8::string getEffectText() const override;
+		std::wstring getTitleText() const override;
+		std::wstring getDescriptionText() const override;
+		std::wstring getEffectText() const override;
 
 	private:
 		int mNumber = 0;

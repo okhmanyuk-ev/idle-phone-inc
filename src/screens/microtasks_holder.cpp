@@ -99,8 +99,8 @@ void MicrotasksHolder::refresh()
 
 	auto task = MICROTASKS->getCurrentTask();
 
-	mLabel->setText(LOCALIZE_FMT(task.locale, task.target));
-	
+	mLabel->setText(fmt::format(LOCALIZE(task.locale), task.target));
+
 	if (MICROTASKS->isReady())
 		mIcon->setTexture(TEXTURE("textures/microtasks/done.png"));
 	else

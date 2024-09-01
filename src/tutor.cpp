@@ -24,7 +24,7 @@ TutorHolder::TutorHolder()
 
 	// finger pulse
 
-	runAction(Actions::Collection::RepeatInfinite([this]() -> Actions::Collection::UAction {
+	runAction(Actions::Collection::RepeatInfinite([this]() -> std::unique_ptr<Actions::Action> {
 		const float Delay = 1.25f;
 		const float Duration = 0.125f;
 		const glm::vec2 ModifiedValue = { 0.75f, 0.75f };
