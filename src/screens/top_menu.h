@@ -7,7 +7,7 @@
 
 namespace PhoneInc
 {
-	class TopMenu : public Scene::Sprite
+	class TopMenu : public Scene::AutoSized<Scene::Node>
 	{
 	public:
 		TopMenu();

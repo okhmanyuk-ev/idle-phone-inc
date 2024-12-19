@@ -4,7 +4,7 @@
 
 namespace PhoneInc
 {
-	class BottomMenu : public Scene::Sprite
+	class BottomMenu : public Scene::AutoSized<Scene::Node>
 	{
 	public:
 		BottomMenu();
