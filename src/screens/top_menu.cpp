@@ -84,10 +84,10 @@ TopMenu::TopMenu()
 
 	runAction(Actions::Collection::ExecuteInfinite([coins_label, cash_label](auto dTime) {
 		static double cash = 0.0;
-		cash = Common::Helpers::SmoothValue(cash, PROFILE->getCash(), dTime);
+		cash = sky::ease_towards(cash, PROFILE->getCash(), dTime);
 
 		static double coins = 0.0;
-		coins = Common::Helpers::SmoothValue(coins, PROFILE->getCoins(), dTime);
+		coins = sky::ease_towards(coins, PROFILE->getCoins(), dTime);
 
 		cash_label->setText(L"$ " + Helpers::NumberToString(cash));
 		coins_label->setText(Helpers::NumberToString(coins));

@@ -15,7 +15,7 @@ namespace PhoneInc
 
 	public:
 		void start();
-		
+
 	private:
 		void show();
 		void hide(std::function<void()> finishCallback);
@@ -28,7 +28,6 @@ namespace PhoneInc
 
 	private:
 		std::shared_ptr<Scene::Node> mHolder;
-		std::shared_ptr<Scene::Sprite> mBackground;
 		std::shared_ptr<Scene::Sprite> mIcon;
 		std::shared_ptr<Helpers::Label> mLabel;
 		std::shared_ptr<Helpers::StandardLongButton> mRewardButton;

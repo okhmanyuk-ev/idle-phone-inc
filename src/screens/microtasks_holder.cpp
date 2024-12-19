@@ -12,16 +12,16 @@ MicrotasksHolder::MicrotasksHolder()
 	mHolder->setVerticalPivot(1.0f);
 	attach(mHolder);
 
-	mBackground = std::make_shared<Scene::Sprite>();
-	mBackground->setTexture(TEXTURE("textures/microtasks/bg.png"));
-	mBackground->setAnchor(0.5f);
-	mBackground->setPivot(0.5f);
-	mHolder->attach(mBackground);
+	auto bg = std::make_shared<Scene::Sprite>();
+	bg->setTexture(TEXTURE("textures/microtasks/bg.png"));
+	bg->setAnchor(0.5f);
+	bg->setPivot(0.5f);
+	mHolder->attach(bg);
 
 	mIcon = std::make_shared<Scene::Sprite>();
 	mIcon->setAnchor({ 0.0f, 0.5f });
 	mIcon->setPivot(0.5f);
-	mBackground->attach(mIcon);
+	bg->attach(mIcon);
 
 	mLabel = std::make_shared<Helpers::Label>();
 	mLabel->setFontSize(32.0f);
@@ -30,7 +30,7 @@ MicrotasksHolder::MicrotasksHolder()
 	mLabel->setPivot({ 0.0f, 0.5f });
 	mLabel->setWidth(302.0f);
 	mLabel->setX(72.0f);
-	mBackground->attach(mLabel);
+	bg->attach(mLabel);
 
 	mRewardButton = std::make_shared<Helpers::StandardLongButton>();
 	mRewardButton->setEnabled(false);
@@ -44,7 +44,7 @@ MicrotasksHolder::MicrotasksHolder()
 		})));
 		mRewardButton->setEnabled(false);
 	});
-	mBackground->attach(mRewardButton);
+	bg->attach(mRewardButton);
 }
 
 void MicrotasksHolder::onEvent(const Microtasks::TaskReadyEvent& e)
@@ -71,7 +71,7 @@ void MicrotasksHolder::show()
 			mRewardButton->setEnabled(MICROTASKS->isReady());
 		}),
 		Actions::Collection::Wait(0.5f),
-			Actions::Collection::Execute([this] {
+		Actions::Collection::Execute([this] {
 			MICROTASKS->checkForCompletion();
 		})
 	));
@@ -84,7 +84,7 @@ void MicrotasksHolder::hide(std::function<void()> finishCallback)
 			mRewardButton->setEnabled(false);
 		}),
 		Actions::Collection::ChangeVerticalPivot(mHolder, 1.0f, 0.25f, Easing::CubicOut),
-			Actions::Collection::Execute(finishCallback)
+		Actions::Collection::Execute(finishCallback)
 	));
 }
 
