@@ -66,10 +66,10 @@ Factory::Room::Room(int index) : mIndex(index)
 	if (index == 0)
 	{
 		auto beginCallback = [] {
-			EVENT->emit(Helpers::BlockGlobalScrollEvent({ true }));
+			sky::Emit(Helpers::BlockGlobalScrollEvent({ true }));
 		};
 		auto endCallback = [] {
-			EVENT->emit(Helpers::BlockGlobalScrollEvent({ false }));
+			sky::Emit(Helpers::BlockGlobalScrollEvent({ false }));
 		};
 		TUTOR->play("press_upgrade_room_button", mUpgradeButton, nullptr, beginCallback, endCallback);
 	}
@@ -180,11 +180,11 @@ Factory::Room::Room(int index) : mIndex(index)
 			return mPhonesStacks.at(0)->isFilled() && !SCENE_MANAGER->hasWindows();
 		};
 		auto beginCallback = [] {
-			EVENT->emit(Helpers::MoveGlobalScrollEvent({ { 0.0f, 0.0f } }));
-			EVENT->emit(Helpers::BlockGlobalScrollEvent({ true }));
+			sky::Emit(Helpers::MoveGlobalScrollEvent({ { 0.0f, 0.0f } }));
+			sky::Emit(Helpers::BlockGlobalScrollEvent({ true }));
 		};
 		auto endCallback = [] {
-			EVENT->emit(Helpers::BlockGlobalScrollEvent({ false }));
+			sky::Emit(Helpers::BlockGlobalScrollEvent({ false }));
 		};
 		TUTOR->play("press_phones_stack", mPhonesStacks.at(0), canStartCallback, beginCallback, endCallback);
 	}
@@ -257,10 +257,10 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	if (index == 0)
 	{
 		auto beginCallback = [] {
-			EVENT->emit(Helpers::BlockGlobalScrollEvent({ true }));
+			sky::Emit(Helpers::BlockGlobalScrollEvent({ true }));
 		};
 		auto endCallback = [] {
-			EVENT->emit(Helpers::BlockGlobalScrollEvent({ false }));
+			sky::Emit(Helpers::BlockGlobalScrollEvent({ false }));
 		};
 		TUTOR->play("unlock_room", mButton, nullptr, beginCallback, endCallback);
 	}
@@ -314,7 +314,7 @@ void Factory::Room::PhonesStack::makeProduct()
 	auto produce_count = Balance::GetRoomProduceCount(mRoomIndex, room.product);
 
 	setVisiblePhones(0);
-	EVENT->emit(ProductSpawnEvent({ mRoomIndex, produce_count }));
+	sky::Emit(ProductSpawnEvent({ mRoomIndex, produce_count }));
 }
 
 void Factory::Room::PhonesStack::setVisiblePhones(int value)
@@ -323,7 +323,7 @@ void Factory::Room::PhonesStack::setVisiblePhones(int value)
 	assert(value <= Balance::PhonesStackCount);
 
 	mVisiblePhones = value;
-	
+
 	for (int i = 0; i < mPhones.size(); i++)
 	{
 		mPhones.at(i)->setEnabled(i < value);
@@ -341,7 +341,7 @@ void Factory::Room::PhonesStack::setVisiblePhones(int value)
 void Factory::Room::PhonesStack::runAnimForPhone(int index)
 {
 	auto phone = mPhones.at(index);
-	
+
 	phone->setScale(0.0f);
 	phone->setVerticalOrigin(64.0f);
 

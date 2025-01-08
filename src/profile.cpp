@@ -117,7 +117,7 @@ void Profile::unlockRoom(int index)
 {
 	assert(isRoomLocked(index));
 	mRooms.insert({ index, Room() });
-	EVENT->emit(RoomUnlockedEvent({ index }));
+	sky::Emit(RoomUnlockedEvent({ index }));
 	setMicrotaskProgress(Microtasks::Task::Type::UnlockRooms, (int)mRooms.size());
 	saveAsync();
 }
@@ -128,7 +128,7 @@ void Profile::setCash(double value)
 		return;
 
 	mCash = value;
-	EVENT->emit(CashChangedEvent());
+	sky::Emit(CashChangedEvent());
 	saveAsync();
 }
 
@@ -136,9 +136,9 @@ void Profile::setCoins(double value)
 {
     if (mCoins == value)
         return;
-    
+
     mCoins = value;
-    EVENT->emit(CoinsChangedEvent());
+	sky::Emit(CoinsChangedEvent());
     saveAsync();
 }
 
@@ -149,7 +149,6 @@ void Profile::setRoom(int index, Room value)
 
 	auto checkBounds = [](auto& src, auto maxValue) {
 		assert(src >= 0 && src <= maxValue);
-		
 		src = glm::clamp(src, 0, maxValue);
 	};
 
@@ -160,7 +159,7 @@ void Profile::setRoom(int index, Room value)
 		checkBounds(worker, Balance::MaxWorkerLevel);
 	}
 	mRooms[index] = value;
-	EVENT->emit(RoomChangedEvent({ index }));
+	sky::Emit(RoomChangedEvent({ index }));
 
 	setMicrotaskProgress(Microtasks::Task::Type::ProductLevel, value.product);
 	setMicrotaskProgress(Microtasks::Task::Type::ManagerLevel, value.manager);
@@ -179,7 +178,7 @@ void Profile::setWarehouseLevel(int value)
 	assert(value > 0);
 	assert(value <= Balance::MaxWarehouseLevel);
 	mWarehouseLevel = value;
-	EVENT->emit(WarehouseLevelChangedEvent());
+	sky::Emit(WarehouseLevelChangedEvent());
 	setMicrotaskProgress(Microtasks::Task::Type::WarehouseLevel, value);
 	saveAsync();
 }
@@ -191,7 +190,7 @@ void Profile::setWarehouseStorage(double value)
 
 	assert(value >= 0.0);
 	mWarehouseStorage = value;
-	EVENT->emit(WarehouseStorageChangeEvent());
+	sky::Emit(WarehouseStorageChangeEvent());
 	saveAsync();
 }
 
@@ -209,7 +208,7 @@ void Profile::setTutorCompleted(const std::string& name)
 void Profile::setMicrotaskProgress(Microtasks::Task::Type type, int value)
 {
 	auto& progress = mMicrotaskProgresses[type];
-	
+
 	if (progress >= value)
 		return;
 

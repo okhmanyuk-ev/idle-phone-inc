@@ -5,8 +5,8 @@
 namespace PhoneInc
 {
 	class BuildingWindow : public StandardWindow,
-		public Common::Event::Listenable<Profile::CashChangedEvent>,
-		public Common::Event::Listenable<Profile::WarehouseLevelChangedEvent>
+		public sky::Listenable<Profile::CashChangedEvent>,
+		public sky::Listenable<Profile::WarehouseLevelChangedEvent>
 	{
 	public:
 		BuildingWindow();

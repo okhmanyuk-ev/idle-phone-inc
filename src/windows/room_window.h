@@ -5,8 +5,8 @@
 namespace PhoneInc
 {
 	class RoomWindow : public StandardWindow,
-		public Common::Event::Listenable<Profile::RoomChangedEvent>,
-		public Common::Event::Listenable<Profile::CashChangedEvent>
+		public sky::Listenable<Profile::RoomChangedEvent>,
+		public sky::Listenable<Profile::CashChangedEvent>
 	{
 	public:
 		RoomWindow(int index);

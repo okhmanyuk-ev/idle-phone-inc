@@ -21,7 +21,7 @@ namespace PhoneInc
 	};
 
 	class TutorHolder : public Scene::Node, public TutorialSystem,
-		public Common::Event::Listenable<Profile::ProfileClearedEvent>
+		public sky::Listenable<Profile::ProfileClearedEvent>
 	{
 	public:
 		TutorHolder();

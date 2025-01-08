@@ -1,6 +1,6 @@
 #pragma once
 
-#include <shared/all.h>
+#include <sky/sky.h>
 #include "factory.h"
 #include "helpers.h"
 #include "profile.h"
@@ -8,8 +8,8 @@
 namespace PhoneInc
 {
 	class Factory::Room : public Scene::Cullable<Scene::Sprite>,
-		public Common::Event::Listenable<Profile::RoomChangedEvent>,
-		public Common::Event::Listenable<Profile::CashChangedEvent>
+		public sky::Listenable<Profile::RoomChangedEvent>,
+		public sky::Listenable<Profile::CashChangedEvent>
 	{
 	public:
 		class PhonesStack;
@@ -34,7 +34,7 @@ namespace PhoneInc
 	};
 
 	class Factory::LockedRoom : public Scene::Cullable<Scene::Sprite>,
-		public Common::Event::Listenable<Profile::CashChangedEvent>
+		public sky::Listenable<Profile::CashChangedEvent>
 	{
 	public:
 		LockedRoom(int index);

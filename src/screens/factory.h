@@ -1,6 +1,6 @@
 #pragma once
 
-#include <shared/all.h>
+#include <sky/sky.h>
 #include "profile.h"
 
 namespace PhoneInc
@@ -8,8 +8,8 @@ namespace PhoneInc
 	struct ProductSpawnEvent { int room_index; double produce_count; };
 
 	class Factory : public Scene::ClippableScissor<Scene::Cullable<Scene::Node>>,
-		public Common::Event::Listenable<Profile::RoomUnlockedEvent>,
-		public Common::Event::Listenable<ProductSpawnEvent>
+		public sky::Listenable<Profile::RoomUnlockedEvent>,
+		public sky::Listenable<ProductSpawnEvent>
 	{
 	public:
 		static inline const float ConveyorSpeed = 1.0f;

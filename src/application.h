@@ -1,6 +1,6 @@
 #pragma once
 
-#include <shared/all.h>
+#include <sky/sky.h>
 #include "profile.h"
 #include "cheats.h"
 #include "screens/loading_screen.h"
@@ -13,7 +13,7 @@ namespace PhoneInc
 {
 	class Application : public Shared::Application,
 		public Common::FrameSystem::Frameable,
-		public Common::Event::Listenable<Profile::ProfileClearedEvent>
+		public sky::Listenable<Profile::ProfileClearedEvent>
 	{
 	public:
 		Application();

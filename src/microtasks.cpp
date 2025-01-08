@@ -67,7 +67,7 @@ void Microtasks::checkForCompletion()
 		return;
 
 	mReady = true;
-	EVENT->emit(TaskReadyEvent());
+	sky::Emit(TaskReadyEvent());
 }
 
 const Microtasks::Task& Microtasks::getCurrentTask() const
@@ -88,7 +88,7 @@ void Microtasks::complete()
     PROFILE->setCoins(PROFILE->getCoins() + task.reward);
 	PROFILE->setMicrotaskIndex(PROFILE->getMicrotaskIndex() + 1);
 	mReady = false;
-	EVENT->emit(TaskCompletedEvent());
+	sky::Emit(TaskCompletedEvent());
 }
 
 void Microtasks::clear()
