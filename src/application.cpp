@@ -15,7 +15,7 @@ Application::Application() : Shared::Application(PROJECT_NAME, { Flag::Audio, Fl
 #endif
 
 	// limit maximum time delta to avoid animation breaks
-	FRAME->setTimeDeltaLimit(Clock::FromSeconds(1.0f / 30.0f));
+	FRAME->setTimeDeltaLimit(sky::FromSeconds(1.0f / 30.0f));
 
 	getScene()->getTimestepFixer().setEnabled(false);
 
@@ -23,8 +23,8 @@ Application::Application() : Shared::Application(PROJECT_NAME, { Flag::Audio, Fl
 
 	STATS->setAlignment(Shared::StatsSystem::Align::BottomRight);
 
-	ENGINE->addSystem<Microtasks>(std::make_shared<Microtasks>());
-	ENGINE->addSystem<Profile>(std::make_shared<Profile>());
+	sky::Locator<Microtasks>::Init(std::make_shared<Microtasks>());
+	sky::Locator<Profile>::Init(std::make_shared<Profile>());
 
 	PROFILE->load();
 	PROFILE->setNightBackground(!PROFILE->isNightBackground());
@@ -59,7 +59,7 @@ Application::Application() : Shared::Application(PROJECT_NAME, { Flag::Audio, Fl
 Application::~Application()
 {
 	PROFILE->save();
-	ENGINE->removeSystem<TutorialSystem>();
+	sky::Locator<TutorialSystem>::Reset();
 }
 
 void Application::onFrame()
@@ -106,7 +106,7 @@ void Application::initializeScene()
 			auto tutor_holder = std::make_shared<TutorHolder>();
 			SCENE_MANAGER->attach(tutor_holder);
 
-			ENGINE->addSystem<TutorialSystem>(tutor_holder);
+			sky::Locator<TutorialSystem>::Init(tutor_holder);
 
 			// gameplay
 

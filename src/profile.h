@@ -5,7 +5,7 @@
 #include "balance.h"
 #include "microtasks.h"
 
-#define PROFILE ENGINE->getSystem<PhoneInc::Profile>()
+#define PROFILE sky::Locator<PhoneInc::Profile>::GetService()
 
 namespace PhoneInc
 {
@@ -35,17 +35,17 @@ namespace PhoneInc
 	public:
 		bool isEnoughCash(double value) const;
 		void spendCash(double value);
-		
+
 		bool isRoomLocked(int index) const;
 		void unlockRoom(int index);
-		
+
 	public:
 		auto getCash() const { return mCash; }
 		void setCash(double value);
-        
+
         auto getCoins() const { return mCoins; }
         void setCoins(double value);
-		
+
 		const auto& getRooms() const { return mRooms; }
 		void setRoom(int index, Room value);
 

@@ -47,7 +47,7 @@ Factory::Factory()
 		if (mBoxHolder->getNodes().empty())
 			speed /= 5.0f;
 
-		y -= Clock::ToSeconds(dt) * 100.0f * speed;
+		y -= sky::ToSeconds(dt) * 100.0f * speed;
 		auto tex_h = (float)conveyor_path->getTexture()->getHeight();
 		while (y <= -tex_h)
 		{
@@ -125,7 +125,7 @@ void Factory::onEvent(const ProductSpawnEvent& e)
 		}),
 		Actions::Collection::ExecuteInfinite([box](auto dt) {
 			auto y = box->getY();
-			y -= Clock::ToSeconds(dt) * 100.0f * ConveyorSpeed;
+			y -= sky::ToSeconds(dt) * 100.0f * ConveyorSpeed;
 			box->setY(y);
 			if (y <= 0)
 			{

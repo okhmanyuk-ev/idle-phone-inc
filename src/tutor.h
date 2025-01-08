@@ -1,9 +1,9 @@
 #pragma once
 
-#include <shared/all.h>
+#include <sky/sky.h>
 #include "profile.h"
 
-#define TUTOR ENGINE->getSystem<PhoneInc::TutorialSystem>()
+#define TUTOR sky::Locator<PhoneInc::TutorialSystem>::GetService()
 
 namespace PhoneInc
 {

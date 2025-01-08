@@ -96,7 +96,7 @@ Button::Button()
 		if (!isChoosed())
 			return;
 
-		mNextAutoclick -= Clock::ToSeconds(delta);
+		mNextAutoclick -= sky::ToSeconds(delta);
 
 		if (mNextAutoclick > 0.0f)
 			return;

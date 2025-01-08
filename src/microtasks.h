@@ -1,8 +1,8 @@
 #pragma once
 
-#include <shared/all.h>
+#include <sky/sky.h>
 
-#define MICROTASKS ENGINE->getSystem<PhoneInc::Microtasks>()
+#define MICROTASKS sky::Locator<PhoneInc::Microtasks>::GetService()
 
 namespace PhoneInc
 {
