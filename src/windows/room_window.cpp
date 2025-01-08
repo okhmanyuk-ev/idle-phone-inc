@@ -7,7 +7,7 @@ using namespace PhoneInc;
 RoomWindow::RoomWindow(int index) : mIndex(index)
 {
 	getBackground()->setSize({ 986.0f, 1658.0f });
-	getTitle()->setText(fmt::format(LOCALIZE("ROOM_WINDOW_TITLE"), index + 1));
+	getTitle()->setText(fmt::format(sky::Localize("ROOM_WINDOW_TITLE"), index + 1));
 
 	mProductPanel = std::make_shared<ProductPanel>(index);
 	mProductPanel->setAnchor({ 0.5f, 0.0f });
@@ -187,7 +187,7 @@ float RoomWindow::Panel::getProgress() const
 
 std::wstring RoomWindow::Panel::getLevelText() const
 {
-	return fmt::format(LOCALIZE("ROOM_WINDOW_LEVEL_DESCRIPTION"), getLevel());
+	return fmt::format(sky::Localize("ROOM_WINDOW_LEVEL_DESCRIPTION"), getLevel());
 }
 
 // product panel
@@ -251,7 +251,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	mEffectLabelKey->setAnchor({ 0.0f, 0.0f });
 	mEffectLabelKey->setPivot({ 0.0f, 0.5f });
 	mEffectLabelKey->setPosition({ 264.0f, 308.0f });
-	mEffectLabelKey->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_EFFECT_LABEL") + L":");
+	mEffectLabelKey->setText(sky::Localize("ROOM_WINDOW_PRODUCT_EFFECT_LABEL") + L":");
 	mEffectLabelKey->setColor(Graphics::Color::ToNormalized(12, 22, 44));
 	attach(mEffectLabelKey);
 
@@ -288,7 +288,7 @@ void RoomWindow::ProductPanel::refresh()
 		mLevelLabel->setText(getLevelText());
 
 	if (mDescriptionLabel->isEnabled())
-		mDescriptionLabel->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_DESCRIPTION"));
+		mDescriptionLabel->setText(sky::Localize("ROOM_WINDOW_PRODUCT_DESCRIPTION"));
 
 	if (mProgressbar->isEnabled())
 		mProgressbar->setProgress(getProgress());
@@ -298,12 +298,12 @@ void RoomWindow::ProductPanel::refresh()
 
 	if (!isOpened())
 	{
-		mTitle->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_TITLE_LOCKED"));
+		mTitle->setText(sky::Localize("ROOM_WINDOW_PRODUCT_TITLE_LOCKED"));
 	}
 	else
 	{
-		mTitle->setText(LOCALIZE("ROOM_WINDOW_PRODUCT_TITLE"));
-		mNameLabel->setText(LOCALIZE(fmt::format("ROOM_WINDOW_PRODUCT_NAME_{}", stage)));
+		mTitle->setText(sky::Localize("ROOM_WINDOW_PRODUCT_TITLE"));
+		mNameLabel->setText(sky::Localize(fmt::format("ROOM_WINDOW_PRODUCT_NAME_{}", stage)));
 	}
 }
 
@@ -345,12 +345,12 @@ void RoomWindow::ProductPanel::increaseLevel()
 
 std::wstring RoomWindow::ProductPanel::getOpenButtonText() const
 {
-	return LOCALIZE("UNLOCK_BUTTON");
+	return sky::Localize("UNLOCK_BUTTON");
 }
 
 std::wstring RoomWindow::ProductPanel::getUpgradeButtonText() const
 {
-	return LOCALIZE("UPGRADE_BUTTON");
+	return sky::Localize("UPGRADE_BUTTON");
 }
 
 // small panel
@@ -405,7 +405,7 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	mEffectLabelKey->setAnchor({ 0.0f, 0.0f });
 	mEffectLabelKey->setPivot({ 0.0f, 0.5f });
 	mEffectLabelKey->setPosition({ 264.0f, 194.0f });
-	mEffectLabelKey->setText(LOCALIZE("ROOM_WINDOW_NPC_EFFECT_LABEL") + L":");
+	mEffectLabelKey->setText(sky::Localize("ROOM_WINDOW_NPC_EFFECT_LABEL") + L":");
 	mEffectLabelKey->setColor(Graphics::Color::ToNormalized(12, 22, 44));
 	attach(mEffectLabelKey);
 
@@ -445,12 +445,12 @@ void RoomWindow::SmallPanel::refresh()
 
 std::wstring RoomWindow::SmallPanel::getOpenButtonText() const
 {
-	return LOCALIZE("HIRE_BUTTON");
+	return sky::Localize("HIRE_BUTTON");
 }
 
 std::wstring RoomWindow::SmallPanel::getUpgradeButtonText() const
 {
-	return LOCALIZE("UPGRADE_BUTTON");
+	return sky::Localize("UPGRADE_BUTTON");
 }
 
 // manager panel
@@ -507,17 +507,17 @@ Graphics::TexCell RoomWindow::ManagerPanel::getIconTexture() const
 std::wstring RoomWindow::ManagerPanel::getTitleText() const
 {
 	if (isOpened())
-		return LOCALIZE("ROOM_WINDOW_MANAGER_TITLE");
+		return sky::Localize("ROOM_WINDOW_MANAGER_TITLE");
 	else
-		return LOCALIZE("ROOM_WINDOW_MANAGER_TITLE_HIRE");
+		return sky::Localize("ROOM_WINDOW_MANAGER_TITLE_HIRE");
 }
 
 std::wstring RoomWindow::ManagerPanel::getDescriptionText() const
 {
 	if (isOpenAvailable())
-		return LOCALIZE("ROOM_WINDOW_MANAGER_DESCRIPTION");
+		return sky::Localize("ROOM_WINDOW_MANAGER_DESCRIPTION");
 	else
-		return LOCALIZE("ROOM_WINDOW_MANAGER_DESCRIPTION_HIRE_LOCKED");
+		return sky::Localize("ROOM_WINDOW_MANAGER_DESCRIPTION_HIRE_LOCKED");
 }
 
 std::wstring RoomWindow::ManagerPanel::getEffectText() const
@@ -588,17 +588,17 @@ Graphics::TexCell RoomWindow::WorkerPanel::getIconTexture() const
 std::wstring RoomWindow::WorkerPanel::getTitleText() const
 {
 	if (isOpened())
-		return fmt::format(LOCALIZE("ROOM_WINDOW_WORKER_TITLE"), mNumber);
+		return fmt::format(sky::Localize("ROOM_WINDOW_WORKER_TITLE"), mNumber);
 	else
-		return LOCALIZE("ROOM_WINDOW_WORKER_TITLE_HIRE");
+		return sky::Localize("ROOM_WINDOW_WORKER_TITLE_HIRE");
 }
 
 std::wstring RoomWindow::WorkerPanel::getDescriptionText() const
 {
 	if (isOpenAvailable())
-		return LOCALIZE("ROOM_WINDOW_WORKER_DESCRIPTION");
+		return sky::Localize("ROOM_WINDOW_WORKER_DESCRIPTION");
 	else
-		return LOCALIZE("ROOM_WINDOW_WORKER_DESCRIPTION_HIRE_LOCKED");
+		return sky::Localize("ROOM_WINDOW_WORKER_DESCRIPTION_HIRE_LOCKED");
 }
 
 std::wstring RoomWindow::WorkerPanel::getEffectText() const

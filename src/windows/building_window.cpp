@@ -5,7 +5,7 @@ using namespace PhoneInc;
 BuildingWindow::BuildingWindow()
 {
 	getBackground()->setSize({ 962.0f, 1326.0f });
-	getTitle()->setText(LOCALIZE("WAREHOUSE_WINDOW_TITLE"));
+	getTitle()->setText(sky::Localize("WAREHOUSE_WINDOW_TITLE"));
 
 	auto white_bg = std::make_shared<Scene::Sprite>();
 	white_bg->setTexture(sky::GetTexture("textures/windows/building_window/white_bg.png"));
@@ -70,8 +70,8 @@ void BuildingWindow::refresh()
 		mUpgradeButton->getLabel()->setText(L"$ " + Helpers::NumberToString(Balance::GetWarehouseCost()));
 	}
 
-	mMainPanel.level->setText(fmt::format(LOCALIZE("BUILDING_WINDOW_LEVEL"), level));
-	mMainPanel.building_name->setText(LOCALIZE(fmt::format("WAREHOUSE_NAME_{}", Balance::GetWarehouseStage())));
+	mMainPanel.level->setText(fmt::format(sky::Localize("BUILDING_WINDOW_LEVEL"), level));
+	mMainPanel.building_name->setText(sky::Localize(fmt::format("WAREHOUSE_NAME_{}", Balance::GetWarehouseStage())));
 	mMainPanel.building_icon->setTexture(sky::GetTexture(fmt::format("textures/warehouse/{}.png", Balance::GetWarehouseStage())));
 	mMainPanel.building_icon->applyTextureSize();
 
@@ -195,7 +195,7 @@ BuildingWindow::Parameter BuildingWindow::getFirstParameter() const
 	multiplier *= 100.0f;
 
 	auto result = BuildingWindow::Parameter();
-	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_1");
+	result.title_text = sky::Localize("WAREHOUSE_WINDOW_PARAM_NAME_1");
 	result.effect_text = fmt::format(L"+{:.0f}%", multiplier); // https://fmt.dev/latest/syntax.html
 	result.icon_texture = sky::GetTexture("textures/windows/building_window/icon1.png");
 	return result;
@@ -204,7 +204,7 @@ BuildingWindow::Parameter BuildingWindow::getFirstParameter() const
 BuildingWindow::Parameter BuildingWindow::getSecondParameter() const
 {
 	auto result = BuildingWindow::Parameter();
-	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_2");
+	result.title_text = sky::Localize("WAREHOUSE_WINDOW_PARAM_NAME_2");
 	result.effect_text = Helpers::NumberToString(Balance::GetWarehouseTruckCapacity());
 	result.icon_texture = sky::GetTexture("textures/windows/building_window/icon2.png");
 	return result;
@@ -213,7 +213,7 @@ BuildingWindow::Parameter BuildingWindow::getSecondParameter() const
 BuildingWindow::Parameter BuildingWindow::getThirdParameter() const
 {
 	auto result = BuildingWindow::Parameter();
-	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_3");
+	result.title_text = sky::Localize("WAREHOUSE_WINDOW_PARAM_NAME_3");
 	result.effect_text = Helpers::NumberToString(Balance::GetWarehouseEarning());
 	result.icon_texture = sky::GetTexture("textures/windows/building_window/icon3.png");
 	return result;

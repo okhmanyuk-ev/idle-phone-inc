@@ -15,7 +15,7 @@ BottomMenuLockedWindow::BottomMenuLockedWindow()
 	bg->attach(close_button);
 
 	auto description = std::make_shared<Helpers::Label>();
-	description->setText(LOCALIZE("BOTTOM_MENU_LOCKED_WINDOW_DESCRIPTION"));
+	description->setText(sky::Localize("BOTTOM_MENU_LOCKED_WINDOW_DESCRIPTION"));
 	description->setAnchor({ 0.5f, 1.0f });
 	description->setPivot(0.5f);
 	description->setPosition({ 0.0f, -182.0f });

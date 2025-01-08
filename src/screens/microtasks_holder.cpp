@@ -37,7 +37,7 @@ MicrotasksHolder::MicrotasksHolder()
 	mRewardButton->setAnchor({ 0.5f, 1.0f });
 	mRewardButton->setPivot({ 0.5f, 0.0f });
 	mRewardButton->setY(32.0f);
-	mRewardButton->getLabel()->setText(LOCALIZE("MICROTASK_REWARD_BUTTON"));
+	mRewardButton->getLabel()->setText(sky::Localize("MICROTASK_REWARD_BUTTON"));
 	mRewardButton->setActiveCallback([this] {
 		runAction(Actions::Collection::Delayed(0.25f, Actions::Collection::Execute([this] {
 			MICROTASKS->complete();
@@ -99,7 +99,7 @@ void MicrotasksHolder::refresh()
 
 	auto task = MICROTASKS->getCurrentTask();
 
-	mLabel->setText(fmt::format(LOCALIZE(task.locale), task.target));
+	mLabel->setText(fmt::format(sky::Localize(task.locale), task.target));
 
 	if (MICROTASKS->isReady())
 		mIcon->setTexture(sky::GetTexture("textures/microtasks/done.png"));

@@ -56,7 +56,7 @@ Factory::Room::Room(int index) : mIndex(index)
 	mUpgradeButton = std::make_shared<Helpers::StandardButton>();
 	mUpgradeButton->setBatchGroup("room_button");
 	mUpgradeButton->setPosition({ 681.0f, 28.0f });
-	mUpgradeButton->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
+	mUpgradeButton->getLabel()->setText(sky::Localize("UPGRADE_BUTTON"));
 	mUpgradeButton->setClickCallback([index] {
 		SCENE_MANAGER->pushWindow(std::make_shared<RoomWindow>(index));
 		TUTOR->complete();

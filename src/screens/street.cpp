@@ -39,7 +39,7 @@ Street::Street()
 	mWarehouseButton = std::make_shared<Helpers::StandardButton>();
 	mWarehouseButton->setPivot(0.5f);
 	mWarehouseButton->setPosition({ 966.0f, 538.0f });
-	mWarehouseButton->getLabel()->setText(LOCALIZE("UPGRADE_BUTTON"));
+	mWarehouseButton->getLabel()->setText(sky::Localize("UPGRADE_BUTTON"));
 	mWarehouseButton->setClickCallback([this] {
 		SCENE_MANAGER->pushWindow(std::make_shared<BuildingWindow>());
 	});
