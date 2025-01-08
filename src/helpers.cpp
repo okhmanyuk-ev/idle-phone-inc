@@ -72,7 +72,7 @@ std::wstring Helpers::NumberToString(double value)
 
 Label::Label()
 {
-	setFont(FONT("default"));
+	setFont(sky::GetFont("default"));
 	setOutlineThickness(0.5f);
 }
 
@@ -83,12 +83,12 @@ LabelSolid::LabelSolid()
 
 LabelSolidBold::LabelSolidBold()
 {
-	setFont(FONT("default_bold"));
+	setFont(sky::GetFont("default_bold"));
 }
 
 Button::Button()
 {
-	setClickSound(SOUND("sounds/click.wav"));
+	setClickSound(sky::GetSound("sounds/click.wav"));
 	runAction(Actions::Collection::ExecuteInfinite([this](auto delta) {
 		if (!mAutoclick)
 			return;
@@ -142,7 +142,7 @@ void Button::internalClick()
 
 StandardButton::StandardButton() : Button()
 {
-	setTexture(TEXTURE("textures/buttons/button.png"));
+	setTexture(sky::GetTexture("textures/buttons/button.png"));
 
 	mLabel = std::make_shared<Label>();
 	mLabel->setPivot(0.5f);
@@ -154,7 +154,7 @@ StandardButton::StandardButton() : Button()
 
 StandardLongButton::StandardLongButton() : Button()
 {
-	setTexture(TEXTURE("textures/buttons/button_long.png"));
+	setTexture(sky::GetTexture("textures/buttons/button_long.png"));
 
 	mLabel = std::make_shared<Label>();
 	mLabel->setPivot(0.5f);
@@ -166,7 +166,7 @@ StandardLongButton::StandardLongButton() : Button()
 
 CloseButton::CloseButton() : Button()
 {
-	setTexture(TEXTURE("textures/buttons/close.png"));
+	setTexture(sky::GetTexture("textures/buttons/close.png"));
 	setClickCallback([] {
 		SCENE_MANAGER->popWindow();
 	});
@@ -200,12 +200,12 @@ Progressbar::Progressbar()
 
 StreetProgressbar::StreetProgressbar() : Progressbar()
 {
-	setTexture(TEXTURE("textures/ui/progressbar_background.png"));
+	setTexture(sky::GetTexture("textures/ui/progressbar_background.png"));
 	setCenterRegion({ { 8.0f, 8.0f }, { 1.0f, 1.0f } });
 
 	mHolder->setMargin(4.0f);
 
-	mContent->setTexture(TEXTURE("textures/ui/progressbar_content.png"));
+	mContent->setTexture(sky::GetTexture("textures/ui/progressbar_content.png"));
 	mContent->setCenterRegion({ { 6.0f, 6.0f }, { 1.0f, 1.0f } });
 }
 
@@ -222,7 +222,7 @@ DollarEmitter::DollarEmitter()
 	setMaxDuration(0.75f);
 	setCreateParticleCallback([] {
 		auto particle = std::make_shared<Scene::Sprite>();
-		particle->setTexture(TEXTURE("textures/ui/dollar_particle.png"));
+		particle->setTexture(sky::GetTexture("textures/ui/dollar_particle.png"));
 		return particle;
 	});
 }

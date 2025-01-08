@@ -21,9 +21,9 @@ void Factory::Worker::refresh()
 
 	auto stage = Balance::GetWorkerStage(mLevel);
 
-	auto texture = TEXTURE(fmt::format("textures/workers/{}.png", stage));
-	auto atlas = ATLAS("textures/workers/atlas.json");
-	auto animation = ANIMATION("textures/workers/animation.json");
+	auto texture = sky::GetTexture(fmt::format("textures/workers/{}.png", stage));
+	auto atlas = sky::GetAtlas("textures/workers/atlas.json");
+	auto animation = sky::GetAnimation("textures/workers/animation.json");
 
 	setAnimation(texture, atlas, animation);
 	getSprite()->setBatchGroup(fmt::format("room_worker_{}", stage));

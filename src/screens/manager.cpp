@@ -31,10 +31,10 @@ void Factory::Manager::refresh()
 	setEnabled(true);
 
 	auto stage = Balance::GetManagerStage(mLevel);
-	
-	auto texture = TEXTURE(fmt::format("textures/managers/{}.png", stage));
-	auto atlas = ATLAS("textures/managers/atlas.json");
-	auto animation = ANIMATION("textures/managers/animation.json");
+
+	auto texture = sky::GetTexture(fmt::format("textures/managers/{}.png", stage));
+	auto atlas = sky::GetAtlas("textures/managers/atlas.json");
+	auto animation = sky::GetAnimation("textures/managers/animation.json");
 
 	setAnimation(texture, atlas, animation);
 	getSprite()->setBatchGroup(fmt::format("room_manager_{}", stage));

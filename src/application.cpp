@@ -83,17 +83,17 @@ void Application::initializeScene()
 
 	auto loading = std::make_shared<LoadingScreen>();
 	loading->setTasks({
-		[] { PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Medium.ttf", "default"); },
-		[] { PRECACHE_FONT_ALIAS("fonts/rubik/Rubik-Bold.ttf", "default_bold"); },
-		[] { CACHE->makeAtlases(); },
+		[] { sky::PrecacheFont("fonts/rubik/Rubik-Medium.ttf", "default"); },
+		[] { sky::PrecacheFont("fonts/rubik/Rubik-Bold.ttf", "default_bold"); },
+		[] { sky::GetService<sky::Cache>()->makeAtlases(); },
 		[] {
 			// prepare
 
-			FONT("default")->setCustomVerticalOffset(-4.0f);
-			FONT("default_bold")->setCustomVerticalOffset(-4.0f);
+			sky::GetFont("default")->setCustomVerticalOffset(-4.0f);
+			sky::GetFont("default_bold")->setCustomVerticalOffset(-4.0f);
 
-			Scene::Sprite::DefaultTexture = TEXTURE("textures/pink.png");
-			Scene::Label::DefaultFont = FONT("default");
+			Scene::Sprite::DefaultTexture = sky::GetTexture("textures/pink.png");
+			Scene::Label::DefaultFont = sky::GetFont("default");
 
 			// particles holder
 

@@ -5,7 +5,7 @@ using namespace PhoneInc;
 LoadingScreen::LoadingScreen()
 {
 	auto bg = std::make_shared<Scene::Sprite>();
-	bg->setTexture(TEXTURE("textures/loading.png"));
+	bg->setTexture(sky::GetTexture("textures/loading.png"));
 	bg->setAnchor(0.5f);
 	bg->setPivot(0.5f);
 	getContent()->attach(bg);

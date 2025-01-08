@@ -194,7 +194,7 @@ std::wstring RoomWindow::Panel::getLevelText() const
 
 RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 {
-	setTexture(TEXTURE("textures/windows/room_window/major_panel_backgorund.png"));
+	setTexture(sky::GetTexture("textures/windows/room_window/major_panel_backgorund.png"));
 
 	mIcon = std::make_shared<Scene::Adaptive<Scene::Sprite>>();
 	mIcon->setBatchGroup(fmt::format("room_window_{}_avatar", roomIndex));
@@ -273,9 +273,9 @@ void RoomWindow::ProductPanel::refresh()
 	auto stage = Balance::GetProductStage(getLevel());
 
 	if (!isOpened())
-		mIcon->setTexture(TEXTURE(fmt::format("textures/windows/room_window/avatars/products/0.png")));
+		mIcon->setTexture(sky::GetTexture(fmt::format("textures/windows/room_window/avatars/products/0.png")));
 	else
-		mIcon->setTexture(TEXTURE(fmt::format("textures/windows/room_window/avatars/products/{}.png", stage)));
+		mIcon->setTexture(sky::GetTexture(fmt::format("textures/windows/room_window/avatars/products/{}.png", stage)));
 
 	mIcon->applyTextureSize();
 
@@ -340,7 +340,7 @@ void RoomWindow::ProductPanel::increaseLevel()
 	PROFILE->setRoom(getRoomIndex(), room);
 
 	if (Balance::GetProductStage(room.product) != Balance::GetProductStage(room.product - 1) || room.product == 1)
-		AUDIO->play(SOUND("sounds/success.wav"));
+		AUDIO->play(sky::GetSound("sounds/success.wav"));
 }
 
 std::wstring RoomWindow::ProductPanel::getOpenButtonText() const
@@ -357,7 +357,7 @@ std::wstring RoomWindow::ProductPanel::getUpgradeButtonText() const
 
 RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 {
-	setTexture(TEXTURE("textures/windows/room_window/minor_panel_backgorund.png"));
+	setTexture(sky::GetTexture("textures/windows/room_window/minor_panel_backgorund.png"));
 
 	mIcon = std::make_shared<Scene::Sprite>();
 	mIcon->setBatchGroup(fmt::format("room_window_{}_avatar", roomIndex));
@@ -495,13 +495,13 @@ void RoomWindow::ManagerPanel::increaseLevel()
 	PROFILE->setRoom(getRoomIndex(), room);
 
 	if (Balance::GetManagerStage(room.manager) != Balance::GetManagerStage(room.manager - 1) || room.manager == 1)
-		AUDIO->play(SOUND("sounds/success.wav"));
+		AUDIO->play(sky::GetSound("sounds/success.wav"));
 }
 
 Graphics::TexCell RoomWindow::ManagerPanel::getIconTexture() const
 {
 	auto avatar = Balance::GetManagerStage(getLevel());
-	return TEXTURE(fmt::format("textures/windows/room_window/avatars/managers/{}.png", avatar));
+	return sky::GetTexture(fmt::format("textures/windows/room_window/avatars/managers/{}.png", avatar));
 }
 
 std::wstring RoomWindow::ManagerPanel::getTitleText() const
@@ -568,7 +568,7 @@ double RoomWindow::WorkerPanel::getUpgradeCost() const
 	return Balance::GetRoomWorkerCost(getRoomIndex(), getLevel(), mNumber);
 }
 
-void RoomWindow::WorkerPanel::increaseLevel() 
+void RoomWindow::WorkerPanel::increaseLevel()
 {
 	auto room = getRoom();
 	auto& worker = room.workers[mNumber - 1];
@@ -576,13 +576,13 @@ void RoomWindow::WorkerPanel::increaseLevel()
 	PROFILE->setRoom(getRoomIndex(), room);
 
 	if (Balance::GetWorkerStage(worker) != Balance::GetWorkerStage(worker - 1) || worker == 1)
-		AUDIO->play(SOUND("sounds/success.wav"));
+		AUDIO->play(sky::GetSound("sounds/success.wav"));
 }
 
 Graphics::TexCell RoomWindow::WorkerPanel::getIconTexture() const
 {
 	auto avatar = Balance::GetWorkerStage(getLevel());
-	return TEXTURE(fmt::format("textures/windows/room_window/avatars/workers/{}.png", avatar));
+	return sky::GetTexture(fmt::format("textures/windows/room_window/avatars/workers/{}.png", avatar));
 }
 
 std::wstring RoomWindow::WorkerPanel::getTitleText() const

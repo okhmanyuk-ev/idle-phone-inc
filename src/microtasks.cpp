@@ -15,7 +15,7 @@ std::string Microtasks::TaskTypeToString(Task::Type type)
 		return "warehouse_level";
 	else if (type == Task::Type::ProductLevel)
 		return "product_level";
-	
+
 	assert(false);
 	return "unknown";
 }
@@ -32,15 +32,15 @@ Microtasks::Task::Type Microtasks::StringToTaskType(const std::string& name)
 		return Task::Type::WarehouseLevel;
 	else if (name == "product_level")
 		return Task::Type::ProductLevel;
-	
+
 	assert(false);
 	return Task::Type::None;
 }
 
 Microtasks::Microtasks()
 {
-	auto json = JSON("microtasks.json");
-	
+	auto json = sky::GetJson("microtasks.json");
+
 	for (auto entry : json.at("microtasks"))
 	{
 		Task task;
@@ -62,7 +62,7 @@ void Microtasks::checkForCompletion()
 
 	const auto& task = getCurrentTask();
 	auto progress = PROFILE->getMicrotaskProgress(task.type);
-	
+
 	if (progress < task.target)
 		return;
 

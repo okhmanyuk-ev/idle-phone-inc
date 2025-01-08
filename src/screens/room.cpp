@@ -16,10 +16,10 @@ Factory::Room::Room(int index) : mIndex(index)
 	auto bg_id = (index % BgCount) + 1;
 	auto table_id = ((index / 2) % 3) + 1;
 
-	setTexture(TEXTURE(fmt::format("textures/factory/room/background/{}.png", bg_id)));
+	setTexture(sky::GetTexture(fmt::format("textures/factory/room/background/{}.png", bg_id)));
 
 	auto table = std::make_shared<Scene::Sprite>();
-	table->setTexture(TEXTURE(fmt::format("textures/factory/room/table/{}.png", table_id)));
+	table->setTexture(sky::GetTexture(fmt::format("textures/factory/room/table/{}.png", table_id)));
 	table->setAnchor({ 0.5f, 1.0f });
 	table->setPivot({ 0.5f, 1.0f });
 	table->setY(-56.0f);
@@ -224,7 +224,7 @@ void Factory::Room::refreshUpgradeButton()
 Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 {
 	setBatchGroup("room");
-	setTexture(TEXTURE("textures/factory/room/background/locked.png"));
+	setTexture(sky::GetTexture("textures/factory/room/background/locked.png"));
 
 	auto lvl_label = std::make_shared<Helpers::LabelSolidBold>();
 	lvl_label->setBatchGroup("room_lvl_label");
@@ -241,7 +241,7 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	mButton->setAnchor(0.5f);
 	mButton->setPivot(0.5f);
 	mButton->setActiveCallback([this] {
-		sky::PlaySound(SOUND("sounds/success.wav"));
+		sky::PlaySound(sky::GetSound("sounds/success.wav"));
 		mDollarEmitter->emitPack();
 		TUTOR->complete();
 		PROFILE->spendCash(Balance::GetRoomCost(mIndex));
@@ -284,7 +284,7 @@ Factory::Room::PhonesStack::PhonesStack(int room_index) : mRoomIndex(room_index)
 	{
 		auto phone = std::make_shared<Phone>();
 		phone->setBatchGroup("room_phonestack");
-		phone->setTexture(TEXTURE("textures/factory/room/phone.png"));
+		phone->setTexture(sky::GetTexture("textures/factory/room/phone.png"));
 		phone->setPivot(0.5f);
 		phone->setAnchor(0.5f);
 		phone->setY(-i * 6.0f);
@@ -298,7 +298,7 @@ Factory::Room::PhonesStack::PhonesStack(int room_index) : mRoomIndex(room_index)
 
 		makeProduct();
 		TUTOR->complete();
-		AUDIO->play(SOUND("sounds/click.wav"));
+		AUDIO->play(sky::GetSound("sounds/click.wav"));
 	});
 }
 

@@ -10,7 +10,7 @@ using namespace PhoneInc;
 GameplayScreen::GameplayScreen()
 {
 	auto background = std::make_shared<Scene::Sprite>();
-	background->setTexture(TEXTURE("textures/background.png"));
+	background->setTexture(sky::GetTexture("textures/background.png"));
 	background->setStretch(1.0f);
 	getContent()->attach(background);
 

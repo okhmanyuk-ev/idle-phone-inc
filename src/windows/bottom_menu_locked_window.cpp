@@ -5,7 +5,7 @@ using namespace PhoneInc;
 BottomMenuLockedWindow::BottomMenuLockedWindow()
 {
 	auto bg = std::make_shared<Scene::Sprite>();
-	bg->setTexture(TEXTURE("textures/windows/bottom_menu_locked_window/bg.png"));
+	bg->setTexture(sky::GetTexture("textures/windows/bottom_menu_locked_window/bg.png"));
 	bg->setAnchor(0.5f);
 	bg->setPivot(0.5f);
 	getContent()->attach(bg);

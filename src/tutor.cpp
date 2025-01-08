@@ -9,7 +9,7 @@ TutorHolder::TutorHolder()
 	setTouchMask(0xFFFFFFFF);
 
 	mFinger = std::make_shared<Scene::Sprite>();
-	mFinger->setTexture(TEXTURE("textures/tutor_finger.png"));
+	mFinger->setTexture(sky::GetTexture("textures/tutor_finger.png"));
 	mFinger->setOrigin({ 63.0f, 18.0f });
 	mFinger->setEnabled(false);
 	mFinger->setScale(0.0f);

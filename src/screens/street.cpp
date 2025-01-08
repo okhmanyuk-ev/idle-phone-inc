@@ -13,9 +13,9 @@ Street::Street()
 	auto bg = std::make_shared<Scene::Sprite>();
 
 	if (PROFILE->isNightBackground())
-		bg->setTexture(TEXTURE("textures/street/background_night.png"));
+		bg->setTexture(sky::GetTexture("textures/street/background_night.png"));
 	else
-		bg->setTexture(TEXTURE("textures/street/background.png"));
+		bg->setTexture(sky::GetTexture("textures/street/background.png"));
 
 	bg->setPivot({ 0.5f, 0.0f });
 	bg->setAnchor({ 0.5f, 0.0f });
@@ -57,7 +57,7 @@ Street::Street()
 	mWarehouse->attach(mWarehouseProgressbar);
 
 	auto storage_bg = std::make_shared<Scene::Sprite>();
-	storage_bg->setTexture(TEXTURE("textures/street/storage_bg.png"));
+	storage_bg->setTexture(sky::GetTexture("textures/street/storage_bg.png"));
 	storage_bg->setAnchor({ 0.5f, 0.0f });
 	storage_bg->setPivot(0.5f);
 	storage_bg->setPosition({ 0.0f, -154.0f });
@@ -95,7 +95,7 @@ Street::Street()
 
 void Street::refresh()
 {
-	mWarehouse->setTexture(TEXTURE(fmt::format("textures/warehouse/{}.png", Balance::GetWarehouseStage())));
+	mWarehouse->setTexture(sky::GetTexture(fmt::format("textures/warehouse/{}.png", Balance::GetWarehouseStage())));
 	mWarehouse->applyTextureSize();
 }
 
@@ -177,7 +177,7 @@ void Street::refreshWarehouseButton()
 
 void Street::spawnCloud()
 {
-	auto texture = TEXTURE(Helpers::GetRandomElement<std::string>({
+	auto texture = sky::GetTexture(Helpers::GetRandomElement<std::string>({
 		"textures/street/cloud_1.png",
 		"textures/street/cloud_2.png"
 	}));

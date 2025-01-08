@@ -13,7 +13,7 @@ MicrotasksHolder::MicrotasksHolder()
 	attach(mHolder);
 
 	auto bg = std::make_shared<Scene::Sprite>();
-	bg->setTexture(TEXTURE("textures/microtasks/bg.png"));
+	bg->setTexture(sky::GetTexture("textures/microtasks/bg.png"));
 	bg->setAnchor(0.5f);
 	bg->setPivot(0.5f);
 	mHolder->attach(bg);
@@ -102,9 +102,9 @@ void MicrotasksHolder::refresh()
 	mLabel->setText(fmt::format(LOCALIZE(task.locale), task.target));
 
 	if (MICROTASKS->isReady())
-		mIcon->setTexture(TEXTURE("textures/microtasks/done.png"));
+		mIcon->setTexture(sky::GetTexture("textures/microtasks/done.png"));
 	else
-		mIcon->setTexture(TEXTURE("textures/microtasks/" + Microtasks::TaskTypeToString(task.type) + ".png"));
+		mIcon->setTexture(sky::GetTexture("textures/microtasks/" + Microtasks::TaskTypeToString(task.type) + ".png"));
 
 	mIcon->applyTextureSize();
 }

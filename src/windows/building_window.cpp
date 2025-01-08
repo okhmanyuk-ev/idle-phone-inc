@@ -8,7 +8,7 @@ BuildingWindow::BuildingWindow()
 	getTitle()->setText(LOCALIZE("WAREHOUSE_WINDOW_TITLE"));
 
 	auto white_bg = std::make_shared<Scene::Sprite>();
-	white_bg->setTexture(TEXTURE("textures/windows/building_window/white_bg.png"));
+	white_bg->setTexture(sky::GetTexture("textures/windows/building_window/white_bg.png"));
 	white_bg->setAnchor({ 0.5f, 0.0f });
 	white_bg->setPivot({ 0.5f, 0.0f });
 	white_bg->setPosition({ 0.0f, 140.0f });
@@ -49,7 +49,7 @@ BuildingWindow::BuildingWindow()
 		PROFILE->setWarehouseLevel(PROFILE->getWarehouseLevel() + 1);
 		mDollarEmitter->emitPack();
 		if (Balance::GetWarehouseStage() != prev_stage)
-			AUDIO->play(SOUND("sounds/success.wav"));
+			AUDIO->play(sky::GetSound("sounds/success.wav"));
 	});
 	white_bg->attach(mUpgradeButton);
 
@@ -72,7 +72,7 @@ void BuildingWindow::refresh()
 
 	mMainPanel.level->setText(fmt::format(LOCALIZE("BUILDING_WINDOW_LEVEL"), level));
 	mMainPanel.building_name->setText(LOCALIZE(fmt::format("WAREHOUSE_NAME_{}", Balance::GetWarehouseStage())));
-	mMainPanel.building_icon->setTexture(TEXTURE(fmt::format("textures/warehouse/{}.png", Balance::GetWarehouseStage())));
+	mMainPanel.building_icon->setTexture(sky::GetTexture(fmt::format("textures/warehouse/{}.png", Balance::GetWarehouseStage())));
 	mMainPanel.building_icon->applyTextureSize();
 
 	auto current = (((level - 1) % Balance::WarehouseLevelsPerStage) + 1);
@@ -114,8 +114,8 @@ std::shared_ptr<Scene::Node> BuildingWindow::createMainPanel(MainPanel& panel)
 {
 	auto bg = std::make_shared<Scene::Sprite>();
 	bg->setBatchGroup("building_window_panel");
-	bg->setTexture(TEXTURE("textures/windows/building_window/main_panel.png"));
-	
+	bg->setTexture(sky::GetTexture("textures/windows/building_window/main_panel.png"));
+
 	auto building_icon = std::make_shared<Scene::Sprite>();
 	building_icon->setAnchor({ 0.0f, 0.5f });
 	building_icon->setPivot(0.5f);
@@ -154,7 +154,7 @@ std::shared_ptr<Scene::Node> BuildingWindow::createParameterPanel(ParameterPanel
 {
 	auto bg = std::make_shared<Scene::Sprite>();
 	bg->setBatchGroup("building_window_panel");
-	bg->setTexture(TEXTURE("textures/windows/building_window/additional_panel.png"));
+	bg->setTexture(sky::GetTexture("textures/windows/building_window/additional_panel.png"));
 
 	auto icon = std::make_shared<Scene::Sprite>();
 	icon->setBatchGroup("building_window_icon");
@@ -197,7 +197,7 @@ BuildingWindow::Parameter BuildingWindow::getFirstParameter() const
 	auto result = BuildingWindow::Parameter();
 	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_1");
 	result.effect_text = fmt::format(L"+{:.0f}%", multiplier); // https://fmt.dev/latest/syntax.html
-	result.icon_texture = TEXTURE("textures/windows/building_window/icon1.png");
+	result.icon_texture = sky::GetTexture("textures/windows/building_window/icon1.png");
 	return result;
 }
 
@@ -206,7 +206,7 @@ BuildingWindow::Parameter BuildingWindow::getSecondParameter() const
 	auto result = BuildingWindow::Parameter();
 	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_2");
 	result.effect_text = Helpers::NumberToString(Balance::GetWarehouseTruckCapacity());
-	result.icon_texture = TEXTURE("textures/windows/building_window/icon2.png");
+	result.icon_texture = sky::GetTexture("textures/windows/building_window/icon2.png");
 	return result;
 }
 
@@ -215,6 +215,6 @@ BuildingWindow::Parameter BuildingWindow::getThirdParameter() const
 	auto result = BuildingWindow::Parameter();
 	result.title_text = LOCALIZE("WAREHOUSE_WINDOW_PARAM_NAME_3");
 	result.effect_text = Helpers::NumberToString(Balance::GetWarehouseEarning());
-	result.icon_texture = TEXTURE("textures/windows/building_window/icon3.png");
+	result.icon_texture = sky::GetTexture("textures/windows/building_window/icon3.png");
 	return result;
 }

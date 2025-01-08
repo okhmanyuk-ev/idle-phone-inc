@@ -11,9 +11,9 @@ Street::Truck::Truck()
 
 	auto stage = Balance::GetTruckStage();
 
-	auto texture = TEXTURE(fmt::format("textures/trucks/{}.png", stage));
-	auto atlas = ATLAS(fmt::format("textures/trucks/{}_atlas.json", stage));
-	auto animation = ANIMATION(fmt::format("textures/trucks/{}_animation.json", stage));
+	auto texture = sky::GetTexture(fmt::format("textures/trucks/{}.png", stage));
+	auto atlas = sky::GetAtlas(fmt::format("textures/trucks/{}_atlas.json", stage));
+	auto animation = sky::GetAnimation(fmt::format("textures/trucks/{}_animation.json", stage));
 
 	setAnimation(texture, atlas, animation);
 }
