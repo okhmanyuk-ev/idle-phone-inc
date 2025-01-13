@@ -340,7 +340,7 @@ void RoomWindow::ProductPanel::increaseLevel()
 	PROFILE->setRoom(getRoomIndex(), room);
 
 	if (Balance::GetProductStage(room.product) != Balance::GetProductStage(room.product - 1) || room.product == 1)
-		AUDIO->play(sky::GetSound("sounds/success.wav"));
+		sky::PlaySound("sounds/success.wav");
 }
 
 std::wstring RoomWindow::ProductPanel::getOpenButtonText() const
@@ -495,7 +495,7 @@ void RoomWindow::ManagerPanel::increaseLevel()
 	PROFILE->setRoom(getRoomIndex(), room);
 
 	if (Balance::GetManagerStage(room.manager) != Balance::GetManagerStage(room.manager - 1) || room.manager == 1)
-		AUDIO->play(sky::GetSound("sounds/success.wav"));
+		sky::PlaySound("sounds/success.wav");
 }
 
 Graphics::TexCell RoomWindow::ManagerPanel::getIconTexture() const
@@ -576,7 +576,7 @@ void RoomWindow::WorkerPanel::increaseLevel()
 	PROFILE->setRoom(getRoomIndex(), room);
 
 	if (Balance::GetWorkerStage(worker) != Balance::GetWorkerStage(worker - 1) || worker == 1)
-		AUDIO->play(sky::GetSound("sounds/success.wav"));
+		sky::PlaySound("sounds/success.wav");
 }
 
 Graphics::TexCell RoomWindow::WorkerPanel::getIconTexture() const

@@ -49,7 +49,7 @@ BuildingWindow::BuildingWindow()
 		PROFILE->setWarehouseLevel(PROFILE->getWarehouseLevel() + 1);
 		mDollarEmitter->emitPack();
 		if (Balance::GetWarehouseStage() != prev_stage)
-			AUDIO->play(sky::GetSound("sounds/success.wav"));
+			sky::PlaySound("sounds/success.wav");
 	});
 	white_bg->attach(mUpgradeButton);
 

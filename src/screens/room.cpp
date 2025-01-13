@@ -298,7 +298,7 @@ Factory::Room::PhonesStack::PhonesStack(int room_index) : mRoomIndex(room_index)
 
 		makeProduct();
 		TUTOR->complete();
-		AUDIO->play(sky::GetSound("sounds/click.wav"));
+		sky::PlaySound("sounds/click.wav");
 	});
 }
 
