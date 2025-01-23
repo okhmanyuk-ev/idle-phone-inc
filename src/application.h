@@ -11,8 +11,7 @@
 
 namespace PhoneInc
 {
-	class Application : public Shared::Application,
-		public Common::FrameSystem::Frameable,
+	class Application : public sky::Scheduler::Frameable,
 		public sky::Listenable<Profile::ProfileClearedEvent>
 	{
 	public:

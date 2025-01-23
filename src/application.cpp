@@ -2,22 +2,23 @@
 
 using namespace PhoneInc;
 
-Application::Application() : Shared::Application(PROJECT_NAME, { Flag::Audio, Flag::Scene })
+Application::Application()
 {
 	PLATFORM->setTitle(PRODUCT_NAME);
 #if defined(PLATFORM_MAC)
-	PLATFORM->resize(720, 1280);
+	//PLATFORM->resize(720, 1280);
 #else
-	PLATFORM->resize(360, 640);
+	//PLATFORM->resize(360, 640);
 #endif
 #if defined(PLATFORM_WINDOWS)
-	PLATFORM->rescale(1.5f);
+	//PLATFORM->rescale(1.5f);
 #endif
+	PLATFORM->resize(540, 960);
 
 	// limit maximum time delta to avoid animation breaks
-	FRAME->setTimeDeltaLimit(sky::FromSeconds(1.0f / 30.0f));
+	SCHEDULER->setTimeDeltaLimit(sky::FromSeconds(1.0f / 30.0f));
 
-	getScene()->getTimestepFixer().setEnabled(false);
+	sky::GetService<sky::Application>()->getScene()->getTimestepFixer().setEnabled(false);
 
 	//GRAPHICS->setSdfSmoothFactor(Helpers::Scale);
 
@@ -78,7 +79,7 @@ void Application::onEvent(const Profile::ProfileClearedEvent& e)
 
 void Application::initializeScene()
 {
-	getScene()->setScreenAdaption(glm::vec2{ 1080.0f, 1920.0f });
+	sky::GetService<sky::Application>()->getScene()->setScreenAdaption(glm::vec2{ 1080.0f, 1920.0f });
 	Scene::Sampler::DefaultSampler = skygfx::Sampler::Linear;
 
 	auto loading = std::make_shared<LoadingScreen>();
