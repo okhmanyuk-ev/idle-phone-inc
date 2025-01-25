@@ -194,27 +194,30 @@ BuildingWindow::Parameter BuildingWindow::getFirstParameter() const
 	multiplier -= 1.0f;
 	multiplier *= 100.0f;
 
-	auto result = BuildingWindow::Parameter();
-	result.title_text = sky::Localize("WAREHOUSE_WINDOW_PARAM_NAME_1");
-	result.effect_text = fmt::format(L"+{:.0f}%", multiplier); // https://fmt.dev/latest/syntax.html
-	result.icon_texture = sky::GetTexture("textures/windows/building_window/icon1.png");
+	auto result = BuildingWindow::Parameter{
+		.icon_texture = sky::GetTexture("textures/windows/building_window/icon1.png"),
+		.title_text = sky::Localize("WAREHOUSE_WINDOW_PARAM_NAME_1"),
+		.effect_text = fmt::format(L"+{:.0f}%", multiplier) // https://fmt.dev/latest/syntax.html
+	};
 	return result;
 }
 
 BuildingWindow::Parameter BuildingWindow::getSecondParameter() const
 {
-	auto result = BuildingWindow::Parameter();
-	result.title_text = sky::Localize("WAREHOUSE_WINDOW_PARAM_NAME_2");
-	result.effect_text = Helpers::NumberToString(Balance::GetWarehouseTruckCapacity());
-	result.icon_texture = sky::GetTexture("textures/windows/building_window/icon2.png");
+	auto result = BuildingWindow::Parameter{
+		.icon_texture = sky::GetTexture("textures/windows/building_window/icon2.png"),
+		.title_text = sky::Localize("WAREHOUSE_WINDOW_PARAM_NAME_2"),
+		.effect_text = Helpers::NumberToString(Balance::GetWarehouseTruckCapacity())
+	};
 	return result;
 }
 
 BuildingWindow::Parameter BuildingWindow::getThirdParameter() const
 {
-	auto result = BuildingWindow::Parameter();
-	result.title_text = sky::Localize("WAREHOUSE_WINDOW_PARAM_NAME_3");
-	result.effect_text = Helpers::NumberToString(Balance::GetWarehouseEarning());
-	result.icon_texture = sky::GetTexture("textures/windows/building_window/icon3.png");
+	auto result = BuildingWindow::Parameter{
+		.icon_texture = sky::GetTexture("textures/windows/building_window/icon3.png"),
+		.title_text = sky::Localize("WAREHOUSE_WINDOW_PARAM_NAME_3"),
+		.effect_text = Helpers::NumberToString(Balance::GetWarehouseEarning())
+	};
 	return result;
 }

@@ -201,12 +201,12 @@ Progressbar::Progressbar()
 StreetProgressbar::StreetProgressbar() : Progressbar()
 {
 	setTexture(sky::GetTexture("textures/ui/progressbar_background.png"));
-	setCenterRegion({ { 8.0f, 8.0f }, { 1.0f, 1.0f } });
+	setCenterRegion(Graphics::TexRegion{ { 8.0f, 8.0f }, { 1.0f, 1.0f } });
 
 	mHolder->setMargin(4.0f);
 
 	mContent->setTexture(sky::GetTexture("textures/ui/progressbar_content.png"));
-	mContent->setCenterRegion({ { 6.0f, 6.0f }, { 1.0f, 1.0f } });
+	mContent->setCenterRegion(Graphics::TexRegion{ { 6.0f, 6.0f }, { 1.0f, 1.0f } });
 }
 
 // dollar emitter

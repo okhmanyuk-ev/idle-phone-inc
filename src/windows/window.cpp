@@ -11,7 +11,7 @@ StandardWindow::StandardWindow()
 {
 	mBackground = std::make_shared<Scene::SlicedSprite>();
 	mBackground->setTexture(sky::GetTexture("textures/windows/background_slice.png"));
-	mBackground->setCenterRegion({ { 14.0f, 131.0f }, { 30.0f, 17.0f } });
+	mBackground->setCenterRegion(Graphics::TexRegion{ { 14.0f, 131.0f }, { 30.0f, 17.0f } });
 	mBackground->setAnchor(0.5f);
 	mBackground->setPivot(0.5f);
 	mBackground->setTouchable(true);

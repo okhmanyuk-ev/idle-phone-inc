@@ -39,7 +39,8 @@ Factory::Factory()
 	conveyor_path->setX(6.0f);
 	attach(conveyor_path);
 	runAction(Actions::Collection::ExecuteInfinite([this, conveyor_path](auto dt) {
-		conveyor_path->setTexRegion({ { 0.0f, 0.0f }, { 0.0f, conveyor_path->getAbsoluteHeight() } });
+		conveyor_path->setTexRegion(Graphics::TexRegion{ { 0.0f, 0.0f },
+			{ conveyor_path->getTexture()->getWidth(), conveyor_path->getAbsoluteHeight()}});
 		auto y = conveyor_path->getY();
 
 		auto speed = ConveyorSpeed;
