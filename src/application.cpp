@@ -102,7 +102,7 @@ void Application::initializeScene()
 			SCENE_MANAGER->attach(particles_holder);
 			Helpers::DollarEmitter::Holder = particles_holder;
 
-			// turor holder
+			// tutor holder
 
 			auto tutor_holder = std::make_shared<TutorHolder>();
 			SCENE_MANAGER->attach(tutor_holder);
