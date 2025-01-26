@@ -70,7 +70,7 @@ void BuildingWindow::refresh()
 		mUpgradeButton->getLabel()->setText(L"$ " + Helpers::NumberToString(Balance::GetWarehouseCost()));
 	}
 
-	mMainPanel.level->setText(fmt::format(sky::Localize("BUILDING_WINDOW_LEVEL"), level));
+	mMainPanel.level->setText(sky::format(sky::Localize("BUILDING_WINDOW_LEVEL"), level));
 	mMainPanel.building_name->setText(sky::Localize(fmt::format("WAREHOUSE_NAME_{}", Balance::GetWarehouseStage())));
 	mMainPanel.building_icon->setTexture(sky::GetTexture(fmt::format("textures/warehouse/{}.png", Balance::GetWarehouseStage())));
 	mMainPanel.building_icon->applyTextureSize();
@@ -197,7 +197,7 @@ BuildingWindow::Parameter BuildingWindow::getFirstParameter() const
 	auto result = BuildingWindow::Parameter{
 		.icon_texture = sky::GetTexture("textures/windows/building_window/icon1.png"),
 		.title_text = sky::Localize("WAREHOUSE_WINDOW_PARAM_NAME_1"),
-		.effect_text = fmt::format(L"+{:.0f}%", multiplier) // https://fmt.dev/latest/syntax.html
+		.effect_text = std::format(L"+{:.0f}%", multiplier) // https://fmt.dev/latest/syntax.html
 	};
 	return result;
 }

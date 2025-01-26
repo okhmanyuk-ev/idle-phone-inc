@@ -98,8 +98,7 @@ void MicrotasksHolder::refresh()
 	mHolder->setVisible(true);
 
 	auto task = MICROTASKS->getCurrentTask();
-
-	mLabel->setText(fmt::format(sky::Localize(task.locale), task.target));
+	mLabel->setText(sky::format(sky::Localize(task.locale), task.target));
 
 	if (MICROTASKS->isReady())
 		mIcon->setTexture(sky::GetTexture("textures/microtasks/done.png"));

@@ -7,7 +7,7 @@ using namespace PhoneInc;
 RoomWindow::RoomWindow(int index) : mIndex(index)
 {
 	getBackground()->setSize({ 986.0f, 1658.0f });
-	getTitle()->setText(fmt::format(sky::Localize("ROOM_WINDOW_TITLE"), index + 1));
+	getTitle()->setText(sky::format(sky::Localize("ROOM_WINDOW_TITLE"), index + 1));
 
 	mProductPanel = std::make_shared<ProductPanel>(index);
 	mProductPanel->setAnchor({ 0.5f, 0.0f });
@@ -81,7 +81,7 @@ bool RoomWindow::CanUpgradeSomething(int room_index)
 	const auto& room = rooms.at(room_index);
 
 	bool can_product = PROFILE->isEnoughCash(Balance::GetRoomProductCost(room_index, room.product));
-	bool can_manager = PROFILE->isEnoughCash(Balance::GetRoomManagerCost(room_index, room.manager)); 
+	bool can_manager = PROFILE->isEnoughCash(Balance::GetRoomManagerCost(room_index, room.manager));
 	bool can_worker1 = PROFILE->isEnoughCash(Balance::GetRoomWorkerCost(room_index, room.workers[0], 1));
 	bool can_worker2 = PROFILE->isEnoughCash(Balance::GetRoomWorkerCost(room_index, room.workers[1], 2));
 	bool can_worker3 = PROFILE->isEnoughCash(Balance::GetRoomWorkerCost(room_index, room.workers[2], 3));
@@ -187,7 +187,7 @@ float RoomWindow::Panel::getProgress() const
 
 std::wstring RoomWindow::Panel::getLevelText() const
 {
-	return fmt::format(sky::Localize("ROOM_WINDOW_LEVEL_DESCRIPTION"), getLevel());
+	return sky::format(sky::Localize("ROOM_WINDOW_LEVEL_DESCRIPTION"), getLevel());
 }
 
 // product panel
@@ -457,7 +457,6 @@ std::wstring RoomWindow::SmallPanel::getUpgradeButtonText() const
 
 RoomWindow::ManagerPanel::ManagerPanel(int roomIndex) : SmallPanel(roomIndex)
 {
-	//
 }
 
 int RoomWindow::ManagerPanel::getLevel() const
@@ -528,7 +527,7 @@ std::wstring RoomWindow::ManagerPanel::getEffectText() const
 	multiplier -= 1.0f;
 	multiplier *= 100.0f;
 
-	return fmt::format(L"+{:.0f}%", multiplier);
+	return sky::format(L"+{:.0f}%", multiplier);
 }
 
 // worker panel
@@ -588,7 +587,7 @@ Graphics::TexCell RoomWindow::WorkerPanel::getIconTexture() const
 std::wstring RoomWindow::WorkerPanel::getTitleText() const
 {
 	if (isOpened())
-		return fmt::format(sky::Localize("ROOM_WINDOW_WORKER_TITLE"), mNumber);
+		return sky::format(sky::Localize("ROOM_WINDOW_WORKER_TITLE"), mNumber);
 	else
 		return sky::Localize("ROOM_WINDOW_WORKER_TITLE_HIRE");
 }
@@ -609,5 +608,5 @@ std::wstring RoomWindow::WorkerPanel::getEffectText() const
 	multiplier -= 1.0f;
 	multiplier *= 100.0f;
 
-	return fmt::format(L"+{:.0f}%", multiplier);
+	return sky::format(L"+{:.0f}%", multiplier);
 }
