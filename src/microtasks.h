@@ -2,7 +2,7 @@
 
 #include <sky/sky.h>
 
-#define MICROTASKS sky::Locator<PhoneInc::Microtasks>::GetService()
+#define MICROTASKS sky::Locator<PhoneInc::Microtasks>::Get()
 
 namespace PhoneInc
 {

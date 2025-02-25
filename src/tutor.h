@@ -3,7 +3,7 @@
 #include <sky/sky.h>
 #include "profile.h"
 
-#define TUTOR sky::Locator<PhoneInc::TutorialSystem>::GetService()
+#define TUTOR sky::Locator<PhoneInc::TutorialSystem>::Get()
 
 namespace PhoneInc
 {

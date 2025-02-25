@@ -22,10 +22,10 @@ Application::Application()
 
 	//GRAPHICS->setSdfSmoothFactor(Helpers::Scale);
 
-	STATS->setAlignment(Shared::StatsSystem::Align::BottomRight);
+	sky::GetService<Shared::StatsSystem>()->setAlignment(Shared::StatsSystem::Align::BottomRight);
 
-	sky::Locator<Microtasks>::Init(std::make_shared<Microtasks>());
-	sky::Locator<Profile>::Init(std::make_shared<Profile>());
+	sky::Locator<Microtasks>::Init();
+	sky::Locator<Profile>::Init();
 
 	PROFILE->load();
 	PROFILE->setNightBackground(!PROFILE->isNightBackground());
@@ -107,7 +107,7 @@ void Application::initializeScene()
 			auto tutor_holder = std::make_shared<TutorHolder>();
 			SCENE_MANAGER->attach(tutor_holder);
 
-			sky::Locator<TutorialSystem>::Init(tutor_holder);
+			sky::Locator<TutorialSystem>::Set(tutor_holder);
 
 			// gameplay
 

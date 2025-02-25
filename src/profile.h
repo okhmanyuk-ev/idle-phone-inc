@@ -5,7 +5,7 @@
 #include "balance.h"
 #include "microtasks.h"
 
-#define PROFILE sky::Locator<PhoneInc::Profile>::GetService()
+#define PROFILE sky::Locator<PhoneInc::Profile>::Get()
 
 namespace PhoneInc
 {
