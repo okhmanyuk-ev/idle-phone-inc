@@ -18,7 +18,7 @@ Application::Application()
 	// limit maximum time delta to avoid animation breaks
 	SCHEDULER->setTimeDeltaLimit(sky::FromSeconds(1.0f / 30.0f));
 
-	sky::GetService<sky::Application>()->getScene()->getTimestepFixer().setEnabled(false);
+	sky::GetService<Scene::Scene>()->getTimestepFixer().setEnabled(false);
 
 	//GRAPHICS->setSdfSmoothFactor(Helpers::Scale);
 
@@ -79,7 +79,7 @@ void Application::onEvent(const Profile::ProfileClearedEvent& e)
 
 void Application::initializeScene()
 {
-	sky::GetService<sky::Application>()->getScene()->setScreenAdaption(glm::vec2{ 1080.0f, 1920.0f });
+	sky::GetService<Scene::Scene>()->setScreenAdaption(glm::vec2{ 1080.0f, 1920.0f });
 	Scene::Sampler::DefaultSampler = skygfx::Sampler::Linear;
 
 	auto loading = std::make_shared<LoadingScreen>();
