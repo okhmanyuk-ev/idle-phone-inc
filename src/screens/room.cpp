@@ -49,7 +49,7 @@ Factory::Room::Room(int index) : mIndex(index)
 	lvl_label->setPosition({ 51.0f, 59.0f });
 	lvl_label->setPivot(0.5f);
 	lvl_label->setText(std::to_wstring(index + 1));
-	lvl_label->setColor(Graphics::Color::Black);
+	lvl_label->setColor(sky::GetColor(sky::Color::Black));
 	lvl_label->setFontSize(33.0f);
 	attach(lvl_label);
 
@@ -231,7 +231,7 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	lvl_label->setPosition({ 51.0f, 59.0f });
 	lvl_label->setPivot(0.5f);
 	lvl_label->setText(std::to_wstring(index + 1));
-	lvl_label->setColor(Graphics::Color::Black);
+	lvl_label->setColor(sky::GetColor(sky::Color::Black));
 	lvl_label->setFontSize(33.0f);
 	attach(lvl_label);
 
@@ -332,9 +332,9 @@ void Factory::Room::PhonesStack::setVisiblePhones(int value)
 	for (auto phone : mPhones)
 	{
 		if (isFilled())
-			phone->setColor(Graphics::Color::Lime * 3.0f);
+			phone->setColor(sky::GetColor(sky::Color::Lime) * 3.0f);
 		else
-			phone->setColor(Graphics::Color::White);
+			phone->setColor(sky::GetColor(sky::Color::White));
 	}
 }
 

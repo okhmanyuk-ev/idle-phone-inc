@@ -209,7 +209,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	mTitle->setAnchor({ 0.0f, 0.0f });
 	mTitle->setPivot({ 0.0f, 0.5f });
 	mTitle->setPosition({ 264.0f, 126.0f });
-	mTitle->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	mTitle->setColor(sky::ColorToNormalized(12, 22, 44));
 	attach(mTitle);
 
 	mNameLabel = std::make_shared<Helpers::LabelSolid>();
@@ -217,7 +217,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	mNameLabel->setAnchor({ 0.0f, 0.0f });
 	mNameLabel->setPivot({ 0.0f, 0.5f });
 	mNameLabel->setPosition({ 264.0f, 176.0f });
-	mNameLabel->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	mNameLabel->setColor(sky::ColorToNormalized(12, 22, 44));
 	attach(mNameLabel);
 
 	mDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
@@ -227,7 +227,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	mDescriptionLabel->setAnchor({ 0.0f, 0.0f });
 	mDescriptionLabel->setPivot({ 0.0f, 0.5f });
 	mDescriptionLabel->setPosition({ 264.0f, 254.0f });
-	mDescriptionLabel->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	mDescriptionLabel->setColor(sky::ColorToNormalized(12, 22, 44));
 	attach(mDescriptionLabel);
 
 	mLevelLabel = std::make_shared<Helpers::LabelSolid>();
@@ -235,7 +235,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	mLevelLabel->setAnchor({ 0.0f, 0.0f });
 	mLevelLabel->setPivot({ 0.0f, 0.5f });
 	mLevelLabel->setPosition({ 264.0f, 222.0f });
-	mLevelLabel->setColor(Graphics::Color::ToNormalized(23, 0, 164));
+	mLevelLabel->setColor(sky::ColorToNormalized(23, 0, 164));
 	attach(mLevelLabel);
 
 	mProgressbar = std::make_shared<Helpers::StreetProgressbar>();
@@ -252,14 +252,14 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 	mEffectLabelKey->setPivot({ 0.0f, 0.5f });
 	mEffectLabelKey->setPosition({ 264.0f, 308.0f });
 	mEffectLabelKey->setText(sky::Localize("ROOM_WINDOW_PRODUCT_EFFECT_LABEL") + L":");
-	mEffectLabelKey->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	mEffectLabelKey->setColor(sky::ColorToNormalized(12, 22, 44));
 	attach(mEffectLabelKey);
 
 	mEffectLabelValue = std::make_shared<Helpers::LabelSolid>();
 	mEffectLabelValue->setFontSize(33.0f);
 	mEffectLabelValue->setAnchor({ 1.0f, 0.5f });
 	mEffectLabelValue->setPivot({ 0.0f, 0.5f });
-	mEffectLabelValue->setColor(Graphics::Color::ToNormalized(6, 103, 0));
+	mEffectLabelValue->setColor(sky::ColorToNormalized(6, 103, 0));
 	mEffectLabelValue->setPosition({ 3.0f, 0.0f });
 	mEffectLabelKey->attach(mEffectLabelValue);
 }
@@ -371,7 +371,7 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	mTitle->setAnchor({ 0.0f, 0.0f });
 	mTitle->setPivot({ 0.0f, 0.5f });
 	mTitle->setPosition({ 264.0f, 58.0f });
-	mTitle->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	mTitle->setColor(sky::ColorToNormalized(12, 22, 44));
 	attach(mTitle);
 
 	mLandingDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
@@ -381,7 +381,7 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	mLandingDescriptionLabel->setAnchor({ 0.0f, 0.0f });
 	mLandingDescriptionLabel->setPivot({ 0.0f, 0.0f });
 	mLandingDescriptionLabel->setPosition({ 264.0f, 88.0f });
-	mLandingDescriptionLabel->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	mLandingDescriptionLabel->setColor(sky::ColorToNormalized(12, 22, 44));
 	attach(mLandingDescriptionLabel);
 
 	mLevelLabel = std::make_shared<Helpers::LabelSolid>();
@@ -389,7 +389,7 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	mLevelLabel->setAnchor({ 0.0f, 0.0f });
 	mLevelLabel->setPivot({ 0.0f, 0.5f });
 	mLevelLabel->setPosition({ 264.0f, 102.0f });
-	mLevelLabel->setColor(Graphics::Color::ToNormalized(23, 0, 164));
+	mLevelLabel->setColor(sky::ColorToNormalized(23, 0, 164));
 	attach(mLevelLabel);
 
 	mProgressbar = std::make_shared<Helpers::StreetProgressbar>();
@@ -406,14 +406,14 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 	mEffectLabelKey->setPivot({ 0.0f, 0.5f });
 	mEffectLabelKey->setPosition({ 264.0f, 194.0f });
 	mEffectLabelKey->setText(sky::Localize("ROOM_WINDOW_NPC_EFFECT_LABEL") + L":");
-	mEffectLabelKey->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	mEffectLabelKey->setColor(sky::ColorToNormalized(12, 22, 44));
 	attach(mEffectLabelKey);
 
 	mEffectLabelValue = std::make_shared<Helpers::LabelSolid>();
 	mEffectLabelValue->setFontSize(33.0f);
 	mEffectLabelValue->setAnchor({ 1.0f, 0.5f });
 	mEffectLabelValue->setPivot({ 0.0f, 0.5f });
-	mEffectLabelValue->setColor(Graphics::Color::ToNormalized(6, 103, 0));
+	mEffectLabelValue->setColor(sky::ColorToNormalized(6, 103, 0));
 	mEffectLabelValue->setPosition({ 3.0f, 0.0f });
 	mEffectLabelKey->attach(mEffectLabelValue);
 }

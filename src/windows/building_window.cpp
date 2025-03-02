@@ -125,14 +125,14 @@ std::shared_ptr<Scene::Node> BuildingWindow::createMainPanel(MainPanel& panel)
 	auto building_name = std::make_shared<Helpers::LabelSolid>();
 	building_name->setPivot({ 0.0f, 0.5f });
 	building_name->setPosition({ 340.0f, 114.0f });
-	building_name->setColor(Graphics::Color::ToNormalized(12, 22, 44));
+	building_name->setColor(sky::ColorToNormalized(12, 22, 44));
 	building_name->setFontSize(42.0f);
 	bg->attach(building_name);
 
 	auto level = std::make_shared<Helpers::LabelSolid>();
 	level->setPivot({ 0.0f, 0.5f });
 	level->setPosition({ 340.0f, 184.0f });
-	level->setColor(Graphics::Color::ToNormalized(23, 0, 164));
+	level->setColor(sky::ColorToNormalized(23, 0, 164));
 	level->setFontSize(57.0f);
 	bg->attach(level);
 
@@ -167,7 +167,7 @@ std::shared_ptr<Scene::Node> BuildingWindow::createParameterPanel(ParameterPanel
 	title->setAnchor({ 0.0f, 0.5f });
 	title->setPivot({ 0.0f, 0.5f });
 	title->setPosition({ 176.0f, 0.0f });
-	title->setColor(Graphics::Color::Black);
+	title->setColor(sky::GetColor(sky::Color::Black));
 	title->setFontSize(36.0f);
 	bg->attach(title);
 
@@ -175,7 +175,7 @@ std::shared_ptr<Scene::Node> BuildingWindow::createParameterPanel(ParameterPanel
 	effect->setAnchor({ 1.0f, 0.5f });
 	effect->setPivot({ 1.0f, 0.5f });
 	effect->setPosition({ -40.0f, 0.0f });
-	effect->setColor(Graphics::Color::ToNormalized(6, 103, 0));
+	effect->setColor(sky::ColorToNormalized(6, 103, 0));
 	effect->setFontSize(48.0f);
 	bg->attach(effect);
 
