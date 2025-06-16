@@ -41,7 +41,6 @@ GameplayScreen::GameplayScreen()
 	mScrollbox->getContent()->setHorizontalStretch(1.0f);
 	mScrollbox->getContent()->attach(column);
 	mScrollbox->getContent()->setHeight(column->getHeight());
-	mScrollbox->setTouchMask(1 << 1);
 	getContent()->attach(mScrollbox);
 
 	auto top_menu = std::make_shared<TopMenu>();

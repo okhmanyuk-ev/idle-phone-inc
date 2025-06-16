@@ -44,7 +44,7 @@ namespace PhoneInc
 	protected:
 		struct Parameter
 		{
-			Graphics::TexCell icon_texture;
+			Graphics::TexturePart icon_texture;
 			std::wstring title_text;
 			std::wstring effect_text;
 		};

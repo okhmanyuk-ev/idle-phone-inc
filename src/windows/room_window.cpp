@@ -196,13 +196,18 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 {
 	setTexture(sky::GetTexture("textures/windows/room_window/major_panel_backgorund.png"));
 
+	auto icon_holder = std::make_shared<Scene::Node>();
+	icon_holder->setAnchor({ 0.0f, 0.5f });
+	icon_holder->setPivot({ 0.5f, 0.5f });
+	icon_holder->setPosition({ 124.0f, 0.0f });
+	icon_holder->setSize({ 174.0f, 298.0f });
+	attach(icon_holder);
+
 	mIcon = std::make_shared<Scene::Adaptive<Scene::Sprite>>();
 	mIcon->setBatchGroup(fmt::format("room_window_{}_avatar", roomIndex));
-	mIcon->setAnchor({ 0.0f, 0.5f });
-	mIcon->setPivot({ 0.5f, 0.5f });
-	mIcon->setPosition({ 124.0f, 0.0f });
-	mIcon->setAdaptSize({ 174.0f, 298.0f });
-	attach(mIcon);
+	mIcon->setAnchor(0.5f);
+	mIcon->setPivot(0.5f);
+	icon_holder->attach(mIcon);
 
 	mTitle = std::make_shared<Helpers::LabelSolid>();
 	mTitle->setFontSize(36.0f);
@@ -497,7 +502,7 @@ void RoomWindow::ManagerPanel::increaseLevel()
 		sky::PlaySound("sounds/success.wav");
 }
 
-Graphics::TexCell RoomWindow::ManagerPanel::getIconTexture() const
+Graphics::TexturePart RoomWindow::ManagerPanel::getIconTexture() const
 {
 	auto avatar = Balance::GetManagerStage(getLevel());
 	return sky::GetTexture(fmt::format("textures/windows/room_window/avatars/managers/{}.png", avatar));
@@ -578,7 +583,7 @@ void RoomWindow::WorkerPanel::increaseLevel()
 		sky::PlaySound("sounds/success.wav");
 }
 
-Graphics::TexCell RoomWindow::WorkerPanel::getIconTexture() const
+Graphics::TexturePart RoomWindow::WorkerPanel::getIconTexture() const
 {
 	auto avatar = Balance::GetWorkerStage(getLevel());
 	return sky::GetTexture(fmt::format("textures/windows/room_window/avatars/workers/{}.png", avatar));

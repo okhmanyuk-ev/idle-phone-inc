@@ -61,6 +61,7 @@ Factory::Room::Room(int index) : mIndex(index)
 		SCENE_MANAGER->pushWindow(std::make_shared<RoomWindow>(index));
 		TUTOR->complete();
 	});
+	mUpgradeButton->setTouchTransparent(true);
 	attach(mUpgradeButton);
 
 	if (index == 0)
@@ -240,6 +241,7 @@ Factory::LockedRoom::LockedRoom(int index) : mIndex(index)
 	mButton->getLabel()->setText(L"$ " + Helpers::NumberToString(Balance::GetRoomCost(index)));
 	mButton->setAnchor(0.5f);
 	mButton->setPivot(0.5f);
+	mButton->setTouchTransparent(true);
 	mButton->setActiveCallback([this] {
 		sky::PlaySound(sky::GetSound("sounds/success.wav"));
 		mDollarEmitter->emitPack();
@@ -279,6 +281,7 @@ void Factory::LockedRoom::refresh()
 Factory::Room::PhonesStack::PhonesStack(int room_index) : mRoomIndex(room_index)
 {
 	setSize({ 124.0f, 96.0f });
+	setTouchTransparent(true);
 
 	for (int i = -5; i < 5; i++)
 	{

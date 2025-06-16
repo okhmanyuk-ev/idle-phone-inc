@@ -40,6 +40,7 @@ Street::Street()
 	mWarehouseButton->setPivot(0.5f);
 	mWarehouseButton->setPosition({ 966.0f, 538.0f });
 	mWarehouseButton->getLabel()->setText(sky::Localize("UPGRADE_BUTTON"));
+	mWarehouseButton->setTouchTransparent(true);
 	mWarehouseButton->setClickCallback([this] {
 		SCENE_MANAGER->pushWindow(std::make_shared<BuildingWindow>());
 	});
