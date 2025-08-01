@@ -171,7 +171,7 @@ void Cheats::ShowDevMenu()
 	if (ImGui::Button("CLEAR PROFILE"))
 	{
 		PROFILE->clear();
-		PROFILE->saveAsync();
+		PROFILE->save();
 	}
 
 	categorySpacing();

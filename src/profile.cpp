@@ -105,7 +105,7 @@ void Profile::spendCash(double value)
 {
 	assert(isEnoughCash(value));
 	setCash(getCash() - value);
-	PROFILE->saveAsync();
+	PROFILE->save();
 }
 
 bool Profile::isRoomLocked(int index) const
@@ -119,7 +119,7 @@ void Profile::unlockRoom(int index)
 	mRooms.insert({ index, Room() });
 	sky::Emit(RoomUnlockedEvent({ index }));
 	setMicrotaskProgress(Microtasks::Task::Type::UnlockRooms, (int)mRooms.size());
-	saveAsync();
+	save();
 }
 
 void Profile::setCash(double value)
@@ -129,7 +129,7 @@ void Profile::setCash(double value)
 
 	mCash = value;
 	sky::Emit(CashChangedEvent());
-	saveAsync();
+	save();
 }
 
 void Profile::setCoins(double value)
@@ -139,7 +139,7 @@ void Profile::setCoins(double value)
 
     mCoins = value;
 	sky::Emit(CoinsChangedEvent());
-    saveAsync();
+    save();
 }
 
 void Profile::setRoom(int index, Room value)
@@ -167,7 +167,7 @@ void Profile::setRoom(int index, Room value)
 	setMicrotaskProgress(Microtasks::Task::Type::WorkerLevel, value.workers[1]);
 	setMicrotaskProgress(Microtasks::Task::Type::WorkerLevel, value.workers[2]);
 
-	saveAsync();
+	save();
 }
 
 void Profile::setWarehouseLevel(int value)
@@ -180,7 +180,7 @@ void Profile::setWarehouseLevel(int value)
 	mWarehouseLevel = value;
 	sky::Emit(WarehouseLevelChangedEvent());
 	setMicrotaskProgress(Microtasks::Task::Type::WarehouseLevel, value);
-	saveAsync();
+	save();
 }
 
 void Profile::setWarehouseStorage(double value)
@@ -191,18 +191,18 @@ void Profile::setWarehouseStorage(double value)
 	assert(value >= 0.0);
 	mWarehouseStorage = value;
 	sky::Emit(WarehouseStorageChangeEvent());
-	saveAsync();
+	save();
 }
 
 void Profile::setNightBackground(bool value) {
 	mNightBackground = value;
-	saveAsync();
+	save();
 }
 
 void Profile::setTutorCompleted(const std::string& name)
 {
 	mCompletedTutors.insert(name);
-	saveAsync();
+	save();
 }
 
 void Profile::setMicrotaskProgress(Microtasks::Task::Type type, int value)
@@ -214,11 +214,11 @@ void Profile::setMicrotaskProgress(Microtasks::Task::Type type, int value)
 
 	progress = value;
 	MICROTASKS->checkForCompletion();
-	saveAsync();
+	save();
 }
 
 void Profile::setMicrotaskIndex(int value)
 {
 	mMicrotaskIndex = value;
-	saveAsync();
+	save();
 }
