@@ -89,16 +89,16 @@ Factory::Room::Room(int index) : mIndex(index)
 
 	refresh();
 
-	runAction(Actions::Collection::RepeatInfinite([this]() -> std::unique_ptr<Actions::Action> {
+	runAction(sky::Actions::RepeatInfinite([this]() -> std::optional<sky::Action> {
 		const auto& rooms = PROFILE->getRooms();
 
 		if (rooms.count(mIndex) == 0)
-			return nullptr;
+			return std::nullopt;
 
 		auto room = rooms.at(mIndex);
 
 		if (room.manager == 0)
-			return nullptr;
+			return std::nullopt;
 
 		bool hasFilled = false;
 		for (auto phones_stack : mPhonesStacks)
@@ -111,22 +111,22 @@ Factory::Room::Room(int index) : mIndex(index)
 		}
 
 		if (!hasFilled)
-			return nullptr;
+			return std::nullopt;
 
 		auto duration = Balance::GetManagerDuration(mIndex);
 
-		return Actions::Collection::MakeSequence(
-			Actions::Collection::Execute([this] {
+		return sky::Actions::Sequence(
+			sky::Actions::Execute([this] {
 				mManager->setStateType(ManagerAnimation::Working);
 				mManager->getProgressbar()->setEnabled(true);
 				mManager->getProgressbar()->setProgress(0.0f);
 			}),
-			Actions::Collection::ChangeScale(mManager->getProgressbar(), { 1.0f, 1.0f }, 0.125f, Easing::BackOut),
-			Actions::Collection::Interpolate(0.0f, 1.0f, duration, Easing::Linear, [this](float value) {
+			sky::Actions::ChangeScale(mManager->getProgressbar(), { 1.0f, 1.0f }, 0.125f, Easing::BackOut),
+			sky::Actions::Interpolate(0.0f, 1.0f, duration, Easing::Linear, [this](float value) {
 				mManager->getProgressbar()->setProgress(value);
 			}), 
-			Actions::Collection::ChangeScale(mManager->getProgressbar(), { 0.0f, 0.0f }, 0.125f, Easing::BackIn),
-			Actions::Collection::Execute([this] {
+			sky::Actions::ChangeScale(mManager->getProgressbar(), { 0.0f, 0.0f }, 0.125f, Easing::BackIn),
+			sky::Actions::Execute([this] {
 				mManager->getProgressbar()->setEnabled(false);
 				mManager->setStateType(ManagerAnimation::Idle);
 				for (auto phones_stack : mPhonesStacks)
@@ -142,21 +142,21 @@ Factory::Room::Room(int index) : mIndex(index)
 
 	for (int i = 0; i < Balance::MaxWorkersCount; i++)
 	{
-		runAction(Actions::Collection::RepeatInfinite([this, i]() -> std::unique_ptr<Actions::Action> {
+		runAction(sky::Actions::RepeatInfinite([this, i]() -> std::optional<sky::Action> {
 			const auto& rooms = PROFILE->getRooms();
 
 			if (rooms.count(mIndex) == 0)
-				return nullptr;
+				return std::nullopt;
 
 			auto room = rooms.at(mIndex);
 
 			if (room.workers[i] <= 0)
-				return nullptr;
+				return std::nullopt;
 
 			auto duration = Balance::GetWorkerDuration(mIndex, i);
 			auto phone = mPhonesStacks.at(i);
 
-			return Actions::Collection::Delayed(duration, Actions::Collection::Execute([this, phone] {
+			return sky::Actions::Delayed(duration, sky::Actions::Execute([this, phone] {
 				if (phone->isFilled())
 					return;
 
@@ -168,7 +168,7 @@ Factory::Room::Room(int index) : mIndex(index)
 		}));
 	}
 
-	runAction(Actions::Collection::ExecuteInfinite([this] {
+	runAction(sky::Actions::ExecuteInfinite([this] {
 		for (int i = 0; i < Balance::MaxWorkersCount; i++)
 		{
 			mWorkers[i]->setStateType(mPhonesStacks[i]->isFilled() ? Worker::Animation::Idle : Worker::Animation::Working);
@@ -348,8 +348,8 @@ void Factory::Room::PhonesStack::runAnimForPhone(int index)
 	phone->setScale(0.0f);
 	phone->setVerticalOrigin(64.0f);
 
-	phone->runAction(Actions::Collection::MakeParallel(
-		Actions::Collection::ChangeScale(phone, { 1.0f, 1.0f }, 0.125f, Easing::BackOut),
-		Actions::Collection::ChangeVerticalOrigin(phone, 0.0f, 0.25f, Easing::CubicOut)
+	phone->runAction(sky::Actions::Parallel(
+		sky::Actions::ChangeScale(phone, { 1.0f, 1.0f }, 0.125f, Easing::BackOut),
+		sky::Actions::ChangeVerticalOrigin(phone, 0.0f, 0.25f, Easing::CubicOut)
 	));
 }

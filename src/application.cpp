@@ -16,7 +16,7 @@ Application::Application()
 	PLATFORM->resize(540, 960);
 
 	// limit maximum time delta to avoid animation breaks
-	SCHEDULER->setTimeDeltaLimit(sky::FromSeconds(1.0f / 30.0f));
+	sky::Scheduler::Instance->setTimeDeltaLimit(sky::FromSeconds(1.0f / 30.0f));
 
 	sky::GetService<Scene::Scene>()->getTimestepFixer().setEnabled(false);
 

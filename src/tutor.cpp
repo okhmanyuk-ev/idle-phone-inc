@@ -14,7 +14,7 @@ TutorHolder::TutorHolder()
 	mFinger->setScale(0.0f);
 	attach(mFinger);
 
-	runAction(Actions::Collection::ExecuteInfinite([this] {
+	runAction(sky::Actions::ExecuteInfinite([this] {
 		removeOutdatedTutors();
 		chooseCurrentTutor();
 		showFinger(isPlaying());
@@ -23,21 +23,21 @@ TutorHolder::TutorHolder()
 
 	// finger pulse
 
-	runAction(Actions::Collection::RepeatInfinite([this]() -> std::unique_ptr<Actions::Action> {
+	runAction(sky::Actions::RepeatInfinite([this]() -> std::optional<sky::Action> {
 		const float Delay = 1.25f;
 		const float Duration = 0.125f;
 		const glm::vec2 ModifiedValue = { 0.75f, 0.75f };
 		const glm::vec2 NormalValue = { 1.0f, 1.0f };
 
 		if (mFingerState != FingerState::Opened)
-			return nullptr;
+			return std::nullopt;
 
-		return Actions::Collection::Breakable([this] { return mFingerState == FingerState::Opened; },
-			Actions::Collection::Delayed(Delay, Actions::Collection::MakeSequence(
-				Actions::Collection::ChangeScale(mFinger, ModifiedValue, Duration, Easing::CubicInOut),
-				Actions::Collection::ChangeScale(mFinger, NormalValue, Duration, Easing::CubicInOut),
-				Actions::Collection::ChangeScale(mFinger, ModifiedValue, Duration, Easing::CubicInOut),
-				Actions::Collection::ChangeScale(mFinger, NormalValue, Duration, Easing::CubicInOut)
+		return sky::Actions::Breakable([this] { return mFingerState == FingerState::Opened; },
+			sky::Actions::Delayed(Delay, sky::Actions::Sequence(
+				sky::Actions::ChangeScale(mFinger, ModifiedValue, Duration, Easing::CubicInOut),
+				sky::Actions::ChangeScale(mFinger, NormalValue, Duration, Easing::CubicInOut),
+				sky::Actions::ChangeScale(mFinger, ModifiedValue, Duration, Easing::CubicInOut),
+				sky::Actions::ChangeScale(mFinger, NormalValue, Duration, Easing::CubicInOut)
 			))
 		);
 	}));
@@ -135,9 +135,9 @@ void TutorHolder::showFinger(bool visible)
 		mFingerState = FingerState::Opening;
 		mFinger->setEnabled(true);
 
-		runAction(Actions::Collection::MakeSequence(
-			Actions::Collection::ChangeScale(mFinger, { 1.0f, 1.0f }, Duration, Easing::BackOut),
-			Actions::Collection::Execute([this] {
+		runAction(sky::Actions::Sequence(
+			sky::Actions::ChangeScale(mFinger, { 1.0f, 1.0f }, Duration, Easing::BackOut),
+			sky::Actions::Execute([this] {
 				mFingerState = FingerState::Opened;
 			})
 		));
@@ -146,9 +146,9 @@ void TutorHolder::showFinger(bool visible)
 	{
 		mFingerState = FingerState::Closing;
 
-		runAction(Actions::Collection::MakeSequence(
-			Actions::Collection::ChangeScale(mFinger, { 0.0f, 0.0f }, Duration, Easing::BackIn),
-			Actions::Collection::Execute([this] {
+		runAction(sky::Actions::Sequence(
+			sky::Actions::ChangeScale(mFinger, { 0.0f, 0.0f }, Duration, Easing::BackIn),
+			sky::Actions::Execute([this] {
 				mFingerState = FingerState::Closed;
 				mFinger->setEnabled(false);
 			})

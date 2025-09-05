@@ -28,7 +28,7 @@ TopMenu::TopMenu()
 	auto cash_label = std::static_pointer_cast<Helpers::LabelSolid>(collection.at("cash_label"));
 	auto coins_label = std::static_pointer_cast<Helpers::LabelSolid>(collection.at("coins_label"));
 
-	runAction(Actions::Collection::ExecuteInfinite([coins_label, cash_label](auto dTime) {
+	runAction(sky::Actions::ExecuteInfinite([coins_label, cash_label](auto dTime) {
 		static double cash = 0.0;
 		cash = sky::ease_towards(cash, PROFILE->getCash(), dTime);
 

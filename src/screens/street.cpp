@@ -71,7 +71,7 @@ Street::Street()
 	storage_bg->attach(mWarehouseStorageLabel);
 	refreshWarehouseStorageLabel();
 
-	runAction(Actions::Collection::ExecuteInfinite([this] {
+	runAction(sky::Actions::ExecuteInfinite([this] {
 		if (mWarehouseBusy)
 			return;
 
@@ -86,9 +86,9 @@ Street::Street()
 
 	// cloud spawner
 
-	runAction(Actions::Collection::RepeatInfinite([this] {
+	runAction(sky::Actions::RepeatInfinite([this] {
 		auto delay = glm::linearRand(4.0f, 8.0f);
-		return Actions::Collection::Delayed(delay, Actions::Collection::Execute([this] {
+		return sky::Actions::Delayed(delay, sky::Actions::Execute([this] {
 			spawnCloud();
 		}));
 	}));
@@ -117,16 +117,16 @@ void Street::onEvent(const Profile::CashChangedEvent& e)
 
 void Street::runWarehouseAction()
 {
-	runAction(Actions::Collection::MakeSequence(
-		Actions::Collection::Execute([this] {
+	runAction(sky::Actions::Sequence(
+		sky::Actions::Execute([this] {
 			mWarehouseProgressbar->setEnabled(true);
 		}),
-		Actions::Collection::ChangeScale(mWarehouseProgressbar, { 1.0f, 1.0f }, 0.125f, Easing::BackOut),
-		Actions::Collection::Interpolate(0.0f, 1.0f, Balance::GetWarehouseDuration(), Easing::Linear, [this](float value) {
+		sky::Actions::ChangeScale(mWarehouseProgressbar, { 1.0f, 1.0f }, 0.125f, Easing::BackOut),
+		sky::Actions::Interpolate(0.0f, 1.0f, Balance::GetWarehouseDuration(), Easing::Linear, [this](float value) {
 			mWarehouseProgressbar->setProgress(value);
 		}),
-		Actions::Collection::ChangeScale(mWarehouseProgressbar, { 0.0f, 0.0f }, 0.125f, Easing::BackIn),
-		Actions::Collection::Execute([this] {
+		sky::Actions::ChangeScale(mWarehouseProgressbar, { 0.0f, 0.0f }, 0.125f, Easing::BackIn),
+		sky::Actions::Execute([this] {
 			mWarehouseProgressbar->setProgress(0.0f);
 			mWarehouseProgressbar->setEnabled(false);
 			mWarehouseBusy = false;
@@ -154,15 +154,15 @@ void Street::runTruckAction()
 
 	float duration = Balance::GetWarehouseTruckDuration();
 
-	runAction(Actions::Collection::MakeSequence(
-		Actions::Collection::MakeParallel(
-			Actions::Collection::ChangeHorizontalAnchor(truck, 1.0f, duration),
-			Actions::Collection::ChangeHorizontalPivot(truck, 0.0f, duration)
+	runAction(sky::Actions::Sequence(
+		sky::Actions::Parallel(
+			sky::Actions::ChangeHorizontalAnchor(truck, 1.0f, duration),
+			sky::Actions::ChangeHorizontalPivot(truck, 0.0f, duration)
 		),
-		Actions::Collection::Execute([truck] {
+		sky::Actions::Execute([truck] {
 			PROFILE->setCash(PROFILE->getCash() + truck->getEarning());
 		}),
-		Actions::Collection::Kill(truck)
+		sky::Actions::Kill(truck)
 	));
 }
 
@@ -194,11 +194,11 @@ void Street::spawnCloud()
 
 	auto duration = glm::linearRand(17.0f, 22.0f);
 
-	cloud->runAction(Actions::Collection::MakeSequence(
-		Actions::Collection::MakeParallel(
-			Actions::Collection::ChangeHorizontalAnchor(cloud, 0.0f, 1.0f, duration),
-			Actions::Collection::ChangeHorizontalPivot(cloud, 1.0f, 0.0f, duration)
+	cloud->runAction(sky::Actions::Sequence(
+		sky::Actions::Parallel(
+			sky::Actions::ChangeHorizontalAnchor(cloud, 0.0f, 1.0f, duration),
+			sky::Actions::ChangeHorizontalPivot(cloud, 1.0f, 0.0f, duration)
 		),
-		Actions::Collection::Kill(cloud)
+		sky::Actions::Kill(cloud)
 	));
 }

@@ -89,7 +89,7 @@ LabelSolidBold::LabelSolidBold()
 Button::Button()
 {
 	setClickSound(sky::GetSound("sounds/click.wav"));
-	runAction(Actions::Collection::ExecuteInfinite([this](auto delta) {
+	runAction(sky::Actions::ExecuteInfinite([this](auto delta) {
 		if (!mAutoclick)
 			return;
 
@@ -192,7 +192,7 @@ Progressbar::Progressbar()
 	mContent->setPivot({ 0.0f, 0.5f });
 	mClip->attach(mContent);
 
-	runAction(Actions::Collection::ExecuteInfinite([this] {
+	runAction(sky::Actions::ExecuteInfinite([this] {
 		mContent->setWidth(mHolder->getAbsoluteWidth());
 		mContent->setSampler(getSampler());
 	}));

@@ -20,24 +20,24 @@ LoadingScreen::LoadingScreen()
 
 void LoadingScreen::runTasks()
 {
-	auto seq = Actions::Collection::MakeSequence();
+	std::list<sky::Action> seq;
 
 	const float Duration = 0.5f / (float)mTasks.size();
 
 	for (size_t i = 0; i < mTasks.size(); i++)
 	{
-		seq->add(Actions::Collection::Insert([this, i, Duration] {
+		seq.push_back(sky::Actions::Insert([this, i, Duration] {
 			auto start = mProgressbar->getProgress();
 			auto dest = float(i + 1) / (float)mTasks.size();
 
-			return Actions::Collection::Interpolate(start, dest, Duration, Easing::CubicInOut, [this](float value) {
+			return sky::Actions::Interpolate(start, dest, Duration, Easing::CubicInOut, [this](float value) {
 				mProgressbar->setProgress(value);
 			});
 		}));
-		seq->add(Actions::Collection::WaitGlobalFrame());
-		seq->add(Actions::Collection::Execute(mTasks.at(i)));
-		seq->add(Actions::Collection::WaitGlobalFrame());
+		seq.push_back(sky::Actions::WaitGlobalFrame());
+		seq.push_back(sky::Actions::Execute(mTasks.at(i)));
+		seq.push_back(sky::Actions::WaitGlobalFrame());
 	}
 
-	runAction(std::move(seq));
+	runAction(sky::Actions::Sequence(std::move(seq)));
 }
