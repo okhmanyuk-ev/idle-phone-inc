@@ -116,17 +116,17 @@ Factory::Room::Room(int index) : mIndex(index)
 		auto duration = Balance::GetManagerDuration(mIndex);
 
 		return sky::Actions::Sequence(
-			sky::Actions::Execute([this] {
+			[this] {
 				mManager->setStateType(ManagerAnimation::Working);
 				mManager->getProgressbar()->setEnabled(true);
 				mManager->getProgressbar()->setProgress(0.0f);
-			}),
+			},
 			sky::Actions::ChangeScale(mManager->getProgressbar(), { 1.0f, 1.0f }, 0.125f, Easing::BackOut),
 			sky::Actions::Interpolate(0.0f, 1.0f, duration, Easing::Linear, [this](float value) {
 				mManager->getProgressbar()->setProgress(value);
-			}), 
+			}),
 			sky::Actions::ChangeScale(mManager->getProgressbar(), { 0.0f, 0.0f }, 0.125f, Easing::BackIn),
-			sky::Actions::Execute([this] {
+			[this] {
 				mManager->getProgressbar()->setEnabled(false);
 				mManager->setStateType(ManagerAnimation::Idle);
 				for (auto phones_stack : mPhonesStacks)
@@ -136,7 +136,7 @@ Factory::Room::Room(int index) : mIndex(index)
 
 					phones_stack->makeProduct();
 				}
-			})
+			}
 		);
 	}));
 
@@ -156,7 +156,7 @@ Factory::Room::Room(int index) : mIndex(index)
 			auto duration = Balance::GetWorkerDuration(mIndex, i);
 			auto phone = mPhonesStacks.at(i);
 
-			return sky::Actions::Delayed(duration, sky::Actions::Execute([this, phone] {
+			return sky::Actions::Delayed(duration, [this, phone] {
 				if (phone->isFilled())
 					return;
 
@@ -164,7 +164,7 @@ Factory::Room::Room(int index) : mIndex(index)
 
 				phone->setVisiblePhones(count);
 				phone->runAnimForPhone(count - 1);
-			}));
+			});
 		}));
 	}
 

@@ -121,9 +121,9 @@ void Factory::onEvent(const ProductSpawnEvent& e)
 	box->setCount(e.produce_count);
 	box->runAction(sky::Actions::Sequence(
 		sky::Actions::ChangeScale(box, { 1.0f, 1.0f }, 0.25f, Easing::BackOut),
-		sky::Actions::Execute([box] {
+		[box] {
 			box->setSpawnAnimationCompleted(true);
-		}),
+		},
 		sky::Actions::ExecuteInfinite([box](auto dt) {
 			auto y = box->getY();
 			y -= sky::ToSeconds(dt) * 100.0f * ConveyorSpeed;

@@ -137,9 +137,9 @@ void TutorHolder::showFinger(bool visible)
 
 		runAction(sky::Actions::Sequence(
 			sky::Actions::ChangeScale(mFinger, { 1.0f, 1.0f }, Duration, Easing::BackOut),
-			sky::Actions::Execute([this] {
+			[this] {
 				mFingerState = FingerState::Opened;
-			})
+			}
 		));
 	}
 	else if (!visible && mFingerState == FingerState::Opened)
@@ -148,10 +148,10 @@ void TutorHolder::showFinger(bool visible)
 
 		runAction(sky::Actions::Sequence(
 			sky::Actions::ChangeScale(mFinger, { 0.0f, 0.0f }, Duration, Easing::BackIn),
-			sky::Actions::Execute([this] {
+			[this] {
 				mFingerState = FingerState::Closed;
 				mFinger->setEnabled(false);
-			})
+			}
 		));
 	}
 }

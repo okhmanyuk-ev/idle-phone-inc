@@ -26,16 +26,16 @@ void LoadingScreen::runTasks()
 
 	for (size_t i = 0; i < mTasks.size(); i++)
 	{
-		seq.push_back(sky::Actions::Insert([this, i, Duration] {
+		seq.push_back([this, i, Duration] {
 			auto start = mProgressbar->getProgress();
 			auto dest = float(i + 1) / (float)mTasks.size();
 
 			return sky::Actions::Interpolate(start, dest, Duration, Easing::CubicInOut, [this](float value) {
 				mProgressbar->setProgress(value);
 			});
-		}));
+		});
 		seq.push_back(sky::Actions::WaitGlobalFrame());
-		seq.push_back(sky::Actions::Execute(mTasks.at(i)));
+		seq.push_back(mTasks.at(i));
 		seq.push_back(sky::Actions::WaitGlobalFrame());
 	}
 
