@@ -80,9 +80,9 @@ GameplayScreen::GameplayScreen()
 		return getState() != State::Entered;
 	};
 
-	runAction(sky::Actions::Delayed(predicate, sky::Actions::Execute([microtasks] {
+	runAction(sky::Actions::Delayed(predicate, [microtasks] {
 		microtasks->start();
-	})));
+	}));
 
 	runAction(sky::Actions::ExecuteInfinite([this] {
 		if (!isTransformReady())

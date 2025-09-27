@@ -39,9 +39,9 @@ MicrotasksHolder::MicrotasksHolder()
 	mRewardButton->setY(32.0f);
 	mRewardButton->getLabel()->setText(sky::Localize("MICROTASK_REWARD_BUTTON"));
 	mRewardButton->setActiveCallback([this] {
-		runAction(sky::Actions::Delayed(0.25f, sky::Actions::Execute([this] {
+		runAction(sky::Actions::Delayed(0.25f, [this] {
 			MICROTASKS->complete();
-		})));
+		}));
 		mRewardButton->setEnabled(false);
 	});
 	bg->attach(mRewardButton);
@@ -67,24 +67,24 @@ void MicrotasksHolder::show()
 {
 	runAction(sky::Actions::Sequence(
 		sky::Actions::ChangeVerticalPivot(mHolder, 0.0f, 0.25f, Easing::CubicOut),
-		sky::Actions::Execute([this] {
+		[this] {
 			mRewardButton->setEnabled(MICROTASKS->isReady());
-		}),
+		},
 		sky::Actions::Wait(0.5f),
-		sky::Actions::Execute([this] {
+		[this] {
 			MICROTASKS->checkForCompletion();
-		})
+		}
 	));
 }
 
 void MicrotasksHolder::hide(std::function<void()> finishCallback)
 {
 	runAction(sky::Actions::Sequence(
-		sky::Actions::Execute([this] {
+		[this] {
 			mRewardButton->setEnabled(false);
-		}),
+		},
 		sky::Actions::ChangeVerticalPivot(mHolder, 1.0f, 0.25f, Easing::CubicOut),
-		sky::Actions::Execute(finishCallback)
+		finishCallback
 	));
 }
 
@@ -111,9 +111,9 @@ void MicrotasksHolder::refresh()
 void MicrotasksHolder::refreshWithAnim()
 {
 	hide([this] {
-		runAction(sky::Actions::Delayed(0.25f, sky::Actions::Execute([this] {
+		runAction(sky::Actions::Delayed(0.25f, [this] {
 			refresh();
 			show();
-		})));
+		}));
 	});
 }

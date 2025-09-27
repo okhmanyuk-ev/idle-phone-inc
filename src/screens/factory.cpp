@@ -98,11 +98,11 @@ void Factory::onEvent(const ProductSpawnEvent& e)
 
 			box->runAction(
 				sky::Actions::Sequence(
-					sky::Actions::Parallel(
+					sky::Actions::Concurrent(
 						sky::Actions::ChangeHorizontalScale(box, 0.75f, Duration, Easing::BackIn),
 						sky::Actions::ChangeVerticalScale(box, 1.25f, Duration, Easing::BackIn)
 					),
-					sky::Actions::Parallel(
+					sky::Actions::Concurrent(
 						sky::Actions::ChangeHorizontalScale(box, 1.0f, Duration, Easing::BackIn),
 						sky::Actions::ChangeVerticalScale(box, 1.0f, Duration, Easing::BackIn)
 					)
@@ -121,9 +121,9 @@ void Factory::onEvent(const ProductSpawnEvent& e)
 	box->setCount(e.produce_count);
 	box->runAction(sky::Actions::Sequence(
 		sky::Actions::ChangeScale(box, { 1.0f, 1.0f }, 0.25f, Easing::BackOut),
-		sky::Actions::Execute([box] {
+		[box] {
 			box->setSpawnAnimationCompleted(true);
-		}),
+		},
 		sky::Actions::ExecuteInfinite([box](auto dt) {
 			auto y = box->getY();
 			y -= sky::ToSeconds(dt) * 100.0f * ConveyorSpeed;
