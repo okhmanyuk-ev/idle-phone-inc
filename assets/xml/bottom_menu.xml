@@ -1,19 +1,21 @@
-<Sprite texture="textures/bottom_menu/background.png" batch_group="ui_menu">
-	<MyButton anchor="0.5,0" pivot="0.5,0" y="-16" texture="textures/bottom_menu/button.png" batch_group="ui_menu_icon" on_click="open_locked_window">
-		<Sprite anchor="0,0.5" pivot="0,0.5" pos="24,-12" texture="textures/bottom_menu/video.png">
-			<MyLabel anchor="1,0.5" pivot="0,0.5" x="8" font_size="42" text="<loc=BOTTOM_VIDEO_BUTTON>"/>
-		</Sprite>
-	</MyButton>
-	<MyLabel anchor="0.5,0" pivot="0.5" pos="-454,98.5" font_size="30" text="<loc=BOTTOM_SHOP_BUTTON>">
-		<MyButton anchor="0.5,0" pivot="0.5,1" y="-4" texture="textures/bottom_menu/shop.png" batch_group="ui_menu_icon" on_click="open_locked_window"/>
-	</MyLabel>
-	<MyLabel anchor="0.5,0" pivot="0.5" pos="-257,98.5" font_size="30" text="<loc=BOTTOM_BOOSTERS_BUTTON>">
-		<MyButton anchor="0.5,0" pivot="0.5,1" y="-4" texture="textures/bottom_menu/boosters.png" batch_group="ui_menu_icon" on_click="open_locked_window"/>
-	</MyLabel>
-	<MyLabel anchor="0.5,0" pivot="0.5" pos="264,98.5" font_size="30" text="<loc=BOTTOM_UPGRADES_BUTTON>">
-		<MyButton anchor="0.5,0" pivot="0.5,1" y="-4" texture="textures/bottom_menu/upgrades.png" batch_group="ui_menu_icon" on_click="open_locked_window"/>
-	</MyLabel>
-	<MyLabel anchor="0.5,0" pivot="0.5" pos="455,98.5" font_size="30" text="<loc=BOTTOM_MAP_BUTTON>">
-		<MyButton anchor="0.5,0" pivot="0.5,1" y="-4" texture="textures/bottom_menu/map.png" batch_group="ui_menu_icon" on_click="open_locked_window"/>
-	</MyLabel>
-</Sprite>
+<Node id="bottom_menu" anchor="0.5,1" pivot="0.5,1" origin_y="-153" autosize="true" touchable="true">
+	<Sprite texture="textures/bottom_menu/background.png" batch_group="ui_menu">
+		<MyButton anchor="0.5,0" pivot="0.5,0" y="-16" texture="textures/bottom_menu/button.png" batch_group="ui_menu_icon" on_click="open_locked_window">
+			<Sprite anchor="0,0.5" pivot="0,0.5" pos="24,-12" texture="textures/bottom_menu/video.png">
+				<MyLabel anchor="1,0.5" pivot="0,0.5" x="8" font_size="42" text="<loc=BOTTOM_VIDEO_BUTTON>"/>
+			</Sprite>
+		</MyButton>
+		<MyLabel anchor="0.5,0" pivot="0.5" pos="-454,98.5" font_size="30" text="<loc=BOTTOM_SHOP_BUTTON>">
+			<MyButton anchor="0.5,0" pivot="0.5,1" y="-4" texture="textures/bottom_menu/shop.png" batch_group="ui_menu_icon" on_click="open_locked_window"/>
+		</MyLabel>
+		<MyLabel anchor="0.5,0" pivot="0.5" pos="-257,98.5" font_size="30" text="<loc=BOTTOM_BOOSTERS_BUTTON>">
+			<MyButton anchor="0.5,0" pivot="0.5,1" y="-4" texture="textures/bottom_menu/boosters.png" batch_group="ui_menu_icon" on_click="open_locked_window"/>
+		</MyLabel>
+		<MyLabel anchor="0.5,0" pivot="0.5" pos="264,98.5" font_size="30" text="<loc=BOTTOM_UPGRADES_BUTTON>">
+			<MyButton anchor="0.5,0" pivot="0.5,1" y="-4" texture="textures/bottom_menu/upgrades.png" batch_group="ui_menu_icon" on_click="open_locked_window"/>
+		</MyLabel>
+		<MyLabel anchor="0.5,0" pivot="0.5" pos="455,98.5" font_size="30" text="<loc=BOTTOM_MAP_BUTTON>">
+			<MyButton anchor="0.5,0" pivot="0.5,1" y="-4" texture="textures/bottom_menu/map.png" batch_group="ui_menu_icon" on_click="open_locked_window"/>
+		</MyLabel>
+	</Sprite>
+</Node>

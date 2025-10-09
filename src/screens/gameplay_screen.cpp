@@ -1,5 +1,4 @@
 #include "gameplay_screen.h"
-#include "bottom_menu.h"
 #include "top_menu.h"
 #include "street.h"
 #include "factory.h"
@@ -48,10 +47,12 @@ GameplayScreen::GameplayScreen()
 	top_menu->setPivot({ 0.5f, 0.0f });
 	getContent()->attach(top_menu);
 
-	auto bottom_menu = std::make_shared<BottomMenu>();
-	bottom_menu->setAnchor({ 0.5f, 1.0f });
-	bottom_menu->setPivot({ 0.5f, 1.0f });
-	getContent()->attach(bottom_menu);
+	auto asset = sky::Asset("xml/bottom_menu.xml");
+	auto xml = std::string((const char*)asset.getMemory(), asset.getSize());
+	auto [node, collection] = Shared::SceneHelpers::CreateNodesFromXml(xml);
+	getContent()->attach(node);
+
+	auto bottom_menu = collection.at("bottom_menu");
 
 	runAction(sky::Actions::ExecuteInfinite([this, top_menu, bottom_menu] {
 		if (!isTransformReady())
