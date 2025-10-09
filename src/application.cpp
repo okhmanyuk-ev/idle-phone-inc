@@ -38,21 +38,21 @@ Application::Application()
 		//} }
 	});
 
-	Shared::SceneHelpers::XmlCreateFuncs["MyButton"] = [](const auto& root) {
+	Shared::SceneHelpers::RegisterXmlHandler("MyButton", [](const auto& root) {
 		auto node = std::make_shared<Helpers::Button>();
 		Shared::SceneHelpers::ParseSpriteFromXml(*node, root);
 		return node;
-	};
-	Shared::SceneHelpers::XmlCreateFuncs["MyLabel"] = [](const auto& root) {
+	});
+	Shared::SceneHelpers::RegisterXmlHandler("MyLabel", [](const auto& root) {
 		auto node = std::make_shared<Helpers::Label>();
 		Shared::SceneHelpers::ParseLabelFromXml(*node, root);
 		return node;
-	};
-	Shared::SceneHelpers::XmlCreateFuncs["MyLabelSolid"] = [](const auto& root) {
+	});
+	Shared::SceneHelpers::RegisterXmlHandler("MyLabelSolid", [](const auto& root) {
 		auto node = std::make_shared<Helpers::LabelSolid>();
 		Shared::SceneHelpers::ParseLabelFromXml(*node, root);
 		return node;
-	};
+	});
 
 	initializeScene();
 }
