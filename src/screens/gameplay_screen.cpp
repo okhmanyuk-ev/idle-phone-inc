@@ -41,13 +41,13 @@ GameplayScreen::GameplayScreen()
 	mScrollbox->getContent()->setHeight(column->getHeight());
 	getContent()->attach(mScrollbox);
 
-	auto top_menu_asset = sky::Asset("xml/top_menu.xml");
-	auto top_menu_xml = std::string((const char*)top_menu_asset.getMemory(), top_menu_asset.getSize());
-	auto [top_menu_node, top_menu_collection] = Shared::SceneHelpers::CreateNodesFromXml(top_menu_xml);
-	getContent()->attach(top_menu_node);
+	auto asset = sky::Asset("xml/gameplay_screen.xml");
+	auto xml = std::string((const char*)asset.getMemory(), asset.getSize());
+	auto [node, collection] = Shared::SceneHelpers::CreateNodesFromXml(xml);
+	getContent()->attach(node);
 
-	auto cash_label = std::static_pointer_cast<Helpers::LabelSolid>(top_menu_collection.at("cash_label"));
-	auto coins_label = std::static_pointer_cast<Helpers::LabelSolid>(top_menu_collection.at("coins_label"));
+	auto cash_label = std::static_pointer_cast<Helpers::LabelSolid>(collection.at("cash_label"));
+	auto coins_label = std::static_pointer_cast<Helpers::LabelSolid>(collection.at("coins_label"));
 
 	runAction(sky::Actions::ExecuteInfinite([coins_label, cash_label](auto dTime) {
 		static double cash = 0.0;
@@ -60,13 +60,8 @@ GameplayScreen::GameplayScreen()
 		coins_label->setText(Helpers::NumberToString(coins));
 	}));
 
-	auto bottom_menu_asset = sky::Asset("xml/bottom_menu.xml");
-	auto bottom_menu_xml = std::string((const char*)bottom_menu_asset.getMemory(), bottom_menu_asset.getSize());
-	auto [bottom_menu_node, bottom_menu_collection] = Shared::SceneHelpers::CreateNodesFromXml(bottom_menu_xml);
-	getContent()->attach(bottom_menu_node);
-
-	auto top_menu = top_menu_collection.at("top_menu");
-	auto bottom_menu = bottom_menu_collection.at("bottom_menu");
+	auto top_menu = collection.at("top_menu");
+	auto bottom_menu = collection.at("bottom_menu");
 
 	runAction(sky::Actions::ExecuteInfinite([this, top_menu, bottom_menu] {
 		if (!isTransformReady())

@@ -1,0 +1,38 @@
+<Node stretch="1,1">
+	<Node id="top_menu" autosize="true" anchor="0.5,0" pivot="0.5,0" origin_y="168" touchable="true">
+		<Sprite texture="textures/top_menu/background.png" batch_group="ui_menu">
+			<Sprite anchor="0,1" pivot="0.5" pos="454,-56" texture="textures/top_menu/money_bg.png" batch_group="ui_menu_background">
+				<MyLabelSolid id="cash_label" anchor="1,0.5" pivot="1,0.5" x="-64" font_size="39" color="rgb(0,255,41) "/>
+				<Sprite anchor="0,0.5" pivot="0.5" texture="textures/top_menu/money.png" batch_group="ui_menu_icon"/>
+				<MyButton anchor="1,0.5" pivot="0.5" texture="textures/top_menu/add.png" batch_group="ui_menu_icon"/>
+			</Sprite>
+			<Sprite anchor="0,1" pivot="0.5" pos="900,-56" texture="textures/top_menu/coin_bg.png" batch_group="ui_menu_background">
+				<MyLabelSolid id="coins_label" anchor="1,0.5" pivot="1,0.5" x="-64" font_size="39" color="rgb(255,192,24) "/>
+				<Sprite anchor="0,0.5" pivot="0.5" texture="textures/top_menu/coin.png" batch_group="ui_menu_icon"/>
+				<MyButton anchor="1,0.5" pivot="0.5" texture="textures/top_menu/add.png" batch_group="ui_menu_icon"/>
+			</Sprite>
+			<MyButton anchor="0,1" pivot="0.5" pos="67,-56" texture="textures/top_menu/settings.png" batch_group="ui_menu_icon"/>
+		</Sprite>
+	</Node>
+	<Node id="bottom_menu" anchor="0.5,1" pivot="0.5,1" origin_y="-153" autosize="true" touchable="true">
+		<Sprite texture="textures/bottom_menu/background.png" batch_group="ui_menu">
+			<MyButton anchor="0.5,0" pivot="0.5,0" y="-16" texture="textures/bottom_menu/button.png" batch_group="ui_menu_icon" on_click="open_locked_window">
+				<Sprite anchor="0,0.5" pivot="0,0.5" pos="24,-12" texture="textures/bottom_menu/video.png">
+					<MyLabel anchor="1,0.5" pivot="0,0.5" x="8" font_size="42" text="<loc=BOTTOM_VIDEO_BUTTON>"/>
+				</Sprite>
+			</MyButton>
+			<MyLabel anchor="0.5,0" pivot="0.5" pos="-454,98.5" font_size="30" text="<loc=BOTTOM_SHOP_BUTTON>">
+				<MyButton anchor="0.5,0" pivot="0.5,1" y="-4" texture="textures/bottom_menu/shop.png" batch_group="ui_menu_icon" on_click="open_locked_window"/>
+			</MyLabel>
+			<MyLabel anchor="0.5,0" pivot="0.5" pos="-257,98.5" font_size="30" text="<loc=BOTTOM_BOOSTERS_BUTTON>">
+				<MyButton anchor="0.5,0" pivot="0.5,1" y="-4" texture="textures/bottom_menu/boosters.png" batch_group="ui_menu_icon" on_click="open_locked_window"/>
+			</MyLabel>
+			<MyLabel anchor="0.5,0" pivot="0.5" pos="264,98.5" font_size="30" text="<loc=BOTTOM_UPGRADES_BUTTON>">
+				<MyButton anchor="0.5,0" pivot="0.5,1" y="-4" texture="textures/bottom_menu/upgrades.png" batch_group="ui_menu_icon" on_click="open_locked_window"/>
+			</MyLabel>
+			<MyLabel anchor="0.5,0" pivot="0.5" pos="455,98.5" font_size="30" text="<loc=BOTTOM_MAP_BUTTON>">
+				<MyButton anchor="0.5,0" pivot="0.5,1" y="-4" texture="textures/bottom_menu/map.png" batch_group="ui_menu_icon" on_click="open_locked_window"/>
+			</MyLabel>
+		</Sprite>
+	</Node>
+</Node>
