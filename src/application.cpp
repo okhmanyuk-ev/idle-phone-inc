@@ -1,4 +1,5 @@
 #include "application.h"
+#include "windows/bottom_menu_locked_window.h"
 
 using namespace PhoneInc;
 
@@ -38,9 +39,23 @@ Application::Application()
 		//} }
 	});
 
+	static std::unordered_map<std::string, std::function<void()>> ClickEventHandlers;
+
+	ClickEventHandlers["open_locked_window"] = [] {
+		SCENE_MANAGER->pushWindow(std::make_shared<BottomMenuLockedWindow>());
+	};
+
 	Shared::SceneHelpers::RegisterXmlHandler("MyButton", [](const auto& root) {
 		auto node = std::make_shared<Helpers::Button>();
 		Shared::SceneHelpers::ParseSpriteFromXml(*node, root);
+		auto click_event = root.Attribute("on_click");
+		if (click_event != nullptr)
+		{
+			assert(ClickEventHandlers.contains(click_event));
+			node->setClickCallback([click_event = std::string(click_event)] {
+				ClickEventHandlers.at(click_event)();
+			});
+		}
 		return node;
 	});
 	Shared::SceneHelpers::RegisterXmlHandler("MyLabel", [](const auto& root) {

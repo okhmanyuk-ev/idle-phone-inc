@@ -13,12 +13,4 @@ BottomMenu::BottomMenu()
 	auto xml = std::string((const char*)asset.getMemory(), asset.getSize());
 	auto [node, collection] = Shared::SceneHelpers::CreateNodesFromXml(xml);
 	attach(node);
-
-	for (auto name : { "video_button", "shop_icon", "boosters_icon", "upgrades_icon", "map_icon" })
-	{
-		auto button = std::static_pointer_cast<Helpers::Button>(collection.at(name));
-		button->setClickCallback([] {
-			SCENE_MANAGER->pushWindow(std::make_shared<BottomMenuLockedWindow>());
-		});
-	}
 }
