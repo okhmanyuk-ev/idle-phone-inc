@@ -41,17 +41,10 @@ GameplayScreen::GameplayScreen()
 	mScrollbox->getContent()->setHeight(column->getHeight());
 	getContent()->attach(mScrollbox);
 
-	auto top_menu = std::make_shared<Scene::AutoSized<Scene::Node>>();
-	top_menu->setTouchable(true);
-	top_menu->setVerticalOrigin(168.0f);
-	top_menu->setAnchor({ 0.5f, 0.0f });
-	top_menu->setPivot({ 0.5f, 0.0f });
-	getContent()->attach(top_menu);
-
 	auto top_menu_asset = sky::Asset("xml/top_menu.xml");
 	auto top_menu_xml = std::string((const char*)top_menu_asset.getMemory(), top_menu_asset.getSize());
 	auto [top_menu_node, top_menu_collection] = Shared::SceneHelpers::CreateNodesFromXml(top_menu_xml);
-	top_menu->attach(top_menu_node);
+	getContent()->attach(top_menu_node);
 
 	auto cash_label = std::static_pointer_cast<Helpers::LabelSolid>(top_menu_collection.at("cash_label"));
 	auto coins_label = std::static_pointer_cast<Helpers::LabelSolid>(top_menu_collection.at("coins_label"));
@@ -72,6 +65,7 @@ GameplayScreen::GameplayScreen()
 	auto [bottom_menu_node, bottom_menu_collection] = Shared::SceneHelpers::CreateNodesFromXml(bottom_menu_xml);
 	getContent()->attach(bottom_menu_node);
 
+	auto top_menu = top_menu_collection.at("top_menu");
 	auto bottom_menu = bottom_menu_collection.at("bottom_menu");
 
 	runAction(sky::Actions::ExecuteInfinite([this, top_menu, bottom_menu] {
