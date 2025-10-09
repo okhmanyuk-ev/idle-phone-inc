@@ -1,5 +1,4 @@
 #include "gameplay_screen.h"
-#include "top_menu.h"
 #include "street.h"
 #include "factory.h"
 #include "helpers.h"
@@ -42,7 +41,9 @@ GameplayScreen::GameplayScreen()
 	mScrollbox->getContent()->setHeight(column->getHeight());
 	getContent()->attach(mScrollbox);
 
-	auto top_menu = std::make_shared<TopMenu>();
+	auto top_menu = std::make_shared<Scene::AutoSized<Scene::Node>>();
+	top_menu->setTouchable(true);
+	top_menu->setVerticalOrigin(168.0f);
 	top_menu->setAnchor({ 0.5f, 0.0f });
 	top_menu->setPivot({ 0.5f, 0.0f });
 	getContent()->attach(top_menu);
