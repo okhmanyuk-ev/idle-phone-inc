@@ -21,7 +21,7 @@ BottomMenuLockedWindow::BottomMenuLockedWindow()
 	description->setPosition({ 0.0f, -182.0f });
 	description->setFontSize(52.0f);
 	description->setMultiline(true);
-	description->setAlign(Graphics::TextMesh::Align::Center);
+	description->setAlign(sky::TextMesh::Align::Center);
 	description->setWidth(546.0f);
 	bg->attach(description);
 }

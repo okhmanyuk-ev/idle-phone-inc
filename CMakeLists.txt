@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.14)
 project(idle-phone-inc)
 
 set(PRODUCT_NAME "Idle Phone Inc.")
