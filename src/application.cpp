@@ -105,9 +105,6 @@ void Application::initializeScene()
 		[] {
 			// prepare
 
-			sky::GetFont("default")->setCustomVerticalOffset(-4.0f);
-			sky::GetFont("default_bold")->setCustomVerticalOffset(-4.0f);
-
 			Scene::Sprite::DefaultTexture = sky::GetTexture("textures/pink.png");
 			Scene::Label::DefaultFont = sky::GetFont("default");
 

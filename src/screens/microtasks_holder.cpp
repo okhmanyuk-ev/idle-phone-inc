@@ -25,7 +25,7 @@ MicrotasksHolder::MicrotasksHolder()
 
 	mLabel = std::make_shared<Helpers::Label>();
 	mLabel->setFontSize(32.0f);
-	mLabel->setMultiline(true);
+	mLabel->setWordWrapMode(true);
 	mLabel->setAnchor({ 0.0f, 0.5f });
 	mLabel->setPivot({ 0.0f, 0.5f });
 	mLabel->setWidth(302.0f);

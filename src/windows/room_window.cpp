@@ -227,7 +227,7 @@ RoomWindow::ProductPanel::ProductPanel(int roomIndex) : Panel(roomIndex)
 
 	mDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
 	mDescriptionLabel->setFontSize(30.0f);
-	mDescriptionLabel->setMultiline(true);
+	mDescriptionLabel->setWordWrapMode(true);
 	mDescriptionLabel->setWidth(414.0f);
 	mDescriptionLabel->setAnchor({ 0.0f, 0.0f });
 	mDescriptionLabel->setPivot({ 0.0f, 0.5f });
@@ -381,7 +381,7 @@ RoomWindow::SmallPanel::SmallPanel(int roomIndex) : Panel(roomIndex)
 
 	mLandingDescriptionLabel = std::make_shared<Helpers::LabelSolid>();
 	mLandingDescriptionLabel->setFontSize(30.0f);
-	mLandingDescriptionLabel->setMultiline(true);
+	mLandingDescriptionLabel->setWordWrapMode(true);
 	mLandingDescriptionLabel->setWidth(414.0f);
 	mLandingDescriptionLabel->setAnchor({ 0.0f, 0.0f });
 	mLandingDescriptionLabel->setPivot({ 0.0f, 0.0f });
